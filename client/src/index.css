@@ -1,0 +1,21 @@
+@import "~materialize-css/dist/css/materialize.min.css";
+
+
+body {
+  background-color: #cce9e6 ;
+}
+
+
+
+h1 {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.registration {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* #26a69a */
+

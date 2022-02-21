@@ -1,0 +1,7 @@
+# dependencies
+node_modules
+
+# project specific settings files
+.idea
+
+__desc.txt
