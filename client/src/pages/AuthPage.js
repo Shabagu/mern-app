@@ -12,7 +12,6 @@ export const AuthPage = () => {
   })
 
   useEffect(() => {
-    // console.log('Error', error)
     message(error)
     clearError()
   }, [error, message, clearError])
@@ -79,8 +78,8 @@ export const AuthPage = () => {
             </div>
           </div>
           <div className="card-action registration">
-            <button onClick={loginHandler} disabled={loading} className="btn"> Войти</button>
-            <button onClick={registrationHandler} disabled={loading} className="btn"> Регистрация</button>
+            <button onClick={loginHandler} disabled={loading} className="btn">Войти</button>
+            <button onClick={registrationHandler} disabled={loading} className="btn">Регистрация</button>
           </div>
         </div>
       </div>

@@ -3,6 +3,8 @@ import { LinksPage } from './pages/LinksPage'
 import { CreatePage } from './pages/CreatePage'
 import { DetailPage } from './pages/DetailPage'
 import { AuthPage } from './pages/AuthPage'
+import { AhpPage } from './pages/AhpPage'
+import { AhpQueryPage } from './pages/AhpQueryPage'
 
 export const useRoutes = isAuthenticated => {
   if (isAuthenticated) {
@@ -17,6 +19,14 @@ export const useRoutes = isAuthenticated => {
         <Route path="/detail/:id">
           <DetailPage />
         </Route>
+        <Route path="/ahp">
+          <AhpPage />
+        </Route>
+        <Route path="/query">
+          <AhpQueryPage />
+        </Route>
+
+
         <Redirect to="/create" />
       </Switch>
     )
