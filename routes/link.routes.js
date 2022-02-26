@@ -5,7 +5,7 @@ const router = Router()
 const auth = require('../middleware/auth.middleware')
 const Link = require('../models/Link')
 
-
+// /api/link/generate
 router.post('/generate', auth, async (req, res) => {
   try {
 
@@ -27,17 +27,15 @@ router.post('/generate', auth, async (req, res) => {
     })
 
     await link.save()
-    // ***
-    // console.log(req.user.userID)
 
     res.status(201).json({link})
-    // ***
-    // console.log(link)
+
   } catch (e) {
     res.status(500).json({message: 'Что-то пошло не так, попробуйте снова'})
   }
 })
 
+// /api/link/
 router.get('/', auth, async (req, res) => {
   try {
     const links = await Link.find({ owner: req.user.userID })
@@ -47,6 +45,7 @@ router.get('/', auth, async (req, res) => {
   }
 })
 
+// api/link/:id
 router.get('/:id', auth, async (req, res) => {
   try {
     const link = await Link.findById(req.params.id)

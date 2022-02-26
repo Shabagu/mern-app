@@ -21,21 +21,28 @@ h3 {
   td {
     border: $tableBorderExtraThin;
     text-align: center;
-    // font-style: italic;
-    font-size: 1.2rem;
-    font-weight: 700;
-    // padding: 0 1rem;
+    font-size: 1.5rem;
     padding: 0;
   }
-
-  input {
+  span {
     text-align: center;
-    // font-style: italic;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     font-weight: 400;
     width: 40px;
     margin-left: auto;
   }
+
+  .value_box {
+    display: flex;
+    margin: auto;
+
+    span {
+      margin: auto;
+    }
+  }
+
+
+
 
 
 
