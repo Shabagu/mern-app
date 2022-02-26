@@ -18,7 +18,7 @@ export const Navbar = () => {
         <span className="brand-logo">~Лучший отдых~</span>
         <ul id="nav-mobile" className="right hide-on-med-and-down">
           <li><NavLink to="/ahp">Что такое МАИ?</NavLink></li>
-          <li><NavLink to="/query">Создать МАИ-запрос</NavLink></li>
+          <li><NavLink to="/query/selection">Создать МАИ-запрос</NavLink></li>
           <li><s><NavLink to="/create">/New link/</NavLink></s></li>
           <li><s><NavLink to="/links">/Links list/</NavLink></s></li>
           <li><a href="/" onClick={logoutHandler}>Выйти</a></li>

@@ -1,0 +1,73 @@
+$tableBorderExtraThin: 1px solid #aaa;
+$tableBorderThin: 2px solid #aaa;
+$tableBorderBold: 3px solid #aaa;
+
+h3 {
+  margin: 1.5rem;
+}
+
+.criteria_comparison_table {
+  border: $tableBorderBold;
+  width: 100%;
+  table-layout: fixed;
+
+  th {
+    border: $tableBorderThin;
+    overflow: hidden;
+    padding-left: 0.5rem;
+    background: #00000030;
+  }
+  
+  td {
+    border: $tableBorderExtraThin;
+    text-align: center;
+    // font-style: italic;
+    font-size: 1.2rem;
+    font-weight: 700;
+    // padding: 0 1rem;
+    padding: 0;
+  }
+
+  input {
+    text-align: center;
+    // font-style: italic;
+    font-size: 1.2rem;
+    font-weight: 400;
+    width: 40px;
+    margin-left: auto;
+  }
+
+
+
+  
+  .initial {
+    background: repeating-linear-gradient(-45deg, #00000030 0, #00000030 4px, transparent 20px, transparent 2px);
+  }
+  .diagonal {
+    background: #00000020;
+  }
+  .below {
+    background: #00000010;
+  }
+
+
+  .cell {
+    display: flex;
+
+    .cell_tuning {
+      margin-left: auto;
+    }
+    
+    button {
+      display: flex;
+      height: 1.8rem;
+
+      font-family: monospace;
+
+      border-radius: 0;
+      border-color: #aaa;
+      border-style: solid;
+    }
+
+  }
+}

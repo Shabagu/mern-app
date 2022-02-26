@@ -5,6 +5,7 @@ import { DetailPage } from './pages/DetailPage'
 import { AuthPage } from './pages/AuthPage'
 import { AhpPage } from './pages/AhpPage'
 import { AhpQueryPage } from './pages/AhpQueryPage'
+import { AhpQueryCriteriaComparisonPage } from './pages/AhpQueryCriteriaComparisonPage'
 
 export const useRoutes = isAuthenticated => {
   if (isAuthenticated) {
@@ -22,8 +23,11 @@ export const useRoutes = isAuthenticated => {
         <Route path="/ahp">
           <AhpPage />
         </Route>
-        <Route path="/query">
+        <Route path="/query/selection">
           <AhpQueryPage />
+        </Route>
+        <Route path="/query/criteriacomparison">
+          <AhpQueryCriteriaComparisonPage />
         </Route>
 
 

@@ -1,5 +1,5 @@
-import { useHttp } from '../hooks/http.hook'
 import { useHistory } from 'react-router-dom'
+import { useHttp } from '../hooks/http.hook'
 import './quickStyleFix.css';
 
 export const AhpPage = () => {
@@ -8,7 +8,7 @@ export const AhpPage = () => {
   const history = useHistory()
 
   const pressHandler = async () => {
-    history.push('/query')
+    history.push('/query/selection')
   }
 
   return (
@@ -20,8 +20,8 @@ export const AhpPage = () => {
       <p>
         На этой странице вы можете воспользоваться МАИ для поиска наилучшего отдыха индивидуально для вас!
       </p>
-      <div style={{display: 'flex', justifyContent:'space-around'}}>
-        <button onClick={pressHandler} disabled={loading} className="btn mybtn">Найти лучший вариант для отдыха!</button>
+      <div className='mybtn-container'>
+        <button onClick={pressHandler} disabled={loading} className='btn mybtn'>Найти лучший вариант для отдыха!</button>
       </div>
     </div>
   )

@@ -19,7 +19,6 @@ export const CreatePage = () => {
         const data = await request('/api/link/generate', 'POST', {from: link}, {
           Authorization: `Bearer ${auth.token}`
         })
-        // ***
         // console.log(data)
         history.push(`/detail/${data.link._id}`)
       } catch (e) {}
@@ -31,7 +30,6 @@ export const CreatePage = () => {
       <div className="col s8 offset-s2" style={{paddingTop: '2rem'}}>
         <div className="input-field">
           <input
-            // placeholder="Вставьте ссылку"
             id="link"
             type="text"
             value={link}
