@@ -42,14 +42,14 @@ export const AhpQueryPage = () => {
         <div className="col s3 offset-s3">
           <h5>Альтернативы</h5>
           <ul className="AlternativesList">
-            <li><label><input type="checkbox" onClick={(e) => checkboxControl('Alternatives', e)} /><span>Египет</span></label></li>
-            <li><label><input type="checkbox" onClick={(e) => checkboxControl('Alternatives', e)} /><span>Греция</span></label></li>
-            <li><label><input type="checkbox" onClick={(e) => checkboxControl('Alternatives', e)} /><span>Турция</span></label></li>
-            <li><label><input type="checkbox" onClick={(e) => checkboxControl('Alternatives', e)} /><span>Куба</span></label></li>
-            <li><label><input type="checkbox" onClick={(e) => checkboxControl('Alternatives', e)} /><span>Тунис</span></label></li>
-            <li><label><input type="checkbox" onClick={(e) => checkboxControl('Alternatives', e)} /><span>Швеция</span></label></li>
-            <li><label><input type="checkbox" onClick={(e) => checkboxControl('Alternatives', e)} /><span>Италия</span></label></li>
-            <li><label><input type="checkbox" onClick={(e) => checkboxControl('Alternatives', e)} /><span>Гавайи</span></label></li>
+            <li><label><input type="checkbox"  onClick={(e) => checkboxControl('Alternatives', e)} /><span>Египет</span></label></li>
+            <li><label><input type="checkbox"  onClick={(e) => checkboxControl('Alternatives', e)} /><span>Греция</span></label></li>
+            <li><label><input type="checkbox"  onClick={(e) => checkboxControl('Alternatives', e)} /><span>Турция</span></label></li>
+            <li><label><input type="checkbox"  onClick={(e) => checkboxControl('Alternatives', e)} /><span>Куба</span></label></li>
+            <li><label><input type="checkbox"  onClick={(e) => checkboxControl('Alternatives', e)} /><span>Тунис</span></label></li>
+            <li><label><input type="checkbox"  onClick={(e) => checkboxControl('Alternatives', e)} /><span>Швеция</span></label></li>
+            <li><label><input type="checkbox"  onClick={(e) => checkboxControl('Alternatives', e)} /><span>Италия</span></label></li>
+            <li><label><input type="checkbox"  onClick={(e) => checkboxControl('Alternatives', e)} /><span>Гавайи</span></label></li>
           </ul>
           <label>
             <input type="checkbox" onClick={(e) => checkboxChanging('Alternatives', e)} disabled={loading} className="AlternativesChanging filled-in" />
@@ -59,14 +59,14 @@ export const AhpQueryPage = () => {
         <div className="col s3 ">
           <h5>Критерии</h5>
           <ul className="CriteriaList">
-            <li><label><input type="checkbox" onClick={(e) => checkboxControl('Criteria', e)} /><span>Стоимость</span></label></li>
-            <li><label><input type="checkbox" onClick={(e) => checkboxControl('Criteria', e)} /><span>Климат</span></label></li>
-            <li><label><input type="checkbox" onClick={(e) => checkboxControl('Criteria', e)} /><span>Экология</span></label></li>
-            <li><label><input type="checkbox" onClick={(e) => checkboxControl('Criteria', e)} /><span>Безопасность</span></label></li>
-            <li><label><input type="checkbox" onClick={(e) => checkboxControl('Criteria', e)} /><span>Кухня</span></label></li>
-            <li><label><input type="checkbox" onClick={(e) => checkboxControl('Criteria', e)} /><span>Престиж</span></label></li>
-            <li><label><input type="checkbox" onClick={(e) => checkboxControl('Criteria', e)} /><span>Дорога</span></label></li>
-            <li><label><input type="checkbox" onClick={(e) => checkboxControl('Criteria', e)} /><span>Достопримечательности</span></label></li>
+            <li><label><input type="checkbox"  onClick={(e) => checkboxControl('Criteria', e)} /><span>Стоимость</span></label></li>
+            <li><label><input type="checkbox"  onClick={(e) => checkboxControl('Criteria', e)} /><span>Климат</span></label></li>
+            <li><label><input type="checkbox"  onClick={(e) => checkboxControl('Criteria', e)} /><span>Экология</span></label></li>
+            <li><label><input type="checkbox"  onClick={(e) => checkboxControl('Criteria', e)} /><span>Безопасность</span></label></li>
+            <li><label><input type="checkbox"  onClick={(e) => checkboxControl('Criteria', e)} /><span>Кухня</span></label></li>
+            <li><label><input type="checkbox"  onClick={(e) => checkboxControl('Criteria', e)} /><span>Престиж</span></label></li>
+            <li><label><input type="checkbox"  onClick={(e) => checkboxControl('Criteria', e)} /><span>Дорога</span></label></li>
+            <li><label><input type="checkbox"  onClick={(e) => checkboxControl('Criteria', e)} /><span>Достопримечательности</span></label></li>
           </ul>
           <label>
             <input type="checkbox" onClick={(e) => checkboxChanging('Criteria', e)} disabled={loading} className="CriteriaChanging filled-in" />

@@ -20,9 +20,11 @@ h3 {
   
   td {
     border: $tableBorderExtraThin;
+    overflow: hidden;
+    padding: 0;
     text-align: center;
     font-size: 1.5rem;
-    padding: 0;
+    user-select: none;
   }
   span {
     text-align: center;
@@ -62,19 +64,45 @@ h3 {
     display: flex;
 
     .cell_tuning {
-      margin-left: auto;
+      margin-left: 0;
     }
+    .cell_tuning_minmax button {
+      padding: 0;
+    }
+
     
     button {
       display: flex;
-      height: 1.8rem;
+      align-items: center;
+      justify-content: center;
+
+      position: static;
+
+      height: 27px;
+      width: 30px;
+      // height: 1.75rem;
+      // width: 1.9rem;
+
+      border: 1px solid #999;
+      border-radius: 0;
 
       font-family: monospace;
+      font-size: 1rem;
+      letter-spacing: 0;
+      user-select: none;
 
-      border-radius: 0;
-      border-color: #aaa;
-      border-style: solid;
+      box-shadow: none;
     }
+  }
 
+
+  td:hover {
+    background-color: #00ffe550;
+    outline: #555 3px solid;
+    outline-offset: -3px;
+  }
+  tr:hover{
+    background-color: #55555530;
+    outline: #777 3px solid;
   }
 }

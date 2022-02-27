@@ -1,0 +1,17 @@
+.sidebar {
+  position: absolute;
+  top: 80px;
+  right: 0;
+  width: 200px;
+  height: 620px;
+  border: 2px solid #aaa;
+  
+  button {
+    width: 194px;
+  }
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: space-between;
+}
