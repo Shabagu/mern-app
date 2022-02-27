@@ -1,7 +1,7 @@
 // import { useState} from 'react'
 import { useHistory } from 'react-router-dom';
 import { useHttp } from '../hooks/http.hook'
-import './quickStyleFix.css';
+import './../style/styleFix.css';
 
 export const AhpQueryPage = () => {
 
