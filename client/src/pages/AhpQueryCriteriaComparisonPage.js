@@ -42,70 +42,8 @@ for (let i = 0; i < 8; i++) {
   }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-// Функция-генератор случайных целых чисел в заданном интервале
-const rng = (min, max) => {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min + 1)) + min
-}
-
-// Массив чисел для реверсирования индексов
-const reversArray = []
-for (let i = 0; i <= 16; i++) {
-  reversArray[i] = 16 - i
-}
-
-// Генерация случайных значений парных сравнений критериев
-const randomValueGenerator = () => {
-  for (let i = 0; i < 8; i++) {
-    for (let j = i + 1; j < 8; j++) {
-      indexValueMatrix[i][j] = rng(0, 16)
-      indexValueMatrix[j][i] = reversArray[indexValueMatrix[i][j]]
-    }
-    indexValueMatrix[i][i] = 8
-  }
-}
-
-// Обновление вывода значений парных сравнений критериев
-const tableUpdate = () => {
-  const outputMatrix = [[],[],[],[],[],[],[],[]]
-  for (let i = 0; i < 8; i++) {
-    for (let j = 0; j < 8; j++) {
-      outputMatrix[i][j] = document.querySelector(`.valueOutput${i}${j}`)
-      if (outputMatrix[i][j]) {
-        outputMatrix[i][j].textContent = valuesModel[indexValueMatrix[i][j]].string
-      }
-    }
-  }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// Состояние подсчёта суммы
+let isSumCalculated = false
 
 
 
@@ -143,6 +81,7 @@ export const tuningIncreaseHandler = async (i, j) => {
     buttonEnabling(decButton)
     buttonEnabling(minButton)
   }
+  if (isSumCalculated) sumOutputUpdate()
 }
 
 // Функция уменьшения значения оценки сравнения критериев (-)
@@ -177,6 +116,7 @@ export const tuningDecreaseHandler = async (i, j) => {
     buttonEnabling(incButton)
     buttonEnabling(maxButton)
   }
+  if (isSumCalculated) sumOutputUpdate()
 }
 
 // Функция выставления значения оценки сравнения критериев на максимум (MAX)
@@ -200,6 +140,8 @@ export const tuningMaxHandler = async (i, j) => {
   buttonDisabling(maxButton)
   buttonEnabling(decButton)
   buttonEnabling(minButton)
+
+  if (isSumCalculated) sumOutputUpdate()
 }
 
 // Функция выставления значения оценки сравнения критериев на минимум (MIN)
@@ -223,14 +165,8 @@ export const tuningMinHandler = async (i, j) => {
   buttonDisabling(minButton)
   buttonEnabling(incButton)
   buttonEnabling(maxButton)
-}
 
-// Функции активации/деактивации кнопок
-const buttonDisabling = (button) => {
-  button.classList.add('disabled')
-}
-const buttonEnabling = (button) => {
-  button.classList.remove('disabled')
+  if (isSumCalculated) sumOutputUpdate()
 }
 
 // Функция натройки выставления значений оценок сравнений критериев с помощью колеса мыши
@@ -242,47 +178,129 @@ export const wheelTuning = (row, col, e) => {
   }
 }
 
-
-
-const rngHandler = () => {
-  randomValueGenerator()
-  tableUpdate()
+// Функции активации/деактивации кнопок
+const buttonDisabling = (button) => {
+  button.classList.add('disabled')
+}
+const buttonEnabling = (button) => {
+  button.classList.remove('disabled')
 }
 
 
 
 
 
-const AhpSidebar = () => {
 
-  const history = useHistory()
+// Функция-генератор случайных целых чисел в заданном интервале
+const randomIntegerInRange = (min, max) => {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min
+}
 
-  // Функция перевыбора критериев и альтернатив
-  const reselectionHandler = async () => {
-    history.push('/query/selection')
+// Массив чисел для реверсирования индексов
+const reversArray = []
+for (let i = 0; i <= 16; i++) {
+  reversArray[i] = 16 - i
+}
+
+// Генерация случайных значений парных сравнений критериев
+const randomValueGenerator = () => {
+  for (let i = 0; i < 8; i++) {
+    for (let j = i + 1; j < 8; j++) {
+      indexValueMatrix[i][j] = randomIntegerInRange(0, 16)
+      indexValueMatrix[j][i] = reversArray[indexValueMatrix[i][j]]
+    }
+    indexValueMatrix[i][i] = 8
   }
-
-  return(
-    <div className={style2.sidebar}>
-      <div className={style2.top}>
-        <button className="btn" onClick={rngHandler}>Случ. значения</button>
-        <button className="btn" onClick={reselectionHandler}>Перевыбор</button>
-      </div>
-      <div className={style2.bottom}>
-        <button className="btn disabled">Посчитать суммы</button>
-        <button className="btn disabled">Продолжить&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;</button>
-      </div>
-    </div>
-  )
 }
+
+// Сброс
+const resetValueGenerator = () => {
+  for (let i = 0; i < 8; i++) {
+    for (let j = 0; j < 8; j++) {
+      indexValueMatrix[i][j] = 8
+    }
+  }
+}
+
+// Обновление вывода значений парных сравнений критериев
+const tableOutputUpdate = () => {
+  const outputMatrix = [[],[],[],[],[],[],[],[]]
+  for (let i = 0; i < 8; i++) {
+    for (let j = 0; j < 8; j++) {
+      outputMatrix[i][j] = document.querySelector(`.valueOutput${i}${j}`)
+      if (outputMatrix[i][j]) {
+        outputMatrix[i][j].textContent = valuesModel[indexValueMatrix[i][j]].string
+        if (i < j) {
+          const incButton = document.querySelector(`.b${i}${j}inc`)
+          const decButton = document.querySelector(`.b${i}${j}dec`)
+          const maxButton = document.querySelector(`.b${i}${j}max`)
+          const minButton = document.querySelector(`.b${i}${j}min`)
+          if (indexValueMatrix[i][j] === 0) {
+            buttonDisabling(decButton)
+            buttonDisabling(minButton)
+            buttonEnabling(incButton)
+            buttonEnabling(maxButton)
+          } else if (indexValueMatrix[i][j] === 16) {
+            buttonDisabling(incButton)
+            buttonDisabling(maxButton)
+            buttonEnabling(decButton)
+            buttonEnabling(minButton)
+          } else {
+            buttonEnabling(incButton)
+            buttonEnabling(decButton)
+            buttonEnabling(maxButton)
+            buttonEnabling(minButton)
+          }
+        }
+      }
+    }
+  }
+}
+
+// Обновление вывода значений сумм оценок по критериям
+const sumOutputUpdate = () => {
+  const criteriaSumValues = [0, 0, 0, 0, 0, 0, 0, 0]
+  const sumOutputArray = []
+  for (let i = 0; i < 8; i++) {
+    for (let j = 0; j < 8; j++) {
+      criteriaSumValues[i] += valuesModel[indexValueMatrix[j][i]].number
+    }
+    sumOutputArray[i] = document.querySelector(`.sumOutput${i}`)
+    sumOutputArray[i].textContent = criteriaSumValues[i].toFixed(4)
+  }
+}
+
+// Обработчик события нажатия на кнопку случайной генерации значений оценок сравнивания критериев
+const randomGenerationHandler = () => {
+  randomValueGenerator()
+  tableOutputUpdate()
+}
+
+// Обработчик события нажатия на кнопку сброса значений
+const resetHandler = () => {
+  resetValueGenerator()
+  tableOutputUpdate()
+}
+
+// Обработчик события нажатия на кнопку расчёта суммы
+const criteriaSumCalculation = () => {
+  isSumCalculated = true
+  sumOutputUpdate()
+}
+
+
+
+
 
 
 
 export const AhpQueryCriteriaComparisonPage = () => {
+
   return (
     <div>
       <h3>Попарное сравнение критериев</h3>
-      <AhpSidebar />
       <table className={style.criteria_comparison_table}>
         <thead>
           <tr>
@@ -405,6 +423,32 @@ export const AhpQueryCriteriaComparisonPage = () => {
       
       <AhpSidebar />
 
+    </div>
+  )
+}
+
+
+
+const AhpSidebar = () => {
+
+  const history = useHistory()
+
+  // Функция перевыбора критериев и альтернатив
+  const reselectionHandler = async () => {
+    history.push('/query/selection')
+  }
+
+  return(
+    <div className={style2.sidebar}>
+      <div className={style2.top}>
+        <button className="btn" onClick={reselectionHandler}>Перевыбор</button>
+        <button className="btn" onClick={resetHandler}>Сброс</button>
+        <button className="btn" onClick={randomGenerationHandler}>Случ. значения</button>
+      </div>
+      <div className={style2.bottom}>
+        <button className="btn" onClick={criteriaSumCalculation}>Посчитать суммы</button>
+        <button className="btn disabled">Продолжить&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;</button>
+      </div>
     </div>
   )
 }
