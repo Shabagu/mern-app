@@ -2,13 +2,13 @@ import { useHistory } from 'react-router-dom'
 import { useHttp } from '../hooks/http.hook'
 import './../style/styleFix.css';
 
-export const AhpPage = () => {
+export const AhpInfoPage = () => {
 
   const { loading } = useHttp()
   const history = useHistory()
 
   const pressHandler = async () => {
-    history.push('/query/selection')
+    history.push('/ahp/query/selection')
   }
 
   return (

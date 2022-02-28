@@ -1,14 +1,5 @@
-import { useHistory } from "react-router-dom"
-// import { useHttp } from "../hooks/http.hook"
-import {
-  AhpQueryCriteriaComparisonCellInput,
-  AhpQueryCriteriaComparisonCellOutput,
-  AhpQueryCriteriaComparisonCellDiagonal
-} from '../components/ahp/AhpQueryCriteriaComparisonCells'
-
-import style from './../style/quickStyleFix.module.scss'
-import style2 from './../style/AhpSidebar.module.scss'
-
+import { AhpCriteriaComparison } from "../components/ahp/AhpCriteriaComparison"
+import { AhpSidebar } from "../components/ahp/AhpSidebar"
 
 
 // Создание класса значений оценок ЛПР
@@ -43,7 +34,10 @@ for (let i = 0; i < 8; i++) {
 }
 
 // Состояние подсчёта суммы
-let isSumCalculated = false
+export let isSumCalculated = false
+
+// Значение сумм оценок критериев по столбцам
+export let criteriaSumArray = []
 
 
 
@@ -259,35 +253,59 @@ const tableOutputUpdate = () => {
   }
 }
 
+
+
 // Обновление вывода значений сумм оценок по критериям
 const sumOutputUpdate = () => {
   const criteriaSumValues = [0, 0, 0, 0, 0, 0, 0, 0]
+  const criteriaSumRoundedValues = []
   const sumOutputArray = []
   for (let i = 0; i < 8; i++) {
     for (let j = 0; j < 8; j++) {
       criteriaSumValues[i] += valuesModel[indexValueMatrix[j][i]].number
     }
+    if (Number.isInteger(criteriaSumValues[i])) {
+      criteriaSumRoundedValues[i] = criteriaSumValues[i]
+    } else {
+      criteriaSumRoundedValues[i] = criteriaSumValues[i].toFixed(3)
+      criteriaSumRoundedValues[i] = criteriaSumRoundedValues[i].replace(/0*$/,'');
+      if (criteriaSumRoundedValues[i].slice(-1) === '.') {
+        criteriaSumRoundedValues[i] = criteriaSumRoundedValues[i].slice(0, -1)
+      }
+    }
+
     sumOutputArray[i] = document.querySelector(`.sumOutput${i}`)
-    sumOutputArray[i].textContent = criteriaSumValues[i].toFixed(4)
+    sumOutputArray[i].textContent = criteriaSumRoundedValues[i]
   }
+
+  criteriaSumArray = criteriaSumValues
 }
 
+
+
 // Обработчик события нажатия на кнопку случайной генерации значений оценок сравнивания критериев
-const randomGenerationHandler = () => {
+export const randomGenerationHandler = () => {
   randomValueGenerator()
   tableOutputUpdate()
+  if (isSumCalculated) sumOutputUpdate()
 }
 
 // Обработчик события нажатия на кнопку сброса значений
-const resetHandler = () => {
+export const resetHandler = () => {
   resetValueGenerator()
   tableOutputUpdate()
+  if (isSumCalculated) sumOutputUpdate()
 }
 
 // Обработчик события нажатия на кнопку расчёта суммы
-const criteriaSumCalculation = () => {
+export const criteriaSumCalculation = () => {
   isSumCalculated = true
   sumOutputUpdate()
+
+  const sumButton = document.querySelector('.calculation')
+  const normalizationButton = document.querySelector('.normalization')
+  buttonDisabling(sumButton)
+  buttonEnabling(normalizationButton)
 }
 
 
@@ -296,159 +314,15 @@ const criteriaSumCalculation = () => {
 
 
 
-export const AhpQueryCriteriaComparisonPage = () => {
+
+
+
+export const AhpQCriteriaComparisonPage = () => {
 
   return (
     <div>
-      <h3>Попарное сравнение критериев</h3>
-      <table className={style.criteria_comparison_table}>
-        <thead>
-          <tr>
-            <th className={style.initial}></th>
-            <th>Стоимость</th>
-            <th>Климат</th>
-            <th>Экология</th>
-            <th>Безопасность</th>
-            <th>Кухня</th>
-            <th>Престиж</th>
-            <th>Дорога</th>
-            <th>Достопримечательности</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th>Стоимость</th>
-            <AhpQueryCriteriaComparisonCellDiagonal />
-            <AhpQueryCriteriaComparisonCellInput row={0} col={1} />
-            <AhpQueryCriteriaComparisonCellInput row={0} col={2} />
-            <AhpQueryCriteriaComparisonCellInput row={0} col={3} />
-            <AhpQueryCriteriaComparisonCellInput row={0} col={4} />
-            <AhpQueryCriteriaComparisonCellInput row={0} col={5} />
-            <AhpQueryCriteriaComparisonCellInput row={0} col={6} />
-            <AhpQueryCriteriaComparisonCellInput row={0} col={7} />
-          </tr>
-          <tr>
-            <th>Климат</th>
-            <AhpQueryCriteriaComparisonCellOutput row={1} col={0} />
-            <AhpQueryCriteriaComparisonCellDiagonal />
-            <AhpQueryCriteriaComparisonCellInput row={1} col={2} />
-            <AhpQueryCriteriaComparisonCellInput row={1} col={3} />
-            <AhpQueryCriteriaComparisonCellInput row={1} col={4} />
-            <AhpQueryCriteriaComparisonCellInput row={1} col={5} />
-            <AhpQueryCriteriaComparisonCellInput row={1} col={6} />
-            <AhpQueryCriteriaComparisonCellInput row={1} col={7} />
-          </tr>
-          <tr>
-            <th>Экология</th>
-            <AhpQueryCriteriaComparisonCellOutput row={2} col={0} />
-            <AhpQueryCriteriaComparisonCellOutput row={2} col={1} />
-            <AhpQueryCriteriaComparisonCellDiagonal />
-            <AhpQueryCriteriaComparisonCellInput row={2} col={3} />
-            <AhpQueryCriteriaComparisonCellInput row={2} col={4} />
-            <AhpQueryCriteriaComparisonCellInput row={2} col={5} />
-            <AhpQueryCriteriaComparisonCellInput row={2} col={6} />
-            <AhpQueryCriteriaComparisonCellInput row={2} col={7} />
-          </tr>
-          <tr>
-            <th>Безопасность</th>
-            <AhpQueryCriteriaComparisonCellOutput row={3} col={0} />
-            <AhpQueryCriteriaComparisonCellOutput row={3} col={1} />
-            <AhpQueryCriteriaComparisonCellOutput row={3} col={2} />
-            <AhpQueryCriteriaComparisonCellDiagonal />
-            <AhpQueryCriteriaComparisonCellInput row={3} col={4} />
-            <AhpQueryCriteriaComparisonCellInput row={3} col={5} />
-            <AhpQueryCriteriaComparisonCellInput row={3} col={6} />
-            <AhpQueryCriteriaComparisonCellInput row={3} col={7} />
-          </tr>
-          <tr>
-            <th>Кухня</th>
-            <AhpQueryCriteriaComparisonCellOutput row={4} col={0} />
-            <AhpQueryCriteriaComparisonCellOutput row={4} col={1} />
-            <AhpQueryCriteriaComparisonCellOutput row={4} col={2} />
-            <AhpQueryCriteriaComparisonCellOutput row={4} col={3} />
-            <AhpQueryCriteriaComparisonCellDiagonal />
-            <AhpQueryCriteriaComparisonCellInput row={4} col={5} />
-            <AhpQueryCriteriaComparisonCellInput row={4} col={6} />
-            <AhpQueryCriteriaComparisonCellInput row={4} col={7} />
-          </tr>
-          <tr>
-            <th>Престиж</th>
-            <AhpQueryCriteriaComparisonCellOutput row={5} col={0} />
-            <AhpQueryCriteriaComparisonCellOutput row={5} col={1} />
-            <AhpQueryCriteriaComparisonCellOutput row={5} col={2} />
-            <AhpQueryCriteriaComparisonCellOutput row={5} col={3} />
-            <AhpQueryCriteriaComparisonCellOutput row={5} col={4} />
-            <AhpQueryCriteriaComparisonCellDiagonal />
-            <AhpQueryCriteriaComparisonCellInput row={5} col={6} />
-            <AhpQueryCriteriaComparisonCellInput row={5} col={7} />
-          </tr>
-          <tr>
-            <th>Дорога</th>
-            <AhpQueryCriteriaComparisonCellOutput row={6} col={0} />
-            <AhpQueryCriteriaComparisonCellOutput row={6} col={1} />
-            <AhpQueryCriteriaComparisonCellOutput row={6} col={2} />
-            <AhpQueryCriteriaComparisonCellOutput row={6} col={3} />
-            <AhpQueryCriteriaComparisonCellOutput row={6} col={4} />
-            <AhpQueryCriteriaComparisonCellOutput row={6} col={5} />
-            <AhpQueryCriteriaComparisonCellDiagonal />
-            <AhpQueryCriteriaComparisonCellInput row={6} col={7} />
-          </tr>
-          <tr>
-            <th>Достопримечательности</th>
-            <AhpQueryCriteriaComparisonCellOutput row={7} col={0} />
-            <AhpQueryCriteriaComparisonCellOutput row={7} col={1} />
-            <AhpQueryCriteriaComparisonCellOutput row={7} col={2} />
-            <AhpQueryCriteriaComparisonCellOutput row={7} col={3} />
-            <AhpQueryCriteriaComparisonCellOutput row={7} col={4} />
-            <AhpQueryCriteriaComparisonCellOutput row={7} col={5} />
-            <AhpQueryCriteriaComparisonCellOutput row={7} col={6} />
-            <AhpQueryCriteriaComparisonCellDiagonal />
-          </tr>
-        </tbody>
-        <tfoot>
-          <tr>
-            <th>СУММА:</th>
-            <td><span className="sumOutput0"></span></td>
-            <td><span className="sumOutput1"></span></td>
-            <td><span className="sumOutput2"></span></td>
-            <td><span className="sumOutput3"></span></td>
-            <td><span className="sumOutput4"></span></td>
-            <td><span className="sumOutput5"></span></td>
-            <td><span className="sumOutput6"></span></td>
-            <td><span className="sumOutput7"></span></td>
-          </tr>
-        </tfoot>
-      </table>
-
-      
+      <AhpCriteriaComparison />
       <AhpSidebar />
-
-    </div>
-  )
-}
-
-
-
-const AhpSidebar = () => {
-
-  const history = useHistory()
-
-  // Функция перевыбора критериев и альтернатив
-  const reselectionHandler = async () => {
-    history.push('/query/selection')
-  }
-
-  return(
-    <div className={style2.sidebar}>
-      <div className={style2.top}>
-        <button className="btn" onClick={reselectionHandler}>Перевыбор</button>
-        <button className="btn" onClick={resetHandler}>Сброс</button>
-        <button className="btn" onClick={randomGenerationHandler}>Случ. значения</button>
-      </div>
-      <div className={style2.bottom}>
-        <button className="btn" onClick={criteriaSumCalculation}>Посчитать суммы</button>
-        <button className="btn disabled">Продолжить&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;</button>
-      </div>
     </div>
   )
 }

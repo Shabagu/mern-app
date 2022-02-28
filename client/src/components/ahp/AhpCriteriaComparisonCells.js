@@ -1,14 +1,15 @@
 import {
-  // Functions
-  tuningIncreaseHandler, tuningDecreaseHandler, tuningMaxHandler, tuningMinHandler, wheelTuning,
-  // Constans
-  indexValueMatrix, valuesModel } from '../../pages/AhpQueryCriteriaComparisonPage'
+    // Functions
+    tuningIncreaseHandler, tuningDecreaseHandler, tuningMaxHandler, tuningMinHandler, wheelTuning,
+    // Constans
+    indexValueMatrix, valuesModel
+} from '../../pages/AhpQCriteriaComparisonPage'
 
 import style from './../../style/quickStyleFix.module.scss'
 
 
-// Компонент ячейки таблицы попарного сравнения критериев для ввода (над диагональю)
-export const AhpQueryCriteriaComparisonCellInput = ({ row, col }) => {
+// Компонент ячейки таблицы попарных сравнений критериев для ввода (над диагональю)
+export const AhpCriteriaComparisonCellInput = ({ row, col }) => {
 
   const btnDisableCondition = {}
   if (indexValueMatrix[row][col] === 16) {
@@ -66,8 +67,8 @@ export const AhpQueryCriteriaComparisonCellInput = ({ row, col }) => {
 }
 
 
-// Компонент ячейки таблицы попарного сравнения критериев для вывода (под диагональю)
-export const AhpQueryCriteriaComparisonCellOutput = ({ row, col }) => {
+// Компонент ячейки таблицы попарных сравнений критериев для вывода (под диагональю)
+export const AhpCriteriaComparisonCellOutput = ({ row, col }) => {
   return(
     <td className={style.below}>
       <span className={`valueOutput${row}${col}`}>
@@ -77,9 +78,14 @@ export const AhpQueryCriteriaComparisonCellOutput = ({ row, col }) => {
   )
 }
 
-// Компонент диагональной ячейки таблицы попарного сравнения критериев
-export const AhpQueryCriteriaComparisonCellDiagonal = () => {
+// Компонент диагональной ячейки таблицы попарных сравнений критериев
+export const AhpCriteriaComparisonCellDiagonal = () => {
   return(
-    <td className={style.diagonal}>1</td>
+    <td className={style.diagonal}>
+      1
+    </td>
   )
 }
+
+
+
