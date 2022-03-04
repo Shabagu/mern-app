@@ -1,8 +1,17 @@
 import { useState } from "react"
 
+import { AhpQPhaseN0Selection } from "../components/AhpQPhaseN0Selection"
+import { AhpQPhaseN1CriteriaRating } from "../components/AhpQPhaseN1CriteriaRating"
+import { AhpQPhaseN2CriteriaNormalization } from "../components/AhpQPhaseN2CriteriaNormalization"
+import { AhpQPhaseN3CriteriaWeight } from "../components/AhpQPhaseN3CriteriaWeight"
+import { AhpQPhaseN4AlternativesRating } from "../components/AhpQPhaseN4AlternativesRating"
+import { AhpQPhaseN5AlternativesNormalization } from "../components/AhpQPhaseN5AlternativesNormalization"
+import { AhpQPhaseN6AlternativesWeight } from "../components/AhpQPhaseN6AlternativesWeight"
+import { AhpQPhaseN7AllСalculatedWeights } from "../components/AhpQPhaseN7AllСalculatedWeights"
+import { AhpQPhaseN8GlobalWeightsCalculation } from "../components/AhpQPhaseN8GlobalWeightsCalculation"
+
 import style from "./AhpPage.module.scss"
 
-import { AhpQPhaseN0Selection } from "../components/AhpQPhaseN0Selection"
 
 
 export const AhpPage = () => {
@@ -51,47 +60,5 @@ export const AhpPage = () => {
       {phase === 7 && <AhpQPhaseN7AllСalculatedWeights />}
       {phase === 8 && <AhpQPhaseN8GlobalWeightsCalculation />}
     </div>
-  )
-}
-
-
-export const AhpQPhaseN1CriteriaRating = () => {
-  return(
-  <p>Попарное сравнение критериев</p>
-  )
-}
-export const AhpQPhaseN2CriteriaNormalization = () => {
-  return(
-  <p>Нормировка матрицы сравнения критериев</p>
-  )
-}
-export const AhpQPhaseN3CriteriaWeight = () => {
-  return(
-  <p>Весовой столбец критериев</p>
-  )
-}
-export const AhpQPhaseN4AlternativesRating = () => {
-  return(
-  <p>Попарное сравнение альтернатив по критериям</p>
-  )
-}
-export const AhpQPhaseN5AlternativesNormalization = () => {
-  return(
-  <p>Нормировка матриц сравнения альтернатив</p>
-  )
-}
-export const AhpQPhaseN6AlternativesWeight = () => {
-  return(
-  <p>Весовые столбцы альтернатив по критериям</p>
-  )
-}
-export const AhpQPhaseN7AllСalculatedWeights = () => {
-  return(
-  <p>Определение глобальных весов альтернатив</p>
-  )
-}
-export const AhpQPhaseN8GlobalWeightsCalculation = () => {
-  return(
-  <p>Глобальные веса альтернатив</p>
   )
 }
