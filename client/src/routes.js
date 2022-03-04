@@ -9,6 +9,8 @@ import { AhpQSelectionPage } from './pages/AhpQSelectionPage'
 import { AhpQCriteriaComparisonPage } from './pages/AhpQCriteriaComparisonPage'
 import { AhpQCriteriaNormalizationPage } from './pages/AhpQCriteriaNormalizationPage'
 
+import { AhpPage } from './pages/AhpPage'
+
 import { TestPage } from './pages/TestPage'
 
 export const useRoutes = isAuthenticated => {
@@ -24,9 +26,15 @@ export const useRoutes = isAuthenticated => {
         <Route path="/detail/:id">
           <DetailPage />
         </Route>
-        <Route path="/ahp/info">
+        <Route path="/ahpinfo">
           <AhpInfoPage />
         </Route>
+        <Route path="/newquery">
+          <AhpPage />
+        </Route>
+
+
+
         <Route path="/ahp/query/selection">
           <AhpQSelectionPage />
         </Route>
@@ -39,15 +47,13 @@ export const useRoutes = isAuthenticated => {
 
 
 
-
-
-
         <Route path="/test">
           <TestPage />
         </Route>
 
 
-        <Redirect to="/ahp/info" />
+
+        <Redirect to="/ahpinfo" />
       </Switch>
     )
   }

@@ -11,8 +11,8 @@ export const TestPage = () => {
 
 
 
-  let [phase, setPhase] = useState(0)
-  let [condition, setCondition] = useState('a')
+  const [phase, setPhase] = useState(0)
+  const [condition, setCondition] = useState('Значение отсутствует')
 
   const nextPhaseHandler = () => {
     if (phase <5) {
@@ -26,6 +26,11 @@ export const TestPage = () => {
   }
 
 
+  const handleConditionChange = (condition) => {
+    setCondition(condition)
+  }
+
+
   return(
     <>
       <h1>TestPage</h1>
@@ -34,13 +39,15 @@ export const TestPage = () => {
         <div className={style.column}>
           <button className="btn" onClick={previousPhaseHandler}>&lt;</button>
           <button className="btn" onClick={nextPhaseHandler}>&gt;</button>
+          
           <p>{phase}</p>
           <p>{condition}</p>
+
         </div>
         <div>
           {phase === 0 && <Component0 />}
-          {phase === 1 && <Component1 />}
-          {phase === 2 && <Component2 />}
+          {phase === 1 && <Component1 conditionChange={handleConditionChange} />}
+          {phase === 2 && <Component2 conditionChange={handleConditionChange} />}
           {phase === 3 && <Component3 />}
           {phase === 4 && <Component4 />}
           {phase === 5 && <Component5 />}
@@ -84,14 +91,34 @@ const Component0 = () => {
   )
 }
 
-const Component1 = () => {
+const Component1 = ({ conditionChange }) => {
+
+  const conditionChangeHandler = () => {
+    conditionChange('123')
+  }
+
   return(
-    <><p>Компонент 1</p></>
+    <>
+      <p>Компонент 1</p>
+      <button className="btn" onClick={conditionChangeHandler}>
+        condition change to '123'
+      </button>
+    </>
   )
 }
-const Component2 = () => {
+const Component2 = ({ conditionChange }) => {
+
+  const conditionChangeHandler = () => {
+    conditionChange('abcdef')
+  }
+  
   return(
-    <><p>Компонент 2</p></>
+    <>
+      <p>Компонент 2</p>
+      <button className="btn" onClick={conditionChangeHandler}>
+        condition change to 'abcdef'
+      </button>
+    </>
   )
 }
 const Component3 = () => {

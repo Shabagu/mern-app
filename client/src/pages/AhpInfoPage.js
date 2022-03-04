@@ -8,7 +8,7 @@ export const AhpInfoPage = () => {
   const history = useHistory()
 
   const pressHandler = async () => {
-    history.push('/ahp/query/selection')
+    history.push('/newquery')
   }
 
   return (

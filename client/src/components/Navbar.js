@@ -19,12 +19,13 @@ export const Navbar = () => {
         <span className="brand-logo">~Лучший отдых~</span>
         <ul id="nav-mobile" className="right hide-on-med-and-down">
 
+          <li><NavLink to="/ahpinfo">Что такое МАИ?</NavLink></li>
+          <li><NavLink to="/newquery">Новый запрос</NavLink></li>
+
           <li><NavLink to="/test">TestPage</NavLink></li>
 
-          <li><NavLink to="/ahp/info">Что такое МАИ?</NavLink></li>
-          <li><NavLink to="/ahp/query/selection">Создать МАИ-запрос</NavLink></li>
-
-
+          <li><s><NavLink to="/ahp/query/selection">Создать МАИ-запрос</NavLink></s></li>
+          
           <li><s><NavLink to="/create">/New link/</NavLink></s></li>
           <li><s><NavLink to="/links">/Links list/</NavLink></s></li>
 
