@@ -19,6 +19,8 @@ export const Navbar = () => {
         <span className="brand-logo">~Лучший отдых~</span>
         <ul id="nav-mobile" className="right hide-on-med-and-down">
 
+          <li><NavLink to="/test">TestPage</NavLink></li>
+
           <li><NavLink to="/ahp/info">Что такое МАИ?</NavLink></li>
           <li><NavLink to="/ahp/query/selection">Создать МАИ-запрос</NavLink></li>
 

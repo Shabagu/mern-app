@@ -1,6 +1,6 @@
-import { AhpCriteriaNormalization } from "../components/ahp/AhpCriteriaNormalization"
 import { AhpSidebar } from "../components/ahp/AhpSidebar"
-import { indexValueMatrix, valuesModel, criteriaSumArray } from './AhpQCriteriaComparisonPage'
+// import { AhpCriteriaNormalization } from "../components/ahp/AhpCriteriaNormalization"
+// import { indexValueMatrix, valuesModel, criteriaSumArray } from './AhpQCriteriaComparisonPage'
 
 
 
@@ -9,7 +9,7 @@ import { indexValueMatrix, valuesModel, criteriaSumArray } from './AhpQCriteriaC
 export let normalizedCriteriaMatrix = [[],[],[],[],[],[],[],[]]
 for (let i = 0; i < 8; i++) {
   for (let j = 0; j < 8; j++) {
-    normalizedCriteriaMatrix[i][j] = valuesModel[indexValueMatrix[i][j]].number / criteriaSumArray[i]
+    // normalizedCriteriaMatrix[i][j] = valuesModel[indexValueMatrix[i][j]].number / criteriaSumArray[i]
   }
 }
 
@@ -18,7 +18,7 @@ export const AhpQCriteriaNormalizationPage = () => {
 
   return (
     <div>
-      <AhpCriteriaNormalization />
+      {/* <AhpCriteriaNormalization /> */}
       <AhpSidebar />
     </div>
   )

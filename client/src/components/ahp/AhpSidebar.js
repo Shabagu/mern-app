@@ -3,8 +3,8 @@ import { useHistory } from "react-router-dom"
 import {
   resetHandler,
   randomGenerationHandler,
-  criteriaSumCalculation,
-
+  normalizationHandler,
+  criteriaSumCalculationHandler,
 
 } from './../../pages/AhpQCriteriaComparisonPage'
 
@@ -19,9 +19,10 @@ export const AhpSidebar = () => {
     history.push('/ahp/query/selection')
   }
 
-  const normalizationhandler = async () => {
-    history.push('/ahp/query/criterianormalization')
-  }
+  // Нормировка матрицы
+  // const normalizationhandler = async () => {
+  //   history.push('/ahp/query/criterianormalization')
+  // }
 
   return(
     <div className={style.sidebar}>
@@ -35,9 +36,9 @@ export const AhpSidebar = () => {
       </div>
       <div className={style.bottom}>
         <button className="btn calculation"
-          onClick={criteriaSumCalculation}>Посчитать суммы</button>
+          onClick={criteriaSumCalculationHandler}>Посчитать суммы</button>
         <button className="btn normalization disabled"
-          onClick={normalizationhandler}>Продолжить&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;</button>
+          onClick={normalizationHandler}>Продолжить&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;</button>
       </div>
     </div>
   )

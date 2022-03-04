@@ -9,6 +9,8 @@ import { AhpQSelectionPage } from './pages/AhpQSelectionPage'
 import { AhpQCriteriaComparisonPage } from './pages/AhpQCriteriaComparisonPage'
 import { AhpQCriteriaNormalizationPage } from './pages/AhpQCriteriaNormalizationPage'
 
+import { TestPage } from './pages/TestPage'
+
 export const useRoutes = isAuthenticated => {
   if (isAuthenticated) {
     return (
@@ -33,6 +35,15 @@ export const useRoutes = isAuthenticated => {
         </Route>
         <Route path="/ahp/query/criterianormalization">
           <AhpQCriteriaNormalizationPage />
+        </Route>
+
+
+
+
+
+
+        <Route path="/test">
+          <TestPage />
         </Route>
 
 

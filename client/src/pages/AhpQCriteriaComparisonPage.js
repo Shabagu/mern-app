@@ -1,6 +1,11 @@
 import { AhpCriteriaComparison } from "../components/ahp/AhpCriteriaComparison"
+// import { AhpCriteriaNormalization } from "../components/ahp/AhpCriteriaNormalization"
 import { AhpSidebar } from "../components/ahp/AhpSidebar"
 
+
+
+// Этап запроса
+let stage = [false, false, false]
 
 // Создание класса значений оценок ЛПР
 class Value {
@@ -283,6 +288,10 @@ const sumOutputUpdate = () => {
 
 
 
+
+
+
+
 // Обработчик события нажатия на кнопку случайной генерации значений оценок сравнивания критериев
 export const randomGenerationHandler = () => {
   randomValueGenerator()
@@ -298,7 +307,7 @@ export const resetHandler = () => {
 }
 
 // Обработчик события нажатия на кнопку расчёта суммы
-export const criteriaSumCalculation = () => {
+export const criteriaSumCalculationHandler = () => {
   isSumCalculated = true
   sumOutputUpdate()
 
@@ -308,7 +317,10 @@ export const criteriaSumCalculation = () => {
   buttonEnabling(normalizationButton)
 }
 
-
+export const normalizationHandler = () => {
+  stage = 'CriteriaNormalization'
+  console.log(stage)
+}
 
 
 
