@@ -25,7 +25,7 @@ export const ALL_CRITERIA =
   'Кухня',
   'Престиж',
   'Дорога',
-  'Достопримечательности'
+  'Достопримечательности',
 ]
 export const ALL_ALTERNATIVES =
 [
@@ -47,8 +47,6 @@ export const AhpPage = () => {
 
 
 
-
-
   const nextPhaseHandler = () => {
     if (phase < 8) { setPhase(phase + 1) }
   }
@@ -57,7 +55,7 @@ export const AhpPage = () => {
   }
 
 
-  
+
   return(
     <div className={style.query_box}>
       <h3 className={style.page_title}>Новый запрос</h3>

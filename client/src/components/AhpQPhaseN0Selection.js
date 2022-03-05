@@ -1,6 +1,6 @@
-// import { useState } from 'react'
+// import { useState } from "react"
 
-// import { ALL_CRITERIA, ALL_ALTERNATIVES } from "../pages/AhpPage"
+import { ALL_CRITERIA, ALL_ALTERNATIVES } from "../pages/AhpPage"
 
 import style from "./AhpQPhases.module.scss"
 
@@ -8,81 +8,105 @@ import style from "./AhpQPhases.module.scss"
 
 export const AhpQPhaseN0Selection = () => {
 
-  // const [queryOptions, setQueryOptions] = useState('')
+  // const [criteria, setCriteria] = useState([])
+  // const [alternatives, setAlternatives] = useState([])
 
-  const checkboxChanging = (option) => {
-    const checkboxes = document.querySelectorAll(`.${option}List input[type="checkbox"]`)
-    const changingCondition = document.querySelector(`.${option}Changing`).checked
-    checkboxes.forEach((item) => {
-      if (changingCondition) item.checked = true
-      else item.checked = false
-    })
-  }
-
-  const checkboxControl = (option) => {
-    const checkboxes = Array.from(document.querySelectorAll(`.${option}List input[type="checkbox"]`))
-    const checkboxesConditions = []
-    for (let i = 0; i < checkboxes.length; i++) {
-      checkboxesConditions[i] = checkboxes[i].checked
-    }
-    const checkboxChanger = document.querySelector(`.${option}Changing`)
-    const isAllChecked = checkboxesConditions.reduce((acc, rec) => acc && rec)
-    const isUnhecked = !checkboxesConditions.reduce((acc, rec) => acc * rec)
-    if (isAllChecked) checkboxChanger.checked = true
-    if (isUnhecked) checkboxChanger.checked = false
-  }
-
-  const pressHandler = async () => {
-    // history.push('/ahp/query/criteriacomparison')
+  const groups = {
+    criteria: {
+      ru: "Критерии",
+      en: "criteria",
+      ens: "criterion",
+    },
+    alternatives: {
+      ru: "Альтернативы",
+      en: "alternatives",
+      ens: "alternative",
+    },
   }
 
   return(
     <div className={style.phase_container}>
-      <div className="row">
-        <div className="col s3 offset-s3">
-          <fieldset>
-            <legend>Критерии</legend>
-            <ul className="CriteriaList">
-              <li><label><input type="checkbox" onClick={(e) => checkboxControl('Criteria', e)} /><span>Стоимость</span></label></li>
-              <li><label><input type="checkbox" onClick={(e) => checkboxControl('Criteria', e)} /><span>Климат</span></label></li>
-              <li><label><input type="checkbox" onClick={(e) => checkboxControl('Criteria', e)} /><span>Экология</span></label></li>
-              <li><label><input type="checkbox" onClick={(e) => checkboxControl('Criteria', e)} /><span>Безопасность</span></label></li>
-              <li><label><input type="checkbox" onClick={(e) => checkboxControl('Criteria', e)} /><span>Кухня</span></label></li>
-              <li><label><input type="checkbox" onClick={(e) => checkboxControl('Criteria', e)} /><span>Престиж</span></label></li>
-              <li><label><input type="checkbox" onClick={(e) => checkboxControl('Criteria', e)} /><span>Дорога</span></label></li>
-              <li><label><input type="checkbox" onClick={(e) => checkboxControl('Criteria', e)} /><span>Достопримечательности</span></label></li>
-            </ul>
-            <label>
-              <input type="checkbox" onClick={(e) => checkboxChanging('Criteria', e)} className="CriteriaChanging filled-in" />
-              <span className={style.check_all}>Отметить все</span>
-            </label>
-          </fieldset>
-        </div>
-        <div className="col s3">
-          <fieldset>
-            <legend>Альтернативы</legend>
-            <ul className="AlternativesList">
-              <li><label><input type="checkbox" onClick={(e) => checkboxControl('Alternatives', e)} /><span>Египет</span></label></li>
-              <li><label><input type="checkbox" onClick={(e) => checkboxControl('Alternatives', e)} /><span>Греция</span></label></li>
-              <li><label><input type="checkbox" onClick={(e) => checkboxControl('Alternatives', e)} /><span>Турция</span></label></li>
-              <li><label><input type="checkbox" onClick={(e) => checkboxControl('Alternatives', e)} /><span>Куба</span></label></li>
-              <li><label><input type="checkbox" onClick={(e) => checkboxControl('Alternatives', e)} /><span>Тунис</span></label></li>
-              <li><label><input type="checkbox" onClick={(e) => checkboxControl('Alternatives', e)} /><span>Швеция</span></label></li>
-              <li><label><input type="checkbox" onClick={(e) => checkboxControl('Alternatives', e)} /><span>Италия</span></label></li>
-              <li><label><input type="checkbox" onClick={(e) => checkboxControl('Alternatives', e)} /><span>Гавайи</span></label></li>
-            </ul>
-            <label>
-              <input type="checkbox" onClick={(e) => checkboxChanging('Alternatives', e)} className="AlternativesChanging filled-in" />
-              <span className={style.check_all}>Отметить все</span>
-            </label>
-          </fieldset>
-        </div>
+      <div className={style.selections_container}>
+        <Selection set={ALL_CRITERIA} group={groups.criteria} />
+        <Selection set={ALL_ALTERNATIVES} group={groups.alternatives} />
       </div>
+      
       <div className={style.button_container}>
         <div>
-          <button onClick={pressHandler} className="btn myButton">Сформировать запрос</button>
+          <button className="btn">Сформировать запрос</button>
         </div>
       </div>
     </div>
+  )
+}
+
+
+
+
+
+const Selection = ({ set, group }) => {
+
+  const checkAll = (group) => {
+    const checkboxes = document.querySelectorAll(`.${group}_list input`)
+    const isAllChecked = document.querySelector(`.${group}_checkAll`).checked
+    checkboxes.forEach((item) => {
+      if (isAllChecked) item.checked = true
+      else item.checked = false
+    })
+  }
+
+  return(
+    <div className={style.selection}>
+      <fieldset>
+        <legend>{group.ru}</legend>
+        <ul className={`${group.en}_list`}>
+          {[...Array(set.length)].map((x, i) => 
+            <Option key={i} i={i} opt={set[i]} group={group} />
+          )}
+        </ul>
+        <hr />
+        <label>
+          <input
+            type="checkbox"
+            onClick={(e) => checkAll(group.en, e)}
+            className={`${group.en}_checkAll filled-in`}
+          />
+          <span className={style.check_all}>Отметить все</span>
+        </label>
+      </fieldset>
+    </div>
+  )
+}
+
+
+
+
+
+const Option = ({ i, opt, group }) => {
+
+  const checkboxControl = (option) => {
+    const checkboxes = Array.from(document.querySelectorAll(`.${option}_list input`))
+    const checkboxesConditions = []
+    for (let i = 0; i < checkboxes.length; i++) {
+      checkboxesConditions[i] = checkboxes[i].checked
+    }
+    const checkAllCheckbox = document.querySelector(`.${option}_checkAll`)
+    const isAllChecked = checkboxesConditions.reduce((acc, rec) => acc && rec)
+    const isUnhecked = !checkboxesConditions.reduce((acc, rec) => acc * rec)
+    if (isAllChecked) checkAllCheckbox.checked = true
+    if (isUnhecked) checkAllCheckbox.checked = false
+  }
+
+  return(
+    <li>
+      <label>
+        <input
+          type="checkbox"
+          value={`${group.ens}${i}`}
+          onClick={(e) => checkboxControl(group.en, e)}
+        />
+        <span>{opt}</span>
+      </label>
+    </li>
   )
 }
