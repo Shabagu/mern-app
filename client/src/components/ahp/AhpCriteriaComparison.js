@@ -4,7 +4,7 @@ import {
   AhpCriteriaComparisonCellDiagonal
 } from './AhpCriteriaComparisonCells'
 
-import style from './../../style/quickStyleFix.module.scss'
+import style from './AhpCriteriaComparison.module.scss'
 
 
 

@@ -5,7 +5,7 @@ import {
     indexValueMatrix, valuesModel
 } from '../../pages/AhpQCriteriaComparisonPage'
 
-import style from './../../style/quickStyleFix.module.scss'
+import style from './AhpCriteriaComparison.module.scss'
 
 
 // Компонент ячейки таблицы попарных сравнений критериев для ввода (над диагональю)

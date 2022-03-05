@@ -8,7 +8,7 @@ import {
 
 } from './../../pages/AhpQCriteriaComparisonPage'
 
-import style from './../../style/AhpSidebar.module.scss'
+import style from './AhpSidebar.module.scss'
 
 export const AhpSidebar = () => {
 
@@ -18,11 +18,6 @@ export const AhpSidebar = () => {
   const reselectionHandler = async () => {
     history.push('/ahp/query/selection')
   }
-
-  // Нормировка матрицы
-  // const normalizationhandler = async () => {
-  //   history.push('/ahp/query/criterianormalization')
-  // }
 
   return(
     <div className={style.sidebar}>

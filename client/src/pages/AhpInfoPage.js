@@ -1,10 +1,9 @@
-import { useHistory } from 'react-router-dom'
-import { useHttp } from '../hooks/http.hook'
-import './../style/styleFix.css';
+import { useHistory } from "react-router-dom"
+// import './../style/styleFix.css';
+import style from "./AhpInfoPage.module.scss"
 
 export const AhpInfoPage = () => {
 
-  const { loading } = useHttp()
   const history = useHistory()
 
   const pressHandler = async () => {
@@ -20,8 +19,13 @@ export const AhpInfoPage = () => {
       <p>
         На этой странице вы можете воспользоваться МАИ для поиска наилучшего отдыха индивидуально для вас!
       </p>
-      <div className='mybtn-container'>
-        <button onClick={pressHandler} disabled={loading} className='btn mybtn'>Найти лучший вариант для отдыха!</button>
+      <p>
+        Ла ла ла бла бла бла ...
+      </p>
+      <div className={style.button_container}>
+        <div>
+          <button onClick={pressHandler} className={`${style.button} btn`}>Найти лучший вариант для отдыха!</button>
+        </div>
       </div>
     </div>
   )

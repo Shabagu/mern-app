@@ -1,7 +1,7 @@
-// import { useState} from 'react'
+// import { useState } from 'react'
 import { useHistory } from 'react-router-dom';
 import { useHttp } from '../hooks/http.hook'
-import './../style/styleFix.css';
+import style from './AhpQSelectionPage.module.scss'
 
 export const AhpQSelectionPage = () => {
 
@@ -36,7 +36,7 @@ export const AhpQSelectionPage = () => {
   }
 
   return (
-    <div>
+    <div className={style.container}>
       <h3>МАИ-запрос</h3>
       <div className="row">
       <div className="col s3 offset-s3">
@@ -54,7 +54,7 @@ export const AhpQSelectionPage = () => {
             </ul>
             <label>
               <input type="checkbox" onClick={(e) => checkboxChanging('Criteria', e)} disabled={loading} className="CriteriaChanging filled-in" />
-              <span className="checkboxChangingText">Отметить все</span>
+              <span className={style.check_all}>Отметить все</span>
             </label>
           </fieldset>
         </div>
@@ -73,14 +73,16 @@ export const AhpQSelectionPage = () => {
             </ul>
             <label>
               <input type="checkbox" onClick={(e) => checkboxChanging('Alternatives', e)} disabled={loading} className="AlternativesChanging filled-in" />
-              <span className="checkboxChangingText">Отметить все</span>
+              <span className={style.check_all}>Отметить все</span>
             </label>
           </fieldset>
         </div>
 
       </div>
-      <div className='mybtn-container'>
-        <button onClick={pressHandler} disabled={loading} className="btn mybtn">Сформировать запрос</button>
+      <div className={style.button_container}>
+        <div>
+          <button onClick={pressHandler} disabled={loading} className="btn">Сформировать запрос</button>
+        </div>
       </div>
     </div>
   )
