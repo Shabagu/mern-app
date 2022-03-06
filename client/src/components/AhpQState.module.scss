@@ -1,10 +1,14 @@
 .panel {
   position: fixed;
+
   top: 72px;
   left: 0;
+
   width: 200px;
   height: 620px;
-  border: 2px solid #aaa;
 
   padding: 2px 0 0 8px;
+  border: 2px solid #aaa;
+
+  overflow-x: scroll;
 }

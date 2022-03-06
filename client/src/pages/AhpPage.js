@@ -44,6 +44,10 @@ export const ALL_ALTERNATIVES =
 export const AhpPage = () => {
 
   const [phase, setPhase] = useState(0)
+  const [criteria, setCriteria] = useState([])
+  const [alternatives, setAlternatives] = useState([])
+
+  
 
 
 
@@ -54,24 +58,71 @@ export const AhpPage = () => {
     if (phase > 0) { setPhase(phase - 1) }
   }
 
+  const setCriteriaHandler = (array) => {
+    setCriteria(array)
+  }
+  const setAlternativesHandler = (array) => {
+    setAlternatives(array)
+  }
 
 
   return(
     <div className={style.query_box}>
       <h3 className={style.page_title}>Новый запрос</h3>
-      <AhpQPhaseTitle phase={phase} nextPhase={nextPhaseHandler} previousPhase={previousPhaseHandler}/>
 
-      {phase === 0 && <AhpQPhaseN0Selection />}
-      {phase === 1 && <AhpQPhaseN1CriteriaRating />}
-      {phase === 2 && <AhpQPhaseN2CriteriaNormalization />}
-      {phase === 3 && <AhpQPhaseN3CriteriaWeight />}
-      {phase === 4 && <AhpQPhaseN4AlternativesRating />}
-      {phase === 5 && <AhpQPhaseN5AlternativesNormalization />}
-      {phase === 6 && <AhpQPhaseN6AlternativesWeight />}
-      {phase === 7 && <AhpQPhaseN7AllСalculatedWeights />}
-      {phase === 8 && <AhpQPhaseN8GlobalWeightsCalculation />}
+      <AhpQPhaseTitle
+        phase={phase}
+        nextPhase={nextPhaseHandler}
+        previousPhase={previousPhaseHandler}
+      />
 
-      <AhpQState phase={phase}/>
+      {phase === 0 &&
+        <AhpQPhaseN0Selection
+          criteriaSetter={setCriteriaHandler}
+          alternativesSetter={setAlternativesHandler}
+        />
+      }
+
+      {phase === 1 &&
+        <AhpQPhaseN1CriteriaRating
+          criteria={criteria}
+          alternatives={alternatives}
+        />
+      }
+
+      {phase === 2 &&
+        <AhpQPhaseN2CriteriaNormalization />
+      }
+
+      {phase === 3 && 
+        <AhpQPhaseN3CriteriaWeight />
+      }
+
+      {phase === 4 &&
+        <AhpQPhaseN4AlternativesRating />
+      }
+
+      {phase === 5 &&
+        <AhpQPhaseN5AlternativesNormalization />
+      }
+      
+      {phase === 6 &&
+        <AhpQPhaseN6AlternativesWeight />
+      }
+
+      {phase === 7 &&
+        <AhpQPhaseN7AllСalculatedWeights />
+      }
+
+      {phase === 8 &&
+        <AhpQPhaseN8GlobalWeightsCalculation />
+      }
+
+      <AhpQState
+        phase={phase}
+        criteria={criteria}
+        alternatives={alternatives}
+      />
     </div>
   )
 }

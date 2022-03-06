@@ -1,4 +1,4 @@
-// import { useState } from "react"
+import { useState } from "react"
 
 import { ALL_CRITERIA, ALL_ALTERNATIVES } from "../pages/AhpPage"
 
@@ -6,10 +6,7 @@ import style from "./AhpQPhases.module.scss"
 
 
 
-export const AhpQPhaseN0Selection = () => {
-
-  // const [criteria, setCriteria] = useState([])
-  // const [alternatives, setAlternatives] = useState([])
+export const AhpQPhaseN0Selection = ({ criteriaSetter, alternativesSetter}) => {
 
   const groups = {
     criteria: {
@@ -24,6 +21,37 @@ export const AhpQPhaseN0Selection = () => {
     },
   }
 
+  const selectHandler = () => {
+    const criteriaCheckboxes = document.querySelectorAll(`.${groups.criteria.ens}`)
+    const alternativesCheckboxes = document.querySelectorAll(`.${groups.alternatives.ens}`)
+    const selectedCriteria = []
+    const selectedAlternatives = []
+
+    console.log(criteriaCheckboxes)
+    console.log(selectedCriteria)
+
+    let j = 0
+    for (let i = 0; i < criteriaCheckboxes.length; i++) {
+      if (criteriaCheckboxes[i].checked) {
+        selectedCriteria[j] = ALL_CRITERIA[criteriaCheckboxes[i].value.slice(-1)]
+        j++
+      }
+    }
+
+    j = 0
+    for (let i = 0; i < alternativesCheckboxes.length; i++) {
+      if (alternativesCheckboxes[i].checked) {
+        selectedAlternatives[j] = ALL_ALTERNATIVES[alternativesCheckboxes[i].value.slice(-1)]
+        j++
+      }
+    }
+
+    criteriaSetter(selectedCriteria)
+    alternativesSetter(selectedAlternatives)
+  }
+
+
+
   return(
     <div className={style.phase_container}>
       <div className={style.selections_container}>
@@ -32,9 +60,7 @@ export const AhpQPhaseN0Selection = () => {
       </div>
       
       <div className={style.button_container}>
-        <div>
-          <button className="btn">Сформировать запрос</button>
-        </div>
+        <div><button className="btn" onClick={selectHandler}>Сформировать запрос</button></div>
       </div>
     </div>
   )
@@ -68,8 +94,8 @@ const Selection = ({ set, group }) => {
         <label>
           <input
             type="checkbox"
-            onClick={(e) => checkAll(group.en, e)}
             className={`${group.en}_checkAll filled-in`}
+            onClick={(e) => checkAll(group.en, e)}
           />
           <span className={style.check_all}>Отметить все</span>
         </label>
@@ -103,6 +129,7 @@ const Option = ({ i, opt, group }) => {
         <input
           type="checkbox"
           value={`${group.ens}${i}`}
+          className={group.ens}
           onClick={(e) => checkboxControl(group.en, e)}
         />
         <span>{opt}</span>
