@@ -10,5 +10,31 @@
   padding: 2px 0 0 8px;
   border: 2px solid #aaa;
 
-  overflow-x: scroll;
+  overflow-x: auto;
+  overflow-y: auto;
+
+  font-family: Andale Mono, monospace;
+
+  &:hover {
+    transition: 0.4s;
+    width: 100vw;
+    background-color: #ddd;
+    z-index: 1;
+  }
+
+  .state {
+    width: 100vw;
+  }
+
+
+
+  table {
+    width: 180px;
+
+    tr {
+      td {
+        padding: 0px
+      }
+    }
+  }
 }

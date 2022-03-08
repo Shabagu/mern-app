@@ -1,5 +1,4 @@
 import { useState } from "react"
-
 import { AhpQPhaseN0Selection } from "../components/AhpQPhaseN0Selection"
 import { AhpQPhaseN1CriteriaRating } from "../components/AhpQPhaseN1CriteriaRating"
 import { AhpQPhaseN2CriteriaNormalization } from "../components/AhpQPhaseN2CriteriaNormalization"
@@ -11,7 +10,6 @@ import { AhpQPhaseN7AllСalculatedWeights } from "../components/AhpQPhaseN7AllС
 import { AhpQPhaseN8GlobalWeightsCalculation } from "../components/AhpQPhaseN8GlobalWeightsCalculation"
 import { AhpQPhaseTitle } from "../components/AhpQPhaseTitle"
 import { AhpQState } from "../components/AhpQState"
-
 import style from "./AhpPage.module.scss"
 
 
@@ -46,8 +44,9 @@ export const AhpPage = () => {
   const [phase, setPhase] = useState(0)
   const [criteria, setCriteria] = useState([])
   const [alternatives, setAlternatives] = useState([])
+  const [criteriaMTX, setCriteriaMTX] = useState([])
+  const [criteriaSum, setCriteriaSum] = useState([])
 
-  
 
 
 
@@ -58,12 +57,23 @@ export const AhpPage = () => {
     if (phase > 0) { setPhase(phase - 1) }
   }
 
+
   const setCriteriaHandler = (array) => {
     setCriteria(array)
   }
   const setAlternativesHandler = (array) => {
     setAlternatives(array)
   }
+
+
+  const setCriteriaMTXHandler = (array) => {
+    setCriteriaMTX(array)
+  }
+  const setCriteriaSumHandler = (array) => {
+    setCriteriaSum(array)
+  }
+
+
 
 
   return(
@@ -76,17 +86,26 @@ export const AhpPage = () => {
         previousPhase={previousPhaseHandler}
       />
 
+
+
       {phase === 0 &&
         <AhpQPhaseN0Selection
           criteriaSetter={setCriteriaHandler}
           alternativesSetter={setAlternativesHandler}
+          nextPhase={nextPhaseHandler}
+          criteriaMTXSetter={setCriteriaMTXHandler}
         />
       }
 
       {phase === 1 &&
         <AhpQPhaseN1CriteriaRating
           criteria={criteria}
-          alternatives={alternatives}
+          criteriaMTX={criteriaMTX}
+          criteriaMTXSetter={setCriteriaMTXHandler}
+          criteriaSum={criteriaSum}
+          criteriaSumSetter={setCriteriaSumHandler}
+          nextPhase={nextPhaseHandler}
+          previousPhase={previousPhaseHandler}
         />
       }
 
@@ -105,7 +124,7 @@ export const AhpPage = () => {
       {phase === 5 &&
         <AhpQPhaseN5AlternativesNormalization />
       }
-      
+
       {phase === 6 &&
         <AhpQPhaseN6AlternativesWeight />
       }
@@ -118,11 +137,16 @@ export const AhpPage = () => {
         <AhpQPhaseN8GlobalWeightsCalculation />
       }
 
+
+
       <AhpQState
         phase={phase}
         criteria={criteria}
         alternatives={alternatives}
+        criteriaMTX={criteriaMTX}
+        criteriaSum={criteriaSum}
       />
+
     </div>
   )
 }

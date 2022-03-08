@@ -5,7 +5,7 @@ import { AhpSidebar } from "../components/ahp/AhpSidebar"
 
 
 // Этап запроса
-let stage = [false, false, false]
+// let stage = [false, false, false]
 
 // Создание класса значений оценок ЛПР
 class Value {
@@ -318,8 +318,8 @@ export const criteriaSumCalculationHandler = () => {
 }
 
 export const normalizationHandler = () => {
-  stage = 'CriteriaNormalization'
-  console.log(stage)
+  // stage = 'CriteriaNormalization'
+  // console.log(stage)
 }
 
 

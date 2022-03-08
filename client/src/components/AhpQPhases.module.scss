@@ -9,7 +9,7 @@
 }
 
 .phase_container {
-  margin: 30px 0 0;
+  margin: 20px 0 0;
 
   .selections_container {
     display: flex;
@@ -27,26 +27,6 @@
     }
   }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   label {
     color: black;
   }
@@ -62,3 +42,136 @@
   
   padding-top: 40px;
 }
+
+
+
+
+
+
+
+$tableBorderExtraThin: 1px solid #aaa;
+$tableBorderThin: 2px solid #aaa;
+$tableBorderBold: 3px solid #aaa;
+
+.criteria_comparison_table {
+  border: $tableBorderBold;
+  width: 100%;
+  table-layout: fixed;
+
+  th {
+    border: $tableBorderThin;
+    overflow: hidden;
+    padding: 0.8rem 0 0.8rem 0.5rem;
+    background: #00000030;
+
+  }
+  
+  td {
+    border: $tableBorderExtraThin;
+    overflow: hidden;
+    padding: 0;
+    text-align: center;
+    font-size: 1.5rem;
+    user-select: none;
+  }
+
+  span {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 400;
+    width: 40px;
+    margin-left: auto;
+  }
+
+  .value_box {
+    display: flex;
+    margin: auto;
+
+    span {
+      margin: auto;
+    }
+  }
+
+
+  .initial {
+    background: repeating-linear-gradient(
+      -45deg,
+      #00000030 0,
+      #00000030 4px,
+      transparent 20px,
+      transparent 2px);
+  }
+  .diagonal {
+    background: #00000020;
+  }
+  .below, .normalized {
+    background: #00000010;
+  }
+
+
+  .cell {
+    display: flex;
+
+    .cell_tuning_left, .cell_tuning_right  {
+      
+      span {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+  
+        position: static;
+  
+        height: 25.5px;
+        width: 30px;
+  
+        border: 1px solid #999;
+        border-radius: 0;
+  
+        font-family: monospace;
+        font-size: 1rem;
+        letter-spacing: 0;
+        user-select: none;
+  
+        box-shadow: none;
+      }
+    }
+    .cell_tuning_right span {
+      height: 17px;
+    }
+  }
+
+  tr:hover{
+    background-color: #55555530;
+    outline: #777 3.5px solid;
+  }
+  td:hover {
+    background-color: #00ffe550;
+    outline: #555 3.5px solid;
+    outline-offset: -3.5px;
+  }
+
+  .sigma {
+    text-align: center;
+    padding: 0;
+    font-size: 2rem;
+    font-weight: 500;
+  }
+}
+
+.panel {
+  position: fixed;
+
+  top: 72px;
+  right: 0;
+
+  width: 200px;
+  height: 640px;
+
+  padding: 3px 0 0 3px;
+  border: 2px solid #aaa;
+
+  button {
+    width: 190px;
+  }
+}
+

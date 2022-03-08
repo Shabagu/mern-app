@@ -28,7 +28,6 @@ export const AuthPage = () => {
   const registrationHandler = async () => {
     try {
       const data = await request('/api/auth/registration', 'POST', {...form})
-      // console.log('Data', data)
       message(data.message)
     } catch (e) {}
   }
@@ -36,8 +35,6 @@ export const AuthPage = () => {
   const loginHandler = async () => {
     try {
       const data = await request('/api/auth/login', 'POST', {...form})
-      // console.log('Data', data)
-      // message(data.message)
       auth.login(data.token, data.userId)
     } catch (e) {}
   }
@@ -53,7 +50,6 @@ export const AuthPage = () => {
 
               <div className="input-field">
                 <input
-                  // placeholder="Введите email"
                   id="email"
                   type="text"
                   name="email"
@@ -65,7 +61,6 @@ export const AuthPage = () => {
 
               <div className="input-field">
                 <input
-                  // placeholder="Введите пароль"
                   id="password"
                   type="password"
                   name="password"

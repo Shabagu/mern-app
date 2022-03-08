@@ -1,12 +1,9 @@
-import { useState } from "react"
-
 import { ALL_CRITERIA, ALL_ALTERNATIVES } from "../pages/AhpPage"
-
 import style from "./AhpQPhases.module.scss"
 
 
 
-export const AhpQPhaseN0Selection = ({ criteriaSetter, alternativesSetter}) => {
+export const AhpQPhaseN0Selection = ({ criteriaSetter, alternativesSetter, nextPhase, criteriaMTXSetter }) => {
 
   const groups = {
     criteria: {
@@ -27,8 +24,8 @@ export const AhpQPhaseN0Selection = ({ criteriaSetter, alternativesSetter}) => {
     const selectedCriteria = []
     const selectedAlternatives = []
 
-    console.log(criteriaCheckboxes)
-    console.log(selectedCriteria)
+    const defaultCriteriaMTX = []
+
 
     let j = 0
     for (let i = 0; i < criteriaCheckboxes.length; i++) {
@@ -37,20 +34,27 @@ export const AhpQPhaseN0Selection = ({ criteriaSetter, alternativesSetter}) => {
         j++
       }
     }
+    criteriaSetter(selectedCriteria)
 
-    j = 0
+    let k = 0
     for (let i = 0; i < alternativesCheckboxes.length; i++) {
       if (alternativesCheckboxes[i].checked) {
-        selectedAlternatives[j] = ALL_ALTERNATIVES[alternativesCheckboxes[i].value.slice(-1)]
-        j++
+        selectedAlternatives[k] = ALL_ALTERNATIVES[alternativesCheckboxes[i].value.slice(-1)]
+        k++
       }
     }
-
-    criteriaSetter(selectedCriteria)
     alternativesSetter(selectedAlternatives)
+
+    for (let i = 0; i < selectedCriteria.length; i++) {
+      defaultCriteriaMTX[i] = []
+      for (let j = 0; j < selectedCriteria.length; j++) {
+        defaultCriteriaMTX[i][j] = 8
+      }
+    }
+    criteriaMTXSetter(defaultCriteriaMTX)
+
+    nextPhase()
   }
-
-
 
   return(
     <div className={style.phase_container}>
@@ -65,8 +69,6 @@ export const AhpQPhaseN0Selection = ({ criteriaSetter, alternativesSetter}) => {
     </div>
   )
 }
-
-
 
 
 
@@ -103,8 +105,6 @@ const Selection = ({ set, group }) => {
     </div>
   )
 }
-
-
 
 
 
