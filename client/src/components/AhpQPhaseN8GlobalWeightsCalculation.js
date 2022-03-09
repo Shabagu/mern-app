@@ -25,7 +25,7 @@ const Menu = ({
 
   function save() {
     alert('Результаты сохранены!')
-    history.push('/ahpinfo')
+    history.push('/myqueries')
   }
 
   return(
