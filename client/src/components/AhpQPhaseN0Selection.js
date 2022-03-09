@@ -3,7 +3,15 @@ import style from "./AhpQPhases.module.scss"
 
 
 
-export const AhpQPhaseN0Selection = ({ criteriaSetter, alternativesSetter, nextPhase, criteriaMTXSetter }) => {
+export const AhpQPhaseN0Selection = ({
+    criteriaSetter,
+    alternativesSetter,
+    criteriaMTXSetter,
+    
+    nextPhase,
+    phaseDone,
+    phasesDone
+  }) => {
 
   const groups = {
     criteria: {
@@ -18,12 +26,16 @@ export const AhpQPhaseN0Selection = ({ criteriaSetter, alternativesSetter, nextP
     },
   }
 
+
+  const checkboxConditionsSetter = () => {
+
+  }
+
   const selectHandler = () => {
     const criteriaCheckboxes = document.querySelectorAll(`.${groups.criteria.ens}`)
     const alternativesCheckboxes = document.querySelectorAll(`.${groups.alternatives.ens}`)
     const selectedCriteria = []
     const selectedAlternatives = []
-
     const defaultCriteriaMTX = []
 
 
@@ -53,6 +65,7 @@ export const AhpQPhaseN0Selection = ({ criteriaSetter, alternativesSetter, nextP
     }
     criteriaMTXSetter(defaultCriteriaMTX)
 
+    phaseDone()
     nextPhase()
   }
 

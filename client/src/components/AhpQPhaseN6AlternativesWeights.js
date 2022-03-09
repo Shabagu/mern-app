@@ -1,7 +1,7 @@
 import style from "./AhpQPhases.module.scss"
 
 
-export const AhpQPhaseN7AllСalculatedWeights = ({
+export const AhpQPhaseN6AlternativesWeight = ({
 
     nextPhase,
     phaseDone,
@@ -14,7 +14,7 @@ export const AhpQPhaseN7AllСalculatedWeights = ({
 
   return(
     <div className={style.phase_container}>
-      <p>Определение глобальных весов альтернатив</p>
+      <p>Весовые столбцы альтернатив по критериям</p>
       <Menu
         nextPhase={nextPhaseHandler}
         phaseDone={phaseDone}
@@ -33,7 +33,7 @@ const Menu = ({
 
   const continueHandler = () => {
 
-    if (phasesDone <= 7) {
+    if (phasesDone <= 6) {
       phaseDone()
     }
 

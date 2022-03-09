@@ -51,6 +51,37 @@ const randomMtx = (mtx, n) => {
   return mtx
 }
 
+// Расчёт суммы
+const sumCalculate = (mtx, n) => {
+  let criteriaSum = [0, 0, 0, 0, 0, 0, 0, 0]
+  for (let i = 0; i < n; i++) {
+    for (let j = 0; j < n; j++) {
+      criteriaSum[i] += MARK_MODEL[mtx[j][i]].number
+    }
+  }
+  return criteriaSum
+}
+
+// Нормализация матрицы
+const normalizeMtx = (mtx, sum) => {
+  let normalizedMtx = []
+  for (let i = 0; i < mtx.length; i++) {
+    normalizedMtx[i] = []
+    for (let j = 0; j < mtx.length; j++) {
+      normalizedMtx[i][j] = MARK_MODEL[mtx[i][j]].number / sum[i]
+    }
+  }
+  return normalizedMtx
+}
+
+
+
+
+
+
+
+
+
 //Обновление таблицы
 const tableUpdate = (mtx, n) => {
   const cells = []
@@ -83,37 +114,28 @@ const tableUpdate = (mtx, n) => {
   }
 }
 
-// Расчёт суммы
-const sumCalculate = (mtx, n) => {
-  let criteriaSum = [0, 0, 0, 0, 0, 0, 0, 0]
-  for (let i = 0; i < n; i++) {
-    for (let j = 0; j < n; j++) {
-      criteriaSum[i] += MARK_MODEL[mtx[j][i]].number
-    }
-  }
-  return criteriaSum
-}
-
 // Обновление строки суммы
 const sumRowUpdate = (criteriaSum, n) => {
   const criteriaSumRounded = []
   const criteriaSumCells = []
-  for (let i = 0; i < n; i++) {
-    if (Number.isInteger(criteriaSum[i])) {
-      criteriaSumRounded[i] = criteriaSum[i]
-    } else {
-      criteriaSumRounded[i] = criteriaSum[i].toFixed(3)
-      criteriaSumRounded[i] = criteriaSumRounded[i].replace(/0*$/,'');
-      if (criteriaSumRounded[i].slice(-1) === '.') {
-        criteriaSumRounded[i] = criteriaSumRounded[i].slice(0, -1)
+  try {
+    for (let i = 0; i < n; i++) {
+      if (Number.isInteger(criteriaSum[i])) {
+        criteriaSumRounded[i] = criteriaSum[i]
+      } else {
+        criteriaSumRounded[i] = criteriaSum[i].toFixed(3)
+        criteriaSumRounded[i] = criteriaSumRounded[i].replace(/0*$/,'');
+        if (criteriaSumRounded[i].slice(-1) === '.') {
+          criteriaSumRounded[i] = criteriaSumRounded[i].slice(0, -1)
+        }
       }
+      criteriaSumCells[i] = document.querySelector(`.sum${i}`)
+      criteriaSumCells[i].textContent = criteriaSumRounded[i]
     }
-    criteriaSumCells[i] = document.querySelector(`.sum${i}`)
-    criteriaSumCells[i].textContent = criteriaSumRounded[i]
-  }
+  } catch (e) {}
 }
 
-
+// Управление состоянием кнопок
 const buttonDisabling = (button) => {
   button.classList.add('disabled')
 }
@@ -124,6 +146,119 @@ const buttonPicker = (i, j, procedure) => {
   return(document.querySelector(`.btn${i}${j}${procedure}`))
 }
 
+// Функции кнопок
+const increaseTuning = (i, j, mtx, mtxSetter, sumSetter, isSumCalculated) => {
+  let criteriaMTXModel = mtx
+  if (criteriaMTXModel[i][j] < 16) {
+    criteriaMTXModel[i][j] += 1
+    criteriaMTXModel[j][i] -= 1
+    mtxSetter(criteriaMTXModel)
+    const cell = document.querySelector(`.cell${i}${j}`)
+    cell.textContent = MARK_MODEL[criteriaMTXModel[i][j]].string
+    const rCell = document.querySelector(`.cell${j}${i}`)
+    rCell.textContent = MARK_MODEL[criteriaMTXModel[j][i]].string
+  }
+  if (criteriaMTXModel[i][j] > 15) {
+    buttonDisabling(buttonPicker(i, j, 'inc'))
+    buttonDisabling(buttonPicker(i, j, 'max'))
+  }
+  buttonEnabling(buttonPicker(i, j, 'dec'))
+  buttonEnabling(buttonPicker(i, j, 'min'))
+  if (isSumCalculated) {
+    const n = mtx.length
+    const sum = sumCalculate(criteriaMTXModel, n)
+    sumRowUpdate(sum, n)
+    sumSetter(sum)
+  }
+}
+
+const decreaseTuning = (i, j, mtx, mtxSetter, sumSetter, isSumCalculated) => {
+  let criteriaMTXModel = mtx
+  if (criteriaMTXModel[i][j] > 0) {
+    criteriaMTXModel[i][j] -= 1
+    criteriaMTXModel[j][i] += 1
+    mtxSetter(criteriaMTXModel)
+    const cell = document.querySelector(`.cell${i}${j}`)
+    cell.textContent = MARK_MODEL[criteriaMTXModel[i][j]].string
+    const rCell = document.querySelector(`.cell${j}${i}`)
+    rCell.textContent = MARK_MODEL[criteriaMTXModel[j][i]].string
+  }
+  if (criteriaMTXModel[i][j] < 1) {
+    buttonDisabling(buttonPicker(i, j, 'dec'))
+    buttonDisabling(buttonPicker(i, j, 'min'))
+  }
+  buttonEnabling(buttonPicker(i, j, 'inc'))
+  buttonEnabling(buttonPicker(i, j, 'max'))
+  if (isSumCalculated) {
+    const n = mtx.length
+    const sum = sumCalculate(criteriaMTXModel, n)
+    sumRowUpdate(sum, n)
+    sumSetter(sum)
+  }
+}
+
+const maxTuning = (i, j, mtx, mtxSetter, sumSetter, isSumCalculated) => {
+  let criteriaMTXModel = mtx
+  criteriaMTXModel[i][j] = 16
+  criteriaMTXModel[j][i] = 0
+  mtxSetter(criteriaMTXModel)
+  const cell = document.querySelector(`.cell${i}${j}`)
+  cell.textContent = MARK_MODEL[criteriaMTXModel[i][j]].string
+  const rCell = document.querySelector(`.cell${j}${i}`)
+  rCell.textContent = MARK_MODEL[criteriaMTXModel[j][i]].string
+  buttonDisabling(buttonPicker(i, j, 'inc'))
+  buttonDisabling(buttonPicker(i, j, 'max'))
+  buttonEnabling(buttonPicker(i, j, 'dec'))
+  buttonEnabling(buttonPicker(i, j, 'min'))
+  if (isSumCalculated) {
+    const n = mtx.length
+    const sum = sumCalculate(criteriaMTXModel, n)
+    sumRowUpdate(sum, n)
+    sumSetter(sum)
+  }
+}
+
+const minTuning = (i, j, mtx, mtxSetter, sumSetter, isSumCalculated) => {
+  let criteriaMTXModel = mtx
+  criteriaMTXModel[i][j] = 0
+  criteriaMTXModel[j][i] = 16
+  mtxSetter(criteriaMTXModel)
+  const cell = document.querySelector(`.cell${i}${j}`)
+  cell.textContent = MARK_MODEL[criteriaMTXModel[i][j]].string
+  const rCell = document.querySelector(`.cell${j}${i}`)
+  rCell.textContent = MARK_MODEL[criteriaMTXModel[j][i]].string
+  buttonDisabling(buttonPicker(i, j, 'dec'))
+  buttonDisabling(buttonPicker(i, j, 'min'))
+  buttonEnabling(buttonPicker(i, j, 'inc'))
+  buttonEnabling(buttonPicker(i, j, 'max'))
+  if (isSumCalculated) {
+    const n = mtx.length
+    const sum = sumCalculate(criteriaMTXModel, n)
+    sumRowUpdate(sum, n)
+    sumSetter(sum)
+  }
+}
+
+const resetTuning = (i, j, mtx, mtxSetter, sumSetter, isSumCalculated) => {
+  let criteriaMTXModel = mtx
+  criteriaMTXModel[i][j] = 8
+  criteriaMTXModel[j][i] = 8
+  mtxSetter(criteriaMTXModel)
+  const cell = document.querySelector(`.cell${i}${j}`)
+  cell.textContent = MARK_MODEL[criteriaMTXModel[i][j]].string
+  const rCell = document.querySelector(`.cell${j}${i}`)
+  rCell.textContent = MARK_MODEL[criteriaMTXModel[j][i]].string
+  buttonEnabling(buttonPicker(i, j, 'inc'))
+  buttonEnabling(buttonPicker(i, j, 'dec'))
+  buttonEnabling(buttonPicker(i, j, 'max'))
+  buttonEnabling(buttonPicker(i, j, 'min'))
+  if (isSumCalculated) {
+    const n = mtx.length
+    const sum = sumCalculate(criteriaMTXModel, n)
+    sumRowUpdate(sum, n)
+    sumSetter(sum)
+  }
+}
 
 
 
@@ -133,23 +268,28 @@ const buttonPicker = (i, j, procedure) => {
 
 
 
+export const AhpQPhaseN1CriteriaRating = ({
+    criteria,
+    criteriaMTX,
+    criteriaMTXSetter,
+    criteriaSum,
+    criteriaSumSetter,
+    criteriaNormMTXSetter,
+    previousPhase,
 
+    nextPhase,
+    phaseDone,
+    phasesDone,
+  }) => {
 
-
-
-
-
-
-export const AhpQPhaseN1CriteriaRating = ({ criteria, criteriaMTX, criteriaMTXSetter, criteriaSum, criteriaSumSetter, nextPhase, previousPhase }) => {
-
-  const [isSumCalculated, setIsSumCalculated] = useState(false)
-  const sumHaveBeenCalculated = () => {
-    setIsSumCalculated(true)
+  const [isSumCalculated, setIsSumCalculated] = useState(phasesDone >= 2)
+  const isSumCalculatedSetter = (condition) => {
+    setIsSumCalculated(condition)
   }
 
-  useEffect(() => {
-    sumRowUpdate(criteriaSum, criteria.length)
-  }, [criteriaSum, criteria])
+  // useEffect(() => {
+  //   sumRowUpdate(criteriaSum, criteria.length)
+  // }, [isSumCalculated, criteriaSum, criteria])
 
   const nextPhaseHandler = () => {
     nextPhase()
@@ -165,7 +305,7 @@ export const AhpQPhaseN1CriteriaRating = ({ criteria, criteriaMTX, criteriaMTXSe
           <tr>
             <th className={style.initial}></th>
             {[...Array(criteria.length)].map((x, i) =>
-              <th key={i}>
+              <th key={i} title={criteria[i]}>
                 {criteria[i]}
               </th>
             )}
@@ -179,6 +319,8 @@ export const AhpQPhaseN1CriteriaRating = ({ criteria, criteriaMTX, criteriaMTXSe
               criteria={criteria}
               criteriaMTX={criteriaMTX}
               criteriaMTXSetter={criteriaMTXSetter}
+              criteriaSumSetter={criteriaSumSetter}
+              isSumCalculated={isSumCalculated}
             />
           )}
         </tbody>
@@ -189,20 +331,22 @@ export const AhpQPhaseN1CriteriaRating = ({ criteria, criteriaMTX, criteriaMTXSe
               <SumCell
                 key={i}
                 col={i}
-                criteriaSum={criteriaSum}
               />
             )}
           </tr>
         </tfoot>
       </table>
       <Menu
-        nextPhase={nextPhaseHandler}
-        previousPhase={previousPhaseHandler}
         criteriaMTX={criteriaMTX}
         criteriaMTXSetter={criteriaMTXSetter}
         criteriaSumSetter={criteriaSumSetter}
         isSumCalculated={isSumCalculated}
-        sumHaveBeenCalculated={sumHaveBeenCalculated}
+        isSumCalculatedSetter={isSumCalculatedSetter}
+        criteriaNormMTXSetter={criteriaNormMTXSetter}
+        nextPhase={nextPhaseHandler}
+        previousPhase={previousPhaseHandler}
+        phaseDone={phaseDone}
+        phasesDone={phasesDone}
       />
     </div>
   )
@@ -210,10 +354,20 @@ export const AhpQPhaseN1CriteriaRating = ({ criteria, criteriaMTX, criteriaMTXSe
 
 
 
-const CellRow = ({ criteria, i, criteriaMTX, criteriaMTXSetter }) => {
+const CellRow = ({
+    criteria,
+    i,
+    criteriaMTX,
+    criteriaMTXSetter,
+    criteriaSumSetter,
+    isSumCalculated
+  }) => {
+
   return(
     <tr>
-      <th>{criteria[i]}</th>
+      <th title={criteria[i]}>
+        {criteria[i]}
+      </th>
       {[...Array(criteria.length)].map((x, j) => {
           if (i < j) return (
             <InCell
@@ -222,6 +376,8 @@ const CellRow = ({ criteria, i, criteriaMTX, criteriaMTXSetter }) => {
               col={j}
               criteriaMTX={criteriaMTX}
               criteriaMTXSetter={criteriaMTXSetter}
+              criteriaSumSetter={criteriaSumSetter}
+              isSumCalculated={isSumCalculated}
             />
           )           
           else if (i > j) return(
@@ -249,97 +405,15 @@ const CellRow = ({ criteria, i, criteriaMTX, criteriaMTXSetter }) => {
 
 
 
-const InCell = ({ row, col, criteriaMTX, criteriaMTXSetter }) => {
+const InCell = ({ row, col, criteriaMTX, criteriaMTXSetter, criteriaSumSetter, isSumCalculated }) => {
 
-  const increaseTuning = (i, j) => {
-    let criteriaMTXModel = criteriaMTX
-    if (criteriaMTXModel[i][j] < 16) {
-      criteriaMTXModel[i][j] += 1
-      criteriaMTXModel[j][i] -= 1
-      criteriaMTXSetter(criteriaMTXModel)
-      const cell = document.querySelector(`.cell${i}${j}`)
-      cell.textContent = MARK_MODEL[criteriaMTXModel[i][j]].string
-      const rCell = document.querySelector(`.cell${j}${i}`)
-      rCell.textContent = MARK_MODEL[criteriaMTXModel[j][i]].string
-    }
-    if (criteriaMTXModel[i][j] > 15) {
-      buttonDisabling(buttonPicker(i, j, 'inc'))
-      buttonDisabling(buttonPicker(i, j, 'max'))
-    }
-    buttonEnabling(buttonPicker(i, j, 'dec'))
-    buttonEnabling(buttonPicker(i, j, 'min'))
-  }
-  const decreaseTuning = (i, j) => {
-    let criteriaMTXModel = criteriaMTX
-    if (criteriaMTXModel[i][j] > 0) {
-      criteriaMTXModel[i][j] -= 1
-      criteriaMTXModel[j][i] += 1
-      criteriaMTXSetter(criteriaMTXModel)
-      const cell = document.querySelector(`.cell${i}${j}`)
-      cell.textContent = MARK_MODEL[criteriaMTXModel[i][j]].string
-      const rCell = document.querySelector(`.cell${j}${i}`)
-      rCell.textContent = MARK_MODEL[criteriaMTXModel[j][i]].string
-    }
-    if (criteriaMTXModel[i][j] < 1) {
-      buttonDisabling(buttonPicker(i, j, 'dec'))
-      buttonDisabling(buttonPicker(i, j, 'min'))
-    }
-    buttonEnabling(buttonPicker(i, j, 'inc'))
-    buttonEnabling(buttonPicker(i, j, 'max'))
-  }
   const wheelTuning = (row, col, e) => {
     if (e.nativeEvent.wheelDelta > 0) {
-      increaseTuning(row, col, e)
+      increaseTuning(row, col, criteriaMTX, criteriaMTXSetter, criteriaSumSetter, isSumCalculated, e)
     } else {
-      decreaseTuning(row, col, e)
+      decreaseTuning(row, col, criteriaMTX, criteriaMTXSetter, criteriaSumSetter, isSumCalculated, e)
     }
   }
-  const maxTuning = (i, j) => {
-    let criteriaMTXModel = criteriaMTX
-    criteriaMTXModel[i][j] = 16
-    criteriaMTXModel[j][i] = 0
-    criteriaMTXSetter(criteriaMTXModel)
-    const cell = document.querySelector(`.cell${i}${j}`)
-    cell.textContent = MARK_MODEL[criteriaMTXModel[i][j]].string
-    const rCell = document.querySelector(`.cell${j}${i}`)
-    rCell.textContent = MARK_MODEL[criteriaMTXModel[j][i]].string
-    buttonDisabling(buttonPicker(i, j, 'inc'))
-    buttonDisabling(buttonPicker(i, j, 'max'))
-    buttonEnabling(buttonPicker(i, j, 'dec'))
-    buttonEnabling(buttonPicker(i, j, 'min'))
-  }
-  const minTuning = (i, j) => {
-    let criteriaMTXModel = criteriaMTX
-    criteriaMTXModel[i][j] = 0
-    criteriaMTXModel[j][i] = 16
-    criteriaMTXSetter(criteriaMTXModel)
-    const cell = document.querySelector(`.cell${i}${j}`)
-    cell.textContent = MARK_MODEL[criteriaMTXModel[i][j]].string
-    const rCell = document.querySelector(`.cell${j}${i}`)
-    rCell.textContent = MARK_MODEL[criteriaMTXModel[j][i]].string
-    buttonDisabling(buttonPicker(i, j, 'dec'))
-    buttonDisabling(buttonPicker(i, j, 'min'))
-    buttonEnabling(buttonPicker(i, j, 'inc'))
-    buttonEnabling(buttonPicker(i, j, 'max'))
-  }
-  const resetTuning = (i, j) => {
-    let criteriaMTXModel = criteriaMTX
-    criteriaMTXModel[i][j] = 8
-    criteriaMTXModel[j][i] = 8
-    criteriaMTXSetter(criteriaMTXModel)
-    const cell = document.querySelector(`.cell${i}${j}`)
-    cell.textContent = MARK_MODEL[criteriaMTXModel[i][j]].string
-    const rCell = document.querySelector(`.cell${j}${i}`)
-    rCell.textContent = MARK_MODEL[criteriaMTXModel[j][i]].string
-    buttonEnabling(buttonPicker(i, j, 'inc'))
-    buttonEnabling(buttonPicker(i, j, 'dec'))
-    buttonEnabling(buttonPicker(i, j, 'max'))
-    buttonEnabling(buttonPicker(i, j, 'min'))
-  }
-
-
-
-
 
   return(
     <td>
@@ -355,13 +429,13 @@ const InCell = ({ row, col, criteriaMTX, criteriaMTXSetter }) => {
         <div className={style.cell_tuning_left}>
           <span
             className={`waves-effect waves-light btn btn${row}${col}inc`}
-            onClick={(e) => increaseTuning(row, col, e)}
+            onClick={(e) => increaseTuning(row, col, criteriaMTX, criteriaMTXSetter, criteriaSumSetter, isSumCalculated, e)}
           >
             <i className="material-icons">arrow_upward</i>
           </span>
           <span
             className={`waves-effect waves-light btn btn${row}${col}dec`}
-            onClick={(e) => decreaseTuning(row, col, e)}
+            onClick={(e) => decreaseTuning(row, col, criteriaMTX, criteriaMTXSetter, criteriaSumSetter, isSumCalculated, e)}
           >
             <i className="material-icons">arrow_back</i>
           </span>
@@ -369,19 +443,19 @@ const InCell = ({ row, col, criteriaMTX, criteriaMTXSetter }) => {
         <div className={style.cell_tuning_right}>
           <span
             className={`waves-effect waves-light btn btn${row}${col}max`}
-            onClick={(e) => maxTuning(row, col, e)}
+            onClick={(e) => maxTuning(row, col, criteriaMTX, criteriaMTXSetter, criteriaSumSetter, isSumCalculated, e)}
           >
             MAX
           </span>
           <span
             className={`waves-effect waves-light btn btn${row}${col}res`}
-            onClick={(e) => resetTuning(row, col, e)}
+            onClick={(e) => resetTuning(row, col, criteriaMTX, criteriaMTXSetter, criteriaSumSetter, isSumCalculated, e)}
           >
             <i className="material-icons">refresh</i>
           </span>
           <span
             className={`waves-effect waves-light btn btn${row}${col}min`}
-            onClick={(e) => minTuning(row, col, e)}
+            onClick={(e) => minTuning(row, col, criteriaMTX, criteriaMTXSetter, criteriaSumSetter, isSumCalculated, e)}
           >
             MIN
           </span>
@@ -415,26 +489,29 @@ const DiagonalCell = ({ row, col, criteriaMTX }) => {
 
 
 
-const SumCell = ({ col, criteriaSum }) => {
+const SumCell = ({ col }) => {
   return(
     <td>
-      <span className={`sum${col}`}>
-        {criteriaSum}
-      </span>
+      <span className={`sum${col}`}></span>
     </td>
   )
 }
 
 
 
-const Menu = ({ nextPhase, previousPhase, criteriaMTX, criteriaMTXSetter, criteriaSumSetter, isSumCalculated, sumHaveBeenCalculated }) => {
+const Menu = ({
+    criteriaMTX,
+    criteriaMTXSetter,
+    criteriaSumSetter,
+    isSumCalculated,
+    isSumCalculatedSetter,
+    criteriaNormMTXSetter,
+    nextPhase,
+    previousPhase,
+    phaseDone,
+    phasesDone,
+  }) => {
 
-  const reselectionHandler = () => {
-    previousPhase()
-  }
-  const continueHandler = () => {
-    nextPhase()
-  }
 
   const resetHandler = () => {
     let criteriaMTXModel = criteriaMTX
@@ -442,6 +519,11 @@ const Menu = ({ nextPhase, previousPhase, criteriaMTX, criteriaMTXSetter, criter
     criteriaMTXModel = resetMtx(criteriaMTXModel, n)
     tableUpdate(criteriaMTXModel, n)
     criteriaMTXSetter(criteriaMTXModel)
+    if (isSumCalculated) {
+      const sum = sumCalculate(criteriaMTXModel, n)
+      sumRowUpdate(sum, n)
+      criteriaSumSetter(sum)
+    }
   }
 
   const randomHandler = () => {
@@ -450,6 +532,11 @@ const Menu = ({ nextPhase, previousPhase, criteriaMTX, criteriaMTXSetter, criter
     criteriaMTXModel = randomMtx(criteriaMTXModel, n)
     tableUpdate(criteriaMTXModel, n)
     criteriaMTXSetter(criteriaMTXModel)
+    if (isSumCalculated) {
+      const sum = sumCalculate(criteriaMTXModel, n)
+      sumRowUpdate(sum, n)
+      criteriaSumSetter(sum)
+    }
   }
 
   const calculateHandler = () => {
@@ -458,8 +545,26 @@ const Menu = ({ nextPhase, previousPhase, criteriaMTX, criteriaMTXSetter, criter
     const sum = sumCalculate(criteriaMTXModel, n)
     sumRowUpdate(sum, n)
     criteriaSumSetter(sum)
-    sumHaveBeenCalculated()
+    isSumCalculatedSetter(true)
   }
+
+  const reselectionHandler = () => {
+    previousPhase()
+  }
+  
+  const continueHandler = () => {
+    let criteriaMTXModel = criteriaMTX
+    const n = criteriaMTX.length
+    const sum = sumCalculate(criteriaMTXModel, n)
+    const normalizedMtx = normalizeMtx(criteriaMTXModel, sum)
+    criteriaNormMTXSetter(normalizedMtx)
+
+    if (phasesDone <= 1) {
+      phaseDone()
+    }
+    nextPhase()
+  }
+
 
   return(
     <div className={style.panel}>
