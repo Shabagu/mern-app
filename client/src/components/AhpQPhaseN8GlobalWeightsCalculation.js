@@ -1,5 +1,7 @@
 import { useHistory } from "react-router-dom"
-import style from "./AhpQPhases.module.scss"
+
+
+import style from "./StyleAhpQPhases.module.scss"
 
 
 export const AhpQPhaseN8GlobalWeightsCalculation = ({

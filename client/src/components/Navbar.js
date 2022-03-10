@@ -25,8 +25,8 @@ export const Navbar = () => {
 
           <li><NavLink to="/test">TestPage</NavLink></li>
           
-          <li><s><NavLink to="/create">/New link/</NavLink></s></li>
-          <li><s><NavLink to="/links">/Links list/</NavLink></s></li>
+          <li><s><NavLink to="/create">|New link|</NavLink></s></li>
+          <li><s><NavLink to="/links">|Links list|</NavLink></s></li>
 
           <li><a href="/" onClick={logoutHandler}>Выйти</a></li>
         </ul>

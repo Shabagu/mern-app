@@ -1,4 +1,5 @@
-import style from "./AhpQPhases.module.scss"
+import style from "./StyleAhpQPhases.module.scss"
+
 
 export const AhpQPhaseTitle = ({ phase, nextPhase, previousPhase}) => {
 

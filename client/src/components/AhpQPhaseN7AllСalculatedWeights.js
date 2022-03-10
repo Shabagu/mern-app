@@ -1,4 +1,7 @@
-import style from "./AhpQPhases.module.scss"
+
+
+
+import style from "./StyleAhpQPhases.module.scss"
 
 
 export const AhpQPhaseN7AllСalculatedWeights = ({

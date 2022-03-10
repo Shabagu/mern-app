@@ -1,5 +1,7 @@
 import { ALL_CRITERIA, ALL_ALTERNATIVES } from "../pages/AhpPage"
-import style from "./AhpQPhases.module.scss"
+
+
+import style from "./StyleAhpQPhases.module.scss"
 
 
 

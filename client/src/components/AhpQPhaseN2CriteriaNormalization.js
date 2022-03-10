@@ -1,5 +1,7 @@
 // import { useEffect } from "react"
-import style from "./AhpQPhases.module.scss"
+
+
+import style from "./StyleAhpQPhases.module.scss"
 
 export const AhpQPhaseN2CriteriaNormalization = ({
     criteria,

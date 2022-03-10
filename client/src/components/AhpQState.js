@@ -1,4 +1,4 @@
-import style from "./AhpQState.module.scss"
+import style from "./StyleAhpQState.module.scss"
 
 
 export const AhpQState = ({ phase, phasesDone, criteria, alternatives, criteriaMTX, criteriaSum, criteriaNormMTX }) => {

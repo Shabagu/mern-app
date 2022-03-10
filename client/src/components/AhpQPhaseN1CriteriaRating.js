@@ -1,5 +1,7 @@
-import { useEffect, useState } from "react"
-import style from "./AhpQPhases.module.scss"
+import { useEffect } from "react"
+
+
+import style from "./StyleAhpQPhases.module.scss"
 
 
 
@@ -147,7 +149,7 @@ const buttonPicker = (i, j, procedure) => {
 }
 
 // Функции кнопок
-const increaseTuning = (i, j, mtx, mtxSetter, sumSetter, isSumCalculated) => {
+const increaseTuning = (i, j, mtx, mtxSetter, sumSetter) => {
   let criteriaMTXModel = mtx
   if (criteriaMTXModel[i][j] < 16) {
     criteriaMTXModel[i][j] += 1
@@ -164,15 +166,15 @@ const increaseTuning = (i, j, mtx, mtxSetter, sumSetter, isSumCalculated) => {
   }
   buttonEnabling(buttonPicker(i, j, 'dec'))
   buttonEnabling(buttonPicker(i, j, 'min'))
-  if (isSumCalculated) {
+  // if (isSumCalculated) {
     const n = mtx.length
     const sum = sumCalculate(criteriaMTXModel, n)
     sumRowUpdate(sum, n)
     sumSetter(sum)
-  }
+  // }
 }
 
-const decreaseTuning = (i, j, mtx, mtxSetter, sumSetter, isSumCalculated) => {
+const decreaseTuning = (i, j, mtx, mtxSetter, sumSetter) => {
   let criteriaMTXModel = mtx
   if (criteriaMTXModel[i][j] > 0) {
     criteriaMTXModel[i][j] -= 1
@@ -189,15 +191,15 @@ const decreaseTuning = (i, j, mtx, mtxSetter, sumSetter, isSumCalculated) => {
   }
   buttonEnabling(buttonPicker(i, j, 'inc'))
   buttonEnabling(buttonPicker(i, j, 'max'))
-  if (isSumCalculated) {
+  // if (isSumCalculated) {
     const n = mtx.length
     const sum = sumCalculate(criteriaMTXModel, n)
     sumRowUpdate(sum, n)
     sumSetter(sum)
-  }
+  // }
 }
 
-const maxTuning = (i, j, mtx, mtxSetter, sumSetter, isSumCalculated) => {
+const maxTuning = (i, j, mtx, mtxSetter, sumSetter) => {
   let criteriaMTXModel = mtx
   criteriaMTXModel[i][j] = 16
   criteriaMTXModel[j][i] = 0
@@ -210,15 +212,15 @@ const maxTuning = (i, j, mtx, mtxSetter, sumSetter, isSumCalculated) => {
   buttonDisabling(buttonPicker(i, j, 'max'))
   buttonEnabling(buttonPicker(i, j, 'dec'))
   buttonEnabling(buttonPicker(i, j, 'min'))
-  if (isSumCalculated) {
+  // if (isSumCalculated) {
     const n = mtx.length
     const sum = sumCalculate(criteriaMTXModel, n)
     sumRowUpdate(sum, n)
     sumSetter(sum)
-  }
+  // }
 }
 
-const minTuning = (i, j, mtx, mtxSetter, sumSetter, isSumCalculated) => {
+const minTuning = (i, j, mtx, mtxSetter, sumSetter) => {
   let criteriaMTXModel = mtx
   criteriaMTXModel[i][j] = 0
   criteriaMTXModel[j][i] = 16
@@ -231,15 +233,15 @@ const minTuning = (i, j, mtx, mtxSetter, sumSetter, isSumCalculated) => {
   buttonDisabling(buttonPicker(i, j, 'min'))
   buttonEnabling(buttonPicker(i, j, 'inc'))
   buttonEnabling(buttonPicker(i, j, 'max'))
-  if (isSumCalculated) {
+  // if (isSumCalculated) {
     const n = mtx.length
     const sum = sumCalculate(criteriaMTXModel, n)
     sumRowUpdate(sum, n)
     sumSetter(sum)
-  }
+  // }
 }
 
-const resetTuning = (i, j, mtx, mtxSetter, sumSetter, isSumCalculated) => {
+const resetTuning = (i, j, mtx, mtxSetter, sumSetter) => {
   let criteriaMTXModel = mtx
   criteriaMTXModel[i][j] = 8
   criteriaMTXModel[j][i] = 8
@@ -252,12 +254,12 @@ const resetTuning = (i, j, mtx, mtxSetter, sumSetter, isSumCalculated) => {
   buttonEnabling(buttonPicker(i, j, 'dec'))
   buttonEnabling(buttonPicker(i, j, 'max'))
   buttonEnabling(buttonPicker(i, j, 'min'))
-  if (isSumCalculated) {
+  // if (isSumCalculated) {
     const n = mtx.length
     const sum = sumCalculate(criteriaMTXModel, n)
     sumRowUpdate(sum, n)
     sumSetter(sum)
-  }
+  // }
 }
 
 
@@ -272,7 +274,6 @@ export const AhpQPhaseN1CriteriaRating = ({
     criteria,
     criteriaMTX,
     criteriaMTXSetter,
-    criteriaSum,
     criteriaSumSetter,
     criteriaNormMTXSetter,
     previousPhase,
@@ -282,14 +283,11 @@ export const AhpQPhaseN1CriteriaRating = ({
     phasesDone,
   }) => {
 
-  const [isSumCalculated, setIsSumCalculated] = useState(phasesDone >= 2)
-  const isSumCalculatedSetter = (condition) => {
-    setIsSumCalculated(condition)
-  }
-
-  // useEffect(() => {
-  //   sumRowUpdate(criteriaSum, criteria.length)
-  // }, [isSumCalculated, criteriaSum, criteria])
+  useEffect(() => {
+    const n = criteria.length
+    const sum = sumCalculate(criteriaMTX, n)
+    sumRowUpdate(sum, n)
+  }, [criteria, criteriaMTX])
 
   const nextPhaseHandler = () => {
     nextPhase()
@@ -320,7 +318,6 @@ export const AhpQPhaseN1CriteriaRating = ({
               criteriaMTX={criteriaMTX}
               criteriaMTXSetter={criteriaMTXSetter}
               criteriaSumSetter={criteriaSumSetter}
-              isSumCalculated={isSumCalculated}
             />
           )}
         </tbody>
@@ -340,8 +337,6 @@ export const AhpQPhaseN1CriteriaRating = ({
         criteriaMTX={criteriaMTX}
         criteriaMTXSetter={criteriaMTXSetter}
         criteriaSumSetter={criteriaSumSetter}
-        isSumCalculated={isSumCalculated}
-        isSumCalculatedSetter={isSumCalculatedSetter}
         criteriaNormMTXSetter={criteriaNormMTXSetter}
         nextPhase={nextPhaseHandler}
         previousPhase={previousPhaseHandler}
@@ -360,7 +355,6 @@ const CellRow = ({
     criteriaMTX,
     criteriaMTXSetter,
     criteriaSumSetter,
-    isSumCalculated
   }) => {
 
   return(
@@ -377,7 +371,6 @@ const CellRow = ({
               criteriaMTX={criteriaMTX}
               criteriaMTXSetter={criteriaMTXSetter}
               criteriaSumSetter={criteriaSumSetter}
-              isSumCalculated={isSumCalculated}
             />
           )           
           else if (i > j) return(
@@ -405,13 +398,13 @@ const CellRow = ({
 
 
 
-const InCell = ({ row, col, criteriaMTX, criteriaMTXSetter, criteriaSumSetter, isSumCalculated }) => {
+const InCell = ({ row, col, criteriaMTX, criteriaMTXSetter, criteriaSumSetter }) => {
 
   const wheelTuning = (row, col, e) => {
     if (e.nativeEvent.wheelDelta > 0) {
-      increaseTuning(row, col, criteriaMTX, criteriaMTXSetter, criteriaSumSetter, isSumCalculated, e)
+      increaseTuning(row, col, criteriaMTX, criteriaMTXSetter, criteriaSumSetter, e)
     } else {
-      decreaseTuning(row, col, criteriaMTX, criteriaMTXSetter, criteriaSumSetter, isSumCalculated, e)
+      decreaseTuning(row, col, criteriaMTX, criteriaMTXSetter, criteriaSumSetter, e)
     }
   }
 
@@ -429,13 +422,17 @@ const InCell = ({ row, col, criteriaMTX, criteriaMTXSetter, criteriaSumSetter, i
         <div className={style.cell_tuning_left}>
           <span
             className={`waves-effect waves-light btn btn${row}${col}inc`}
-            onClick={(e) => increaseTuning(row, col, criteriaMTX, criteriaMTXSetter, criteriaSumSetter, isSumCalculated, e)}
+            onClick={(e) =>
+              increaseTuning(row, col, criteriaMTX, criteriaMTXSetter, criteriaSumSetter, e)
+            }
           >
             <i className="material-icons">arrow_upward</i>
           </span>
           <span
             className={`waves-effect waves-light btn btn${row}${col}dec`}
-            onClick={(e) => decreaseTuning(row, col, criteriaMTX, criteriaMTXSetter, criteriaSumSetter, isSumCalculated, e)}
+            onClick={(e) =>
+              decreaseTuning(row, col, criteriaMTX, criteriaMTXSetter, criteriaSumSetter, e)
+            }
           >
             <i className="material-icons">arrow_back</i>
           </span>
@@ -443,19 +440,25 @@ const InCell = ({ row, col, criteriaMTX, criteriaMTXSetter, criteriaSumSetter, i
         <div className={style.cell_tuning_right}>
           <span
             className={`waves-effect waves-light btn btn${row}${col}max`}
-            onClick={(e) => maxTuning(row, col, criteriaMTX, criteriaMTXSetter, criteriaSumSetter, isSumCalculated, e)}
+            onClick={(e) =>
+              maxTuning(row, col, criteriaMTX, criteriaMTXSetter, criteriaSumSetter, e)
+            }
           >
             MAX
           </span>
           <span
             className={`waves-effect waves-light btn btn${row}${col}res`}
-            onClick={(e) => resetTuning(row, col, criteriaMTX, criteriaMTXSetter, criteriaSumSetter, isSumCalculated, e)}
+            onClick={(e) =>
+              resetTuning(row, col, criteriaMTX, criteriaMTXSetter, criteriaSumSetter, e)
+            }
           >
             <i className="material-icons">refresh</i>
           </span>
           <span
             className={`waves-effect waves-light btn btn${row}${col}min`}
-            onClick={(e) => minTuning(row, col, criteriaMTX, criteriaMTXSetter, criteriaSumSetter, isSumCalculated, e)}
+            onClick={(e) => 
+              minTuning(row, col, criteriaMTX, criteriaMTXSetter, criteriaSumSetter, e)
+            }
           >
             MIN
           </span>
@@ -503,8 +506,6 @@ const Menu = ({
     criteriaMTX,
     criteriaMTXSetter,
     criteriaSumSetter,
-    isSumCalculated,
-    isSumCalculatedSetter,
     criteriaNormMTXSetter,
     nextPhase,
     previousPhase,
@@ -519,11 +520,11 @@ const Menu = ({
     criteriaMTXModel = resetMtx(criteriaMTXModel, n)
     tableUpdate(criteriaMTXModel, n)
     criteriaMTXSetter(criteriaMTXModel)
-    if (isSumCalculated) {
-      const sum = sumCalculate(criteriaMTXModel, n)
-      sumRowUpdate(sum, n)
-      criteriaSumSetter(sum)
-    }
+
+    const sum = sumCalculate(criteriaMTXModel, n)
+    sumRowUpdate(sum, n)
+    criteriaSumSetter(sum)
+
   }
 
   const randomHandler = () => {
@@ -532,11 +533,11 @@ const Menu = ({
     criteriaMTXModel = randomMtx(criteriaMTXModel, n)
     tableUpdate(criteriaMTXModel, n)
     criteriaMTXSetter(criteriaMTXModel)
-    if (isSumCalculated) {
-      const sum = sumCalculate(criteriaMTXModel, n)
-      sumRowUpdate(sum, n)
-      criteriaSumSetter(sum)
-    }
+
+    const sum = sumCalculate(criteriaMTXModel, n)
+    sumRowUpdate(sum, n)
+    criteriaSumSetter(sum)
+
   }
 
   const calculateHandler = () => {
@@ -545,7 +546,6 @@ const Menu = ({
     const sum = sumCalculate(criteriaMTXModel, n)
     sumRowUpdate(sum, n)
     criteriaSumSetter(sum)
-    isSumCalculatedSetter(true)
   }
 
   const reselectionHandler = () => {
@@ -592,13 +592,12 @@ const Menu = ({
         <button
           className="btn"
           onClick={calculateHandler}
-          disabled={isSumCalculated}
         >
           Посчитать суммы
         </button>
-        <button className="btn"
+        <button
+          className="btn"
           onClick={continueHandler}
-          disabled={!isSumCalculated}
         >
           Продолжить&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;
         </button>
