@@ -1,4 +1,5 @@
 import { useEffect } from "react"
+import { DEFAULT_BUTTON_COLOR, HOT_CHANGES_BUTTON_COLOR, HOT_CHANGES_HANDLER } from "../pages/AhpPage"
 
 
 import style from "./StyleAhpQPhases.module.scss"
@@ -21,6 +22,10 @@ for (let i = 0; i < 9; i++) {
 const MARK_MODEL = markModel
 
 
+
+
+
+
 // Сброс значений матрицы
 const resetMtx = (mtx, n) => {
   for (let i = 0; i < n; i++) {
@@ -30,7 +35,6 @@ const resetMtx = (mtx, n) => {
   }
   return mtx
 }
-
 
 // Случайные значения матрицы
 const randomIntegerInRange = (min, max) => {
@@ -75,9 +79,6 @@ const normalizeMtx = (mtx, sum) => {
   }
   return normalizedMtx
 }
-
-
-
 
 
 
@@ -166,12 +167,12 @@ const increaseTuning = (i, j, mtx, mtxSetter, sumSetter) => {
   }
   buttonEnabling(buttonPicker(i, j, 'dec'))
   buttonEnabling(buttonPicker(i, j, 'min'))
-  // if (isSumCalculated) {
     const n = mtx.length
     const sum = sumCalculate(criteriaMTXModel, n)
     sumRowUpdate(sum, n)
     sumSetter(sum)
-  // }
+
+  HOT_CHANGES_HANDLER(HOT_CHANGES_BUTTON_COLOR)
 }
 
 const decreaseTuning = (i, j, mtx, mtxSetter, sumSetter) => {
@@ -191,12 +192,12 @@ const decreaseTuning = (i, j, mtx, mtxSetter, sumSetter) => {
   }
   buttonEnabling(buttonPicker(i, j, 'inc'))
   buttonEnabling(buttonPicker(i, j, 'max'))
-  // if (isSumCalculated) {
     const n = mtx.length
     const sum = sumCalculate(criteriaMTXModel, n)
     sumRowUpdate(sum, n)
     sumSetter(sum)
-  // }
+
+    HOT_CHANGES_HANDLER(HOT_CHANGES_BUTTON_COLOR)
 }
 
 const maxTuning = (i, j, mtx, mtxSetter, sumSetter) => {
@@ -212,12 +213,12 @@ const maxTuning = (i, j, mtx, mtxSetter, sumSetter) => {
   buttonDisabling(buttonPicker(i, j, 'max'))
   buttonEnabling(buttonPicker(i, j, 'dec'))
   buttonEnabling(buttonPicker(i, j, 'min'))
-  // if (isSumCalculated) {
     const n = mtx.length
     const sum = sumCalculate(criteriaMTXModel, n)
     sumRowUpdate(sum, n)
     sumSetter(sum)
-  // }
+
+  HOT_CHANGES_HANDLER(HOT_CHANGES_BUTTON_COLOR)
 }
 
 const minTuning = (i, j, mtx, mtxSetter, sumSetter) => {
@@ -233,12 +234,12 @@ const minTuning = (i, j, mtx, mtxSetter, sumSetter) => {
   buttonDisabling(buttonPicker(i, j, 'min'))
   buttonEnabling(buttonPicker(i, j, 'inc'))
   buttonEnabling(buttonPicker(i, j, 'max'))
-  // if (isSumCalculated) {
     const n = mtx.length
     const sum = sumCalculate(criteriaMTXModel, n)
     sumRowUpdate(sum, n)
     sumSetter(sum)
-  // }
+
+  HOT_CHANGES_HANDLER(HOT_CHANGES_BUTTON_COLOR)
 }
 
 const resetTuning = (i, j, mtx, mtxSetter, sumSetter) => {
@@ -254,16 +255,13 @@ const resetTuning = (i, j, mtx, mtxSetter, sumSetter) => {
   buttonEnabling(buttonPicker(i, j, 'dec'))
   buttonEnabling(buttonPicker(i, j, 'max'))
   buttonEnabling(buttonPicker(i, j, 'min'))
-  // if (isSumCalculated) {
     const n = mtx.length
     const sum = sumCalculate(criteriaMTXModel, n)
     sumRowUpdate(sum, n)
     sumSetter(sum)
-  // }
+
+  HOT_CHANGES_HANDLER(HOT_CHANGES_BUTTON_COLOR)
 }
-
-
-
 
 
 
@@ -287,7 +285,11 @@ export const AhpQPhaseN1CriteriaRating = ({
     const n = criteria.length
     const sum = sumCalculate(criteriaMTX, n)
     sumRowUpdate(sum, n)
-  }, [criteria, criteriaMTX])
+    
+    const NEXT_PHASE_TITLE_BUTTON = document.querySelector('.NEXT_PHASE_TITLE_BUTTON')
+    NEXT_PHASE_TITLE_BUTTON.style.backgroundColor = DEFAULT_BUTTON_COLOR
+    
+  }, [criteria, criteriaMTX, DEFAULT_BUTTON_COLOR])
 
   const nextPhaseHandler = () => {
     nextPhase()
@@ -470,6 +472,9 @@ const InCell = ({ row, col, criteriaMTX, criteriaMTXSetter, criteriaSumSetter })
 
 
 
+
+
+
 const OutCell = ({ row, col, criteriaMTX }) => {
   return(
     <td className={style.below}>
@@ -479,6 +484,9 @@ const OutCell = ({ row, col, criteriaMTX }) => {
     </td>
   )
 }
+
+
+
 
 
 
@@ -492,6 +500,9 @@ const DiagonalCell = ({ row, col, criteriaMTX }) => {
 
 
 
+
+
+
 const SumCell = ({ col }) => {
   return(
     <td>
@@ -499,6 +510,9 @@ const SumCell = ({ col }) => {
     </td>
   )
 }
+
+
+
 
 
 
@@ -525,6 +539,7 @@ const Menu = ({
     sumRowUpdate(sum, n)
     criteriaSumSetter(sum)
 
+    HOT_CHANGES_HANDLER(HOT_CHANGES_BUTTON_COLOR)
   }
 
   const randomHandler = () => {
@@ -538,14 +553,7 @@ const Menu = ({
     sumRowUpdate(sum, n)
     criteriaSumSetter(sum)
 
-  }
-
-  const calculateHandler = () => {
-    let criteriaMTXModel = criteriaMTX
-    const n = criteriaMTX.length
-    const sum = sumCalculate(criteriaMTXModel, n)
-    sumRowUpdate(sum, n)
-    criteriaSumSetter(sum)
+    HOT_CHANGES_HANDLER(HOT_CHANGES_BUTTON_COLOR)
   }
 
   const reselectionHandler = () => {
@@ -569,36 +577,20 @@ const Menu = ({
   return(
     <div className={style.panel}>
       <div className={style.top}>
-        <button
-          className="btn"
-          onClick={reselectionHandler}
-        >
+        <button className="btn" onClick={reselectionHandler}>
           Перевыбор
-        </button>
-        <button
-          className="btn"
-          onClick={resetHandler}
-        >
-          Сброс
-        </button>
-        <button
-          className="btn"
-          onClick={randomHandler}
-        >
-          Случ. значения
         </button>
       </div>
       <div className={style.bottom}>
-        <button
-          className="btn"
-          onClick={calculateHandler}
-        >
-          Посчитать суммы
-        </button>
-        <button
-          className="btn"
-          onClick={continueHandler}
-        >
+          <div className={style.high}>
+            <button className="btn" onClick={resetHandler}>
+              Сброс
+            </button>
+            <button className="btn" onClick={randomHandler}>
+              Случ. значения
+            </button>
+          </div>
+        <button className="btn" onClick={continueHandler}>
           Продолжить&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;
         </button>
       </div>

@@ -1,20 +1,21 @@
+
+
 import style from "./StyleAhpQPhases.module.scss"
 
 
-export const AhpQPhaseTitle = ({ phase, nextPhase, previousPhase}) => {
+export const AhpQPhaseTitle = ({ phase, phasesDone, nextPhase, previousPhase}) => {
 
-  const PHASE_TITLES = 
-    [
-      'Выбор критериев и альтернатив',
-      'Попарное сравнение критериев',
-      'Нормировка матрицы сравнения критериев',
-      'Весовой столбец критериев',
-      'Попарное сравнение альтернатив по критериям',
-      'Нормировка матриц сравнения альтернатив',
-      'Весовые столбцы альтернатив по критериям',
-      'Определение глобальных весов альтернатив',
-      'Глобальные веса альтернатив'
-    ]
+  const PHASE_TITLES = [
+    'Выбор критериев и альтернатив',
+    'Попарное сравнение критериев',
+    'Нормировка матрицы сравнения критериев',
+    'Весовой столбец критериев',
+    'Попарное сравнение альтернатив по критериям',
+    'Нормировка матриц сравнения альтернатив',
+    'Весовые столбцы альтернатив по критериям',
+    'Определение глобальных весов альтернатив',
+    'Глобальные веса альтернатив'
+  ]
 
   const nextPhaseHandler = () => {
     nextPhase()
@@ -39,9 +40,9 @@ export const AhpQPhaseTitle = ({ phase, nextPhase, previousPhase}) => {
       </div>
       <div>
         <span
-          className="waves-effect waves-light btn"
+          className="waves-effect waves-light btn NEXT_PHASE_TITLE_BUTTON"
           onClick={nextPhaseHandler}
-          disabled={phase >= 8}
+          disabled={phase >= 8 || phasesDone <= phase}
         >
           <i className="material-icons">navigate_next</i>
         </span>

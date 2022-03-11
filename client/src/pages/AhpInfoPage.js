@@ -1,6 +1,6 @@
 import { useHistory } from "react-router-dom"
 // import './../style/styleFix.css';
-import style from "./AhpInfoPage.module.scss"
+import style from "./StyleAhpInfoPage.module.scss"
 
 export const AhpInfoPage = () => {
 

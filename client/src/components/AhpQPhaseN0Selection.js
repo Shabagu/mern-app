@@ -1,3 +1,5 @@
+import { useEffect } from "react"
+import { DEFAULT_BUTTON_COLOR, HOT_CHANGES_BUTTON_COLOR, HOT_CHANGES_HANDLER } from "../pages/AhpPage"
 import { ALL_CRITERIA, ALL_ALTERNATIVES } from "../pages/AhpPage"
 
 
@@ -6,14 +8,36 @@ import style from "./StyleAhpQPhases.module.scss"
 
 
 export const AhpQPhaseN0Selection = ({
+    criteria,
+    alternatives,
     criteriaSetter,
     alternativesSetter,
     criteriaMTXSetter,
     
     nextPhase,
     phaseDone,
-    phasesDone
   }) => {
+    
+
+
+    useEffect(() => {
+      const checkAllCriteriaCheckbox = document.querySelector('.criteria_checkAll')
+      const checkAllAlternativesCheckbox = document.querySelector('.alternatives_checkAll')
+      if (criteria.length === ALL_CRITERIA.length) {
+        checkAllCriteriaCheckbox.checked = true
+      }
+      if (alternatives.length === ALL_ALTERNATIVES.length) {
+        checkAllAlternativesCheckbox.checked = true
+      }
+
+      const NEXT_PHASE_TITLE_BUTTON = document.querySelector('.NEXT_PHASE_TITLE_BUTTON')
+      NEXT_PHASE_TITLE_BUTTON.style.backgroundColor = DEFAULT_BUTTON_COLOR
+      
+    }, [criteria, alternatives, DEFAULT_BUTTON_COLOR])
+
+
+  
+
 
   const groups = {
     criteria: {
@@ -29,9 +53,7 @@ export const AhpQPhaseN0Selection = ({
   }
 
 
-  const checkboxConditionsSetter = () => {
 
-  }
 
   const selectHandler = () => {
     const criteriaCheckboxes = document.querySelectorAll(`.${groups.criteria.ens}`)
@@ -74,12 +96,14 @@ export const AhpQPhaseN0Selection = ({
   return(
     <div className={style.phase_container}>
       <div className={style.selections_container}>
-        <Selection set={ALL_CRITERIA} group={groups.criteria} />
-        <Selection set={ALL_ALTERNATIVES} group={groups.alternatives} />
+        <Selection set={ALL_CRITERIA} group={groups.criteria} selected={criteria}/>
+        <Selection set={ALL_ALTERNATIVES} group={groups.alternatives} selected={alternatives} />
       </div>
       
       <div className={style.button_container}>
-        <div><button className="btn" onClick={selectHandler}>Сформировать запрос</button></div>
+        <div>
+          <button className="btn" onClick={selectHandler}>Сформировать запрос</button>
+        </div>
       </div>
     </div>
   )
@@ -87,7 +111,7 @@ export const AhpQPhaseN0Selection = ({
 
 
 
-const Selection = ({ set, group }) => {
+const Selection = ({ set, group, selected }) => {
 
   const checkAll = (group) => {
     const checkboxes = document.querySelectorAll(`.${group}_list input`)
@@ -96,6 +120,8 @@ const Selection = ({ set, group }) => {
       if (isAllChecked) item.checked = true
       else item.checked = false
     })
+    
+    HOT_CHANGES_HANDLER(HOT_CHANGES_BUTTON_COLOR)
   }
 
   return(
@@ -104,7 +130,7 @@ const Selection = ({ set, group }) => {
         <legend>{group.ru}</legend>
         <ul className={`${group.en}_list`}>
           {[...Array(set.length)].map((x, i) => 
-            <Option key={i} i={i} opt={set[i]} group={group} />
+            <Option key={i} i={i} opt={set[i]} group={group} selected={selected} />
           )}
         </ul>
         <hr />
@@ -123,7 +149,7 @@ const Selection = ({ set, group }) => {
 
 
 
-const Option = ({ i, opt, group }) => {
+const Option = ({ i, opt, group, selected }) => {
 
   const checkboxControl = (option) => {
     const checkboxes = Array.from(document.querySelectorAll(`.${option}_list input`))
@@ -136,6 +162,8 @@ const Option = ({ i, opt, group }) => {
     const isUnhecked = !checkboxesConditions.reduce((acc, rec) => acc * rec)
     if (isAllChecked) checkAllCheckbox.checked = true
     if (isUnhecked) checkAllCheckbox.checked = false
+
+    HOT_CHANGES_HANDLER(HOT_CHANGES_BUTTON_COLOR)
   }
 
   return(
@@ -145,7 +173,8 @@ const Option = ({ i, opt, group }) => {
           type="checkbox"
           value={`${group.ens}${i}`}
           className={group.ens}
-          onClick={(e) => checkboxControl(group.en, e)}
+          onChange={(e) => checkboxControl(group.en, e)}
+          defaultChecked={selected.includes(`${opt}`)}
         />
         <span>{opt}</span>
       </label>

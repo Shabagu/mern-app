@@ -175,6 +175,12 @@ $tableBorderBold: 3px solid #aaa;
   padding: 3px;
   border: 2px solid #aaa;
 
+  .bottom {
+    .high {
+      margin-bottom: 20px;
+    }
+  }
+
   button {
     width: 190px;
   }

@@ -10,33 +10,41 @@ import { AhpQPhaseN7AllСalculatedWeights } from "../components/AhpQPhaseN7AllС
 import { AhpQPhaseN8GlobalWeightsCalculation } from "../components/AhpQPhaseN8GlobalWeightsCalculation"
 import { AhpQPhaseTitle } from "../components/AhpQPhaseTitle"
 import { AhpQState } from "../components/AhpQState"
-import style from "./AhpPage.module.scss"
+
+
+import style from "./StyleAhpPage.module.scss"
 
 
 
-export const ALL_CRITERIA =
-  [
-    'Стоимость',
-    'Климат',
-    'Экология',
-    'Безопасность',
-    'Кухня',
-    'Престиж',
-    'Дорога',
-    'Достопримечательности',
-  ]
+export const ALL_CRITERIA = [
+  'Стоимость',
+  'Климат',
+  'Экология',
+  'Безопасность',
+  'Кухня',
+  'Престиж',
+  'Дорога',
+  'Достопримечательности',
+]
   
-export const ALL_ALTERNATIVES =
-  [
-    'Египет',
-    'Греция',
-    'Турция',
-    'Куба',
-    'Тунис',
-    'Швеция',
-    'Италия',
-    'Гавайи',
-  ]
+export const ALL_ALTERNATIVES = [
+  'Египет',
+  'Греция',
+  'Турция',
+  'Куба',
+  'Тунис',
+  'Швеция',
+  'Италия',
+  'Гавайи',
+]
+
+export const DEFAULT_BUTTON_COLOR = '#26a69a'
+export const HOT_CHANGES_BUTTON_COLOR = '#ff8e3a'
+
+export const HOT_CHANGES_HANDLER = (HOT_CHANGES_BUTTON_COLOR) => {
+  const NEXT_PHASE_TITLE_BUTTON = document.querySelector('.NEXT_PHASE_TITLE_BUTTON')
+  NEXT_PHASE_TITLE_BUTTON.style.backgroundColor = HOT_CHANGES_BUTTON_COLOR
+}
 
 
 
@@ -108,6 +116,7 @@ export const AhpPage = () => {
 
       <AhpQPhaseTitle
         phase={phase}
+        phasesDone={phasesDone}
         nextPhase={nextPhaseHandler}
         previousPhase={previousPhaseHandler}
       />
@@ -116,6 +125,8 @@ export const AhpPage = () => {
 
       {phase === 0 &&
         <AhpQPhaseN0Selection
+          criteria={criteria}
+          alternatives={alternatives}
           criteriaSetter={setCriteriaHandler}
           alternativesSetter={setAlternativesHandler}
           criteriaMTXSetter={setCriteriaMTXHandler}

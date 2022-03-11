@@ -2,7 +2,7 @@ import { useState } from "react"
 import { useHttp } from '../hooks/http.hook'
 import { useMessage } from '../hooks/message.hook'
 
-import style from './TestPage.module.scss'
+import style from './StyleTestPage.module.scss'
 
 
 
