@@ -1,4 +1,5 @@
-
+import { useEffect } from "react"
+import { DEFAULT_BUTTON_COLOR, HOT_CHANGES_BUTTON_COLOR, HOT_CHANGES_HANDLER } from "../pages/AhpPage"
 
 
 import style from "./StyleAhpQPhases.module.scss"
@@ -10,6 +11,11 @@ export const AhpQPhaseN5AlternativesNormalization = ({
     phaseDone,
     phasesDone,
   }) => {
+
+  useEffect(() => {
+    const NEXT_PHASE_TITLE_BUTTON = document.querySelector('.NEXT_PHASE_TITLE_BUTTON')
+    NEXT_PHASE_TITLE_BUTTON.style.backgroundColor = DEFAULT_BUTTON_COLOR
+  }, [DEFAULT_BUTTON_COLOR])
 
   const nextPhaseHandler = () => {
     nextPhase()

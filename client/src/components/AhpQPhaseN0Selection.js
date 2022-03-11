@@ -20,20 +20,20 @@ export const AhpQPhaseN0Selection = ({
     
 
 
-    useEffect(() => {
-      const checkAllCriteriaCheckbox = document.querySelector('.criteria_checkAll')
-      const checkAllAlternativesCheckbox = document.querySelector('.alternatives_checkAll')
-      if (criteria.length === ALL_CRITERIA.length) {
-        checkAllCriteriaCheckbox.checked = true
-      }
-      if (alternatives.length === ALL_ALTERNATIVES.length) {
-        checkAllAlternativesCheckbox.checked = true
-      }
+  useEffect(() => {
+    const checkAllCriteriaCheckbox = document.querySelector('.criteria_checkAll')
+    const checkAllAlternativesCheckbox = document.querySelector('.alternatives_checkAll')
+    if (criteria.length === ALL_CRITERIA.length) {
+      checkAllCriteriaCheckbox.checked = true
+    }
+    if (alternatives.length === ALL_ALTERNATIVES.length) {
+      checkAllAlternativesCheckbox.checked = true
+    }
 
-      const NEXT_PHASE_TITLE_BUTTON = document.querySelector('.NEXT_PHASE_TITLE_BUTTON')
-      NEXT_PHASE_TITLE_BUTTON.style.backgroundColor = DEFAULT_BUTTON_COLOR
-      
-    }, [criteria, alternatives, DEFAULT_BUTTON_COLOR])
+    const NEXT_PHASE_TITLE_BUTTON = document.querySelector('.NEXT_PHASE_TITLE_BUTTON')
+    NEXT_PHASE_TITLE_BUTTON.style.backgroundColor = DEFAULT_BUTTON_COLOR
+    
+  }, [criteria, alternatives, DEFAULT_BUTTON_COLOR])
 
 
   
