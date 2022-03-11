@@ -1,4 +1,5 @@
-import { useEffect, useHistory } from "react-router-dom"
+import { useEffect } from "react"
+import { useHistory } from "react-router-dom"
 import { DEFAULT_BUTTON_COLOR, HOT_CHANGES_BUTTON_COLOR, HOT_CHANGES_HANDLER } from "../pages/AhpPage"
 
 
