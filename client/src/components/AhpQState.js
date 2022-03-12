@@ -1,7 +1,15 @@
 import style from "./StyleAhpQState.module.scss"
 
 
-export const AhpQState = ({ phase, phasesDone, criteria, alternatives, criteriaMTX, criteriaSum, criteriaNormMTX }) => {
+export const AhpQState = ({
+    phase,
+    phasesDone,
+    criteria,
+    alternatives,
+    criteriaMTX,
+    criteriaSum,
+    criteriaNormMTX,
+  }) => {
 
   return(
     <div className={style.panel}>

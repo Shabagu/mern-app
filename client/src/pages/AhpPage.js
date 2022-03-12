@@ -59,6 +59,7 @@ export const AhpPage = () => {
   const [criteriaMTX, setCriteriaMTX] = useState([])
   const [criteriaSum, setCriteriaSum] = useState([])
   const [criteriaNormMTX, setCriteriaNormMtx] = useState([])
+  // const [localCriteriaMTX, setLocalCriteriaMTX] = useState([])
   
   const [criteriaWeights, setCriteriaWeights] = useState([])
 
@@ -126,10 +127,13 @@ export const AhpPage = () => {
       {phase === 0 &&
         <AhpQPhaseN0Selection
           criteria={criteria}
-          alternatives={alternatives}
           criteriaSetter={setCriteriaHandler}
-          alternativesSetter={setAlternativesHandler}
           criteriaMTXSetter={setCriteriaMTXHandler}
+          criteriaSumSetter={setCriteriaSumHandler}
+          
+          alternatives={alternatives}
+          alternativesSetter={setAlternativesHandler}
+
 
           nextPhase={nextPhaseHandler}
           phaseDone={phasesDoneFirst}
@@ -140,6 +144,8 @@ export const AhpPage = () => {
       {phase === 1 &&
         <AhpQPhaseN1CriteriaRating
           criteria={criteria}
+          // localCriteriaMTX={localCriteriaMTX}
+          // localCriteriaMTXSetter={setLocalCriteriaMTX}
           criteriaMTX={criteriaMTX}
           criteriaMTXSetter={setCriteriaMTXHandler}
           criteriaSum={criteriaSum}

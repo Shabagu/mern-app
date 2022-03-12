@@ -1,4 +1,4 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { DEFAULT_BUTTON_COLOR, HOT_CHANGES_BUTTON_COLOR, HOT_CHANGES_HANDLER } from "../pages/AhpPage"
 
 
@@ -265,13 +265,16 @@ const resetTuning = (i, j, mtx, mtxSetter, sumSetter) => {
 
 
 
-
+//####################################################################################################################
+//###############################################   КОМПОНЕНТЫ   #####################################################
+//####################################################################################################################
 
 
 export const AhpQPhaseN1CriteriaRating = ({
     criteria,
     criteriaMTX,
     criteriaMTXSetter,
+    criteriaSum,
     criteriaSumSetter,
     criteriaNormMTXSetter,
     previousPhase,
@@ -281,15 +284,27 @@ export const AhpQPhaseN1CriteriaRating = ({
     phasesDone,
   }) => {
 
+  const [localMTX, setLocalMTX] = useState(criteriaMTX)
+  const [localSum, setLocalSum] = useState(criteriaSum)
+  const localMTXSetter = (mtx) => {
+    setLocalMTX(mtx)
+  }
+  const localSumSetter = (sum) => {
+    setLocalSum(sum)
+  }
+
   useEffect(() => {
     const n = criteria.length
-    const sum = sumCalculate(criteriaMTX, n)
+    const sum = sumCalculate(localMTX, n)
     sumRowUpdate(sum, n)
     
     const NEXT_PHASE_TITLE_BUTTON = document.querySelector('.NEXT_PHASE_TITLE_BUTTON')
     NEXT_PHASE_TITLE_BUTTON.style.backgroundColor = DEFAULT_BUTTON_COLOR
+
+    // console.log(localMTX)
+    // console.log(localSum)
     
-  }, [criteria, criteriaMTX, DEFAULT_BUTTON_COLOR])
+  }, [criteria, localMTX, localSum, DEFAULT_BUTTON_COLOR])
 
   const nextPhaseHandler = () => {
     nextPhase()
@@ -317,9 +332,9 @@ export const AhpQPhaseN1CriteriaRating = ({
               key={i}
               i={i}
               criteria={criteria}
-              criteriaMTX={criteriaMTX}
-              criteriaMTXSetter={criteriaMTXSetter}
-              criteriaSumSetter={criteriaSumSetter}
+              localMTX={localMTX}
+              localMTXSetter={localMTXSetter}
+              localSumSetter={localSumSetter}
             />
           )}
         </tbody>
@@ -354,9 +369,9 @@ export const AhpQPhaseN1CriteriaRating = ({
 const CellRow = ({
     criteria,
     i,
-    criteriaMTX,
-    criteriaMTXSetter,
-    criteriaSumSetter,
+    localMTX,
+    localMTXSetter,
+    localSumSetter,
   }) => {
 
   return(
@@ -370,9 +385,9 @@ const CellRow = ({
               key={j}
               row={i}
               col={j}
-              criteriaMTX={criteriaMTX}
-              criteriaMTXSetter={criteriaMTXSetter}
-              criteriaSumSetter={criteriaSumSetter}
+              localMTX={localMTX}
+              localMTXSetter={localMTXSetter}
+              localSumSetter={localSumSetter}
             />
           )           
           else if (i > j) return(
@@ -380,7 +395,7 @@ const CellRow = ({
               key={j}
               row={i}
               col={j}
-              criteriaMTX={criteriaMTX}
+              localMTX={localMTX}
             />
           )
           else if (i === j) return (
@@ -388,7 +403,7 @@ const CellRow = ({
               key={j}
               row={i}
               col={j}
-              criteriaMTX={criteriaMTX}
+              localMTX={localMTX}
             />
           )
           else return(null)
@@ -400,13 +415,13 @@ const CellRow = ({
 
 
 
-const InCell = ({ row, col, criteriaMTX, criteriaMTXSetter, criteriaSumSetter }) => {
+const InCell = ({ row, col, localMTX, localMTXSetter, localSumSetter }) => {
 
   const wheelTuning = (row, col, e) => {
     if (e.nativeEvent.wheelDelta > 0) {
-      increaseTuning(row, col, criteriaMTX, criteriaMTXSetter, criteriaSumSetter, e)
+      increaseTuning(row, col, localMTX, localMTXSetter, localSumSetter, e)
     } else {
-      decreaseTuning(row, col, criteriaMTX, criteriaMTXSetter, criteriaSumSetter, e)
+      decreaseTuning(row, col, localMTX, localMTXSetter, localSumSetter, e)
     }
   }
 
@@ -417,7 +432,7 @@ const InCell = ({ row, col, criteriaMTX, criteriaMTXSetter, criteriaSumSetter })
       >
         <div className={style.value_box}>
           <span className={`cell${row}${col}`}>
-            {MARK_MODEL[criteriaMTX[row][col]].string}
+            {MARK_MODEL[localMTX[row][col]].string}
           </span>
         </div>
 
@@ -425,7 +440,7 @@ const InCell = ({ row, col, criteriaMTX, criteriaMTXSetter, criteriaSumSetter })
           <span
             className={`waves-effect waves-light btn btn${row}${col}inc`}
             onClick={(e) =>
-              increaseTuning(row, col, criteriaMTX, criteriaMTXSetter, criteriaSumSetter, e)
+              increaseTuning(row, col, localMTX, localMTXSetter, localSumSetter, e)
             }
           >
             <i className="material-icons">arrow_upward</i>
@@ -433,7 +448,7 @@ const InCell = ({ row, col, criteriaMTX, criteriaMTXSetter, criteriaSumSetter })
           <span
             className={`waves-effect waves-light btn btn${row}${col}dec`}
             onClick={(e) =>
-              decreaseTuning(row, col, criteriaMTX, criteriaMTXSetter, criteriaSumSetter, e)
+              decreaseTuning(row, col, localMTX, localMTXSetter, localSumSetter, e)
             }
           >
             <i className="material-icons">arrow_back</i>
@@ -443,7 +458,7 @@ const InCell = ({ row, col, criteriaMTX, criteriaMTXSetter, criteriaSumSetter })
           <span
             className={`waves-effect waves-light btn btn${row}${col}max`}
             onClick={(e) =>
-              maxTuning(row, col, criteriaMTX, criteriaMTXSetter, criteriaSumSetter, e)
+              maxTuning(row, col, localMTX, localMTXSetter, localSumSetter, e)
             }
           >
             MAX
@@ -451,7 +466,7 @@ const InCell = ({ row, col, criteriaMTX, criteriaMTXSetter, criteriaSumSetter })
           <span
             className={`waves-effect waves-light btn btn${row}${col}res`}
             onClick={(e) =>
-              resetTuning(row, col, criteriaMTX, criteriaMTXSetter, criteriaSumSetter, e)
+              resetTuning(row, col, localMTX, localMTXSetter, localSumSetter, e)
             }
           >
             <i className="material-icons">refresh</i>
@@ -459,7 +474,7 @@ const InCell = ({ row, col, criteriaMTX, criteriaMTXSetter, criteriaSumSetter })
           <span
             className={`waves-effect waves-light btn btn${row}${col}min`}
             onClick={(e) => 
-              minTuning(row, col, criteriaMTX, criteriaMTXSetter, criteriaSumSetter, e)
+              minTuning(row, col, localMTX, localMTXSetter, localSumSetter, e)
             }
           >
             MIN
@@ -475,11 +490,11 @@ const InCell = ({ row, col, criteriaMTX, criteriaMTXSetter, criteriaSumSetter })
 
 
 
-const OutCell = ({ row, col, criteriaMTX }) => {
+const OutCell = ({ row, col, localMTX }) => {
   return(
     <td className={style.below}>
       <span className={`cell${row}${col}`}>
-        {MARK_MODEL[criteriaMTX[row][col]].string}
+        {MARK_MODEL[localMTX[row][col]].string}
       </span>
     </td>
   )
@@ -490,10 +505,10 @@ const OutCell = ({ row, col, criteriaMTX }) => {
 
 
 
-const DiagonalCell = ({ row, col, criteriaMTX }) => {
+const DiagonalCell = ({ row, col, localMTX }) => {
   return(
     <td className={style.diagonal}>
-      {MARK_MODEL[criteriaMTX[row][col]].string}
+      {MARK_MODEL[localMTX[row][col]].string}
     </td>
   )
 }

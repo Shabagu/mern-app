@@ -9,10 +9,12 @@ import style from "./StyleAhpQPhases.module.scss"
 
 export const AhpQPhaseN0Selection = ({
     criteria,
-    alternatives,
     criteriaSetter,
-    alternativesSetter,
     criteriaMTXSetter,
+    criteriaSumSetter,
+
+    alternatives,
+    alternativesSetter,
     
     nextPhase,
     phaseDone,
@@ -61,6 +63,7 @@ export const AhpQPhaseN0Selection = ({
     const selectedCriteria = []
     const selectedAlternatives = []
     const defaultCriteriaMTX = []
+    const defaultCriteriaSum = []
 
 
     let j = 0
@@ -88,6 +91,11 @@ export const AhpQPhaseN0Selection = ({
       }
     }
     criteriaMTXSetter(defaultCriteriaMTX)
+
+    for (let i = 0; i < selectedCriteria.length; i++) {
+      defaultCriteriaSum[i] = selectedCriteria.length
+    }
+    criteriaSumSetter(defaultCriteriaSum)
 
     phaseDone()
     nextPhase()
