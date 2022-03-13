@@ -64,21 +64,25 @@ export const AhpPage = () => {
   const [criteriaWeights, setCriteriaWeights] = useState([])
 
 
-  const [alternativesMTX, setAlternativesMTX] = useState([])
-  const [alternativesSum, setAlternativesSum] = useState([])
-  const [alternativesNormMTX, setAlternativesNormMTX] = useState([])
-  const [alternativesWeights, setAlternativesWeights] = useState([])
+  // const [alternativesMTX, setAlternativesMTX] = useState([])
+  // const [alternativesSum, setAlternativesSum] = useState([])
+  // const [alternativesNormMTX, setAlternativesNormMTX] = useState([])
+  // const [alternativesWeights, setAlternativesWeights] = useState([])
   
-  const [globalWeights, setGlobalWeights] = useState([])
+  // const [globalWeights, setGlobalWeights] = useState([])
 
 
 
 
   const nextPhaseHandler = () => {
-    if (phase < 8) { setPhase(phase + 1) }
+    if (phase < 8) {
+      setPhase(phase + 1)
+    }
   }
   const previousPhaseHandler = () => {
-    if (phase > 0) { setPhase(phase - 1) }
+    if (phase > 0) {
+      setPhase(phase - 1)
+    }
   }
   const phasesDoneFirst = () => {
     setPhasesDone(1)

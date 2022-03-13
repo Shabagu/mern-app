@@ -28,7 +28,7 @@ export const AhpQState = ({
           <div className={style.state}>Критерии: {criteria.join(', ')}</div>
           <div className={style.state}>Альтернативы: {alternatives.join(', ')}</div>
           <div className={style.state}> {/* Оценки критериев */}
-          <details>
+          <details open>
             <summary>Оценки критериев</summary>
             <table>
               <tbody>
@@ -46,7 +46,7 @@ export const AhpQState = ({
           </details>
           </div>
           <div className={style.state}> {/* Суммы критериев */}
-          <details>
+          <details open>
             <summary>Суммы критериев</summary>
             <table>
               <tbody>
@@ -66,7 +66,7 @@ export const AhpQState = ({
       {phase >= 2 &&
         <>
           <div className={style.state}> {/* Нормализация критериев */}
-            <details>
+            <details open>
               <summary>Нормализация критериев</summary>
               <table>
                 <tbody>
