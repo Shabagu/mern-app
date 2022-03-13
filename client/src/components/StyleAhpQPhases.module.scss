@@ -139,9 +139,17 @@ $tableBorderBold: 3px solid #aaa;
   
         box-shadow: none;
       }
-    }
-    .cell_tuning_right span {
-      height: 17px;
+
+      & > span:last-child {
+        position: relative;
+        display: flex;
+        right: 45px;
+        top: 13px;
+        height: 23px;
+        padding: 0;
+        border-radius: 20px;
+        border-width: 2px;
+      }
     }
   }
 
@@ -178,7 +186,7 @@ $tableBorderBold: 3px solid #aaa;
   height: 640px;
 
   padding: 3px;
-  // border: 2px solid #aaa;
+  // border: 1px solid #aaa;
 
   button:first-child {
     margin-top: 68px;

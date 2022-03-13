@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { AhpQPhaseN0Selection } from "../components/AhpQPhaseN0Selection"
-import { AhpQPhaseN1CriteriaRating } from "../components/AhpQPhaseN1CriteriaRating+"
+import { AhpQPhaseN1CriteriaRating } from "../components/AhpQPhaseN1CriteriaRating"
 import { AhpQPhaseN2CriteriaNormalization } from "../components/AhpQPhaseN2CriteriaNormalization"
 import { AhpQPhaseN3CriteriaWeight } from "../components/AhpQPhaseN3CriteriaWeights"
 import { AhpQPhaseN4AlternativesRating } from "../components/AhpQPhaseN4AlternativesRating"
