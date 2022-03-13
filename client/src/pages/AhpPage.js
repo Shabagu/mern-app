@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { AhpQPhaseN0Selection } from "../components/AhpQPhaseN0Selection"
-import { AhpQPhaseN1CriteriaRating } from "../components/AhpQPhaseN1CriteriaRating"
+import { AhpQPhaseN1CriteriaRating } from "../components/AhpQPhaseN1CriteriaRating+"
 import { AhpQPhaseN2CriteriaNormalization } from "../components/AhpQPhaseN2CriteriaNormalization"
 import { AhpQPhaseN3CriteriaWeight } from "../components/AhpQPhaseN3CriteriaWeights"
 import { AhpQPhaseN4AlternativesRating } from "../components/AhpQPhaseN4AlternativesRating"
@@ -59,7 +59,7 @@ export const AhpPage = () => {
   const [criteriaMTX, setCriteriaMTX] = useState([])
   const [criteriaSum, setCriteriaSum] = useState([])
   const [criteriaNormMTX, setCriteriaNormMtx] = useState([])
-  // const [localCriteriaMTX, setLocalCriteriaMTX] = useState([])
+  
   
   const [criteriaWeights, setCriteriaWeights] = useState([])
 
@@ -130,7 +130,7 @@ export const AhpPage = () => {
           criteriaSetter={setCriteriaHandler}
           criteriaMTXSetter={setCriteriaMTXHandler}
           criteriaSumSetter={setCriteriaSumHandler}
-          
+
           alternatives={alternatives}
           alternativesSetter={setAlternativesHandler}
 
@@ -144,8 +144,7 @@ export const AhpPage = () => {
       {phase === 1 &&
         <AhpQPhaseN1CriteriaRating
           criteria={criteria}
-          // localCriteriaMTX={localCriteriaMTX}
-          // localCriteriaMTXSetter={setLocalCriteriaMTX}
+
           criteriaMTX={criteriaMTX}
           criteriaMTXSetter={setCriteriaMTXHandler}
           criteriaSum={criteriaSum}

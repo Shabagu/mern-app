@@ -35,7 +35,7 @@ export const AhpQPhaseN0Selection = ({
     const NEXT_PHASE_TITLE_BUTTON = document.querySelector('.NEXT_PHASE_TITLE_BUTTON')
     NEXT_PHASE_TITLE_BUTTON.style.backgroundColor = DEFAULT_BUTTON_COLOR
     
-  }, [criteria, alternatives, DEFAULT_BUTTON_COLOR])
+  }, [criteria, alternatives])
 
 
   

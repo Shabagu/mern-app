@@ -77,21 +77,17 @@ $tableBorderBold: 3px solid #aaa;
     user-select: none;
   }
 
-  span {
-    text-align: center;
-    font-size: 1.5rem;
-    font-weight: 400;
-    width: 40px;
-    margin-left: auto;
-  }
+  // span {
+  //   // text-align: center;
+  //   // font-size: 1.5rem;
+  //   // font-weight: 400;
+  //   // width: 40px;
+  //   // margin-left: auto;
+  // }
 
   .value_box {
     display: flex;
     margin: auto;
-
-    span {
-      margin: auto;
-    }
   }
 
 
@@ -100,7 +96,7 @@ $tableBorderBold: 3px solid #aaa;
       -45deg,
       #00000030 0,
       #00000030 4px,
-      transparent 20px,
+      transparent 30px,
       transparent 2px);
   }
   .diagonal {
@@ -114,8 +110,15 @@ $tableBorderBold: 3px solid #aaa;
   .cell {
     display: flex;
 
-    .cell_tuning_left, .cell_tuning_right  {
-      
+    &:hover .cell_tuning{
+      width: 69px;
+    }
+    
+    .cell_tuning  {
+      display: flex;
+      width: 0px;
+      transition: 0.2s;
+
       span {
         display: flex;
         align-items: center;
@@ -144,11 +147,11 @@ $tableBorderBold: 3px solid #aaa;
 
   tr:hover{
     background-color: #55555530;
-    outline: #777 3.5px solid;
+    outline: #777 3px solid;
   }
   td:hover {
     background-color: #00ffe550;
-    outline: #555 3.5px solid;
+    outline: #555 4px solid;
     outline-offset: -3.5px;
   }
 

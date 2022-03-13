@@ -294,6 +294,10 @@ export const AhpQPhaseN1CriteriaRating = ({
   }
 
   useEffect(() => {
+    
+    localMTXSetter(criteriaMTX)
+    localSumSetter(criteriaSum)
+
     const n = criteria.length
     const sum = sumCalculate(localMTX, n)
     sumRowUpdate(sum, n)
@@ -301,10 +305,8 @@ export const AhpQPhaseN1CriteriaRating = ({
     const NEXT_PHASE_TITLE_BUTTON = document.querySelector('.NEXT_PHASE_TITLE_BUTTON')
     NEXT_PHASE_TITLE_BUTTON.style.backgroundColor = DEFAULT_BUTTON_COLOR
 
-    // console.log(localMTX)
-    // console.log(localSum)
-    
-  }, [criteria, localMTX, localSum, DEFAULT_BUTTON_COLOR])
+  }, [criteria, criteriaMTX, criteriaSum, localMTX])
+
 
   const nextPhaseHandler = () => {
     nextPhase()
@@ -351,9 +353,14 @@ export const AhpQPhaseN1CriteriaRating = ({
         </tfoot>
       </table>
       <Menu
-        criteriaMTX={criteriaMTX}
+        localMTX={localMTX}
+        localMTXSetter={localMTXSetter}
+        localSum={localSum}
+        localSumSetter={localSumSetter}
+
         criteriaMTXSetter={criteriaMTXSetter}
         criteriaSumSetter={criteriaSumSetter}
+
         criteriaNormMTXSetter={criteriaNormMTXSetter}
         nextPhase={nextPhaseHandler}
         previousPhase={previousPhaseHandler}
@@ -436,49 +443,51 @@ const InCell = ({ row, col, localMTX, localMTXSetter, localSumSetter }) => {
           </span>
         </div>
 
-        <div className={style.cell_tuning_left}>
-          <span
-            className={`waves-effect waves-light btn btn${row}${col}inc`}
-            onClick={(e) =>
-              increaseTuning(row, col, localMTX, localMTXSetter, localSumSetter, e)
-            }
-          >
-            <i className="material-icons">arrow_upward</i>
-          </span>
-          <span
-            className={`waves-effect waves-light btn btn${row}${col}dec`}
-            onClick={(e) =>
-              decreaseTuning(row, col, localMTX, localMTXSetter, localSumSetter, e)
-            }
-          >
-            <i className="material-icons">arrow_back</i>
-          </span>
-        </div>
-        <div className={style.cell_tuning_right}>
-          <span
-            className={`waves-effect waves-light btn btn${row}${col}max`}
-            onClick={(e) =>
-              maxTuning(row, col, localMTX, localMTXSetter, localSumSetter, e)
-            }
-          >
-            MAX
-          </span>
-          <span
-            className={`waves-effect waves-light btn btn${row}${col}res`}
-            onClick={(e) =>
-              resetTuning(row, col, localMTX, localMTXSetter, localSumSetter, e)
-            }
-          >
-            <i className="material-icons">refresh</i>
-          </span>
-          <span
-            className={`waves-effect waves-light btn btn${row}${col}min`}
-            onClick={(e) => 
-              minTuning(row, col, localMTX, localMTXSetter, localSumSetter, e)
-            }
-          >
-            MIN
-          </span>
+        <div className={style.cell_tuning}>
+          <div className={style.cell_tuning_left}>
+            <span
+              className={`waves-effect waves-light btn btn${row}${col}inc`}
+              onClick={(e) =>
+                increaseTuning(row, col, localMTX, localMTXSetter, localSumSetter, e)
+              }
+            >
+              <i className="material-icons">arrow_upward</i>
+            </span>
+            <span
+              className={`waves-effect waves-light btn btn${row}${col}dec`}
+              onClick={(e) =>
+                decreaseTuning(row, col, localMTX, localMTXSetter, localSumSetter, e)
+              }
+            >
+              <i className="material-icons">arrow_back</i>
+            </span>
+          </div>
+          <div className={style.cell_tuning_right}>
+            <span
+              className={`waves-effect waves-light btn btn${row}${col}max`}
+              onClick={(e) =>
+                maxTuning(row, col, localMTX, localMTXSetter, localSumSetter, e)
+              }
+            >
+              <i className="material-icons">keyboard_arrow_up</i>
+            </span>
+            <span
+              className={`waves-effect waves-light btn btn${row}${col}res`}
+              onClick={(e) =>
+                resetTuning(row, col, localMTX, localMTXSetter, localSumSetter, e)
+              }
+            >
+              <i className="material-icons">refresh</i>
+            </span>
+            <span
+              className={`waves-effect waves-light btn btn${row}${col}min`}
+              onClick={(e) => 
+                minTuning(row, col, localMTX, localMTXSetter, localSumSetter, e)
+              }
+            >
+              <i className="material-icons">keyboard_arrow_left</i>
+            </span>
+          </div>
         </div>
       </div>
     </td>
@@ -532,9 +541,14 @@ const SumCell = ({ col }) => {
 
 
 const Menu = ({
-    criteriaMTX,
+    localMTX,
+    localMTXSetter,
+    localSum,
+    localSumSetter,
+
     criteriaMTXSetter,
     criteriaSumSetter,
+
     criteriaNormMTXSetter,
     nextPhase,
     previousPhase,
@@ -544,29 +558,31 @@ const Menu = ({
 
 
   const resetHandler = () => {
-    let criteriaMTXModel = criteriaMTX
-    const n = criteriaMTX.length
+    let criteriaMTXModel = localMTX
+    const n = localMTX.length
+
     criteriaMTXModel = resetMtx(criteriaMTXModel, n)
     tableUpdate(criteriaMTXModel, n)
-    criteriaMTXSetter(criteriaMTXModel)
+    localMTXSetter(criteriaMTXModel)
 
     const sum = sumCalculate(criteriaMTXModel, n)
     sumRowUpdate(sum, n)
-    criteriaSumSetter(sum)
+    localSumSetter(sum)
 
     HOT_CHANGES_HANDLER(HOT_CHANGES_BUTTON_COLOR)
   }
 
   const randomHandler = () => {
-    let criteriaMTXModel = criteriaMTX
-    const n = criteriaMTX.length
+    let criteriaMTXModel = localMTX
+    const n = localMTX.length
+
     criteriaMTXModel = randomMtx(criteriaMTXModel, n)
     tableUpdate(criteriaMTXModel, n)
-    criteriaMTXSetter(criteriaMTXModel)
+    localMTXSetter(criteriaMTXModel)
 
     const sum = sumCalculate(criteriaMTXModel, n)
     sumRowUpdate(sum, n)
-    criteriaSumSetter(sum)
+    localSumSetter(sum)
 
     HOT_CHANGES_HANDLER(HOT_CHANGES_BUTTON_COLOR)
   }
@@ -576,11 +592,15 @@ const Menu = ({
   }
   
   const continueHandler = () => {
-    let criteriaMTXModel = criteriaMTX
-    const n = criteriaMTX.length
+    let criteriaMTXModel = localMTX
+    const n = localMTX.length
+
+    criteriaMTXSetter(localMTX)
+    criteriaSumSetter(localSum)
+
     const sum = sumCalculate(criteriaMTXModel, n)
-    const normalizedMtx = normalizeMtx(criteriaMTXModel, sum)
-    criteriaNormMTXSetter(normalizedMtx)
+    const normalizedMTX = normalizeMtx(criteriaMTXModel, sum)
+    criteriaNormMTXSetter(normalizedMTX)
 
     if (phasesDone <= 1) {
       phaseDone()
