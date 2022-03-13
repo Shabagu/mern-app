@@ -12,6 +12,7 @@ export const AhpQPhaseN1CriteriaRating = ({
   criteriaSum,
   criteriaSumSetter,
   criteriaNormMTXSetter,
+  criteriaWeightsSetter,
 
   previousPhase,
   nextPhase,
@@ -86,6 +87,7 @@ export const AhpQPhaseN1CriteriaRating = ({
           </tr>
         </tfoot>
       </table>
+
       <Menu
         localMTX={localMTX}
         localMTXSetter={localMTXSetter}
@@ -94,6 +96,7 @@ export const AhpQPhaseN1CriteriaRating = ({
         criteriaMTXSetter={criteriaMTXSetter}
         criteriaSumSetter={criteriaSumSetter}
         criteriaNormMTXSetter={criteriaNormMTXSetter}
+        criteriaWeightsSetter={criteriaWeightsSetter}
         nextPhase={nextPhaseHandler}
         previousPhase={previousPhaseHandler}
         phaseDone={phaseDone}
@@ -288,7 +291,7 @@ const SumCell = ({
   return(
     <td>
       <span>
-        {sumAdduction(localSum[col])}
+        {valAdduction(localSum[col])}
       </span>
     </td>
   )
@@ -299,11 +302,10 @@ const Menu = ({
   localMTXSetter,
   localSum,
   localSumSetter,
-
   criteriaMTXSetter,
   criteriaSumSetter,
-
   criteriaNormMTXSetter,
+  criteriaWeightsSetter,
   nextPhase,
   previousPhase,
   phaseDone,
@@ -326,10 +328,12 @@ const Menu = ({
 
   const continueHandler = () => {
     const normalizedMTX = normalizeMtx(localMTX, localSum)
+    const weights = calculateWeights(normalizedMTX)
     
     criteriaMTXSetter(localMTX)
     criteriaSumSetter(localSum)
     criteriaNormMTXSetter(normalizedMTX)
+    criteriaWeightsSetter(weights)
     
     if (phasesDone <= 1) {
       phaseDone()
@@ -382,7 +386,7 @@ for (let i = 0; i < 9; i++) {
 const MARK_MODEL = markModel
 
 // Приведение оценок 
-const sumAdduction = (value) => {
+const valAdduction = (value) => {
   value = value.toFixed(3)
   value = value * 1
   return(value)
@@ -504,8 +508,21 @@ const normalizeMtx = (mtx, sum) => {
   for (let i = 0; i < mtx.length; i++) {
     normMtx[i] = []
     for (let j = 0; j < mtx.length; j++) {
-      normMtx[i][j] = MARK_MODEL[mtx[i][j]].number / sum[i]
+      normMtx[i][j] = MARK_MODEL[mtx[i][j]].number / sum[j]
     }
   }
   return normMtx
+}
+
+// Расчёт весов
+const calculateWeights = (mtx) => {
+  let weights = []
+  for (let i = 0; i < mtx.length; i++) {
+    weights[i] = 0
+    for (let j = 0; j < mtx.length; j++) {
+      weights[i] += mtx[i][j]
+    }
+    weights[i] = weights[i] / mtx.length
+  }
+  return weights
 }

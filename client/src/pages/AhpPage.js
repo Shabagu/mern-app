@@ -54,21 +54,16 @@ export const AhpPage = () => {
   const [phasesDone, setPhasesDone] = useState(0)
 
   const [criteria, setCriteria] = useState([])
-  const [alternatives, setAlternatives] = useState([])
-
   const [criteriaMTX, setCriteriaMTX] = useState([])
   const [criteriaSum, setCriteriaSum] = useState([])
   const [criteriaNormMTX, setCriteriaNormMtx] = useState([])
-  
-  
   const [criteriaWeights, setCriteriaWeights] = useState([])
-
-
+  
+  const [alternatives, setAlternatives] = useState([])
   // const [alternativesMTX, setAlternativesMTX] = useState([])
   // const [alternativesSum, setAlternativesSum] = useState([])
   // const [alternativesNormMTX, setAlternativesNormMTX] = useState([])
   // const [alternativesWeights, setAlternativesWeights] = useState([])
-  
   // const [globalWeights, setGlobalWeights] = useState([])
 
 
@@ -91,13 +86,10 @@ export const AhpPage = () => {
     setPhasesDone(phasesDone + 1)
   }
 
+
   const setCriteriaHandler = (array) => {
     setCriteria(array)
   }
-  const setAlternativesHandler = (array) => {
-    setAlternatives(array)
-  }
-
   const setCriteriaMTXHandler = (array) => {
     setCriteriaMTX(array)
   }
@@ -109,6 +101,11 @@ export const AhpPage = () => {
   }
   const setCriteriaWeightsHandler = (array) => {
     setCriteriaWeights(array)
+  }
+
+
+  const setAlternativesHandler = (array) => {
+    setAlternatives(array)
   }
 
 
@@ -138,7 +135,6 @@ export const AhpPage = () => {
           alternatives={alternatives}
           alternativesSetter={setAlternativesHandler}
 
-
           nextPhase={nextPhaseHandler}
           phaseDone={phasesDoneFirst}
           phasesDone={phasesDone}
@@ -148,14 +144,14 @@ export const AhpPage = () => {
       {phase === 1 &&
         <AhpQPhaseN1CriteriaRating
           criteria={criteria}
-
           criteriaMTX={criteriaMTX}
           criteriaMTXSetter={setCriteriaMTXHandler}
           criteriaSum={criteriaSum}
           criteriaSumSetter={setCriteriaSumHandler}
           criteriaNormMTXSetter={setcriteriaNormMTXHandler}
+          criteriaWeightsSetter={setCriteriaWeightsHandler}
+          
           previousPhase={previousPhaseHandler}
-
           nextPhase={nextPhaseHandler}
           phaseDone={phasesDoneHandler}
           phasesDone={phasesDone}
@@ -167,7 +163,6 @@ export const AhpPage = () => {
           criteria={criteria}
           criteriaNormMTX={criteriaNormMTX}
           criteriaWeights={criteriaWeights}
-          criteriaWeightsSetter={setCriteriaWeightsHandler}
 
           nextPhase={nextPhaseHandler}
           phaseDone={phasesDoneHandler}
@@ -177,6 +172,8 @@ export const AhpPage = () => {
 
       {phase === 3 && 
         <AhpQPhaseN3CriteriaWeight
+          criteria={criteria}
+          
 
           nextPhase={nextPhaseHandler}
           phaseDone={phasesDoneHandler}
@@ -236,6 +233,12 @@ export const AhpPage = () => {
         criteriaMTX={criteriaMTX}
         criteriaSum={criteriaSum}
         criteriaNormMTX={criteriaNormMTX}
+        criteriaWeights={criteriaWeights}
+        // alternativesMTX={alternativesMTX}
+        // alternativesSum={alternativesSum}
+        // alternativesNormMTX={alternativesNormMTX}
+        // alternativesWeights={alternativesWeights}
+        // globalWeights={globalWeights}
       />
 
     </div>

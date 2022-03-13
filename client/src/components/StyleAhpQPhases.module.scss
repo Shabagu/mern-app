@@ -51,7 +51,9 @@ $tableBorderBold: 3px solid #aaa;
 }
 
 
-
+// ################################################################################################
+// ################################################################################################
+// ################################################################################################
 
 
 
@@ -65,7 +67,6 @@ $tableBorderBold: 3px solid #aaa;
     overflow: hidden;
     padding: 0.8rem 0 0.8rem 0.5rem;
     background: #00000030;
-
   }
   
   td {
@@ -77,28 +78,11 @@ $tableBorderBold: 3px solid #aaa;
     user-select: none;
   }
 
-  // span {
-  //   // text-align: center;
-  //   // font-size: 1.5rem;
-  //   // font-weight: 400;
-  //   // width: 40px;
-  //   // margin-left: auto;
-  // }
-
   .value_box {
     display: flex;
     margin: auto;
   }
 
-
-  .initial {
-    background: repeating-linear-gradient(
-      -45deg,
-      #00000030 0,
-      #00000030 4px,
-      transparent 30px,
-      transparent 2px);
-  }
   .diagonal {
     background: #00000020;
   }
@@ -207,17 +191,33 @@ $tableBorderBold: 3px solid #aaa;
 
 
 
+// ################################################################################################
+// ################################################################################################
+// ################################################################################################
+
+.tables_container {
+  display: flex;
+}
+
+
 .criteria_normalization_table {
   border: $tableBorderBold;
-  width: 100%;
+  width: 60%;
   table-layout: fixed;
+
+  .heading {
+    text-align: center;
+    background-color: #00000020;
+    font-weight: 400;
+    font-size: 1.2rem;
+    letter-spacing: 0.4px;
+  }
 
   th {
     border: $tableBorderThin;
     overflow: hidden;
     padding: 0.8rem 0 0.8rem 0.5rem;
     background: #00000030;
-
   }
   
   td {
@@ -230,22 +230,10 @@ $tableBorderBold: 3px solid #aaa;
   }
 
   span {
-    text-align: center;
     font-size: 1.5rem;
     font-weight: 400;
-    width: 40px;
-    margin-left: auto;
   }
 
-
-  .initial {
-    background: repeating-linear-gradient(
-      -45deg,
-      #00000030 0,
-      #00000030 4px,
-      transparent 20px,
-      transparent 2px);
-  }
   .diagonal {
     background: #00000020;
   }
@@ -268,4 +256,69 @@ $tableBorderBold: 3px solid #aaa;
     outline-offset: -3.5px;
   }
 
+  .stretcher {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    height: 38px;
+    
+    span {
+      margin: 0;
+    }
+  }
 }
+
+
+// ################################################################################################
+// ################################################################################################
+// ################################################################################################
+
+
+.criteria_weights_table {
+  border: $tableBorderBold;
+  border-left: none;
+  width: 30%;
+  table-layout: fixed;
+
+  .heading {
+    text-align: center;
+    background-color: #00000020;
+    font-weight: 400;
+    font-size: 1.2rem;
+    letter-spacing: 0.4px;
+    padding: 12px 0 12px;
+
+    th {
+      overflow: hidden;
+      padding: 0.8rem 0 0.8rem 0.5rem;
+    }
+  }
+
+  .subheading {
+    background-color: #00000020;
+    font-weight: 400;
+    text-align: center;
+    letter-spacing: 0.4px;
+  }
+
+  th {
+    border: $tableBorderThin;
+    border-left: none;
+    overflow: hidden;
+    padding: 0.8rem 0 0.8rem 0.5rem;
+    background: #00000030;
+  }
+}
+
+
+
+// .initial {
+//   background: repeating-linear-gradient(
+//     -45deg,
+//     #00000030 0,
+//     #00000030 4px,
+//     transparent 30px,
+//     transparent 2px)
+//     !important;
+// }

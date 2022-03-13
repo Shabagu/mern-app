@@ -1,5 +1,3 @@
-import { useEffect } from "react"
-import { DEFAULT_BUTTON_COLOR, HOT_CHANGES_BUTTON_COLOR, HOT_CHANGES_HANDLER } from "../pages/AhpPage"
 
 
 import style from "./StyleAhpQPhases.module.scss"
@@ -8,17 +6,11 @@ export const AhpQPhaseN2CriteriaNormalization = ({
     criteria,
     criteriaNormMTX,
     criteriaWeights,
-    criteriaWeightsSetter,
 
     nextPhase,
     phaseDone,
     phasesDone,
   }) => {
-
-  useEffect(() => {
-    const NEXT_PHASE_TITLE_BUTTON = document.querySelector('.NEXT_PHASE_TITLE_BUTTON')
-    NEXT_PHASE_TITLE_BUTTON.style.backgroundColor = DEFAULT_BUTTON_COLOR
-  }, [DEFAULT_BUTTON_COLOR])
 
   const nextPhaseHandler = () => {
     nextPhase()
@@ -26,28 +18,61 @@ export const AhpQPhaseN2CriteriaNormalization = ({
 
   return(
     <div className={style.phase_container}>
-      <table className={style.criteria_normalization_table}>
-        <thead>
-          <tr>
-            <th className={style.initial}></th>
-            {[...Array(criteria.length)].map((x, i) =>
-              <th key={i} title={criteria[i]}>
-                {criteria[i]}
+      <div className={style.tables_container}>
+        <table className={style.criteria_normalization_table}>
+          <thead>
+            <tr>
+              <th className={style.heading} colSpan={criteria.length + 1}>
+                Нормированная матрица
               </th>
+            </tr>
+            <tr>
+              <th className={style.initial}></th>
+              {[...Array(criteria.length)].map((x, i) =>
+                <th key={i} title={criteria[i]}>
+                  {criteria[i]}
+                </th>
+              )}
+            </tr>
+          </thead>
+          <tbody>
+            {[...Array(criteria.length)].map((x, i) =>
+              <CellRow
+                key={i}
+                i={i}
+                criteria={criteria}
+                criteriaNormMTX={criteriaNormMTX}
+              />
             )}
-          </tr>
-        </thead>
-        <tbody>
-          {[...Array(criteria.length)].map((x, i) =>
-            <CellRow
-              key={i}
-              i={i}
-              criteria={criteria}
-              criteriaNormMTX={criteriaNormMTX}
-            />
-          )}
-        </tbody>
-      </table>
+          </tbody>
+        </table>
+        <table className={style.criteria_weights_table}>
+          <thead>
+            <tr>
+              <th className={style.heading} colSpan="2">
+                Весовой столбец критериев
+              </th>
+            </tr>
+            <tr>
+              <th className={style.subheading}>
+                Вес (в долях)
+              </th>
+              <th className={style.subheading}>
+                Вес (в %)
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {[...Array(criteria.length)].map((x, i) =>
+              <tr>
+                <td>{criteriaWeights[i].toFixed(3)}</td>
+                <td>{i+1}</td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
+      
       <Menu
         nextPhase={nextPhaseHandler}
         phaseDone={phaseDone}
@@ -64,17 +89,16 @@ const CellRow = ({ criteria, i, criteriaNormMTX }) => {
         {criteria[i]}
       </th>
       {[...Array(criteria.length)].map((x, j) => {
-          if (i < criteria.length) return (
-            <Cell
-              key={j}
-              row={i}
-              col={j}
-              criteriaNormMTX={criteriaNormMTX}
-            />
-          )
-          else return(null)
-        }
-      )}
+        if (i < criteria.length) return (
+          <Cell
+            key={j}
+            row={i}
+            col={j}
+            criteriaNormMTX={criteriaNormMTX}
+          />
+        )
+        else return(null)
+      })}
     </tr>
   )
 }
@@ -82,34 +106,26 @@ const CellRow = ({ criteria, i, criteriaNormMTX }) => {
 const Cell = ({ row, col, criteriaNormMTX }) => {
   return(
     <td>
-      <span className={`cell${row}${col}`}>
-        {criteriaNormMTX[row][col].toFixed(4)}
-      </span>
+      <div className={style.stretcher}>
+        <span>
+          {valAdduction(criteriaNormMTX[row][col])}
+        </span>
+      </div>
     </td>
   )
 }
 
 const Menu = ({
-    criteriaMTX,
-    criteriaNormMTXSetter,
-    criteriaWeights,
-    criteriaWeightsSetter,
     nextPhase,
     phasesDone,
     phaseDone,
   }) => {
 
   const continueHandler = () => {
-    // let criteriaMTXModel = criteriaMTX
-    // const n = criteriaMTX.length
-    // const sum = sumCalculate(criteriaMTXModel, n)
-    // const normalizedMtx = normalizeMtx(criteriaMTXModel, sum)
-    // criteriaNormMTXSetter(normalizedMtx)
 
     if (phasesDone <= 2) {
       phaseDone()
     }
-
     nextPhase()
   }
 
@@ -118,12 +134,17 @@ const Menu = ({
       <div className={style.top}>
       </div>
       <div className={style.bottom}>
-        <button className="btn"
-          onClick={continueHandler}
-        >
+        <button className="btn" onClick={continueHandler}>
           Продолжить&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;
         </button>
       </div>
     </div>
   )
+}
+
+// Приведение значений 
+const valAdduction = (value) => {
+  value = value.toFixed(3)
+  value = value * 1
+  return(value)
 }

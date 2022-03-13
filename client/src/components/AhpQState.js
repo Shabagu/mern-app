@@ -9,6 +9,12 @@ export const AhpQState = ({
     criteriaMTX,
     criteriaSum,
     criteriaNormMTX,
+    criteriaWeights,
+    alternativesMTX,
+    alternativesSum,
+    alternativesNormMTX,
+    alternativesWeights,
+    globalWeights,
   }) => {
 
   return(
@@ -23,6 +29,7 @@ export const AhpQState = ({
         </>
 
       }
+
       {phase >= 1 &&
         <>
           <div className={style.state}>Критерии: {criteria.join(', ')}</div>
@@ -63,6 +70,7 @@ export const AhpQState = ({
           </div>
         </>
       }
+
       {phase >= 2 &&
         <>
           <div className={style.state}> {/* Нормализация критериев */}
@@ -82,6 +90,23 @@ export const AhpQState = ({
                 </tbody>
               </table>
             </details>
+          </div>
+          <div className={style.state}> {/* Весовой столбец критериев */}
+          <details open>
+            <summary>Весовой столбец критериев</summary>
+            <table>
+              <tbody>
+                <tr>
+                  {/* {[...Array(criteria.length)].map((x, i) =>
+                    <td key={i}>
+                      {criteriaSum[i]}
+                    </td>
+                  )} */}
+                  <td>{criteriaWeights}</td>
+                </tr>
+              </tbody>
+            </table>
+          </details>
           </div>
         </>
       }
