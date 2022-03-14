@@ -1,20 +1,23 @@
 
 
-import style from "./StyleAhpQPhases.module.scss"
+import style from "./PhaseTitle.module.scss"
 
 
-export const AhpQPhaseTitle = ({ phase, phasesDone, nextPhase, previousPhase}) => {
+export const PhaseTitle = ({
+  phase,
+  phasesDone,
+  nextPhase,
+  previousPhase
+}) => {
 
   const PHASE_TITLES = [
     'Выбор критериев и альтернатив',
     'Попарное сравнение критериев',
     'Расчёт весового столбца критериев по цели',
-    'Весовой столбец критериев',
     'Попарное сравнение альтернатив по критериям',
-    'Нормировка матриц сравнения альтернатив',
-    'Весовые столбцы альтернатив по критериям',
-    'Определение глобальных весов альтернатив',
-    'Глобальные веса альтернатив'
+    'Расчёт весовых столбцов альтернатив по критериям',
+    'Расчитанные веса',
+    'Глобальные веса альтернатив',
   ]
 
   const nextPhaseHandler = () => {

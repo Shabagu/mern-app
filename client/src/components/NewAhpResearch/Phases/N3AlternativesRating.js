@@ -1,21 +1,20 @@
 import { useEffect } from "react"
-import { DEFAULT_BUTTON_COLOR, HOT_CHANGES_BUTTON_COLOR, HOT_CHANGES_HANDLER } from "../pages/AhpPage"
+import { DEFAULT_BUTTON_COLOR, HOT_CHANGES_BUTTON_COLOR, HOT_CHANGES_HANDLER } from "../../../pages/ahp/NewResearchPage"
+
+import style from "./Phases.module.scss"
 
 
-import style from "./StyleAhpQPhases.module.scss"
+export const N3AlternativesRating = ({
 
-
-export const AhpQPhaseN4AlternativesRating = ({
-
-    nextPhase,
-    phaseDone,
-    phasesDone,
-  }) => {
+  nextPhase,
+  phaseDone,
+  phasesDone,
+}) => {
 
   useEffect(() => {
     const NEXT_PHASE_TITLE_BUTTON = document.querySelector('.NEXT_PHASE_TITLE_BUTTON')
     NEXT_PHASE_TITLE_BUTTON.style.backgroundColor = DEFAULT_BUTTON_COLOR
-  }, [DEFAULT_BUTTON_COLOR])
+  }, [])
 
   const nextPhaseHandler = () => {
     nextPhase()
@@ -34,18 +33,16 @@ export const AhpQPhaseN4AlternativesRating = ({
 }
 
 const Menu = ({
-
-    nextPhase,
-    phasesDone,
-    phaseDone,
-  }) => {
+  nextPhase,
+  phasesDone,
+  phaseDone,
+}) => {
 
   const continueHandler = () => {
 
-    if (phasesDone <= 4) {
+    if (phasesDone <= 3) {
       phaseDone()
     }
-
     nextPhase()
   }
 

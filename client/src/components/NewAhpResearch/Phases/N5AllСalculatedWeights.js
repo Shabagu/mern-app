@@ -1,21 +1,14 @@
-import { useEffect } from "react"
-import { DEFAULT_BUTTON_COLOR, HOT_CHANGES_BUTTON_COLOR, HOT_CHANGES_HANDLER } from "../pages/AhpPage"
 
 
-import style from "./StyleAhpQPhases.module.scss"
+import style from "./Phases.module.scss"
 
 
-export const AhpQPhaseN7AllСalculatedWeights = ({
+export const N5AllСalculatedWeights = ({
 
-    nextPhase,
-    phaseDone,
-    phasesDone,
-  }) => {
-
-  useEffect(() => {
-    const NEXT_PHASE_TITLE_BUTTON = document.querySelector('.NEXT_PHASE_TITLE_BUTTON')
-    NEXT_PHASE_TITLE_BUTTON.style.backgroundColor = DEFAULT_BUTTON_COLOR
-  }, [DEFAULT_BUTTON_COLOR])
+  nextPhase,
+  phaseDone,
+  phasesDone,
+}) => {
 
   const nextPhaseHandler = () => {
     nextPhase()
@@ -34,18 +27,16 @@ export const AhpQPhaseN7AllСalculatedWeights = ({
 }
 
 const Menu = ({
-
-    nextPhase,
-    phasesDone,
-    phaseDone,
-  }) => {
+  nextPhase,
+  phasesDone,
+  phaseDone,
+}) => {
 
   const continueHandler = () => {
 
-    if (phasesDone <= 7) {
+    if (phasesDone <= 5) {
       phaseDone()
     }
-
     nextPhase()
   }
 

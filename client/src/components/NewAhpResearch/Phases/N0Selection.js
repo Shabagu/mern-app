@@ -1,26 +1,22 @@
 import { useEffect } from "react"
-import { DEFAULT_BUTTON_COLOR, HOT_CHANGES_BUTTON_COLOR, HOT_CHANGES_HANDLER } from "../pages/AhpPage"
-import { ALL_CRITERIA, ALL_ALTERNATIVES } from "../pages/AhpPage"
+import { DEFAULT_BUTTON_COLOR, HOT_CHANGES_BUTTON_COLOR, HOT_CHANGES_HANDLER } from "../../../pages/ahp/NewResearchPage"
+import { ALL_CRITERIA, ALL_ALTERNATIVES } from "../../../pages/ahp/NewResearchPage"
+
+import style from "./Phases.module.scss"
 
 
-import style from "./StyleAhpQPhases.module.scss"
-
-
-
-export const AhpQPhaseN0Selection = ({
-    criteria,
-    criteriaSetter,
-    criteriaMTXSetter,
-    criteriaSumSetter,
-
-    alternatives,
-    alternativesSetter,
-    
-    nextPhase,
-    phaseDone,
-  }) => {
-    
-
+export const N0Selection = ({
+  criteria,
+  criteriaSetter,
+  criteriaMTXSetter,
+  criteriaSumSetter,
+  
+  alternatives,
+  alternativesSetter,
+  
+  nextPhase,
+  phaseDone,
+}) => {
 
   useEffect(() => {
     const checkAllCriteriaCheckbox = document.querySelector('.criteria_checkAll')

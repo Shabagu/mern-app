@@ -4,11 +4,10 @@ import { CreatePage } from './pages/CreatePage'
 import { DetailPage } from './pages/DetailPage'
 import { AuthPage } from './pages/AuthPage'
 
-import { AhpInfoPage } from './pages/AhpInfoPage'
-import { AhpPage } from './pages/AhpPage'
-import { MyQueriesPage } from './pages/MyQueriesPage'
+import { InfoPage } from './pages/ahp/InfoPage'
+import { NewResearchPage } from './pages/ahp/NewResearchPage'
+import { ResearchesPage } from './pages/ahp/ResearchesPage'
 
-import { TestPage } from './pages/TestPage'
 
 export const useRoutes = isAuthenticated => {
   if (isAuthenticated) {
@@ -23,37 +22,18 @@ export const useRoutes = isAuthenticated => {
         <Route path="/detail/:id">
           <DetailPage />
         </Route>
-        <Route path="/ahpinfo">
-          <AhpInfoPage />
+
+        <Route path="/info">
+          <InfoPage />
         </Route>
-        <Route path="/newquery">
-          <AhpPage />
+        <Route path="/research">
+          <NewResearchPage />
         </Route>
-        <Route path="/myqueries">
-          <MyQueriesPage />
-        </Route>
-
-
-
-        {/* <Route path="/ahp/query/selection">
-          <AhpQSelectionPage />
-        </Route>
-        <Route path="/ahp/query/criteriacomparison">
-          <AhpQCriteriaComparisonPage />
-        </Route>
-        <Route path="/ahp/query/criterianormalization">
-          <AhpQCriteriaNormalizationPage />
-        </Route> */}
-
-
-
-        <Route path="/test">
-          <TestPage />
+        <Route path="/researches">
+          <ResearchesPage />
         </Route>
 
-
-
-        <Redirect to="/ahpinfo" />
+        <Redirect to="/info" />
       </Switch>
     )
   }

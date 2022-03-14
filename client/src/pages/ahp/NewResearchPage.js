@@ -1,18 +1,15 @@
 import { useState } from "react"
-import { AhpQPhaseN0Selection } from "../components/AhpQPhaseN0Selection"
-import { AhpQPhaseN1CriteriaRating } from "../components/AhpQPhaseN1CriteriaRating"
-import { AhpQPhaseN2CriteriaNormalization } from "../components/AhpQPhaseN2CriteriaNormalization"
-import { AhpQPhaseN3CriteriaWeight } from "../components/AhpQPhaseN3CriteriaWeights"
-import { AhpQPhaseN4AlternativesRating } from "../components/AhpQPhaseN4AlternativesRating"
-import { AhpQPhaseN5AlternativesNormalization } from "../components/AhpQPhaseN5AlternativesNormalization"
-import { AhpQPhaseN6AlternativesWeight } from "../components/AhpQPhaseN6AlternativesWeights"
-import { AhpQPhaseN7AllСalculatedWeights } from "../components/AhpQPhaseN7AllСalculatedWeights"
-import { AhpQPhaseN8GlobalWeightsCalculation } from "../components/AhpQPhaseN8GlobalWeightsCalculation"
-import { AhpQPhaseTitle } from "../components/AhpQPhaseTitle"
-import { AhpQState } from "../components/AhpQState"
+import { N0Selection } from "../../components/NewAhpResearch/Phases/N0Selection"
+import { N1CriteriaRating } from "../../components/NewAhpResearch/Phases/N1CriteriaRating"
+import { N2CriteriaWeights } from "../../components/NewAhpResearch/Phases/N2CriteriaWeights"
+import { N3AlternativesRating } from "../../components/NewAhpResearch/Phases/N3AlternativesRating"
+import { N4AlternativesWeights } from "../../components/NewAhpResearch/Phases/N4AlternativesWeights"
+import { N5AllСalculatedWeights } from "../../components/NewAhpResearch/Phases/N5AllСalculatedWeights"
+import { N6GlobalWeights } from "../../components/NewAhpResearch/Phases/N6GlobalWeights"
+import { PhaseTitle } from "../../components/NewAhpResearch/PhaseTitle"
+import { StateDisplay } from "../../components/NewAhpResearch/StateDisplay"
 
-
-import style from "./StyleAhpPage.module.scss"
+import style from "./NewResearchPage.module.scss"
 
 
 
@@ -48,7 +45,7 @@ export const HOT_CHANGES_HANDLER = (HOT_CHANGES_BUTTON_COLOR) => {
 
 
 
-export const AhpPage = () => {
+export const NewResearchPage = () => {
 
   const [phase, setPhase] = useState(0)
   const [phasesDone, setPhasesDone] = useState(0)
@@ -116,7 +113,7 @@ export const AhpPage = () => {
     <div className={style.query_box}>
       <h3 className={style.page_title}>Новый запрос</h3>
 
-      <AhpQPhaseTitle
+      <PhaseTitle
         phase={phase}
         phasesDone={phasesDone}
         nextPhase={nextPhaseHandler}
@@ -126,7 +123,7 @@ export const AhpPage = () => {
 
 
       {phase === 0 &&
-        <AhpQPhaseN0Selection
+        <N0Selection
           criteria={criteria}
           criteriaSetter={setCriteriaHandler}
           criteriaMTXSetter={setCriteriaMTXHandler}
@@ -142,7 +139,7 @@ export const AhpPage = () => {
       }
 
       {phase === 1 &&
-        <AhpQPhaseN1CriteriaRating
+        <N1CriteriaRating
           criteria={criteria}
           criteriaMTX={criteriaMTX}
           criteriaMTXSetter={setCriteriaMTXHandler}
@@ -159,7 +156,7 @@ export const AhpPage = () => {
       }
 
       {phase === 2 &&
-        <AhpQPhaseN2CriteriaNormalization
+        <N2CriteriaWeights
           criteria={criteria}
           criteriaNormMTX={criteriaNormMTX}
           criteriaWeights={criteriaWeights}
@@ -171,7 +168,7 @@ export const AhpPage = () => {
       }
 
       {phase === 3 && 
-        <AhpQPhaseN3CriteriaWeight
+        <N3AlternativesRating
           criteria={criteria}
           
 
@@ -182,7 +179,7 @@ export const AhpPage = () => {
       }
 
       {phase === 4 &&
-        <AhpQPhaseN4AlternativesRating
+        <N4AlternativesWeights
         
           nextPhase={nextPhaseHandler}
           phaseDone={phasesDoneHandler}
@@ -191,7 +188,7 @@ export const AhpPage = () => {
       }
 
       {phase === 5 &&
-        <AhpQPhaseN5AlternativesNormalization
+        <N5AllСalculatedWeights
         
           nextPhase={nextPhaseHandler}
           phaseDone={phasesDoneHandler}
@@ -200,7 +197,7 @@ export const AhpPage = () => {
       }
 
       {phase === 6 &&
-        <AhpQPhaseN6AlternativesWeight
+        <N6GlobalWeights
         
           nextPhase={nextPhaseHandler}
           phaseDone={phasesDoneHandler}
@@ -208,24 +205,9 @@ export const AhpPage = () => {
         />
       }
 
-      {phase === 7 &&
-        <AhpQPhaseN7AllСalculatedWeights
-        
-          nextPhase={nextPhaseHandler}
-          phaseDone={phasesDoneHandler}
-          phasesDone={phasesDone}
-        />
-      }
-
-      {phase === 8 &&
-        <AhpQPhaseN8GlobalWeightsCalculation
-        
-        />
-      }
 
 
-
-      <AhpQState
+      <StateDisplay
         phase={phase}
         phasesDone={phasesDone}
         criteria={criteria}
@@ -240,7 +222,6 @@ export const AhpPage = () => {
         // alternativesWeights={alternativesWeights}
         // globalWeights={globalWeights}
       />
-
     </div>
   )
 }

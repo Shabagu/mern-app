@@ -1,19 +1,11 @@
-import { useEffect } from "react"
 import { useHistory } from "react-router-dom"
-import { DEFAULT_BUTTON_COLOR, HOT_CHANGES_BUTTON_COLOR, HOT_CHANGES_HANDLER } from "../pages/AhpPage"
+
+import style from "./Phases.module.scss"
 
 
-import style from "./StyleAhpQPhases.module.scss"
+export const N6GlobalWeights = ({
 
-
-export const AhpQPhaseN8GlobalWeightsCalculation = ({
-
-  }) => {
-
-  useEffect(() => {
-    const NEXT_PHASE_TITLE_BUTTON = document.querySelector('.NEXT_PHASE_TITLE_BUTTON')
-    NEXT_PHASE_TITLE_BUTTON.style.backgroundColor = DEFAULT_BUTTON_COLOR
-  }, [DEFAULT_BUTTON_COLOR])
+}) => {
 
   return(
     <div className={style.phase_container}>
@@ -26,9 +18,8 @@ export const AhpQPhaseN8GlobalWeightsCalculation = ({
 }
 
 const Menu = ({
-
-
-  }) => {
+  
+}) => {
 
   const history = useHistory()
 

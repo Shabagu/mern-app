@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react"
-import { DEFAULT_BUTTON_COLOR, HOT_CHANGES_BUTTON_COLOR, HOT_CHANGES_HANDLER } from "../pages/AhpPage"
+import { DEFAULT_BUTTON_COLOR, HOT_CHANGES_BUTTON_COLOR, HOT_CHANGES_HANDLER } from "../../../pages/ahp/NewResearchPage"
+
+import style from "./Phases.module.scss"
 
 
-import style from "./StyleAhpQPhases.module.scss"
-
-
-export const AhpQPhaseN1CriteriaRating = ({
+export const N1CriteriaRating = ({
   criteria,
   criteriaMTX,
   criteriaMTXSetter,
@@ -31,10 +30,8 @@ export const AhpQPhaseN1CriteriaRating = ({
   }
 
   useEffect(() => {
-
     const NEXT_PHASE_TITLE_BUTTON = document.querySelector('.NEXT_PHASE_TITLE_BUTTON')
     NEXT_PHASE_TITLE_BUTTON.style.backgroundColor = DEFAULT_BUTTON_COLOR
-
   }, [])
 
   useEffect(() => {

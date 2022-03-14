@@ -1,16 +1,17 @@
 
 
-import style from "./StyleAhpQPhases.module.scss"
+import style from "./Phases.module.scss"
 
-export const AhpQPhaseN2CriteriaNormalization = ({
-    criteria,
-    criteriaNormMTX,
-    criteriaWeights,
 
-    nextPhase,
-    phaseDone,
-    phasesDone,
-  }) => {
+export const N2CriteriaWeights = ({
+  criteria,
+  criteriaNormMTX,
+  criteriaWeights,
+
+  nextPhase,
+  phaseDone,
+  phasesDone,
+}) => {
 
   const nextPhaseHandler = () => {
     nextPhase()
@@ -116,10 +117,10 @@ const Cell = ({ row, col, criteriaNormMTX }) => {
 }
 
 const Menu = ({
-    nextPhase,
-    phasesDone,
-    phaseDone,
-  }) => {
+  nextPhase,
+  phasesDone,
+  phaseDone,
+}) => {
 
   const continueHandler = () => {
 

@@ -1,7 +1,9 @@
-import style from "./StyleAhpQState.module.scss"
 
 
-export const AhpQState = ({
+import style from "./StateDisplay.module.scss"
+
+
+export const StateDisplay = ({
     phase,
     phasesDone,
     criteria,
@@ -97,12 +99,11 @@ export const AhpQState = ({
             <table>
               <tbody>
                 <tr>
-                  {/* {[...Array(criteria.length)].map((x, i) =>
+                  {[...Array(criteria.length)].map((x, i) =>
                     <td key={i}>
-                      {criteriaSum[i]}
+                      {criteriaWeights[i]}
                     </td>
-                  )} */}
-                  <td>{criteriaWeights}</td>
+                  )}
                 </tr>
               </tbody>
             </table>

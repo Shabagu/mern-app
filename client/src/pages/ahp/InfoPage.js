@@ -1,13 +1,14 @@
 import { useHistory } from "react-router-dom"
-// import './../style/styleFix.css';
-import style from "./StyleAhpInfoPage.module.scss"
 
-export const AhpInfoPage = () => {
+
+import style from "./InfoPage.module.scss"
+
+export const InfoPage = () => {
 
   const history = useHistory()
 
   const pressHandler = async () => {
-    history.push('/newquery')
+    history.push('/research')
   }
 
   return (
@@ -24,7 +25,9 @@ export const AhpInfoPage = () => {
       </p>
       <div className={style.button_container}>
         <div>
-          <button onClick={pressHandler} className={`${style.button} btn`}>Найти лучший вариант для отдыха!</button>
+          <button onClick={pressHandler} className={`${style.button} btn`}>
+            Найти лучший вариант для отдыха!
+          </button>
         </div>
       </div>
     </div>
