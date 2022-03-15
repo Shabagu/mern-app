@@ -4,7 +4,7 @@ export const ResearchesPage = () => {
 
   return(
     <>
-      <center><h3 className={style.demo}>Мои запросы</h3></center>
+      <center><h3 className={style.demo}>Мои исследования</h3></center>
     </>
   )
 }

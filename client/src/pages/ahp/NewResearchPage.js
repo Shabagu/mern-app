@@ -111,7 +111,7 @@ export const NewResearchPage = () => {
 
   return(
     <div className={style.query_box}>
-      <h3 className={style.page_title}>Новый запрос</h3>
+      <h3 className={style.page_title}>Новое исследование</h3>
 
       <PhaseTitle
         phase={phase}

@@ -62,7 +62,7 @@ export const StateDisplay = ({
                 <tr>
                   {[...Array(criteria.length)].map((x, i) =>
                     <td key={i}>
-                      {criteriaSum[i]}
+                      {criteriaSum[i].toFixed(3) + ','}
                     </td>
                   )}
                 </tr>
@@ -84,7 +84,7 @@ export const StateDisplay = ({
                     <tr key={i}>
                       {[...Array(criteria.length)].map((x, j) =>
                         <td key={j}>
-                          {criteriaNormMTX[i][j]}
+                          {criteriaNormMTX[i][j].toFixed(3) + ','}
                         </td>
                       )}
                     </tr>
@@ -101,7 +101,7 @@ export const StateDisplay = ({
                 <tr>
                   {[...Array(criteria.length)].map((x, i) =>
                     <td key={i}>
-                      {criteriaWeights[i]}
+                      {criteriaWeights[i].toFixed(3) + ','}
                     </td>
                   )}
                 </tr>

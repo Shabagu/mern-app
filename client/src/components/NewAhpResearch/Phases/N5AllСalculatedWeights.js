@@ -1,6 +1,6 @@
 
 
-import style from "./Phases.module.scss"
+import style from "./N5AllСalculatedWeights.module.scss"
 
 
 export const N5AllСalculatedWeights = ({

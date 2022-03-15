@@ -1,8 +1,9 @@
 import { useEffect } from "react"
+import { useMessage } from '../../../hooks/message.hook'
 import { DEFAULT_BUTTON_COLOR, HOT_CHANGES_BUTTON_COLOR, HOT_CHANGES_HANDLER } from "../../../pages/ahp/NewResearchPage"
 import { ALL_CRITERIA, ALL_ALTERNATIVES } from "../../../pages/ahp/NewResearchPage"
 
-import style from "./Phases.module.scss"
+import style from "./N0Selection.module.scss"
 
 
 export const N0Selection = ({
@@ -33,7 +34,7 @@ export const N0Selection = ({
     
   }, [criteria, alternatives])
 
-
+  const message = useMessage()
   
 
 
@@ -69,8 +70,6 @@ export const N0Selection = ({
         j++
       }
     }
-    criteriaSetter(selectedCriteria)
-
     let k = 0
     for (let i = 0; i < alternativesCheckboxes.length; i++) {
       if (alternativesCheckboxes[i].checked) {
@@ -78,23 +77,36 @@ export const N0Selection = ({
         k++
       }
     }
-    alternativesSetter(selectedAlternatives)
 
-    for (let i = 0; i < selectedCriteria.length; i++) {
-      defaultCriteriaMTX[i] = []
-      for (let j = 0; j < selectedCriteria.length; j++) {
-        defaultCriteriaMTX[i][j] = 8
+    if (selectedCriteria.length < 2 && selectedAlternatives.length < 2) {
+      message('Выберите хотя бы два критерия и две альтернативы!')
+    }
+    else if (selectedCriteria.length < 2) {
+      message('Выберите хотя бы два критерия!')
+    }
+    else if (selectedAlternatives.length < 2) {
+      message('Выберите хотя бы две альтернативы!')
+    }
+    else {
+      criteriaSetter(selectedCriteria)
+      alternativesSetter(selectedAlternatives)
+  
+      for (let i = 0; i < selectedCriteria.length; i++) {
+        defaultCriteriaMTX[i] = []
+        for (let j = 0; j < selectedCriteria.length; j++) {
+          defaultCriteriaMTX[i][j] = 8
+        }
       }
+      criteriaMTXSetter(defaultCriteriaMTX)
+  
+      for (let i = 0; i < selectedCriteria.length; i++) {
+        defaultCriteriaSum[i] = selectedCriteria.length
+      }
+      criteriaSumSetter(defaultCriteriaSum)
+  
+      phaseDone()
+      nextPhase()
     }
-    criteriaMTXSetter(defaultCriteriaMTX)
-
-    for (let i = 0; i < selectedCriteria.length; i++) {
-      defaultCriteriaSum[i] = selectedCriteria.length
-    }
-    criteriaSumSetter(defaultCriteriaSum)
-
-    phaseDone()
-    nextPhase()
   }
 
   return(

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { DEFAULT_BUTTON_COLOR, HOT_CHANGES_BUTTON_COLOR, HOT_CHANGES_HANDLER } from "../../../pages/ahp/NewResearchPage"
 
-import style from "./Phases.module.scss"
+import style from "./N1CriteriaRating.module.scss"
 
 
 export const N1CriteriaRating = ({
@@ -48,42 +48,14 @@ export const N1CriteriaRating = ({
 
   return(
     <div className={style.phase_container}>
-      <table className={style.criteria_comparison_table}>
-        <thead>
-          <tr>
-            <th className={style.initial}></th>
-            {[...Array(criteria.length)].map((x, i) =>
-              <th key={i} title={criteria[i]}>
-                {criteria[i]}
-              </th>
-            )}
-          </tr>
-        </thead>
-        <tbody>
-          {[...Array(criteria.length)].map((x, i) =>
-            <CellRow
-              key={i}
-              i={i}
-              criteria={criteria}
-              localMTX={localMTX}
-              localMTXSetter={localMTXSetter}
-              localSumSetter={localSumSetter}
-            />
-          )}
-        </tbody>
-        <tfoot>
-          <tr>
-            <th className={style.sigma}>Σ</th>
-            {[...Array(criteria.length)].map((x, i) =>
-              <SumCell
-                key={i}
-                col={i}
-                localSum={localSum}
-              />
-            )}
-          </tr>
-        </tfoot>
-      </table>
+
+      <Table
+        criteria={criteria}
+        localMTX={localMTX}
+        localSum={localSum}
+        localMTXSetter={localMTXSetter}
+        localSumSetter={localSumSetter}
+      />
 
       <Menu
         localMTX={localMTX}
@@ -100,6 +72,54 @@ export const N1CriteriaRating = ({
         phasesDone={phasesDone}
       />
     </div>
+  )
+}
+
+const Table = ({
+  criteria,
+  localMTX,
+  localSum,
+  localMTXSetter,
+  localSumSetter,
+}) => {
+
+  return(
+    <table className={style.criteria_comparison_table}>
+      <thead>
+        <tr>
+          <th className={style.initial}></th>
+          {[...Array(criteria.length)].map((x, i) =>
+            <th key={i} title={criteria[i]}>
+              {criteria[i]}
+            </th>
+          )}
+        </tr>
+      </thead>
+      <tbody>
+        {[...Array(criteria.length)].map((x, i) =>
+          <CellRow
+            key={i}
+            i={i}
+            criteria={criteria}
+            localMTX={localMTX}
+            localMTXSetter={localMTXSetter}
+            localSumSetter={localSumSetter}
+          />
+        )}
+      </tbody>
+      <tfoot>
+        <tr>
+          <th className={style.sigma}>Σ</th>
+          {[...Array(criteria.length)].map((x, i) =>
+            <SumCell
+              key={i}
+              col={i}
+              localSum={localSum}
+            />
+          )}
+        </tr>
+      </tfoot>
+    </table>
   )
 }
 
@@ -285,6 +305,7 @@ const SumCell = ({
   col,
   localSum
  }) => {
+   
   return(
     <td>
       <span>
@@ -293,6 +314,8 @@ const SumCell = ({
     </td>
   )
 }
+
+
 
 const Menu = ({
   localMTX,
@@ -323,6 +346,11 @@ const Menu = ({
     sumCalculate(localSum, localSumSetter)
   }
 
+  const testHandler = () => {
+    testMtx(localMTX, localMTXSetter)
+    sumCalculate(localSum, localSumSetter)
+  }
+
   const continueHandler = () => {
     const normalizedMTX = normalizeMtx(localMTX, localSum)
     const weights = calculateWeights(normalizedMTX)
@@ -339,7 +367,7 @@ const Menu = ({
   }
 
   return(
-    <div className={style.panel}>
+    <div className={style.menu}>
       <div className={style.top}>
         <button className="btn" onClick={reselectionHandler}>
           Перевыбор
@@ -353,10 +381,16 @@ const Menu = ({
             <span className="btn waves-effect waves-light" onClick={randomHandler}>
               Случ. значения
             </span>
+            <span className="btn waves-effect waves-light" onClick={testHandler}>
+              Тест. значения
+            </span>
           </div>
-        <button className="btn" onClick={continueHandler}>
-          Продолжить&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;
-        </button>
+          <button className="btn" onClick={continueHandler}>
+            Веса крит.&nbsp;&nbsp;&gt;&gt;&gt;
+          </button>
+          <button className="btn" onClick={continueHandler}>
+            Продолжить&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;
+          </button>
       </div>
     </div>
   )
@@ -381,6 +415,14 @@ for (let i = 0; i < 9; i++) {
   markModel[16 - i] = new Mark(9 - i, 1)
 }
 const MARK_MODEL = markModel
+
+// #####################################  MARK_MODEL  #####################################
+//   index:  [0,   1,   2,   3,   4,   5,   6,   7,   |8|, 9, 10, 11, 12, 13, 14, 15, 16]
+//   string: [1/9, 1/8, 1/7, 1/6, 1/5, 1/4, 1/3, 1/2, |1|, 2, 3,  4,  5,  6,  7,  8,  9 ]
+//   number: [0.1, 0.1, 0.1, 0.1, 0.2, 0.2, 0.3, 0.5, |1|, 2, 3,  4,  5,  6,  7,  8,  9 ]
+// ########################################################################################
+
+
 
 // Приведение оценок 
 const valAdduction = (value) => {
@@ -474,7 +516,6 @@ const resetMtx = (mtx, mtxSetter) => {
   HOT_CHANGES_HANDLER(HOT_CHANGES_BUTTON_COLOR)
 }
 
-
 // Рандомизация значений матрицы
 const randomIntegerInRange = (min, max) => {
   min = Math.ceil(min);
@@ -497,6 +538,27 @@ const randomMtx = (mtx, mtxSetter) => {
   mtxSetter(mtx)
   HOT_CHANGES_HANDLER(HOT_CHANGES_BUTTON_COLOR)
 }
+
+// Тестовый набор данных
+const testMtx = (mtx, mtxSetter) => {
+  if (mtx.length === 8) {
+    const testMtx = [
+      [8, 1, 13, 1, 13, 3, 14, 0],
+      [15, 8, 13, 14, 6, 2, 5, 1],
+      [3, 3, 8, 6, 14, 16, 6, 1],
+      [15, 2, 10, 8, 12, 12, 5, 7],
+      [3, 10, 2, 4, 8, 7, 6, 8],
+      [13, 14, 0, 4, 9, 8, 9, 15],
+      [2, 11, 10, 11, 10, 7, 8, 8],
+      [16, 15, 15, 9, 8, 1, 8, 8]
+    ]
+    mtxSetter(testMtx)
+    HOT_CHANGES_HANDLER(HOT_CHANGES_BUTTON_COLOR)
+  }
+}
+
+
+
 
 
 // Нормировка матрицы

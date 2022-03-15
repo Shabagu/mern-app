@@ -1,7 +1,7 @@
-import { useEffect } from "react"
-import { DEFAULT_BUTTON_COLOR, HOT_CHANGES_BUTTON_COLOR, HOT_CHANGES_HANDLER } from "../../../pages/ahp/NewResearchPage"
+// import { useEffect } from "react"
+// import { DEFAULT_BUTTON_COLOR, HOT_CHANGES_BUTTON_COLOR, HOT_CHANGES_HANDLER } from "../../../pages/ahp/NewResearchPage"
 
-import style from "./Phases.module.scss"
+import style from "./N3AlternativesRating.module.scss"
 
 
 export const N3AlternativesRating = ({
@@ -11,10 +11,10 @@ export const N3AlternativesRating = ({
   phasesDone,
 }) => {
 
-  useEffect(() => {
-    const NEXT_PHASE_TITLE_BUTTON = document.querySelector('.NEXT_PHASE_TITLE_BUTTON')
-    NEXT_PHASE_TITLE_BUTTON.style.backgroundColor = DEFAULT_BUTTON_COLOR
-  }, [])
+  // useEffect(() => {
+  //   const NEXT_PHASE_TITLE_BUTTON = document.querySelector('.NEXT_PHASE_TITLE_BUTTON')
+  //   NEXT_PHASE_TITLE_BUTTON.style.backgroundColor = DEFAULT_BUTTON_COLOR
+  // }, [])
 
   const nextPhaseHandler = () => {
     nextPhase()

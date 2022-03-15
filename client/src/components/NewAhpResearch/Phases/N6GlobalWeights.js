@@ -1,11 +1,9 @@
 import { useHistory } from "react-router-dom"
 
-import style from "./Phases.module.scss"
+import style from "./N6GlobalWeights.module.scss"
 
 
-export const N6GlobalWeights = ({
-
-}) => {
+export const N6GlobalWeights = () => {
 
   return(
     <div className={style.phase_container}>
@@ -17,15 +15,13 @@ export const N6GlobalWeights = ({
   )
 }
 
-const Menu = ({
-  
-}) => {
+const Menu = () => {
 
   const history = useHistory()
 
   function save() {
     alert('Результаты сохранены!')
-    history.push('/myqueries')
+    history.push('/researches')
   }
 
   return(
