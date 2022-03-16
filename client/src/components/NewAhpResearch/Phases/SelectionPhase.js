@@ -3,10 +3,10 @@ import { useMessage } from '../../../hooks/message.hook'
 import { DEFAULT_BUTTON_COLOR, HOT_CHANGES_BUTTON_COLOR, HOT_CHANGES_HANDLER } from "../../../pages/ahp/NewResearchPage"
 import { ALL_CRITERIA, ALL_ALTERNATIVES } from "../../../pages/ahp/NewResearchPage"
 
-import style from "./N0Selection.module.scss"
+import style from "./SelectionPhase.module.scss"
 
 
-export const N0Selection = ({
+export const SelectionPhase = ({
   criteria,
   criteriaSetter,
   criteriaMTXSetter,

@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react"
 import { DEFAULT_BUTTON_COLOR, HOT_CHANGES_BUTTON_COLOR, HOT_CHANGES_HANDLER } from "../../../pages/ahp/NewResearchPage"
 
-import style from "./N1CriteriaRating.module.scss"
+import style from "./CriteriaRating.module.scss"
 
 
-export const N1CriteriaRating = ({
+export const CriteriaRating = ({
   criteria,
   criteriaMTX,
   criteriaMTXSetter,

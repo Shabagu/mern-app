@@ -1,11 +1,11 @@
 import { useState } from "react"
-import { N0Selection } from "../../components/NewAhpResearch/Phases/N0Selection"
-import { N1CriteriaRating } from "../../components/NewAhpResearch/Phases/N1CriteriaRating"
-import { N2CriteriaWeights } from "../../components/NewAhpResearch/Phases/N2CriteriaWeights"
-import { N3AlternativesRating } from "../../components/NewAhpResearch/Phases/N3AlternativesRating"
-import { N4AlternativesWeights } from "../../components/NewAhpResearch/Phases/N4AlternativesWeights"
-import { N5AllСalculatedWeights } from "../../components/NewAhpResearch/Phases/N5AllСalculatedWeights"
-import { N6GlobalWeights } from "../../components/NewAhpResearch/Phases/N6GlobalWeights"
+import { SelectionPhase } from "../../components/NewAhpResearch/Phases/SelectionPhase"
+import { CriteriaRating } from "../../components/NewAhpResearch/Phases/CriteriaRating"
+import { CriteriaWeights } from "../../components/NewAhpResearch/Phases/CriteriaWeights"
+import { AlternativesRating } from "../../components/NewAhpResearch/Phases/AlternativesRating"
+import { AlternativesWeights } from "../../components/NewAhpResearch/Phases/AlternativesWeights"
+import { GroupsWeights } from "../../components/NewAhpResearch/Phases/GroupsWeights"
+import { GlobalWeights } from "../../components/NewAhpResearch/Phases/GlobalWeights"
 import { PhaseTitle } from "../../components/NewAhpResearch/PhaseTitle"
 import { StateDisplay } from "../../components/NewAhpResearch/StateDisplay"
 
@@ -123,7 +123,7 @@ export const NewResearchPage = () => {
 
 
       {phase === 0 &&
-        <N0Selection
+        <SelectionPhase
           criteria={criteria}
           criteriaSetter={setCriteriaHandler}
           criteriaMTXSetter={setCriteriaMTXHandler}
@@ -139,7 +139,7 @@ export const NewResearchPage = () => {
       }
 
       {phase === 1 &&
-        <N1CriteriaRating
+        <CriteriaRating
           criteria={criteria}
           criteriaMTX={criteriaMTX}
           criteriaMTXSetter={setCriteriaMTXHandler}
@@ -156,7 +156,7 @@ export const NewResearchPage = () => {
       }
 
       {phase === 2 &&
-        <N2CriteriaWeights
+        <CriteriaWeights
           criteria={criteria}
           criteriaNormMTX={criteriaNormMTX}
           criteriaWeights={criteriaWeights}
@@ -168,7 +168,7 @@ export const NewResearchPage = () => {
       }
 
       {phase === 3 && 
-        <N3AlternativesRating
+        <AlternativesRating
           criteria={criteria}
           
 
@@ -179,7 +179,7 @@ export const NewResearchPage = () => {
       }
 
       {phase === 4 &&
-        <N4AlternativesWeights
+        <AlternativesWeights
         
           nextPhase={nextPhaseHandler}
           phaseDone={phasesDoneHandler}
@@ -188,7 +188,7 @@ export const NewResearchPage = () => {
       }
 
       {phase === 5 &&
-        <N5AllСalculatedWeights
+        <GroupsWeights
         
           nextPhase={nextPhaseHandler}
           phaseDone={phasesDoneHandler}
@@ -197,7 +197,7 @@ export const NewResearchPage = () => {
       }
 
       {phase === 6 &&
-        <N6GlobalWeights
+        <GlobalWeights
         
           nextPhase={nextPhaseHandler}
           phaseDone={phasesDoneHandler}

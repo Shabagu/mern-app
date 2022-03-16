@@ -1,14 +1,20 @@
+// import { useEffect } from "react"
+// import { DEFAULT_BUTTON_COLOR, HOT_CHANGES_BUTTON_COLOR, HOT_CHANGES_HANDLER } from "../../../pages/ahp/NewResearchPage"
+
+import style from "./AlternativesRating.module.scss"
 
 
-import style from "./N5AllСalculatedWeights.module.scss"
-
-
-export const N5AllСalculatedWeights = ({
+export const AlternativesRating = ({
 
   nextPhase,
   phaseDone,
   phasesDone,
 }) => {
+
+  // useEffect(() => {
+  //   const NEXT_PHASE_TITLE_BUTTON = document.querySelector('.NEXT_PHASE_TITLE_BUTTON')
+  //   NEXT_PHASE_TITLE_BUTTON.style.backgroundColor = DEFAULT_BUTTON_COLOR
+  // }, [])
 
   const nextPhaseHandler = () => {
     nextPhase()
@@ -16,7 +22,7 @@ export const N5AllСalculatedWeights = ({
 
   return(
     <div className={style.phase_container}>
-      <p>Определение глобальных весов альтернатив</p>
+      <p>Попарное сравнение альтернатив по критериям</p>
       <Menu
         nextPhase={nextPhaseHandler}
         phaseDone={phaseDone}
@@ -34,7 +40,7 @@ const Menu = ({
 
   const continueHandler = () => {
 
-    if (phasesDone <= 5) {
+    if (phasesDone <= 3) {
       phaseDone()
     }
     nextPhase()

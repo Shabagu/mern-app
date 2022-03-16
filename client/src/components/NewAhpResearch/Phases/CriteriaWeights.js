@@ -1,10 +1,10 @@
 import { useState } from "react"
 
 
-import style from "./N2CriteriaWeights.module.scss"
+import style from "./CriteriaWeights.module.scss"
 
 
-export const N2CriteriaWeights = ({
+export const CriteriaWeights = ({
   criteria,
   criteriaNormMTX,
   criteriaWeights,

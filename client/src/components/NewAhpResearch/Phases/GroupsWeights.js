@@ -1,9 +1,9 @@
 
 
-import style from "./N4AlternativesWeights.module.scss"
+import style from "./GroupsWeights.module.scss"
 
 
-export const N4AlternativesWeights = ({
+export const GroupsWeights = ({
 
   nextPhase,
   phaseDone,
@@ -16,7 +16,7 @@ export const N4AlternativesWeights = ({
 
   return(
     <div className={style.phase_container}>
-      <p>Весовые столбцы альтернатив по критериям</p>
+      <p>Определение глобальных весов альтернатив</p>
       <Menu
         nextPhase={nextPhaseHandler}
         phaseDone={phaseDone}
@@ -34,7 +34,7 @@ const Menu = ({
 
   const continueHandler = () => {
 
-    if (phasesDone <= 4) {
+    if (phasesDone <= 5) {
       phaseDone()
     }
     nextPhase()

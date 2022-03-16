@@ -1,9 +1,9 @@
 import { useHistory } from "react-router-dom"
 
-import style from "./N6GlobalWeights.module.scss"
+import style from "./GlobalWeights.module.scss"
 
 
-export const N6GlobalWeights = () => {
+export const GlobalWeights = () => {
 
   return(
     <div className={style.phase_container}>
