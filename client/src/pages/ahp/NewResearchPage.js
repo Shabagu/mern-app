@@ -66,21 +66,21 @@ export const NewResearchPage = () => {
 
 
 
-  const nextPhaseHandler = () => {
-    if (phase < 8) {
-      setPhase(phase + 1)
+  const nextPhaseHandler = (skip) => {
+    if (phase < 6) {
+      setPhase(phase + skip)
     }
   }
-  const previousPhaseHandler = () => {
+  const previousPhaseHandler = (skip) => {
     if (phase > 0) {
-      setPhase(phase - 1)
+      setPhase(phase - skip)
     }
   }
-  const phasesDoneFirst = () => {
-    setPhasesDone(1)
+  const goToPhaseHandler = (phase) => {
+    setPhase(phase)
   }
-  const phasesDoneHandler = () => {
-    setPhasesDone(phasesDone + 1)
+  const phasesDoneHandler = (phase) => {
+    setPhasesDone(phase)
   }
 
 
@@ -132,9 +132,8 @@ export const NewResearchPage = () => {
           alternatives={alternatives}
           alternativesSetter={setAlternativesHandler}
 
-          nextPhase={nextPhaseHandler}
-          phaseDone={phasesDoneFirst}
-          phasesDone={phasesDone}
+          goToPhase={goToPhaseHandler}
+          phaseDone={phasesDoneHandler}
         />
       }
 
@@ -148,8 +147,9 @@ export const NewResearchPage = () => {
           criteriaNormMTXSetter={setcriteriaNormMTXHandler}
           criteriaWeightsSetter={setCriteriaWeightsHandler}
           
-          previousPhase={previousPhaseHandler}
-          nextPhase={nextPhaseHandler}
+          // nextPhase={nextPhaseHandler}
+          // previousPhase={previousPhaseHandler}
+          goToPhase={goToPhaseHandler}
           phaseDone={phasesDoneHandler}
           phasesDone={phasesDone}
         />
@@ -161,9 +161,11 @@ export const NewResearchPage = () => {
           criteriaNormMTX={criteriaNormMTX}
           criteriaWeights={criteriaWeights}
 
-          nextPhase={nextPhaseHandler}
+          // nextPhase={nextPhaseHandler}
+          // previousPhase={previousPhaseHandler}
+          goToPhase={goToPhaseHandler}
           phaseDone={phasesDoneHandler}
-          phasesDone={phasesDone}
+          // phasesDone={phasesDone}
         />
       }
 
@@ -172,7 +174,9 @@ export const NewResearchPage = () => {
           criteria={criteria}
           
 
-          nextPhase={nextPhaseHandler}
+          // nextPhase={nextPhaseHandler}
+          // previousPhase={previousPhaseHandler}
+          goToPhase={goToPhaseHandler}
           phaseDone={phasesDoneHandler}
           phasesDone={phasesDone}
         />
@@ -181,27 +185,23 @@ export const NewResearchPage = () => {
       {phase === 4 &&
         <AlternativesWeights
         
-          nextPhase={nextPhaseHandler}
+          // nextPhase={nextPhaseHandler}
+          // previousPhase={previousPhaseHandler}
+          goToPhase={goToPhaseHandler}
           phaseDone={phasesDoneHandler}
-          phasesDone={phasesDone}
+          // phasesDone={phasesDone}
         />
       }
 
       {phase === 5 &&
         <GroupsWeights
-        
-          nextPhase={nextPhaseHandler}
-          phaseDone={phasesDoneHandler}
-          phasesDone={phasesDone}
+          goToPhase={goToPhaseHandler}
         />
       }
 
       {phase === 6 &&
         <GlobalWeights
-        
-          nextPhase={nextPhaseHandler}
-          phaseDone={phasesDoneHandler}
-          phasesDone={phasesDone}
+          goToPhase={goToPhaseHandler}
         />
       }
 

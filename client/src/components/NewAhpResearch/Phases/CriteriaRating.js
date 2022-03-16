@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useState, useEffect } from "react"
 import { DEFAULT_BUTTON_COLOR, HOT_CHANGES_BUTTON_COLOR, HOT_CHANGES_HANDLER } from "../../../pages/ahp/NewResearchPage"
 
 import style from "./CriteriaRating.module.scss"
@@ -13,8 +13,9 @@ export const CriteriaRating = ({
   criteriaNormMTXSetter,
   criteriaWeightsSetter,
 
-  previousPhase,
-  nextPhase,
+  // previousPhase,
+  // nextPhase,
+  goToPhase,
   phaseDone,
   phasesDone,
 }) => {
@@ -39,12 +40,15 @@ export const CriteriaRating = ({
   }, [localMTX])
 
 
-  const nextPhaseHandler = () => {
-    nextPhase()
-  }
-  const previousPhaseHandler = () => {
-    previousPhase()
-  }
+  // const goToCriteriaWeights = () => {
+  //   nextPhase(1)
+  // }
+  // const goToAlternativesRating = () => {
+  //   nextPhase(2)
+  // }
+  // const previousPhaseHandler = () => {
+  //   previousPhase(1)
+  // }
 
   return(
     <div className={style.phase_container}>
@@ -66,8 +70,9 @@ export const CriteriaRating = ({
         criteriaSumSetter={criteriaSumSetter}
         criteriaNormMTXSetter={criteriaNormMTXSetter}
         criteriaWeightsSetter={criteriaWeightsSetter}
-        nextPhase={nextPhaseHandler}
-        previousPhase={previousPhaseHandler}
+        // nextPhase={nextPhase}
+        // previousPhase={previousPhaseHandler}
+        goToPhase={goToPhase}
         phaseDone={phaseDone}
         phasesDone={phasesDone}
       />
@@ -326,14 +331,15 @@ const Menu = ({
   criteriaSumSetter,
   criteriaNormMTXSetter,
   criteriaWeightsSetter,
-  nextPhase,
-  previousPhase,
+  // nextPhase,
+  // previousPhase,
+  goToPhase,
   phaseDone,
   phasesDone,
 }) => {
 
   const reselectionHandler = () => {
-    previousPhase()
+    goToPhase(0)
   }
 
   const resetHandler = () => {
@@ -351,7 +357,7 @@ const Menu = ({
     sumCalculate(localSum, localSumSetter)
   }
 
-  const continueHandler = () => {
+  const globalStateSetter = () => {
     const normalizedMTX = normalizeMtx(localMTX, localSum)
     const weights = calculateWeights(normalizedMTX)
     
@@ -359,12 +365,26 @@ const Menu = ({
     criteriaSumSetter(localSum)
     criteriaNormMTXSetter(normalizedMTX)
     criteriaWeightsSetter(weights)
-    
-    if (phasesDone <= 1) {
-      phaseDone()
-    }
-    nextPhase()
   }
+
+  const goToAlternativesRating = () => {
+    globalStateSetter()
+
+    if (phasesDone < 3) {
+      phaseDone(3)
+    }
+    goToPhase(3)
+  }
+
+  const goToCriteriaWeights = () => {
+    globalStateSetter()
+
+    if (phasesDone < 2) {
+      phaseDone(2)
+    }
+    goToPhase(2)
+  }
+
 
   return(
     <div className={style.menu}>
@@ -385,10 +405,10 @@ const Menu = ({
           <button className="btn" onClick={reselectionHandler}>
           &lt;&lt;&lt;&nbsp;&nbsp;Перевыбор
           </button>
-          <button className="btn" onClick={continueHandler}>
+          <button className="btn" onClick={goToCriteriaWeights}>
             Веса крит.&nbsp;&nbsp;&gt;&gt;&gt;
           </button>
-          <button className="btn" onClick={continueHandler}>
+          <button className="btn" onClick={goToAlternativesRating}>
             Продолжить&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;
           </button>
       </div>

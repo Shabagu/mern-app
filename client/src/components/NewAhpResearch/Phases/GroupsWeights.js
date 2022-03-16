@@ -1,54 +1,44 @@
-
+import { useEffect } from "react"
+import { DEFAULT_BUTTON_COLOR } from "../../../pages/ahp/NewResearchPage"
 
 import style from "./GroupsWeights.module.scss"
 
 
 export const GroupsWeights = ({
-
-  nextPhase,
-  phaseDone,
-  phasesDone,
+  
+  goToPhase,
 }) => {
 
-  const nextPhaseHandler = () => {
-    nextPhase()
-  }
+  useEffect(() => {
+    const NEXT_PHASE_TITLE_BUTTON = document.querySelector('.NEXT_PHASE_TITLE_BUTTON')
+    NEXT_PHASE_TITLE_BUTTON.style.backgroundColor = DEFAULT_BUTTON_COLOR
+  }, [])
 
   return(
     <div className={style.phase_container}>
       <p>Определение глобальных весов альтернатив</p>
       <Menu
-        nextPhase={nextPhaseHandler}
-        phaseDone={phaseDone}
-        phasesDone={phasesDone}
+        goToPhase={goToPhase}
       />
     </div>
   )
 }
 
 const Menu = ({
-  nextPhase,
-  phasesDone,
-  phaseDone,
+  goToPhase,
 }) => {
 
-  const continueHandler = () => {
-
-    if (phasesDone <= 5) {
-      phaseDone()
-    }
-    nextPhase()
+  const goToGlobalWeights = () => {
+    goToPhase(6)
   }
 
   return(
-    <div className={style.panel}>
+    <div className={style.menu}>
       <div className={style.top}>
       </div>
       <div className={style.bottom}>
-        <button className="btn"
-          onClick={continueHandler}
-        >
-          Продолжить&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;
+        <button className="btn" onClick={goToGlobalWeights} style={{marginBottom: '40px'}}>
+          Глобальные веса
         </button>
       </div>
     </div>

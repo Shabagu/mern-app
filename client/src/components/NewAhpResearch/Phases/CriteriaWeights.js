@@ -1,5 +1,5 @@
-import { useState } from "react"
-
+import { useState, useEffect } from "react"
+import { DEFAULT_BUTTON_COLOR } from "../../../pages/ahp/NewResearchPage"
 
 import style from "./CriteriaWeights.module.scss"
 
@@ -9,10 +9,17 @@ export const CriteriaWeights = ({
   criteriaNormMTX,
   criteriaWeights,
 
-  nextPhase,
+  // nextPhase,
+  // previousPhase,
+  goToPhase,
   phaseDone,
-  phasesDone,
+  // phasesDone,
 }) => {
+
+  useEffect(() => {
+    const NEXT_PHASE_TITLE_BUTTON = document.querySelector('.NEXT_PHASE_TITLE_BUTTON')
+    NEXT_PHASE_TITLE_BUTTON.style.backgroundColor = DEFAULT_BUTTON_COLOR
+  }, [])
 
   class Weight {
     constructor(criteria, weight) {
@@ -38,10 +45,6 @@ export const CriteriaWeights = ({
     setIsWeightsSorted(condition)
   }
 
-  const nextPhaseHandler = () => {
-    nextPhase()
-  }
-
   return(
     <div className={style.phase_container}>
       <div className={style.tables_container}>
@@ -62,9 +65,11 @@ export const CriteriaWeights = ({
       </div>
 
       <Menu
-        nextPhase={nextPhaseHandler}
+        // nextPhase={nextPhase}
+        // previousPhase={previousPhase}
+        goToPhase={goToPhase}
         phaseDone={phaseDone}
-        phasesDone={phasesDone}
+        // phasesDone={previousPhase}
       />
     </div>
   )
@@ -207,17 +212,27 @@ const WeightsTable = ({
 
 
 const Menu = ({
-  nextPhase,
-  phasesDone,
+  // nextPhase,
+  // previousPhase,
+  goToPhase,
   phaseDone,
+  // phasesDone,
 }) => {
 
-  const continueHandler = () => {
+  // const continueHandler = () => {
+  //   if (phasesDone <= 2) {
+  //     phaseDone(1)
+  //   }
+  //   nextPhase(1)
+  // }
 
-    if (phasesDone <= 2) {
-      phaseDone()
-    }
-    nextPhase()
+  const goToCriteriaRating = () => {
+    goToPhase(1)
+  }
+
+  const goToAlternativesRating = () => {
+    phaseDone(3)
+    goToPhase(3)
   }
 
   return(
@@ -225,7 +240,10 @@ const Menu = ({
       <div className={style.top}>
       </div>
       <div className={style.bottom}>
-        <button className="btn" onClick={continueHandler}>
+        <button className="btn" onClick={goToCriteriaRating}>
+          &nbsp;&lt;&lt;&lt;&nbsp;&nbsp;Назад
+        </button>
+        <button className="btn" onClick={goToAlternativesRating}>
           Продолжить&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;
         </button>
       </div>

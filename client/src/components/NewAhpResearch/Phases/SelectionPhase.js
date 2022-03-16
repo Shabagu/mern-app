@@ -15,7 +15,7 @@ export const SelectionPhase = ({
   alternatives,
   alternativesSetter,
   
-  nextPhase,
+  goToPhase,
   phaseDone,
 }) => {
 
@@ -27,16 +27,15 @@ export const SelectionPhase = ({
     }
     if (alternatives.length === ALL_ALTERNATIVES.length) {
       checkAllAlternativesCheckbox.checked = true
-    }
-
-    const NEXT_PHASE_TITLE_BUTTON = document.querySelector('.NEXT_PHASE_TITLE_BUTTON')
-    NEXT_PHASE_TITLE_BUTTON.style.backgroundColor = DEFAULT_BUTTON_COLOR
-    
+    }    
   }, [criteria, alternatives])
 
-  const message = useMessage()
-  
+  useEffect(() => {
+    const NEXT_PHASE_TITLE_BUTTON = document.querySelector('.NEXT_PHASE_TITLE_BUTTON')
+    NEXT_PHASE_TITLE_BUTTON.style.backgroundColor = DEFAULT_BUTTON_COLOR
+  }, [])
 
+  const message = useMessage()
 
   const groups = {
     criteria: {
@@ -104,8 +103,9 @@ export const SelectionPhase = ({
       }
       criteriaSumSetter(defaultCriteriaSum)
   
-      phaseDone()
-      nextPhase()
+      message('Исследование начато!')
+      phaseDone(1)
+      goToPhase(1)
     }
   }
 
