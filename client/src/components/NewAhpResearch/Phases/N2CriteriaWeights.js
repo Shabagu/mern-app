@@ -1,3 +1,4 @@
+import { useState } from "react"
 
 
 import style from "./N2CriteriaWeights.module.scss"
@@ -13,6 +14,30 @@ export const N2CriteriaWeights = ({
   phasesDone,
 }) => {
 
+  class Weight {
+    constructor(criteria, weight) {
+      this.criteria = criteria
+      this.weight = weight
+    }
+  }
+  let defaultWeights = []
+  for (let i = 0; i < criteria.length; i++) {
+    defaultWeights[i] = new Weight(criteria[i], criteriaWeights[i])
+  }
+  const DEFAULT_WEIGHTS = defaultWeights
+  const SORTED_WEIGHTS = criteriaSorting([...defaultWeights])
+
+  const [displayingWeights, setDisplayingWeights] = useState(DEFAULT_WEIGHTS)
+  const [isWeightsSorted, setIsWeightsSorted] = useState(false)
+
+  const displayingWeightsSetter = (arr) => {
+    setDisplayingWeights(arr)
+  }
+
+  const isWeightsSortedSetter = (condition) => {
+    setIsWeightsSorted(condition)
+  }
+
   const nextPhaseHandler = () => {
     nextPhase()
   }
@@ -21,8 +46,18 @@ export const N2CriteriaWeights = ({
     <div className={style.phase_container}>
       <div className={style.tables_container}>
 
-        <NormalizationTable criteria={criteria} criteriaNormMTX={criteriaNormMTX} />
-        <WeightsTable criteria={criteria} criteriaWeights={criteriaWeights} />
+        <NormalizationTable
+          criteria={criteria}
+          criteriaNormMTX={criteriaNormMTX}
+        />
+        <WeightsTable
+          displayingWeights={displayingWeights}
+          displayingWeightsSetter={displayingWeightsSetter}
+          isWeightsSorted={isWeightsSorted}
+          isWeightsSortedSetter={isWeightsSortedSetter}
+          defaultWeights={DEFAULT_WEIGHTS}
+          sortedWeights={SORTED_WEIGHTS}
+        />
 
       </div>
 
@@ -100,7 +135,28 @@ const NormalizationCell = ({ row, col, criteriaNormMTX }) => {
 
 
 
-const WeightsTable = ({ criteria, criteriaWeights}) => {
+const WeightsTable = ({
+  displayingWeights,
+  displayingWeightsSetter,
+  isWeightsSorted,
+  isWeightsSortedSetter,
+  defaultWeights,
+  sortedWeights,
+}) => {
+
+  const criteriaSortingHandler = () => {
+    const sortButton = document.querySelector(`.${style.button} span i`)
+    if (!isWeightsSorted) {
+      displayingWeightsSetter(sortedWeights)
+      isWeightsSortedSetter(true)
+      sortButton.textContent = 'low_priority'
+    } else {
+      displayingWeightsSetter(defaultWeights)
+      isWeightsSortedSetter(false)
+      sortButton.textContent = 'swap_vert'
+    }
+  }
+
    return(
     <table className={style.criteria_weights_table}>
       <colgroup>
@@ -110,7 +166,9 @@ const WeightsTable = ({ criteria, criteriaWeights}) => {
         <tr>
           <th className={style.heading} colSpan={3}>
             <div className={style.button}>
-              <span className="btn waves-effect waves-light ">
+              <span className="btn waves-effect waves-light"
+                onClick={criteriaSortingHandler}
+              >
                 <i className="material-icons">swap_vert</i>
               </span>
             </div>
@@ -130,15 +188,15 @@ const WeightsTable = ({ criteria, criteriaWeights}) => {
         </tr>
       </thead>
       <tbody>
-        {[...Array(criteria.length)].map((x, i) =>
+        {[...Array(displayingWeights.length)].map((x, i) =>
           <tr key={i}>
-            <td title={criteria[i]}>
+            <td title={displayingWeights[i].criteria}>
               <div className={style.container}>
-                {criteria[i]}
+                {displayingWeights[i].criteria}
               </div>
             </td>
-            <td>{valAdduction(criteriaWeights[i])}</td>
-            <td>{percentsDisplay(criteriaWeights[i])}</td>
+            <td>{valAdduction(displayingWeights[i].weight)}</td>
+            <td>{percentsDisplay(displayingWeights[i].weight)}</td>
           </tr>
         )}
       </tbody>
@@ -191,4 +249,14 @@ const percentsDisplay = (value) => {
   value = value * 1
   value = `${value}%`
   return (value)
+}
+
+// Сортировка критериев по значимости
+const criteriaSorting = (weights) => {
+  weights.sort((a, b) => {
+    if (a.weight > b.weight) return -1
+    if (a.weight < b.weight) return 1
+    return 0
+  })
+  return weights
 }

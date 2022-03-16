@@ -369,22 +369,22 @@ const Menu = ({
   return(
     <div className={style.menu}>
       <div className={style.top}>
-        <button className="btn" onClick={reselectionHandler}>
-          Перевыбор
-        </button>
       </div>
       <div className={style.bottom}>
           <div className={style.high}>
             <span className="btn waves-effect waves-light" onClick={resetHandler}>
               Сброс
             </span>
-            <span className="btn waves-effect waves-light" onClick={randomHandler}>
-              Случ. значения
-            </span>
             <span className="btn waves-effect waves-light" onClick={testHandler}>
               Тест. значения
             </span>
+            <span className="btn waves-effect waves-light" onClick={randomHandler}>
+              Случ. значения
+            </span>
           </div>
+          <button className="btn" onClick={reselectionHandler}>
+          &lt;&lt;&lt;&nbsp;&nbsp;Перевыбор
+          </button>
           <button className="btn" onClick={continueHandler}>
             Веса крит.&nbsp;&nbsp;&gt;&gt;&gt;
           </button>
@@ -430,7 +430,6 @@ const valAdduction = (value) => {
   value = value * 1
   return(value)
 }
-
 
 
 
@@ -489,19 +488,20 @@ const resetTuning = (mtx, i, j, mtxSetter, sumSetter) => {
 
 
 
-
-
 // Расчёт суммы
 const sumCalculate = (mtx, sumSetter) => {
   const n = mtx.length
   let sum = Array(n).fill(0)
   for (let i = 0; i < n; i++) {
     for (let j = 0; j < n; j++) {
-      sum[i] += MARK_MODEL[mtx[j][i]].number
+      if (MARK_MODEL[mtx[j][i]]) {
+        sum[i] += MARK_MODEL[mtx[j][i]].number
+      }
     }
   }
   sumSetter(sum)
 }
+
 
 
 // Сброс значений матрицы
@@ -556,8 +556,6 @@ const testMtx = (mtx, mtxSetter) => {
     HOT_CHANGES_HANDLER(HOT_CHANGES_BUTTON_COLOR)
   }
 }
-
-
 
 
 
