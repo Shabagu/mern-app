@@ -53,14 +53,14 @@ export const NewResearchPage = () => {
   const [criteria, setCriteria] = useState([])
   const [criteriaMTX, setCriteriaMTX] = useState([])
   const [criteriaSum, setCriteriaSum] = useState([])
-  const [criteriaNormMTX, setCriteriaNormMtx] = useState([])
+  const [criteriaNormMTX, setCriteriaNormMTX] = useState([])
   const [criteriaWeights, setCriteriaWeights] = useState([])
   
   const [alternatives, setAlternatives] = useState([])
-  // const [alternativesMTX, setAlternativesMTX] = useState([])
-  // const [alternativesSum, setAlternativesSum] = useState([])
-  // const [alternativesNormMTX, setAlternativesNormMTX] = useState([])
-  // const [alternativesWeights, setAlternativesWeights] = useState([])
+  const [alternativesMTX, setAlternativesMTX] = useState([])
+  const [alternativesSum, setAlternativesSum] = useState([])
+  const [alternativesNormMTX, setAlternativesNormMTX] = useState([])
+  const [alternativesWeights, setAlternativesWeights] = useState([])
   // const [globalWeights, setGlobalWeights] = useState([])
 
 
@@ -93,8 +93,8 @@ export const NewResearchPage = () => {
   const setCriteriaSumHandler = (array) => {
     setCriteriaSum(array)
   }
-  const setcriteriaNormMTXHandler = (array) => {
-    setCriteriaNormMtx(array)
+  const setCriteriaNormMTXHandler = (array) => {
+    setCriteriaNormMTX(array)
   }
   const setCriteriaWeightsHandler = (array) => {
     setCriteriaWeights(array)
@@ -104,7 +104,18 @@ export const NewResearchPage = () => {
   const setAlternativesHandler = (array) => {
     setAlternatives(array)
   }
-
+  const setAlternativesMTXHandler = (array) => {
+    setAlternativesMTX(array)
+  }
+  const setAlternativesSumHandler = (array) => {
+    setAlternativesSum(array)
+  }
+  const setAlternativesNormMTXHandler = (array) => {
+    setAlternativesNormMTX(array)
+  }
+  const setAlternativesWeightsHandler = (array) => {
+    setAlternativesWeights(array)
+  }
 
 
 
@@ -131,6 +142,8 @@ export const NewResearchPage = () => {
 
           alternatives={alternatives}
           alternativesSetter={setAlternativesHandler}
+          alternativesMTXSetter={setAlternativesMTXHandler}
+          alternativesSumSetter={setAlternativesSumHandler}
 
           goToPhase={goToPhaseHandler}
           phaseDone={phasesDoneHandler}
@@ -144,7 +157,7 @@ export const NewResearchPage = () => {
           criteriaMTXSetter={setCriteriaMTXHandler}
           criteriaSum={criteriaSum}
           criteriaSumSetter={setCriteriaSumHandler}
-          criteriaNormMTXSetter={setcriteriaNormMTXHandler}
+          criteriaNormMTXSetter={setCriteriaNormMTXHandler}
           criteriaWeightsSetter={setCriteriaWeightsHandler}
           
           goToPhase={goToPhaseHandler}
@@ -167,8 +180,13 @@ export const NewResearchPage = () => {
       {phase === 3 && 
         <AlternativesRating
           criteria={criteria}
-          
-
+          alternatives={alternatives}
+          alternativesMTX={alternativesMTX}
+          alternativesMTXSetter={setAlternativesMTXHandler}
+          alternativesSum={alternativesSum}
+          alternativesSumSetter={setAlternativesSumHandler}
+          alternativesNormMTXSetter={setAlternativesNormMTXHandler}
+          alternativesWeightsSetter={setAlternativesWeightsHandler}
 
           goToPhase={goToPhaseHandler}
           phaseDone={phasesDoneHandler}

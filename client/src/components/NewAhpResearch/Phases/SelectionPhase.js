@@ -14,10 +14,17 @@ export const SelectionPhase = ({
   
   alternatives,
   alternativesSetter,
+  alternativesMTXSetter,
+  alternativesSumSetter,
   
   goToPhase,
   phaseDone,
 }) => {
+
+  useEffect(() => {
+    const NEXT_PHASE_TITLE_BUTTON = document.querySelector('.NEXT_PHASE_TITLE_BUTTON')
+    NEXT_PHASE_TITLE_BUTTON.style.backgroundColor = DEFAULT_BUTTON_COLOR
+  }, [])
 
   useEffect(() => {
     const checkAllCriteriaCheckbox = document.querySelector('.criteria_checkAll')
@@ -29,11 +36,6 @@ export const SelectionPhase = ({
       checkAllAlternativesCheckbox.checked = true
     }    
   }, [criteria, alternatives])
-
-  useEffect(() => {
-    const NEXT_PHASE_TITLE_BUTTON = document.querySelector('.NEXT_PHASE_TITLE_BUTTON')
-    NEXT_PHASE_TITLE_BUTTON.style.backgroundColor = DEFAULT_BUTTON_COLOR
-  }, [])
 
   const message = useMessage()
 
@@ -52,7 +54,6 @@ export const SelectionPhase = ({
 
 
 
-
   const selectHandler = () => {
     const criteriaCheckboxes = document.querySelectorAll(`.${groups.criteria.ens}`)
     const alternativesCheckboxes = document.querySelectorAll(`.${groups.alternatives.ens}`)
@@ -60,7 +61,8 @@ export const SelectionPhase = ({
     const selectedAlternatives = []
     const defaultCriteriaMTX = []
     const defaultCriteriaSum = []
-
+    const defaultAlternativesMTX = []
+    const defaultAlternativesSum = []
 
     let j = 0
     for (let i = 0; i < criteriaCheckboxes.length; i++) {
@@ -87,22 +89,45 @@ export const SelectionPhase = ({
       message('Выберите хотя бы две альтернативы!')
     }
     else {
+
       criteriaSetter(selectedCriteria)
       alternativesSetter(selectedAlternatives)
+
+      const criteriaN = selectedCriteria.length
+      const alternativesN = selectedAlternatives.length
   
-      for (let i = 0; i < selectedCriteria.length; i++) {
+      for (let i = 0; i < criteriaN; i++) {
         defaultCriteriaMTX[i] = []
-        for (let j = 0; j < selectedCriteria.length; j++) {
+        for (let j = 0; j < criteriaN; j++) {
           defaultCriteriaMTX[i][j] = 8
         }
       }
       criteriaMTXSetter(defaultCriteriaMTX)
-  
-      for (let i = 0; i < selectedCriteria.length; i++) {
-        defaultCriteriaSum[i] = selectedCriteria.length
+
+      for (let i = 0; i < criteriaN; i++) {
+        defaultCriteriaSum[i] = criteriaN
       }
       criteriaSumSetter(defaultCriteriaSum)
-  
+
+      for (let i = 0; i < alternativesN; i++) {
+        defaultAlternativesMTX[i] = []
+        for (let j = 0; j < alternativesN; j++) {
+          defaultAlternativesMTX[i][j] = []
+          for (let k = 0; k < alternativesN; k++) {
+            defaultAlternativesMTX[i][j][k] = 8
+          }
+        }
+      }
+      alternativesMTXSetter(defaultAlternativesMTX)
+
+      for (let i = 0; i < alternativesN; i++) {
+        defaultAlternativesSum[i] = []
+        for (let j = 0; j < alternativesN; j++) {
+          defaultAlternativesSum[i][j] = alternativesN
+        }
+      }
+      alternativesSumSetter(defaultAlternativesSum)
+
       message('Исследование начато!')
       phaseDone(1)
       goToPhase(1)

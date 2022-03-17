@@ -1,3 +1,129 @@
+$tableBorderBold: 3px solid #aaa;
+$tableBorderThin: 2px solid #aaa;
+$tableBorderExtraThin: 1px solid #aaa;
+
+
+
+.phase_container {
+  margin: 20px 0 0;
+
+  .alternatives_comparison_table {
+    border: $tableBorderBold;
+    width: 100%;
+    table-layout: fixed;
+  
+    th {
+      border: $tableBorderThin;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      padding: 0.8rem 0 0.8rem 0.5rem;
+      background: #00000030;
+      user-select: none;
+
+    }
+    
+    td {
+      border: $tableBorderExtraThin;
+      overflow: hidden;
+      padding: 0;
+      text-align: center;
+      font-size: 1.5rem;
+      user-select: none;
+    }
+  
+    .value_box {
+      display: flex;
+      margin: auto;
+    }
+  
+    .diagonal {
+      background: #00000020;
+    }
+    .below, .normalized {
+      background: #00000010;
+    }
+  
+  
+    .cell {
+      display: flex;
+  
+      &:hover .cell_tuning{
+        width: 69px;
+      }
+      
+      .cell_tuning  {
+        display: flex;
+        width: 0px;
+        transition: 0.2s;
+  
+        span {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+    
+          position: static;
+    
+          height: 25.5px;
+          width: 30px;
+    
+          border: 1px solid #999;
+          border-radius: 0;
+    
+          font-family: monospace;
+          font-size: 1rem;
+          letter-spacing: 0;
+          user-select: none;
+    
+          box-shadow: none;
+        }
+  
+        & > span:last-child {
+          position: relative;
+          display: flex;
+          right: 45px;
+          top: 13px;
+          height: 23px;
+          padding: 0;
+          border-radius: 20px;
+          border-width: 2px;
+        }
+      }
+    }
+
+    tbody {
+      tr:hover{
+        background-color: #55555530;
+        outline: #777 3px solid;
+      }
+      td:hover {
+        background-color: #00ffe550;
+        outline: #555 4px solid;
+        outline-offset: -3.5px;
+      }
+    }
+  
+  
+    .sigma {
+      text-align: center;
+      padding: 0;
+      font-size: 2rem;
+      font-weight: 500;
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 .menu {
   position: fixed;
@@ -22,8 +148,32 @@
     width: 190px;
   }
 
-  .bottom {
+  .top {
+    margin-top: 128px;
 
+    span {
+      margin-bottom: 4px;
+    }
+  }
+
+  .middle {
+    margin: 25px 0 -25px;
+
+    label {
+      color: black;
+
+      
+      span{ 
+        display: block;
+        width: 80%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
+  }
+
+  .bottom {
     .high {
       margin-bottom: 40px;
       span {

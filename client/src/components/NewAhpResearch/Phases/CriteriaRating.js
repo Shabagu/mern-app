@@ -18,6 +18,11 @@ export const CriteriaRating = ({
   phasesDone,
 }) => {
 
+  useEffect(() => {
+    const NEXT_PHASE_TITLE_BUTTON = document.querySelector('.NEXT_PHASE_TITLE_BUTTON')
+    NEXT_PHASE_TITLE_BUTTON.style.backgroundColor = DEFAULT_BUTTON_COLOR
+  }, [])
+
   const [localMTX, setLocalMTX] = useState(criteriaMTX)
   const [localSum, setLocalSum] = useState(criteriaSum)
 
@@ -27,11 +32,6 @@ export const CriteriaRating = ({
   const localSumSetter = (sum) => {
     setLocalSum(sum)
   }
-
-  useEffect(() => {
-    const NEXT_PHASE_TITLE_BUTTON = document.querySelector('.NEXT_PHASE_TITLE_BUTTON')
-    NEXT_PHASE_TITLE_BUTTON.style.backgroundColor = DEFAULT_BUTTON_COLOR
-  }, [])
 
   useEffect(() => {
     sumCalculate(localMTX, localSumSetter)
@@ -386,7 +386,6 @@ const Menu = ({
       </div>
       <div className={style.bottom}>
         <div className={style.high}>
-
         </div>
         <button className="btn" onClick={reselectionHandler}>
         &lt;&lt;&lt;&nbsp;&nbsp;Перевыбор
