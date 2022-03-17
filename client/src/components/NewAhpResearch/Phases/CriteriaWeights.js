@@ -9,11 +9,8 @@ export const CriteriaWeights = ({
   criteriaNormMTX,
   criteriaWeights,
 
-  // nextPhase,
-  // previousPhase,
   goToPhase,
   phaseDone,
-  // phasesDone,
 }) => {
 
   useEffect(() => {
@@ -65,11 +62,8 @@ export const CriteriaWeights = ({
       </div>
 
       <Menu
-        // nextPhase={nextPhase}
-        // previousPhase={previousPhase}
         goToPhase={goToPhase}
         phaseDone={phaseDone}
-        // phasesDone={previousPhase}
       />
     </div>
   )
@@ -212,19 +206,9 @@ const WeightsTable = ({
 
 
 const Menu = ({
-  // nextPhase,
-  // previousPhase,
   goToPhase,
   phaseDone,
-  // phasesDone,
 }) => {
-
-  // const continueHandler = () => {
-  //   if (phasesDone <= 2) {
-  //     phaseDone(1)
-  //   }
-  //   nextPhase(1)
-  // }
 
   const goToCriteriaRating = () => {
     goToPhase(1)

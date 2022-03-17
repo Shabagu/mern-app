@@ -13,8 +13,6 @@ export const CriteriaRating = ({
   criteriaNormMTXSetter,
   criteriaWeightsSetter,
 
-  // previousPhase,
-  // nextPhase,
   goToPhase,
   phaseDone,
   phasesDone,
@@ -39,17 +37,6 @@ export const CriteriaRating = ({
     sumCalculate(localMTX, localSumSetter)
   }, [localMTX])
 
-
-  // const goToCriteriaWeights = () => {
-  //   nextPhase(1)
-  // }
-  // const goToAlternativesRating = () => {
-  //   nextPhase(2)
-  // }
-  // const previousPhaseHandler = () => {
-  //   previousPhase(1)
-  // }
-
   return(
     <div className={style.phase_container}>
 
@@ -70,8 +57,7 @@ export const CriteriaRating = ({
         criteriaSumSetter={criteriaSumSetter}
         criteriaNormMTXSetter={criteriaNormMTXSetter}
         criteriaWeightsSetter={criteriaWeightsSetter}
-        // nextPhase={nextPhase}
-        // previousPhase={previousPhaseHandler}
+
         goToPhase={goToPhase}
         phaseDone={phaseDone}
         phasesDone={phasesDone}
@@ -331,8 +317,7 @@ const Menu = ({
   criteriaSumSetter,
   criteriaNormMTXSetter,
   criteriaWeightsSetter,
-  // nextPhase,
-  // previousPhase,
+
   goToPhase,
   phaseDone,
   phasesDone,
@@ -389,28 +374,29 @@ const Menu = ({
   return(
     <div className={style.menu}>
       <div className={style.top}>
+        <span className="btn waves-effect waves-light" onClick={resetHandler}>
+          Сброс
+        </span>
+        <span className="btn waves-effect waves-light" onClick={testHandler}>
+          Тест. значения
+        </span>
+        <span className="btn waves-effect waves-light" onClick={randomHandler}>
+          Случ. значения
+        </span>
       </div>
       <div className={style.bottom}>
-          <div className={style.high}>
-            <span className="btn waves-effect waves-light" onClick={resetHandler}>
-              Сброс
-            </span>
-            <span className="btn waves-effect waves-light" onClick={testHandler}>
-              Тест. значения
-            </span>
-            <span className="btn waves-effect waves-light" onClick={randomHandler}>
-              Случ. значения
-            </span>
-          </div>
-          <button className="btn" onClick={reselectionHandler}>
-          &lt;&lt;&lt;&nbsp;&nbsp;Перевыбор
-          </button>
-          <button className="btn" onClick={goToCriteriaWeights}>
-            Веса крит.&nbsp;&nbsp;&gt;&gt;&gt;
-          </button>
-          <button className="btn" onClick={goToAlternativesRating}>
-            Продолжить&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;
-          </button>
+        <div className={style.high}>
+
+        </div>
+        <button className="btn" onClick={reselectionHandler}>
+        &lt;&lt;&lt;&nbsp;&nbsp;Перевыбор
+        </button>
+        <button className="btn" onClick={goToCriteriaWeights}>
+          Веса крит.&nbsp;&nbsp;&gt;&gt;&gt;
+        </button>
+        <button className="btn" onClick={goToAlternativesRating}>
+          Продолжить&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;
+        </button>
       </div>
     </div>
   )

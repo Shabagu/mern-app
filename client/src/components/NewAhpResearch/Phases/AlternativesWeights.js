@@ -7,11 +7,9 @@ import style from "./AlternativesWeights.module.scss"
 
 export const AlternativesWeights = ({
 
-  // nextPhase,
-  // previousPhase,
+
   goToPhase,
   phaseDone,
-  // phasesDone,
 }) => {
 
   useEffect(() => {
@@ -23,32 +21,20 @@ export const AlternativesWeights = ({
     <div className={style.phase_container}>
       <p>Весовые столбцы альтернатив по критериям</p>
       <Menu
-        // nextPhase={nextPhase}
-        // previousPhase={previousPhase}
+
         goToPhase={goToPhase}
         phaseDone={phaseDone}
-        // phasesDone={previousPhase}
       />
     </div>
   )
 }
 
 const Menu = ({
-  // nextPhase,
-  // previousPhase,
   goToPhase,
   phaseDone,
-  // phasesDone,
 }) => {
 
   const message = useMessage()
-
-  // const continueHandler = () => {
-  //   if (phasesDone <= 4) {
-  //     phaseDone(1)
-  //   }
-  //   nextPhase(1)
-  // }
 
   const goToAlternativesRating = () => {
     goToPhase(3)

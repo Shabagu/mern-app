@@ -139,6 +139,18 @@ $tableBorderExtraThin: 1px solid #aaa;
       width: 190px;
     }
 
+    .top {
+      margin-top: 128px;
+
+      span {
+        margin-bottom: 4px;
+      }
+      button:last-child {
+        margin-bottom: 0;
+      }
+
+    }
+
     .bottom {
 
       .high {

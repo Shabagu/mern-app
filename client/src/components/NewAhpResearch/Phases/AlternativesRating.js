@@ -7,8 +7,7 @@ import style from "./AlternativesRating.module.scss"
 
 export const AlternativesRating = ({
 
-  // previousPhase,
-  // nextPhase,
+
   goToPhase,
   phaseDone,
   phasesDone,
@@ -23,8 +22,8 @@ export const AlternativesRating = ({
     <div className={style.phase_container}>
       <p>Попарное сравнение альтернатив по критериям</p>
       <Menu
-        // nextPhase={nextPhase}
-        // previousPhase={previousPhaseHandler}
+
+
         goToPhase={goToPhase}
         phaseDone={phaseDone}
         phasesDone={phasesDone}
@@ -34,8 +33,6 @@ export const AlternativesRating = ({
 }
 
 const Menu = ({
-  // nextPhase,
-  // previousPhase,
   goToPhase,
   phaseDone,
   phasesDone,

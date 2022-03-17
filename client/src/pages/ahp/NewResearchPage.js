@@ -147,8 +147,6 @@ export const NewResearchPage = () => {
           criteriaNormMTXSetter={setcriteriaNormMTXHandler}
           criteriaWeightsSetter={setCriteriaWeightsHandler}
           
-          // nextPhase={nextPhaseHandler}
-          // previousPhase={previousPhaseHandler}
           goToPhase={goToPhaseHandler}
           phaseDone={phasesDoneHandler}
           phasesDone={phasesDone}
@@ -161,11 +159,8 @@ export const NewResearchPage = () => {
           criteriaNormMTX={criteriaNormMTX}
           criteriaWeights={criteriaWeights}
 
-          // nextPhase={nextPhaseHandler}
-          // previousPhase={previousPhaseHandler}
           goToPhase={goToPhaseHandler}
           phaseDone={phasesDoneHandler}
-          // phasesDone={phasesDone}
         />
       }
 
@@ -174,8 +169,7 @@ export const NewResearchPage = () => {
           criteria={criteria}
           
 
-          // nextPhase={nextPhaseHandler}
-          // previousPhase={previousPhaseHandler}
+
           goToPhase={goToPhaseHandler}
           phaseDone={phasesDoneHandler}
           phasesDone={phasesDone}
@@ -184,12 +178,11 @@ export const NewResearchPage = () => {
 
       {phase === 4 &&
         <AlternativesWeights
-        
-          // nextPhase={nextPhaseHandler}
-          // previousPhase={previousPhaseHandler}
+
+
+ 
           goToPhase={goToPhaseHandler}
           phaseDone={phasesDoneHandler}
-          // phasesDone={phasesDone}
         />
       }
 
