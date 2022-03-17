@@ -1,7 +1,7 @@
 import { useEffect } from "react"
 import { useHistory } from "react-router-dom"
 import { useMessage } from "../../../hooks/message.hook"
-import { DEFAULT_BUTTON_COLOR } from "../../../pages/ahp/NewResearchPage"
+import { HOT_CHANGES_EFFECT_RESET } from "../../../pages/ahp/NewResearchPage"
 
 import style from "./GlobalWeights.module.scss"
 
@@ -10,10 +10,7 @@ export const GlobalWeights = ({
   goToPhase,
 }) => {
 
-  useEffect(() => {
-    const NEXT_PHASE_TITLE_BUTTON = document.querySelector('.NEXT_PHASE_TITLE_BUTTON')
-    NEXT_PHASE_TITLE_BUTTON.style.backgroundColor = DEFAULT_BUTTON_COLOR
-  }, [])
+  useEffect(() => { HOT_CHANGES_EFFECT_RESET() }, [])
 
   return(
     <div className={style.phase_container}>

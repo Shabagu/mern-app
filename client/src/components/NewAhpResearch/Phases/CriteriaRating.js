@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { DEFAULT_BUTTON_COLOR, HOT_CHANGES_BUTTON_COLOR, HOT_CHANGES_HANDLER } from "../../../pages/ahp/NewResearchPage"
+import { HOT_CHANGES_EFFECT_RESET, HOT_CHANGES_EFFECT } from "../../../pages/ahp/NewResearchPage"
 
 import style from "./CriteriaRating.module.scss"
 
@@ -18,10 +18,7 @@ export const CriteriaRating = ({
   phasesDone,
 }) => {
 
-  useEffect(() => {
-    const NEXT_PHASE_TITLE_BUTTON = document.querySelector('.NEXT_PHASE_TITLE_BUTTON')
-    NEXT_PHASE_TITLE_BUTTON.style.backgroundColor = DEFAULT_BUTTON_COLOR
-  }, [])
+  useEffect(() => { HOT_CHANGES_EFFECT_RESET() }, [])
 
   const [localMTX, setLocalMTX] = useState(criteriaMTX)
   const [localSum, setLocalSum] = useState(criteriaSum)
@@ -447,7 +444,7 @@ const increaseTuning = (mtx, i, j, mtxSetter, sumSetter) => {
     mtxSetter(mtxModel)
   }
   sumCalculate(mtx, sumSetter)
-  HOT_CHANGES_HANDLER(HOT_CHANGES_BUTTON_COLOR)
+  HOT_CHANGES_EFFECT()
 }
 const decreaseTuning = (mtx, i, j, mtxSetter, sumSetter) => {
   let mtxModel = mtx
@@ -457,7 +454,7 @@ const decreaseTuning = (mtx, i, j, mtxSetter, sumSetter) => {
     mtxSetter(mtxModel)
   }
   sumCalculate(mtx, sumSetter)
-  HOT_CHANGES_HANDLER(HOT_CHANGES_BUTTON_COLOR)
+  HOT_CHANGES_EFFECT()
 }
 const wheelTuning = (mtx, i, j, mtxSetter, sumSetter, e) => {
   if (e.nativeEvent.wheelDelta > 0) {
@@ -472,7 +469,7 @@ const maxTuning = (mtx, i, j, mtxSetter, sumSetter) => {
   mtxModel[j][i] = 0
   mtxSetter(mtxModel)
   sumCalculate(mtx, sumSetter)
-  HOT_CHANGES_HANDLER(HOT_CHANGES_BUTTON_COLOR)
+  HOT_CHANGES_EFFECT()
 }
 const minTuning = (mtx, i, j, mtxSetter, sumSetter) => {
   let mtxModel = mtx
@@ -480,7 +477,7 @@ const minTuning = (mtx, i, j, mtxSetter, sumSetter) => {
   mtxModel[j][i] = 16
   mtxSetter(mtxModel)
   sumCalculate(mtx, sumSetter)
-  HOT_CHANGES_HANDLER(HOT_CHANGES_BUTTON_COLOR)
+  HOT_CHANGES_EFFECT()
 }
 const resetTuning = (mtx, i, j, mtxSetter, sumSetter) => {
   let mtxModel = mtx
@@ -488,7 +485,7 @@ const resetTuning = (mtx, i, j, mtxSetter, sumSetter) => {
   mtxModel[j][i] = 8
   mtxSetter(mtxModel)
   sumCalculate(mtx, sumSetter)
-  HOT_CHANGES_HANDLER(HOT_CHANGES_BUTTON_COLOR)
+  HOT_CHANGES_EFFECT()
 }
 
 
@@ -518,7 +515,7 @@ const resetMtx = (mtx, mtxSetter) => {
     }
   }
   mtxSetter(mtx)
-  HOT_CHANGES_HANDLER(HOT_CHANGES_BUTTON_COLOR)
+  HOT_CHANGES_EFFECT()
 }
 
 // Рандомизация значений матрицы
@@ -541,7 +538,7 @@ const randomMtx = (mtx, mtxSetter) => {
     mtx[i][i] = 8
   }
   mtxSetter(mtx)
-  HOT_CHANGES_HANDLER(HOT_CHANGES_BUTTON_COLOR)
+  HOT_CHANGES_EFFECT()
 }
 
 // Тестовый набор данных
@@ -558,7 +555,7 @@ const testMtx = (mtx, mtxSetter) => {
       [16, 15, 15, 9, 8, 1, 8, 8]
     ]
     mtxSetter(testMtx)
-    HOT_CHANGES_HANDLER(HOT_CHANGES_BUTTON_COLOR)
+    HOT_CHANGES_EFFECT()
   }
 }
 

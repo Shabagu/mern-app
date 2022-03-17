@@ -44,6 +44,19 @@ export const HOT_CHANGES_HANDLER = (HOT_CHANGES_BUTTON_COLOR) => {
 }
 
 
+const NEXT_PHASE_TITLE_BUTTON_DEFAULT_COLOR = '#26a69a'
+const NEXT_PHASE_TITLE_BUTTON_HOT_CHANGES_COLOR = '#ff8e3a'
+
+export const HOT_CHANGES_EFFECT = () => {
+  const button = document.querySelector('.NEXT_PHASE_TITLE_BUTTON')
+  button.style.backgroundColor = NEXT_PHASE_TITLE_BUTTON_HOT_CHANGES_COLOR
+} 
+export const HOT_CHANGES_EFFECT_RESET = () => {
+  const button = document.querySelector('.NEXT_PHASE_TITLE_BUTTON')
+  button.style.backgroundColor = NEXT_PHASE_TITLE_BUTTON_DEFAULT_COLOR
+} 
+
+
 
 export const NewResearchPage = () => {
 

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { DEFAULT_BUTTON_COLOR } from "../../../pages/ahp/NewResearchPage"
+import { HOT_CHANGES_EFFECT_RESET } from "../../../pages/ahp/NewResearchPage"
 
 import style from "./CriteriaWeights.module.scss"
 
@@ -13,10 +13,7 @@ export const CriteriaWeights = ({
   phaseDone,
 }) => {
 
-  useEffect(() => {
-    const NEXT_PHASE_TITLE_BUTTON = document.querySelector('.NEXT_PHASE_TITLE_BUTTON')
-    NEXT_PHASE_TITLE_BUTTON.style.backgroundColor = DEFAULT_BUTTON_COLOR
-  }, [])
+  useEffect(() => { HOT_CHANGES_EFFECT_RESET() }, [])
 
   class Weight {
     constructor(criteria, weight) {
