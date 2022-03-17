@@ -28,11 +28,15 @@ export const AlternativesRating = ({
   const [localMTX, setLocalMTX] = useState(alternativesMTX)
   const [localSum, setLocalSum] = useState(alternativesSum)
   
-  const localMTXSetter = (mtx) => {
-    setLocalMTX([...mtx])
+  const localMTXSetter = (mtx, criterion) => {
+    let enteringMtx = localMTX
+    enteringMtx[criterion] = mtx
+    setLocalMTX([...enteringMtx])
   }
-  const localSumSetter = (sum) => {
-    setLocalSum([...sum])
+  const localSumSetter = (sum, criterion) => {
+    let enteringSum = localSum
+    enteringSum[criterion] = sum
+    setLocalSum([...enteringSum])
   }
   
   const [currentCriterion, setCurrentCriterion] = useState(0)
@@ -276,7 +280,7 @@ const OutCell = ({
   return(
     <td className={style.below}>
       <span>
-        {/* {MARK_MODEL[localMTX[row][col]].string} */}
+        {MARK_MODEL[localMTX[row][col]].string}
       </span>
     </td>
   )
@@ -291,7 +295,7 @@ const DiagonalCell = ({
   return(
     <td className={style.diagonal}>
       <span>
-        {/* {MARK_MODEL[localMTX[row][col]].string} */}
+        {MARK_MODEL[localMTX[row][col]].string}
       </span>
     </td>
   )
@@ -305,7 +309,7 @@ const SumCell = ({
   return(
     <td>
       <span>
-        {/* {valAdduction(localSum[col])} */}
+        {valAdduction(localSum[col])}
       </span>
     </td>
   )
@@ -363,9 +367,9 @@ const Menu = ({
   function noop () {}
 
   const changeCriterionHandler = (criterion) => {
-    console.log(criterion)
-
+    
     currentCriterionSetter(criterion)
+    console.log(criterion)
   }
 
   return(
