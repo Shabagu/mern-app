@@ -63,6 +63,7 @@ export const AlternativesRating = ({
 
       <Menu
         criteria={criteria}
+        currentCriterion={currentCriterion}
         currentCriterionSetter={currentCriterionSetter}
 
         goToPhase={goToPhase}
@@ -344,6 +345,7 @@ const SumCell = ({
 
 const Menu = ({
   criteria,
+  currentCriterion,
   currentCriterionSetter,
 
   goToPhase,
@@ -384,12 +386,15 @@ const Menu = ({
   const changeCriterionHandler = (criterion) => {
     
     currentCriterionSetter(criterion)
-    console.log(criterion)
+    // console.log(criterion)
   }
 
   return(
     <div className={style.menu}>
       <div className={style.top}>
+        <span className={style.current_criterion} title={criteria[currentCriterion]}>
+          {criteria[currentCriterion]}
+        </span>
         <span className="btn waves-effect waves-light" onClick={noop}>
           Сброс
         </span>
@@ -406,7 +411,6 @@ const Menu = ({
             <input
               type="radio"
               name="criteria"
-              // className={`criterion${i} with-gap`}
               className="with-gap"
               onChange={(e) => changeCriterionHandler(i, e)}
             />

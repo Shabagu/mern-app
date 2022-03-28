@@ -162,10 +162,9 @@ $tableBorderExtraThin: 1px solid #aaa;
     label {
       color: black;
 
-      
-      span{ 
+      span {
         display: block;
-        width: 80%;
+        width: 95%;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
@@ -186,6 +185,18 @@ $tableBorderExtraThin: 1px solid #aaa;
     button:last-child {
       margin-bottom: 0;
     }
+  }
+
+  .current_criterion {
+    position: absolute;
+    top: 70px;
+
+    font-size: 2rem;
+
+    width: 95%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
   
 }
