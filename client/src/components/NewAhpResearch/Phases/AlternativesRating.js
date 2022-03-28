@@ -43,9 +43,9 @@ export const AlternativesRating = ({
   }
 
 
-  // useEffect(() => {
-  //   sumCalculate(localMTX, localSumSetter)
-  // }, [localMTX])
+  useEffect(() => {
+    // sumCalculate(currentCriterion, localMTX, localSumSetter)
+  }, [currentCriterion, localMTX])
 
   return(
     <div className={style.phase_container}>
@@ -53,8 +53,9 @@ export const AlternativesRating = ({
 
       <Table
         alternatives={alternatives}
-        localMTX={localMTX[0]}
-        localSum={localSum[0]}
+        currentCriterion={currentCriterion}
+        localMTX={localMTX}
+        localSum={localSum}
         localMTXSetter={localMTXSetter}
         localSumSetter={localSumSetter}
       />
@@ -74,6 +75,7 @@ export const AlternativesRating = ({
 
 const Table = ({
   alternatives,
+  currentCriterion,
   localMTX,
   localSum,
   localMTXSetter,
@@ -98,6 +100,7 @@ const Table = ({
           key={i}
           i={i}
           alternatives={alternatives}
+          currentCriterion={currentCriterion}
           localMTX={localMTX}
           localMTXSetter={localMTXSetter}
           localSumSetter={localSumSetter}
@@ -110,6 +113,7 @@ const Table = ({
         {[...Array(alternatives.length)].map((x, i) =>
           <SumCell
             key={i}
+            cc={currentCriterion}
             col={i}
             localSum={localSum}
           />
@@ -123,6 +127,7 @@ const Table = ({
 const CellRow = ({
   i,
   alternatives,
+  currentCriterion,
   localMTX,
   localMTXSetter,
   localSumSetter,
@@ -137,6 +142,7 @@ const CellRow = ({
         if (i < j) return (
           <InCell
             key={j}
+            cc={currentCriterion}
             row={i}
             col={j}
             localMTX={localMTX}
@@ -147,6 +153,7 @@ const CellRow = ({
         else if (i > j) return(
           <OutCell
             key={j}
+            cc={currentCriterion}
             row={i}
             col={j}
             localMTX={localMTX}
@@ -155,6 +162,7 @@ const CellRow = ({
         else if (i === j) return (
           <DiagonalCell
             key={j}
+            cc={currentCriterion}
             row={i}
             col={j}
             localMTX={localMTX}
@@ -167,6 +175,7 @@ const CellRow = ({
 }
 
 const InCell = ({
+  cc,
   row,
   col,
   localMTX,
@@ -178,11 +187,11 @@ const InCell = ({
     <td>
       <div
         className={style.cell}
-        onWheel={(e) => wheelTuning(localMTX, row, col, localMTXSetter, localSumSetter, e)}
+        onWheel={(e) => wheelTuning(cc, localMTX, row, col, localMTXSetter, localSumSetter, e)}
       >
         <div className={style.value_box}>
-          <span key={localMTX}>
-            {MARK_MODEL[localMTX[row][col]].string}
+          <span>
+            {MARK_MODEL[localMTX[cc][row][col]].string}
           </span>
         </div>
         <div className={style.cell_tuning}>
@@ -190,55 +199,60 @@ const InCell = ({
             <TuningButton
               icon={'keyboard_arrow_up'}
               action={increaseTuning}
+              cc={cc}
               row={row}
               col={col}
               mtx={localMTX}
               mtxSetter={localMTXSetter}
               sumSetter={localSumSetter}
-              disableCondition={localMTX[row][col] > 15}
+              disableCondition={localMTX[cc][row][col] > 15}
             />
             <TuningButton
               icon={'keyboard_arrow_left'}
               action={decreaseTuning}
+              cc={cc}
               row={row}
               col={col}
               mtx={localMTX}
               mtxSetter={localMTXSetter}
               sumSetter={localSumSetter}
-              disableCondition={localMTX[row][col] < 1}
+              disableCondition={localMTX[cc][row][col] < 1}
             />
           </div>
           <div className={style.cell_tuning_right}>
             <TuningButton
               icon={'arrow_upward'}
               action={maxTuning}
+              cc={cc}
               row={row}
               col={col}
               mtx={localMTX}
               mtxSetter={localMTXSetter}
               sumSetter={localSumSetter}
-              disableCondition={localMTX[row][col] > 15}
+              disableCondition={localMTX[cc][row][col] > 15}
             />
             <TuningButton
               icon={'arrow_back'}
               action={minTuning}
+              cc={cc}
               row={row}
               col={col}
               mtx={localMTX}
               mtxSetter={localMTXSetter}
               sumSetter={localSumSetter}
-              disableCondition={localMTX[row][col] < 1}
+              disableCondition={localMTX[cc][row][col] < 1}
             />
           </div>
           <TuningButton
               icon={'refresh'}
               action={resetTuning}
+              cc={cc}
               row={row}
               col={col}
               mtx={localMTX}
               mtxSetter={localMTXSetter}
               sumSetter={localSumSetter}
-              disableCondition={localMTX[row][col] === 8}
+              disableCondition={localMTX[cc][row][col] === 8}
             />
         </div>
       </div>
@@ -249,6 +263,7 @@ const InCell = ({
 const TuningButton = ({
   icon,
   action,
+  cc,
   row,
   col,
   mtx,
@@ -261,7 +276,7 @@ const TuningButton = ({
     <span
       className="btn"
       disabled={disableCondition}
-      onClick={(e) => action(mtx, row, col, mtxSetter, sumSetter, e)}
+      onClick={(e) => action(cc, mtx, row, col, mtxSetter, sumSetter, e)}
     >
       <i className="material-icons">{icon}</i>
     </span>
@@ -269,6 +284,7 @@ const TuningButton = ({
 }
 
 const OutCell = ({
+  cc,
   row,
   col,
   localMTX,
@@ -277,13 +293,14 @@ const OutCell = ({
   return(
     <td className={style.below}>
       <span>
-        {MARK_MODEL[localMTX[row][col]].string}
+        {MARK_MODEL[localMTX[cc][row][col]].string}
       </span>
     </td>
   )
 }
 
 const DiagonalCell = ({
+  cc,
   row,
   col,
   localMTX,
@@ -292,21 +309,22 @@ const DiagonalCell = ({
   return(
     <td className={style.diagonal}>
       <span>
-        {MARK_MODEL[localMTX[row][col]].string}
+        {MARK_MODEL[localMTX[cc][row][col]].string}
       </span>
     </td>
   )
 }
 
 const SumCell = ({
+  cc,
   col,
-  localSum
+  localSum,
  }) => {
    
   return(
     <td>
       <span>
-        {valAdduction(localSum[col])}
+        {valAdduction(localSum[cc][col])}
       </span>
     </td>
   )
@@ -467,71 +485,72 @@ const valAdduction = (value) => {
 
 
 
+
 // Изменение оценок
-const increaseTuning = (mtx, i, j, mtxSetter, sumSetter) => {
-  let mtxModel = mtx
+const increaseTuning = (cc, mtx, i, j, mtxSetter, sumSetter) => {
+  let mtxModel = mtx[cc]
   if (mtxModel[i][j] < 16) {
     mtxModel[i][j] += 1
     mtxModel[j][i] -= 1
-    mtxSetter(mtxModel)
+    mtxSetter(mtxModel, cc)
   }
-  sumCalculate(mtx, sumSetter)
+  sumCalculate(cc, mtx, sumSetter)
   HOT_CHANGES_EFFECT()
 }
-const decreaseTuning = (mtx, i, j, mtxSetter, sumSetter) => {
-  let mtxModel = mtx
+const decreaseTuning = (cc, mtx, i, j, mtxSetter, sumSetter) => {
+  let mtxModel = mtx[cc]
   if (mtxModel[i][j] > 0) {
     mtxModel[i][j] -= 1
     mtxModel[j][i] += 1
-    mtxSetter(mtxModel)
+    mtxSetter(mtxModel, cc)
   }
-  sumCalculate(mtx, sumSetter)
+  sumCalculate(cc, mtx, sumSetter)
   HOT_CHANGES_EFFECT()
 }
-const wheelTuning = (mtx, i, j, mtxSetter, sumSetter, e) => {
+const wheelTuning = (cc, mtx, i, j, mtxSetter, sumSetter, e) => {
   if (e.nativeEvent.wheelDelta > 0) {
-    increaseTuning(mtx, i, j, mtxSetter, sumSetter)
+    increaseTuning(cc, mtx, i, j, mtxSetter, sumSetter)
   } else {
-    decreaseTuning(mtx, i, j, mtxSetter, sumSetter)
+    decreaseTuning(cc, mtx, i, j, mtxSetter, sumSetter)
   }
 }
-const maxTuning = (mtx, i, j, mtxSetter, sumSetter) => {
-  let mtxModel = mtx
+const maxTuning = (cc, mtx, i, j, mtxSetter, sumSetter) => {
+  let mtxModel = mtx[cc]
   mtxModel[i][j] = 16
   mtxModel[j][i] = 0
-  mtxSetter(mtxModel)
-  sumCalculate(mtx, sumSetter)
+  mtxSetter(mtxModel, cc)
+  sumCalculate(cc, mtx, sumSetter)
   HOT_CHANGES_EFFECT()
 }
-const minTuning = (mtx, i, j, mtxSetter, sumSetter) => {
-  let mtxModel = mtx
+const minTuning = (cc, mtx, i, j, mtxSetter, sumSetter) => {
+  let mtxModel = mtx[cc]
   mtxModel[i][j] = 0
   mtxModel[j][i] = 16
-  mtxSetter(mtxModel)
-  sumCalculate(mtx, sumSetter)
+  mtxSetter(mtxModel, cc)
+  sumCalculate(cc, mtx, sumSetter)
   HOT_CHANGES_EFFECT()
 }
-const resetTuning = (mtx, i, j, mtxSetter, sumSetter) => {
-  let mtxModel = mtx
+const resetTuning = (cc, mtx, i, j, mtxSetter, sumSetter) => {
+  let mtxModel = mtx[cc]
   mtxModel[i][j] = 8
   mtxModel[j][i] = 8
-  mtxSetter(mtxModel)
-  sumCalculate(mtx, sumSetter)
+  mtxSetter(mtxModel, cc)
+  sumCalculate(cc, mtx, sumSetter)
   HOT_CHANGES_EFFECT()
 }
 
 
 
 // Расчёт суммы
-const sumCalculate = (mtx, sumSetter) => {
-  const n = mtx.length
+const sumCalculate = (cc, mtx, sumSetter) => {
+  const n = mtx[cc].length
   let sum = Array(n).fill(0)
   for (let i = 0; i < n; i++) {
     for (let j = 0; j < n; j++) {
-      if (MARK_MODEL[mtx[j][i]]) {
-        sum[i] += MARK_MODEL[mtx[j][i]].number
+      if (MARK_MODEL[mtx[cc][j][i]]) {
+        sum[i] += MARK_MODEL[mtx[cc][j][i]].number
       }
     }
   }
-  sumSetter(sum)
+  sumSetter(sum, cc)
 }

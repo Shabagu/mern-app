@@ -172,7 +172,7 @@ const InCell = ({
         onWheel={(e) => wheelTuning(localMTX, row, col, localMTXSetter, localSumSetter, e)}
       >
         <div className={style.value_box}>
-          <span key={localMTX}>
+          <span>
             {MARK_MODEL[localMTX[row][col]].string}
           </span>
         </div>
