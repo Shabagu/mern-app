@@ -374,8 +374,22 @@ const Menu = ({
 
   const resetHandler = () => {
     resetMtx(currentCriterion, localMTX, localMTXSetter)
-    // sumCalculate(currentCriterion, localMTX, sumSetter)
+    sumCalculate(currentCriterion, localMTX, localSumSetter)
   }
+
+  const randomHandler = () => {
+    randomMtx(currentCriterion, localMTX, localMTXSetter)
+    sumCalculate(currentCriterion, localMTX, localSumSetter)
+  }
+
+  const testHandler = () => {
+    testMtx(currentCriterion, localMTX, localMTXSetter)
+    sumCalculate(currentCriterion, localMTX, localSumSetter)
+  }
+
+
+
+
 
   const goToCriteriaRating = () => {
     goToPhase(1)
@@ -415,10 +429,10 @@ const Menu = ({
         <span className="btn waves-effect waves-light" onClick={resetHandler}>
           Сброс
         </span>
-        <span className="btn waves-effect waves-light" onClick={noop}>
+        <span className="btn waves-effect waves-light" onClick={testHandler}>
           Тест. значения
         </span>
-        <span className="btn waves-effect waves-light" onClick={noop}>
+        <span className="btn waves-effect waves-light" onClick={randomHandler}>
           Случ. значения
         </span>
       </div>
@@ -568,9 +582,7 @@ const sumCalculate = (cc, mtx, sumSetter) => {
   let sum = Array(n).fill(0)
   for (let i = 0; i < n; i++) {
     for (let j = 0; j < n; j++) {
-      if (MARK_MODEL[mtx[cc][j][i]]) {
-        sum[i] += MARK_MODEL[mtx[cc][j][i]].number
-      }
+      sum[i] += MARK_MODEL[mtx[cc][j][i]].number
     }
   }
   sumSetter(sum, cc)
@@ -580,57 +592,59 @@ const sumCalculate = (cc, mtx, sumSetter) => {
 
 // Сброс значений матрицы
 const resetMtx = (cc, mtx, mtxSetter) => {
-  let mtxModel = mtx[cc]
-  const n = mtxModel.length
+  let ccmtx = mtx[cc]
+  const n = ccmtx.length
   for (let i = 0; i < n; i++) {
     for (let j = 0; j < n; j++) {
-      mtxModel[i][j] = 8
+      ccmtx[i][j] = 8
     }
   }
-  mtxSetter(mtxModel, cc)
+  mtxSetter(ccmtx, cc)
   HOT_CHANGES_EFFECT()
 }
 
-// // Рандомизация значений матрицы
-// const randomIntegerInRange = (min, max) => {
-//   min = Math.ceil(min);
-//   max = Math.floor(max);
-//   return Math.floor(Math.random() * (max - min + 1)) + min
-// }
-// const reversArray = []
-// for (let i = 0; i <= 16; i++) {
-//   reversArray[i] = 16 - i
-// }
-// const randomMtx = (сс, mtx, mtxSetter) => {
-//   const n = mtx.length
-//   for (let i = 0; i < n; i++) {
-//     for (let j = i + 1; j < n; j++) {
-//       mtx[i][j] = randomIntegerInRange(0, 16)
-//       mtx[j][i] = reversArray[mtx[i][j]]
-//     }
-//     mtx[i][i] = 8
-//   }
-//   mtxSetter(mtx)
-//   HOT_CHANGES_EFFECT()
-// }
+// Рандомизация значений матрицы
+const randomIntegerInRange = (min, max) => {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min
+}
+const reversArray = []
+for (let i = 0; i <= 16; i++) {
+  reversArray[i] = 16 - i
+}
+const randomMtx = (cc, mtx, mtxSetter) => {
+  let ccmtx = mtx[cc]
+  const n = ccmtx.length
+  for (let i = 0; i < n; i++) {
+    for (let j = i + 1; j < n; j++) {
+      ccmtx[i][j] = randomIntegerInRange(0, 16)
+      ccmtx[j][i] = reversArray[ccmtx[i][j]]
+    }
+    ccmtx[i][i] = 8
+  }
+  mtxSetter(ccmtx, cc)
+  HOT_CHANGES_EFFECT()
+}
 
-// // Тестовый набор данных
-// const testMtx = (mtx, mtxSetter) => {
-//   if (mtx.length === 8) {
-//     const testMtx = [
-//       [8, 1, 13, 1, 13, 3, 14, 0],
-//       [15, 8, 13, 14, 6, 2, 5, 1],
-//       [3, 3, 8, 6, 14, 16, 6, 1],
-//       [15, 2, 10, 8, 12, 12, 5, 7],
-//       [3, 10, 2, 4, 8, 7, 6, 8],
-//       [13, 14, 0, 4, 9, 8, 9, 15],
-//       [2, 11, 10, 11, 10, 7, 8, 8],
-//       [16, 15, 15, 9, 8, 1, 8, 8]
-//     ]
-//     mtxSetter(testMtx)
-//     HOT_CHANGES_EFFECT()
-//   }
-// }
+// Тестовый набор данных
+const testMtx = (cc, mtx, mtxSetter) => {
+  let ccmtx = mtx[cc]
+  if (ccmtx.length === 8) {
+    const testMtx = [
+      [8, 1, 13, 1, 13, 3, 14, 0],
+      [15, 8, 13, 14, 6, 2, 5, 1],
+      [3, 3, 8, 6, 14, 16, 6, 1],
+      [15, 2, 10, 8, 12, 12, 5, 7],
+      [3, 10, 2, 4, 8, 7, 6, 8],
+      [13, 14, 0, 4, 9, 8, 9, 15],
+      [2, 11, 10, 11, 10, 7, 8, 8],
+      [16, 15, 15, 9, 8, 1, 8, 8]
+    ]
+    mtxSetter(testMtx, cc)
+    HOT_CHANGES_EFFECT()
+  }
+}
 
 
 

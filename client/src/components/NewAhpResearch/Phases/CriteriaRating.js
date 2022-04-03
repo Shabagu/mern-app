@@ -339,6 +339,8 @@ const Menu = ({
     sumCalculate(localMTX, localSumSetter)
   }
 
+  
+
   const globalStateSetter = () => {
     const normalizedMTX = normalizeMtx(localMTX, localSum)
     const weights = calculateWeights(normalizedMTX)
