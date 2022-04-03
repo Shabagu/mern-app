@@ -66,6 +66,15 @@ export const AlternativesRating = ({
         currentCriterion={currentCriterion}
         currentCriterionSetter={currentCriterionSetter}
 
+        localMTX={localMTX}
+        localMTXSetter={localMTXSetter}
+        localSum={localSum}
+        localSumSetter={localSumSetter}
+        // criteriaMTXSetter={criteriaMTXSetter}
+        // criteriaSumSetter={criteriaSumSetter}
+        // criteriaNormMTXSetter={criteriaNormMTXSetter}
+        // criteriaWeightsSetter={criteriaWeightsSetter}
+
         goToPhase={goToPhase}
         phaseDone={phaseDone}
         phasesDone={phasesDone}
@@ -347,7 +356,10 @@ const Menu = ({
   criteria,
   currentCriterion,
   currentCriterionSetter,
-
+  localMTX,
+  localMTXSetter,
+  localSum,
+  localSumSetter,
   goToPhase,
   phaseDone,
   phasesDone,
@@ -359,6 +371,11 @@ const Menu = ({
     const firstCriterionCheckbox = document.querySelector('input[name="criteria"]:first-child')
     firstCriterionCheckbox.checked = true
   }, [])
+
+  const resetHandler = () => {
+    resetMtx(currentCriterion, localMTX, localMTXSetter)
+    // sumCalculate(currentCriterion, localMTX, sumSetter)
+  }
 
   const goToCriteriaRating = () => {
     goToPhase(1)
@@ -395,7 +412,7 @@ const Menu = ({
         <span className={style.current_criterion} title={criteria[currentCriterion]}>
           {criteria[currentCriterion]}
         </span>
-        <span className="btn waves-effect waves-light" onClick={noop}>
+        <span className="btn waves-effect waves-light" onClick={resetHandler}>
           Сброс
         </span>
         <span className="btn waves-effect waves-light" onClick={noop}>
@@ -558,3 +575,86 @@ const sumCalculate = (cc, mtx, sumSetter) => {
   }
   sumSetter(sum, cc)
 }
+
+
+
+// Сброс значений матрицы
+const resetMtx = (cc, mtx, mtxSetter) => {
+  let mtxModel = mtx[cc]
+  const n = mtxModel.length
+  for (let i = 0; i < n; i++) {
+    for (let j = 0; j < n; j++) {
+      mtxModel[i][j] = 8
+    }
+  }
+  mtxSetter(mtxModel, cc)
+  HOT_CHANGES_EFFECT()
+}
+
+// // Рандомизация значений матрицы
+// const randomIntegerInRange = (min, max) => {
+//   min = Math.ceil(min);
+//   max = Math.floor(max);
+//   return Math.floor(Math.random() * (max - min + 1)) + min
+// }
+// const reversArray = []
+// for (let i = 0; i <= 16; i++) {
+//   reversArray[i] = 16 - i
+// }
+// const randomMtx = (сс, mtx, mtxSetter) => {
+//   const n = mtx.length
+//   for (let i = 0; i < n; i++) {
+//     for (let j = i + 1; j < n; j++) {
+//       mtx[i][j] = randomIntegerInRange(0, 16)
+//       mtx[j][i] = reversArray[mtx[i][j]]
+//     }
+//     mtx[i][i] = 8
+//   }
+//   mtxSetter(mtx)
+//   HOT_CHANGES_EFFECT()
+// }
+
+// // Тестовый набор данных
+// const testMtx = (mtx, mtxSetter) => {
+//   if (mtx.length === 8) {
+//     const testMtx = [
+//       [8, 1, 13, 1, 13, 3, 14, 0],
+//       [15, 8, 13, 14, 6, 2, 5, 1],
+//       [3, 3, 8, 6, 14, 16, 6, 1],
+//       [15, 2, 10, 8, 12, 12, 5, 7],
+//       [3, 10, 2, 4, 8, 7, 6, 8],
+//       [13, 14, 0, 4, 9, 8, 9, 15],
+//       [2, 11, 10, 11, 10, 7, 8, 8],
+//       [16, 15, 15, 9, 8, 1, 8, 8]
+//     ]
+//     mtxSetter(testMtx)
+//     HOT_CHANGES_EFFECT()
+//   }
+// }
+
+
+
+// // Нормировка матрицы
+// const normalizeMtx = (mtx, sum) => {
+//   let normMtx = []
+//   for (let i = 0; i < mtx.length; i++) {
+//     normMtx[i] = []
+//     for (let j = 0; j < mtx.length; j++) {
+//       normMtx[i][j] = MARK_MODEL[mtx[i][j]].number / sum[j]
+//     }
+//   }
+//   return normMtx
+// }
+
+// // Расчёт весов
+// const calculateWeights = (mtx) => {
+//   let weights = []
+//   for (let i = 0; i < mtx.length; i++) {
+//     weights[i] = 0
+//     for (let j = 0; j < mtx.length; j++) {
+//       weights[i] += mtx[i][j]
+//     }
+//     weights[i] = weights[i] / mtx.length
+//   }
+//   return weights
+// }
