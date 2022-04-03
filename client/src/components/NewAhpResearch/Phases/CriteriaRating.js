@@ -326,17 +326,17 @@ const Menu = ({
 
   const resetHandler = () => {
     resetMtx(localMTX, localMTXSetter)
-    sumCalculate(localSum, localSumSetter)
+    sumCalculate(localMTX, localSumSetter)
   }
 
   const randomHandler = () => {
     randomMtx(localMTX, localMTXSetter)
-    sumCalculate(localSum, localSumSetter)
+    sumCalculate(localMTX, localSumSetter)
   }
 
   const testHandler = () => {
     testMtx(localMTX, localMTXSetter)
-    sumCalculate(localSum, localSumSetter)
+    sumCalculate(localMTX, localSumSetter)
   }
 
   const globalStateSetter = () => {
@@ -496,9 +496,7 @@ const sumCalculate = (mtx, sumSetter) => {
   let sum = Array(n).fill(0)
   for (let i = 0; i < n; i++) {
     for (let j = 0; j < n; j++) {
-      if (MARK_MODEL[mtx[j][i]]) {
-        sum[i] += MARK_MODEL[mtx[j][i]].number
-      }
+      sum[i] += MARK_MODEL[mtx[j][i]].number
     }
   }
   sumSetter(sum)
