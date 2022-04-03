@@ -586,6 +586,7 @@ const sumCalculate = (cc, mtx, sumSetter) => {
     }
   }
   sumSetter(sum, cc)
+  console.log(mtx)
 }
 
 

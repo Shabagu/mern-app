@@ -120,7 +120,7 @@ export const SelectionPhase = ({
       }
       alternativesMTXSetter(defaultAlternativesMTX)
 
-      for (let i = 0; i < alternativesN; i++) {
+      for (let i = 0; i < criteriaN; i++) {
         defaultAlternativesSum[i] = []
         for (let j = 0; j < alternativesN; j++) {
           defaultAlternativesSum[i][j] = alternativesN
