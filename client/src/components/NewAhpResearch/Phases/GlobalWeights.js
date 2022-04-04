@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useEffect } from "react"
 import { useHistory } from "react-router-dom"
 import { useMessage } from "../../../hooks/message.hook"
 import { HOT_CHANGES_EFFECT_RESET } from "../../../pages/ahp/NewResearchPage"
@@ -16,8 +16,8 @@ export const GlobalWeights = ({
   useEffect(() => { HOT_CHANGES_EFFECT_RESET() }, [])
 
   class Weight {
-    constructor(alternatives, weight) {
-      this.alternatives = alternatives
+    constructor(alternative, weight) {
+      this.alternative = alternative
       this.weight = weight
     }
   }
@@ -27,30 +27,19 @@ export const GlobalWeights = ({
     defaultWeights[i] = new Weight(alternatives[i], globalWeights[i])
   }
   
-  const DEFAULT_WEIGHTS = defaultWeights
-  const SORTED_WEIGHTS = weightsSorting([...defaultWeights])
+  const sortedGlobalWeights = weightsSorting([...defaultWeights])
 
-  const [displayingWeights, setDisplayingWeights] = useState(SORTED_WEIGHTS)
-  const [isWeightsSorted, setIsWeightsSorted] = useState(true)
-
-  const displayingWeightsSetter = (arr) => {
-    setDisplayingWeights(arr)
-  }
-
-  const isWeightsSortedSetter = (condition) => {
-    setIsWeightsSorted(condition)
-  }
 
   return(
     <div className={style.phase_container}>
-      <GlobalWeightsTable
-        displayingWeights={displayingWeights}
-        displayingWeightsSetter={displayingWeightsSetter}
-        isWeightsSorted={isWeightsSorted}
-        isWeightsSortedSetter={isWeightsSortedSetter}
-        defaultWeights={DEFAULT_WEIGHTS}
-        sortedWeights={SORTED_WEIGHTS}
-      />
+      <div className={style.tables_container}>
+        <GlobalWeightsTable
+          displayingWeights={sortedGlobalWeights}
+        />
+        <GlobalWeightsChart
+          weights={sortedGlobalWeights}
+        />
+      </div>
       <Menu
         goToPhase={goToPhase}
       />
@@ -60,45 +49,24 @@ export const GlobalWeights = ({
 
 const GlobalWeightsTable = ({
   displayingWeights,
-  displayingWeightsSetter,
-  isWeightsSorted,
-  isWeightsSortedSetter,
-  defaultWeights,
-  sortedWeights,
 }) => {
-
-  const alternativesSortingHandler = () => {
-    const sortButton = document.getElementById('globalsSortButtonIcon')
-    if (!isWeightsSorted) {
-      displayingWeightsSetter(sortedWeights)
-      isWeightsSortedSetter(true)
-      sortButton.textContent = 'low_priority'
-    } else {
-      displayingWeightsSetter(defaultWeights)
-      isWeightsSortedSetter(false)
-      sortButton.textContent = 'swap_vert'
-    }
-  }
 
   return(
     <table className={style.global_weights_table}>
       <colgroup>
         <col className={style.first} />
+        <col className={style.second} />
       </colgroup>
       <thead>
         <tr>
-          <th className={style.heading} colSpan={3}>
-            <div className={style.button}>
-              <span className="btn waves-effect waves-light"
-                onClick={alternativesSortingHandler}
-              >
-                <i className="material-icons" id="globalsSortButtonIcon">low_priority</i>
-              </span>
-            </div>
+          <th className={style.heading} colSpan={4}>
             Глобальные веса альтернатив
           </th>
         </tr>
         <tr>
+          <th className={style.subheading}>
+            Ранг
+          </th>
           <th className={style.subheading}>
             Альтернатива
           </th>
@@ -113,9 +81,13 @@ const GlobalWeightsTable = ({
       <tbody>
         {[...Array(displayingWeights.length)].map((x, i) =>
           <tr key={i}>
-            <td title={displayingWeights[i].alternatives}>
+            <td className={style.top_alternative_cell}>
+              {i === 0 && <i className="material-icons" id={style.top_alternative}>whatshot</i>}
+              {i + 1}
+            </td>
+            <td title={displayingWeights[i].alternative}>
               <div className={style.container}>
-                {displayingWeights[i].alternatives}
+                {displayingWeights[i].alternative}
               </div>
             </td>
             <td>{valAdduction(displayingWeights[i].weight)}</td>
@@ -124,6 +96,16 @@ const GlobalWeightsTable = ({
         )}
       </tbody>
     </table>
+  )
+}
+
+const GlobalWeightsChart = ({
+  weights,
+}) => {
+  return(
+    <div className={style.global_weights_chart}>
+      <p>График</p>
+    </div>
   )
 }
 

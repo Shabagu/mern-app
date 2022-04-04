@@ -10,7 +10,7 @@ $tableBorderExtraThin: 1px solid #aaa;
   }
 
   .global_weights_table {
-    width: 40%;
+    width: 50%;
     margin-left: 1%;
     table-layout: fixed;
     border: $tableBorderBold;
@@ -18,6 +18,9 @@ $tableBorderExtraThin: 1px solid #aaa;
     height: 500px;
 
     col.first {
+      width: 20%;
+    }
+    col.second {
       width: 36.5%;
     }
 
@@ -53,7 +56,7 @@ $tableBorderExtraThin: 1px solid #aaa;
     }
 
     tr {
-      td:first-child {
+      td:nth-child(2) {
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
@@ -75,8 +78,6 @@ $tableBorderExtraThin: 1px solid #aaa;
       outline-offset: -3.5px;
     }
 
-
-
     .button {
       position: absolute;
 
@@ -95,6 +96,28 @@ $tableBorderExtraThin: 1px solid #aaa;
         }
       }
     }
+
+    tbody {
+      tr:first-child {
+        background-color: rgba(255, 238, 0, 0.5);
+      }
+    }
+
+    .top_alternative_cell {
+      position: relative;
+
+      #top_alternative {
+        position: absolute;
+        left: 10px;
+        top: 12px;
+        color: orangered;
+      }
+    }
+  }
+
+  .global_weights_chart {
+    width: 50%;
+    margin-left: 1%;
   }
 
   .menu {
