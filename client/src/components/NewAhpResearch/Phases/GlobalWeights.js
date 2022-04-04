@@ -30,8 +30,8 @@ export const GlobalWeights = ({
   const DEFAULT_WEIGHTS = defaultWeights
   const SORTED_WEIGHTS = weightsSorting([...defaultWeights])
 
-  const [displayingWeights, setDisplayingWeights] = useState(DEFAULT_WEIGHTS)
-  const [isWeightsSorted, setIsWeightsSorted] = useState(false)
+  const [displayingWeights, setDisplayingWeights] = useState(SORTED_WEIGHTS)
+  const [isWeightsSorted, setIsWeightsSorted] = useState(true)
 
   const displayingWeightsSetter = (arr) => {
     setDisplayingWeights(arr)
@@ -92,7 +92,7 @@ const GlobalWeightsTable = ({
               <span className="btn waves-effect waves-light"
                 onClick={alternativesSortingHandler}
               >
-                <i className="material-icons" id="globalsSortButtonIcon">swap_vert</i>
+                <i className="material-icons" id="globalsSortButtonIcon">low_priority</i>
               </span>
             </div>
             Глобальные веса альтернатив

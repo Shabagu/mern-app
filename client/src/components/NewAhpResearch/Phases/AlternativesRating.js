@@ -718,7 +718,6 @@ const calculateGlobalWeights = (criteriaWeights, alternativesWeights) => {
     for (let j = 0; j < criteriaWeights.length; j++) {
 
       globalWeights[i] += alternativesWeights[j][i] * criteriaWeights[j]
-
     }
   }
   console.log(globalWeights)
