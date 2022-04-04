@@ -709,8 +709,6 @@ const calculateWeights = (mtx) => {
 // Расчёт глобальных весов альтернатив
 const calculateGlobalWeights = (criteriaWeights, alternativesWeights) => {
   let globalWeights = []
-  console.log(criteriaWeights)
-  console.log(alternativesWeights)
 
   for (let i = 0; i < alternativesWeights[0].length; i++) {
     globalWeights[i] = 0
@@ -718,8 +716,8 @@ const calculateGlobalWeights = (criteriaWeights, alternativesWeights) => {
     for (let j = 0; j < criteriaWeights.length; j++) {
 
       globalWeights[i] += alternativesWeights[j][i] * criteriaWeights[j]
+      
     }
   }
-  console.log(globalWeights)
   return globalWeights
 }

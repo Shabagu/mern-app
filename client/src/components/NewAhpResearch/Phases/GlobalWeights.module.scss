@@ -118,8 +118,14 @@ $tableBorderExtraThin: 1px solid #aaa;
   .global_weights_chart {
     width: 50%;
     margin-left: 1%;
+
+    svg path:hover {
+      fill: #1b776e !important;
+    }
   }
 
+
+  
   .menu {
     position: fixed;
     display: flex;

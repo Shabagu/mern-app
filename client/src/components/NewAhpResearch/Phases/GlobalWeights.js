@@ -1,5 +1,6 @@
 import { useEffect } from "react"
 import { useHistory } from "react-router-dom"
+import { VictoryChart, VictoryBar } from "victory"
 import { useMessage } from "../../../hooks/message.hook"
 import { HOT_CHANGES_EFFECT_RESET } from "../../../pages/ahp/NewResearchPage"
 
@@ -102,9 +103,34 @@ const GlobalWeightsTable = ({
 const GlobalWeightsChart = ({
   weights,
 }) => {
+
+  class CharData {
+    constructor(alternative, weight) {
+      this.x = alternative
+      this.y = weight
+    }
+  }
+
+  let chartDataSet = []
+  for (let i = 0; i < weights.length; i++) {
+    chartDataSet[i] = new CharData(weights[i].alternative, weights[i].weight)
+  }
+
   return(
     <div className={style.global_weights_chart}>
-      <p>График</p>
+      <div>
+        <VictoryChart
+          height={575}
+          width={575}
+          domainPadding={{ x: 75, y: [0, 75] }}
+        >
+          <VictoryBar
+            barRatio={0.6}
+            style={{data: {fill: '#26a69a'}}}
+            data={chartDataSet}
+          />
+        </VictoryChart>
+      </div>
     </div>
   )
 }
