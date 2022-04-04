@@ -192,12 +192,12 @@ const WeightsTable = ({
                 <i className="material-icons" id="sortButtonIcon">swap_vert</i>
               </span>
             </div>
-            Весовой столбец критериев
+            Весовой столбец альтернатив
           </th>
         </tr>
         <tr>
           <th className={style.subheading}>
-            Критерий
+            Альтернатива
           </th>
           <th className={style.subheading}>
             Вес (в долях)

@@ -7,6 +7,8 @@ import style from "./GlobalWeights.module.scss"
 
 
 export const GlobalWeights = ({
+  globalWeights,
+  
   goToPhase,
 }) => {
 
