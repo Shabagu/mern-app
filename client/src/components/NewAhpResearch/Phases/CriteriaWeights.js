@@ -143,7 +143,7 @@ const WeightsTable = ({
 }) => {
 
   const criteriaSortingHandler = () => {
-    const sortButton = document.getElementById('sortButtonIcon')
+    const sortButton = document.getElementById('criteriaSortButtonIcon')
     if (!isWeightsSorted) {
       displayingWeightsSetter(sortedWeights)
       isWeightsSortedSetter(true)
@@ -167,7 +167,7 @@ const WeightsTable = ({
               <span className="btn waves-effect waves-light"
                 onClick={criteriaSortingHandler}
               >
-                <i className="material-icons" id="sortButtonIcon">swap_vert</i>
+                <i className="material-icons" id="criteriaSortButtonIcon">swap_vert</i>
               </span>
             </div>
             Весовой столбец критериев

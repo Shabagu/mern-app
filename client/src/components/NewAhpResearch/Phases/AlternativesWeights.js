@@ -59,22 +59,22 @@ export const AlternativesWeights = ({
 
   return(
     <div className={style.phase_container}>
-        <div className={style.tables_container}>
-          <NormalizationTable
-            currentCriterion={currentCriterion}
-            alternatives={alternatives}
-            alternativesNormMTX={alternativesNormMTX}
-          />
-          <WeightsTable
-            cc={currentCriterion}
-            displayingWeights={displayingWeights}
-            displayingWeightsSetter={displayingWeightsSetter}
-            isWeightsSorted={isWeightsSorted}
-            isWeightsSortedSetter={isWeightsSortedSetter}
-            defaultWeights={DEFAULT_WEIGHTS}
-            sortedWeights={SORTED_WEIGHTS}
-          />
-        </div>
+      <div className={style.tables_container}>
+        <NormalizationTable
+          currentCriterion={currentCriterion}
+          alternatives={alternatives}
+          alternativesNormMTX={alternativesNormMTX}
+        />
+        <WeightsTable
+          cc={currentCriterion}
+          displayingWeights={displayingWeights}
+          displayingWeightsSetter={displayingWeightsSetter}
+          isWeightsSorted={isWeightsSorted}
+          isWeightsSortedSetter={isWeightsSortedSetter}
+          defaultWeights={DEFAULT_WEIGHTS}
+          sortedWeights={SORTED_WEIGHTS}
+        />
+      </div>
       <Menu
         criteria={criteria}
         currentCriterion={currentCriterion}
@@ -165,7 +165,7 @@ const WeightsTable = ({
 }) => {
 
   const alternativesSortingHandler = () => {
-    const sortButton = document.getElementById('sortButtonIcon')
+    const sortButton = document.getElementById('AlternativesSortButtonIcon')
     if (!isWeightsSorted) {
       displayingWeightsSetter(sortedWeights)
       isWeightsSortedSetter(true)
@@ -189,7 +189,7 @@ const WeightsTable = ({
               <span className="btn waves-effect waves-light"
                 onClick={alternativesSortingHandler}
               >
-                <i className="material-icons" id="sortButtonIcon">swap_vert</i>
+                <i className="material-icons" id="AlternativesSortButtonIcon">swap_vert</i>
               </span>
             </div>
             Весовой столбец альтернатив

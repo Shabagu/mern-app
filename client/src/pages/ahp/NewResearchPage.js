@@ -235,6 +235,7 @@ export const NewResearchPage = () => {
 
       {phase === 6 &&
         <GlobalWeights
+          alternatives={alternatives}
           globalWeights={globalWeights}
 
           goToPhase={goToPhaseHandler}
