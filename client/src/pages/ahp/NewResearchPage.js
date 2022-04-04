@@ -74,7 +74,7 @@ export const NewResearchPage = () => {
   const [alternativesSum, setAlternativesSum] = useState([])
   const [alternativesNormMTX, setAlternativesNormMTX] = useState([])
   const [alternativesWeights, setAlternativesWeights] = useState([])
-  // const [globalWeights, setGlobalWeights] = useState([])
+  const [globalWeights, setGlobalWeights] = useState([])
 
 
 
@@ -209,9 +209,11 @@ export const NewResearchPage = () => {
 
       {phase === 4 &&
         <AlternativesWeights
+          criteria={criteria}
+          alternatives={alternatives}
+          alternativesNormMTX={alternativesNormMTX}
+          alternativesWeights={alternativesWeights}
 
-
- 
           goToPhase={goToPhaseHandler}
           phaseDone={phasesDoneHandler}
         />
@@ -219,12 +221,14 @@ export const NewResearchPage = () => {
 
       {phase === 5 &&
         <GroupsWeights
+
           goToPhase={goToPhaseHandler}
         />
       }
 
       {phase === 6 &&
         <GlobalWeights
+        
           goToPhase={goToPhaseHandler}
         />
       }

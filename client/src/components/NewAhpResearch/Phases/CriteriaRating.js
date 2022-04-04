@@ -7,8 +7,8 @@ import style from "./CriteriaRating.module.scss"
 export const CriteriaRating = ({
   criteria,
   criteriaMTX,
-  criteriaMTXSetter,
   criteriaSum,
+  criteriaMTXSetter,
   criteriaSumSetter,
   criteriaNormMTXSetter,
   criteriaWeightsSetter,

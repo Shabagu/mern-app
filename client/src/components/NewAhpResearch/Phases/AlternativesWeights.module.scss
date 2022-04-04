@@ -1,41 +1,203 @@
+$tableBorderBold: 3px solid #aaa;
+$tableBorderThin: 2px solid #aaa;
+$tableBorderExtraThin: 1px solid #aaa;
 
-.menu {
-  position: fixed;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
 
-  top: 72px;
-  right: 0;
 
-  width: 200px;
-  height: 640px;
+.phase_container {
+  margin: 20px 0 0;
 
-  padding: 3px;
-  // border: 1px solid #aaa;
-
-  button:first-child {
-    margin-top: 68px;
+  .tables_container {
+    display: flex;
   }
 
-  span, button {
-    width: 190px;
+  .alternatives_normalization_table {
+    border: $tableBorderBold;
+    width: 63%;
+    table-layout: fixed;
+
+    .heading {
+      text-align: center;
+      background-color: #00000020;
+      font-size: 1.2rem;
+      letter-spacing: 0.4px;
+    }
+
+    th {
+      border: $tableBorderThin;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      padding: 0.8rem 0 0.8rem 0.5rem;
+      background: #00000030;
+      user-select: none;
+    }
+    
+    td {
+      border: $tableBorderExtraThin;
+      overflow: hidden;
+      padding: 0;
+      text-align: center;
+      font-size: 1.5rem;
+      user-select: none;
+    }
+
+    span {
+      font-size: 1.5rem;
+      font-weight: 400;
+    }
+
+    .cell {
+      display: flex;
+    }
+
+
+    
+    td:hover {
+      background-color: #00ffe550;
+      outline: #555 3.5px solid;
+      outline-offset: -3.5px;
+    }
   }
 
-  .bottom {
 
-    .high {
-      margin-bottom: 40px;
-      span {
-        margin-bottom: 4px;
+
+
+  ////////////////////////////
+  ////////////////////////////
+  ////////////////////////////
+  ////////////////////////////
+  ////////////////////////////
+  ////////////////////////////
+  ////////////////////////////
+  ////////////////////////////
+  ////////////////////////////
+  ////////////////////////////
+  ////////////////////////////
+  .criteria_weights_table {
+    width: 36%;
+    margin-left: 1%;
+    table-layout: fixed;
+    border: $tableBorderBold;
+
+    col.first {
+      width: 36.5%;
+    }
+
+    .heading {
+      text-align: center;
+      background-color: #00000020;
+      font-size: 1.2rem;
+      letter-spacing: 0.4px;
+      padding: 12px 0 12px;
+    }
+    
+    .subheading {
+      text-align: center;
+      letter-spacing: 0.4px;
+    }
+
+    th {
+      border: $tableBorderThin;
+      border-left: none;
+      overflow: hidden;
+      padding: 0.8rem 0 0.8rem 0.5rem;
+      background: #00000030;
+      user-select: none;
+    }
+
+    td {
+      border: $tableBorderExtraThin;
+      overflow: hidden;
+      padding: 0;
+      text-align: center;
+      font-size: 1.5rem;
+      user-select: none;
+    }
+
+    tr {
+      td:first-child {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        text-align: left;
+        font-size: 1.2rem;
+        padding-left: 8px;
+
+        .container {
+          height: 22px;
+        }
+
       }
     }
-    button {
-      margin-bottom: 4px;
+
+    
+    td:hover {
+      background-color: #00ffe550;
+      outline: #555 3.5px solid;
+      outline-offset: -3.5px;
     }
-    button:last-child {
-      margin-bottom: 0;
+
+
+
+    .button {
+      position: absolute;
+
+      span {
+        margin-top: -10px;
+        margin-left: 2px;
+        padding: 5px 0 0 ;
+        width: 48px;
+        height: 48px;
+        box-shadow: none;
+        border: $tableBorderThin;
+        border-radius: 6px;
+
+        i {
+          font-size: 2.5rem;
+        }
+      }
     }
   }
+
+
+
+  .menu {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   
+    top: 72px;
+    right: 0;
+  
+    width: 200px;
+    height: 640px;
+  
+    padding: 3px;
+  
+    button:first-child {
+      margin-top: 68px;
+    }
+  
+    span, button {
+      width: 190px;
+    }
+  
+    .bottom {
+  
+      .high {
+        margin-bottom: 40px;
+        span {
+          margin-bottom: 4px;
+        }
+      }
+      button {
+        margin-bottom: 4px;
+      }
+      button:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
 }

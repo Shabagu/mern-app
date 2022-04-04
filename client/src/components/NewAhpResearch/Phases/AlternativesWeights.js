@@ -1,4 +1,4 @@
-import { useEffect } from "react"
+import { useState, useEffect } from "react"
 import { useMessage } from "../../../hooks/message.hook"
 import { HOT_CHANGES_EFFECT_RESET } from "../../../pages/ahp/NewResearchPage"
 
@@ -6,7 +6,10 @@ import style from "./AlternativesWeights.module.scss"
 
 
 export const AlternativesWeights = ({
-
+  criteria,
+  alternatives,
+  alternativesNormMTX,
+  alternativesWeights,
 
   goToPhase,
   phaseDone,
@@ -14,10 +17,32 @@ export const AlternativesWeights = ({
 
   useEffect(() => { HOT_CHANGES_EFFECT_RESET() }, [])
 
+  const [currentCriterion, setCurrentCriterion] = useState(0)
+
+  const currentCriterionSetter = (criterion) => {
+    setCurrentCriterion(criterion)
+  }
+
   return(
     <div className={style.phase_container}>
-      <p>Весовые столбцы альтернатив по критериям</p>
+        <div className={style.tables_container}>
+          <NormalizationTable
+            alternatives={alternatives}
+            alternativesNormMTX={alternativesNormMTX}
+          />
+          {/* <WeightsTable
+            displayingWeights={displayingWeights}
+            displayingWeightsSetter={displayingWeightsSetter}
+            isWeightsSorted={isWeightsSorted}
+            isWeightsSortedSetter={isWeightsSortedSetter}
+            defaultWeights={DEFAULT_WEIGHTS}
+            sortedWeights={SORTED_WEIGHTS}
+          /> */}
+        </div>
       <Menu
+        criteria={criteria}
+        currentCriterion={currentCriterion}
+        currentCriterionSetter={currentCriterionSetter}
 
         goToPhase={goToPhase}
         phaseDone={phaseDone}
@@ -25,6 +50,145 @@ export const AlternativesWeights = ({
     </div>
   )
 }
+
+const NormalizationTable = ({ alternatives, alternativesNormMTX }) => {
+  return(
+    <table className={style.alternatives_normalization_table}>
+    <thead>
+      <tr>
+        <th className={style.heading} colSpan={alternatives.length + 1}>
+          Нормированная матрица
+        </th>
+      </tr>
+      <tr>
+        <th className={style.initial}></th>
+        {[...Array(alternatives.length)].map((x, i) =>
+          <th key={i} title={alternatives[i]}>
+            {alternatives[i]}
+          </th>
+        )}
+      </tr>
+    </thead>
+    <tbody>
+      {[...Array(alternatives.length)].map((x, i) =>
+        <NormalizationCellRow
+          key={i}
+          i={i}
+          alternatives={alternatives}
+          alternativesNormMTX={alternativesNormMTX}
+        />
+      )}
+    </tbody>
+  </table>
+  )
+}
+
+const NormalizationCellRow = ({ alternatives, i, alternativesNormMTX }) => {
+  return(
+    <tr>
+      <th title={alternatives[i]}>
+        {alternatives[i]}
+      </th>
+      {[...Array(alternatives.length)].map((x, j) => {
+        if (i < alternatives.length) return (
+          <NormalizationCell
+            key={j}
+            row={i}
+            col={j}
+            alternativesNormMTX={alternativesNormMTX}
+          />
+        )
+        else return(null)
+      })}
+    </tr>
+  )
+}
+
+const NormalizationCell = ({ row, col, alternativesNormMTX }) => {
+  return(
+    <td>
+      <span>
+        {valAdduction(alternativesNormMTX[0][row][col])}
+      </span>
+    </td>
+  )
+}
+
+
+
+const WeightsTable = ({
+  displayingWeights,
+  displayingWeightsSetter,
+  isWeightsSorted,
+  isWeightsSortedSetter,
+  defaultWeights,
+  sortedWeights,
+}) => {
+
+  const criteriaSortingHandler = () => {
+    const sortButton = document.querySelector(`.${style.button} span i`)
+    if (!isWeightsSorted) {
+      displayingWeightsSetter(sortedWeights)
+      isWeightsSortedSetter(true)
+      sortButton.textContent = 'low_priority'
+    } else {
+      displayingWeightsSetter(defaultWeights)
+      isWeightsSortedSetter(false)
+      sortButton.textContent = 'swap_vert'
+    }
+  }
+
+   return(
+    <table className={style.criteria_weights_table}>
+      <colgroup>
+        <col className={style.first} />
+      </colgroup>
+      <thead>
+        <tr>
+          <th className={style.heading} colSpan={3}>
+            <div className={style.button}>
+              <span className="btn waves-effect waves-light"
+                onClick={criteriaSortingHandler}
+              >
+                <i className="material-icons">swap_vert</i>
+              </span>
+            </div>
+            Весовой столбец критериев
+          </th>
+        </tr>
+        <tr>
+          <th className={style.subheading}>
+            Критерий
+          </th>
+          <th className={style.subheading}>
+            Вес (в долях)
+          </th>
+          <th className={style.subheading}>
+            Вес (в %)
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {[...Array(displayingWeights.length)].map((x, i) =>
+          <tr key={i}>
+            <td title={displayingWeights[i].criteria}>
+              <div className={style.container}>
+                {displayingWeights[i].criteria}
+              </div>
+            </td>
+            <td>{valAdduction(displayingWeights[i].weight)}</td>
+            <td>{percentsDisplay(displayingWeights[i].weight)}</td>
+          </tr>
+        )}
+      </tbody>
+    </table>
+   )
+}
+
+
+
+
+
 
 const Menu = ({
   goToPhase,
@@ -57,4 +221,32 @@ const Menu = ({
       </div>
     </div>
   )
+}
+
+
+
+// Приведение значений 
+const valAdduction = (value) => {
+  value = value.toFixed(3)
+  value = value * 1
+  return(value)
+}
+
+// Отображние весов в процентах
+const percentsDisplay = (value) => {
+  value = value * 100
+  value = value.toFixed(1)
+  value = value * 1
+  value = `${value}%`
+  return (value)
+}
+
+// Сортировка критериев по значимости
+const criteriaSorting = (weights) => {
+  weights.sort((a, b) => {
+    if (a.weight > b.weight) return -1
+    if (a.weight < b.weight) return 1
+    return 0
+  })
+  return weights
 }

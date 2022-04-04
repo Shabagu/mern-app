@@ -9,8 +9,8 @@ export const AlternativesRating = ({
   criteria,
   alternatives,
   alternativesMTX,
-  alternativesMTXSetter,
   alternativesSum,
+  alternativesMTXSetter,
   alternativesSumSetter,
   alternativesNormMTXSetter,
   alternativesWeightsSetter,
@@ -44,7 +44,7 @@ export const AlternativesRating = ({
 
 
   useEffect(() => {
-    // sumCalculate(currentCriterion, localMTX, localSumSetter)
+    sumCalculate(currentCriterion, localMTX, localSumSetter)
   }, [currentCriterion, localMTX])
 
   return(
@@ -70,10 +70,10 @@ export const AlternativesRating = ({
         localMTXSetter={localMTXSetter}
         localSum={localSum}
         localSumSetter={localSumSetter}
-        // criteriaMTXSetter={criteriaMTXSetter}
-        // criteriaSumSetter={criteriaSumSetter}
-        // criteriaNormMTXSetter={criteriaNormMTXSetter}
-        // criteriaWeightsSetter={criteriaWeightsSetter}
+        alternativesMTXSetter={alternativesMTXSetter}
+        alternativesSumSetter={alternativesSumSetter}
+        alternativesNormMTXSetter={alternativesNormMTXSetter}
+        alternativesWeightsSetter={alternativesWeightsSetter}
 
         goToPhase={goToPhase}
         phaseDone={phaseDone}
@@ -360,6 +360,11 @@ const Menu = ({
   localMTXSetter,
   localSum,
   localSumSetter,
+  alternativesMTXSetter,
+  alternativesSumSetter,
+  alternativesNormMTXSetter,
+  alternativesWeightsSetter,
+
   goToPhase,
   phaseDone,
   phasesDone,
@@ -389,14 +394,22 @@ const Menu = ({
 
 
 
+  const globalStateSetter = () => {
+    const normalizedMTX = normalizeMtx(localMTX, localSum)
+    const weights = calculateWeights(normalizedMTX)
 
+    alternativesMTXSetter(localMTX)
+    alternativesSumSetter(localSum)
+    alternativesNormMTXSetter(normalizedMTX)
+    alternativesWeightsSetter(weights)
+  }
 
   const goToCriteriaRating = () => {
     goToPhase(1)
   }
 
   const goToGlobalAlternatives = () => {
-    // globalStateSetter()
+    globalStateSetter()
 
     phaseDone(6)
     goToPhase(6)
@@ -404,7 +417,7 @@ const Menu = ({
   }
 
   const goToAlternativesWeights = () => {
-    // globalStateSetter()
+    globalStateSetter()
 
     if (phasesDone < 4) {
       phaseDone(4)
@@ -412,12 +425,8 @@ const Menu = ({
     goToPhase(4)
   }
 
-  function noop () {}
-
   const changeCriterionHandler = (criterion) => {
-    
     currentCriterionSetter(criterion)
-    // console.log(criterion)
   }
 
   return(
@@ -586,7 +595,6 @@ const sumCalculate = (cc, mtx, sumSetter) => {
     }
   }
   sumSetter(sum, cc)
-  console.log(mtx)
 }
 
 
@@ -649,27 +657,43 @@ const testMtx = (cc, mtx, mtxSetter) => {
 
 
 
-// // Нормировка матрицы
-// const normalizeMtx = (mtx, sum) => {
-//   let normMtx = []
-//   for (let i = 0; i < mtx.length; i++) {
-//     normMtx[i] = []
-//     for (let j = 0; j < mtx.length; j++) {
-//       normMtx[i][j] = MARK_MODEL[mtx[i][j]].number / sum[j]
-//     }
-//   }
-//   return normMtx
-// }
+// Нормировка матрицы
+const normalizeMtx = (mtx, sum) => {
+  const criteriaN = mtx.length
+  const alternativesN = mtx[0].length
+  let normMtx = []
 
-// // Расчёт весов
-// const calculateWeights = (mtx) => {
-//   let weights = []
-//   for (let i = 0; i < mtx.length; i++) {
-//     weights[i] = 0
-//     for (let j = 0; j < mtx.length; j++) {
-//       weights[i] += mtx[i][j]
-//     }
-//     weights[i] = weights[i] / mtx.length
-//   }
-//   return weights
-// }
+  for (let cr = 0; cr < criteriaN; cr++) {
+    normMtx[cr] = []
+
+    for (let i = 0; i < alternativesN; i++) {
+      normMtx[cr][i] = []
+
+      for (let j = 0; j < alternativesN; j++) {
+        normMtx[cr][i][j] = MARK_MODEL[mtx[cr][i][j]].number / sum[cr][j]
+      }
+    }
+  }
+  return normMtx
+}
+
+// Расчёт весов
+const calculateWeights = (mtx) => {
+  const criteriaN = mtx.length
+  const alternativesN = mtx[0].length
+  let weights = []
+
+  for (let cr = 0; cr < criteriaN; cr++) {
+    weights[cr] = []
+
+    for (let i = 0; i < alternativesN; i++) {
+      weights[cr][i] = 0
+      
+      for (let j = 0; j < alternativesN; j++) {
+        weights[cr][i] += mtx[cr][i][j]
+      }
+      weights[cr][i] = weights[cr][i] / alternativesN
+    }
+  }
+  return weights
+}
