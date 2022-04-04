@@ -21,10 +21,12 @@ export const CriteriaWeights = ({
       this.weight = weight
     }
   }
+
   let defaultWeights = []
   for (let i = 0; i < criteria.length; i++) {
     defaultWeights[i] = new Weight(criteria[i], criteriaWeights[i])
   }
+  
   const DEFAULT_WEIGHTS = defaultWeights
   const SORTED_WEIGHTS = criteriaSorting([...defaultWeights])
 

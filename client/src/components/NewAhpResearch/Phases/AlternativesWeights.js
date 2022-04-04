@@ -17,6 +17,40 @@ export const AlternativesWeights = ({
 
   useEffect(() => { HOT_CHANGES_EFFECT_RESET() }, [])
 
+  class Weight {
+    constructor(alternatives, weight) {
+      this.alternatives = alternatives
+      this.weight = weight
+    }
+  }
+
+  let defaultWeights = []
+  for (let cr = 0; cr < criteria.length; cr++) {
+    defaultWeights[cr] = []
+    for (let i = 0; i < alternatives.length; i++) {
+      defaultWeights[cr][i] = new Weight(alternatives[i], alternativesWeights[cr][i])
+    }
+  }
+
+  let sortedWeights = []
+  for (let cr = 0; cr < criteria.length; cr++) {
+    sortedWeights[cr] = alternativesSorting([...defaultWeights[cr]])
+  }
+
+  const DEFAULT_WEIGHTS = defaultWeights
+  const SORTED_WEIGHTS = sortedWeights
+
+  const [displayingWeights, setDisplayingWeights] = useState(DEFAULT_WEIGHTS)
+  const [isWeightsSorted, setIsWeightsSorted] = useState(false)
+
+  const displayingWeightsSetter = (arr) => {
+    setDisplayingWeights(arr)
+  }
+
+  const isWeightsSortedSetter = (condition) => {
+    setIsWeightsSorted(condition)
+  }
+
   const [currentCriterion, setCurrentCriterion] = useState(0)
 
   const currentCriterionSetter = (criterion) => {
@@ -27,17 +61,19 @@ export const AlternativesWeights = ({
     <div className={style.phase_container}>
         <div className={style.tables_container}>
           <NormalizationTable
+            currentCriterion={currentCriterion}
             alternatives={alternatives}
             alternativesNormMTX={alternativesNormMTX}
           />
-          {/* <WeightsTable
+          <WeightsTable
+            cc={currentCriterion}
             displayingWeights={displayingWeights}
             displayingWeightsSetter={displayingWeightsSetter}
             isWeightsSorted={isWeightsSorted}
             isWeightsSortedSetter={isWeightsSortedSetter}
             defaultWeights={DEFAULT_WEIGHTS}
             sortedWeights={SORTED_WEIGHTS}
-          /> */}
+          />
         </div>
       <Menu
         criteria={criteria}
@@ -51,7 +87,7 @@ export const AlternativesWeights = ({
   )
 }
 
-const NormalizationTable = ({ alternatives, alternativesNormMTX }) => {
+const NormalizationTable = ({ currentCriterion, alternatives, alternativesNormMTX }) => {
   return(
     <table className={style.alternatives_normalization_table}>
     <thead>
@@ -74,6 +110,7 @@ const NormalizationTable = ({ alternatives, alternativesNormMTX }) => {
         <NormalizationCellRow
           key={i}
           i={i}
+          currentCriterion={currentCriterion}
           alternatives={alternatives}
           alternativesNormMTX={alternativesNormMTX}
         />
@@ -83,7 +120,7 @@ const NormalizationTable = ({ alternatives, alternativesNormMTX }) => {
   )
 }
 
-const NormalizationCellRow = ({ alternatives, i, alternativesNormMTX }) => {
+const NormalizationCellRow = ({ currentCriterion, alternatives, i, alternativesNormMTX }) => {
   return(
     <tr>
       <th title={alternatives[i]}>
@@ -93,6 +130,7 @@ const NormalizationCellRow = ({ alternatives, i, alternativesNormMTX }) => {
         if (i < alternatives.length) return (
           <NormalizationCell
             key={j}
+            cc={currentCriterion}
             row={i}
             col={j}
             alternativesNormMTX={alternativesNormMTX}
@@ -104,11 +142,11 @@ const NormalizationCellRow = ({ alternatives, i, alternativesNormMTX }) => {
   )
 }
 
-const NormalizationCell = ({ row, col, alternativesNormMTX }) => {
+const NormalizationCell = ({ cc, row, col, alternativesNormMTX }) => {
   return(
     <td>
       <span>
-        {valAdduction(alternativesNormMTX[0][row][col])}
+        {valAdduction(alternativesNormMTX[cc][row][col])}
       </span>
     </td>
   )
@@ -117,6 +155,7 @@ const NormalizationCell = ({ row, col, alternativesNormMTX }) => {
 
 
 const WeightsTable = ({
+  cc,
   displayingWeights,
   displayingWeightsSetter,
   isWeightsSorted,
@@ -125,8 +164,8 @@ const WeightsTable = ({
   sortedWeights,
 }) => {
 
-  const criteriaSortingHandler = () => {
-    const sortButton = document.querySelector(`.${style.button} span i`)
+  const alternativesSortingHandler = () => {
+    const sortButton = document.getElementById('sortButtonIcon')
     if (!isWeightsSorted) {
       displayingWeightsSetter(sortedWeights)
       isWeightsSortedSetter(true)
@@ -139,7 +178,7 @@ const WeightsTable = ({
   }
 
    return(
-    <table className={style.criteria_weights_table}>
+    <table className={style.alternatives_weights_table}>
       <colgroup>
         <col className={style.first} />
       </colgroup>
@@ -148,9 +187,9 @@ const WeightsTable = ({
           <th className={style.heading} colSpan={3}>
             <div className={style.button}>
               <span className="btn waves-effect waves-light"
-                onClick={criteriaSortingHandler}
+                onClick={alternativesSortingHandler}
               >
-                <i className="material-icons">swap_vert</i>
+                <i className="material-icons" id="sortButtonIcon">swap_vert</i>
               </span>
             </div>
             Весовой столбец критериев
@@ -169,15 +208,15 @@ const WeightsTable = ({
         </tr>
       </thead>
       <tbody>
-        {[...Array(displayingWeights.length)].map((x, i) =>
+        {[...Array(displayingWeights[cc].length)].map((x, i) =>
           <tr key={i}>
-            <td title={displayingWeights[i].criteria}>
+            <td title={displayingWeights[cc][i].alternatives}>
               <div className={style.container}>
-                {displayingWeights[i].criteria}
+                {displayingWeights[cc][i].alternatives}
               </div>
             </td>
-            <td>{valAdduction(displayingWeights[i].weight)}</td>
-            <td>{percentsDisplay(displayingWeights[i].weight)}</td>
+            <td>{valAdduction(displayingWeights[cc][i].weight)}</td>
+            <td>{percentsDisplay(displayingWeights[cc][i].weight)}</td>
           </tr>
         )}
       </tbody>
@@ -191,11 +230,24 @@ const WeightsTable = ({
 
 
 const Menu = ({
+  criteria,
+  currentCriterion,
+  currentCriterionSetter,
+
   goToPhase,
   phaseDone,
 }) => {
 
   const message = useMessage()
+
+  useEffect(() => {
+    const firstCriterionCheckbox = document.querySelector('input[name="criteria"]:first-child')
+    firstCriterionCheckbox.checked = true
+  }, [])
+
+  const changeCriterionHandler = (criterion) => {
+    currentCriterionSetter(criterion)
+  }
 
   const goToAlternativesRating = () => {
     goToPhase(3)
@@ -210,6 +262,22 @@ const Menu = ({
   return(
     <div className={style.menu}>
       <div className={style.top}>
+        <span className={style.current_criterion} title={criteria[currentCriterion]}>
+          {criteria[currentCriterion]}
+        </span>
+      </div>
+      <div className={style.middle}>
+        {[...Array(criteria.length)].map((x, i) =>
+          <label key={i} title={criteria[i]}>
+            <input
+              type="radio"
+              name="criteria"
+              className="with-gap"
+              onChange={(e) => changeCriterionHandler(i, e)}
+            />
+            <span>{criteria[i]}</span>
+          </label>
+        )}
       </div>
       <div className={style.bottom}>
         <button className="btn" onClick={goToAlternativesRating}>
@@ -242,7 +310,7 @@ const percentsDisplay = (value) => {
 }
 
 // Сортировка критериев по значимости
-const criteriaSorting = (weights) => {
+const alternativesSorting = (weights) => {
   weights.sort((a, b) => {
     if (a.weight > b.weight) return -1
     if (a.weight < b.weight) return 1

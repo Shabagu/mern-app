@@ -61,20 +61,7 @@ $tableBorderExtraThin: 1px solid #aaa;
   }
 
 
-
-
-  ////////////////////////////
-  ////////////////////////////
-  ////////////////////////////
-  ////////////////////////////
-  ////////////////////////////
-  ////////////////////////////
-  ////////////////////////////
-  ////////////////////////////
-  ////////////////////////////
-  ////////////////////////////
-  ////////////////////////////
-  .criteria_weights_table {
+  .alternatives_weights_table {
     width: 36%;
     margin-left: 1%;
     table-layout: fixed;
@@ -183,6 +170,22 @@ $tableBorderExtraThin: 1px solid #aaa;
     span, button {
       width: 190px;
     }
+
+    .middle {
+      margin: 233px 0 -25px;
+  
+      label {
+        color: black;
+  
+        span {
+          display: block;
+          width: 95%;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+      }
+    }
   
     .bottom {
   
@@ -199,5 +202,19 @@ $tableBorderExtraThin: 1px solid #aaa;
         margin-bottom: 0;
       }
     }
+  }
+
+  .current_criterion {
+    position: absolute;
+    top: 70px;
+
+    font-size: 2rem;
+
+    width: 95%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    text-decoration: underline;
   }
 }

@@ -14,6 +14,7 @@ export const AlternativesRating = ({
   alternativesSumSetter,
   alternativesNormMTXSetter,
   alternativesWeightsSetter,
+  globalWeightsSetter,
 
   goToPhase,
   phaseDone,
