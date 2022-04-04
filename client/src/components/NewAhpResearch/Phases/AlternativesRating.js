@@ -14,6 +14,7 @@ export const AlternativesRating = ({
   alternativesSumSetter,
   alternativesNormMTXSetter,
   alternativesWeightsSetter,
+  criteriaWeights,
   globalWeightsSetter,
 
   goToPhase,
@@ -75,6 +76,8 @@ export const AlternativesRating = ({
         alternativesSumSetter={alternativesSumSetter}
         alternativesNormMTXSetter={alternativesNormMTXSetter}
         alternativesWeightsSetter={alternativesWeightsSetter}
+        criteriaWeights={criteriaWeights}
+        globalWeightsSetter={globalWeightsSetter}
 
         goToPhase={goToPhase}
         phaseDone={phaseDone}
@@ -365,6 +368,8 @@ const Menu = ({
   alternativesSumSetter,
   alternativesNormMTXSetter,
   alternativesWeightsSetter,
+  criteriaWeights,
+  globalWeightsSetter,
 
   goToPhase,
   phaseDone,
@@ -397,12 +402,14 @@ const Menu = ({
 
   const globalStateSetter = () => {
     const normalizedMTX = normalizeMtx(localMTX, localSum)
-    const weights = calculateWeights(normalizedMTX)
+    const alternativesWeights = calculateWeights(normalizedMTX)
+    const globalWeights = calculateGlobalWeights(criteriaWeights, alternativesWeights)
 
     alternativesMTXSetter(localMTX)
     alternativesSumSetter(localSum)
     alternativesNormMTXSetter(normalizedMTX)
-    alternativesWeightsSetter(weights)
+    alternativesWeightsSetter(alternativesWeights)
+    globalWeightsSetter(globalWeights)
   }
 
   const goToCriteriaRating = () => {
@@ -678,7 +685,7 @@ const normalizeMtx = (mtx, sum) => {
   return normMtx
 }
 
-// Расчёт весов
+// Расчёт весов альтернатив по критериям
 const calculateWeights = (mtx) => {
   const criteriaN = mtx.length
   const alternativesN = mtx[0].length
@@ -697,4 +704,20 @@ const calculateWeights = (mtx) => {
     }
   }
   return weights
+}
+
+// Расчёт глобальных весов альтернатив
+const calculateGlobalWeights = (criteriaWeights, alternativesWeights) => {
+  let globalWeights = []
+
+  for (let i = 0; i < alternativesWeights.length; i++) {
+    globalWeights[i] = 0
+
+    for (let j = 0; j < criteriaWeights.length; j++) {
+
+      globalWeights[i] += alternativesWeights[i][j] * criteriaWeights[j]
+
+    }
+  }
+  return globalWeights
 }

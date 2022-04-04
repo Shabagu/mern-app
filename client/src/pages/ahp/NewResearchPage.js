@@ -205,6 +205,7 @@ export const NewResearchPage = () => {
           alternativesSumSetter={setAlternativesSumHandler}
           alternativesNormMTXSetter={setAlternativesNormMTXHandler}
           alternativesWeightsSetter={setAlternativesWeightsHandler}
+          criteriaWeights={criteriaWeights}
           globalWeightsSetter={setGlobalWeightsHandler}
 
           goToPhase={goToPhaseHandler}
