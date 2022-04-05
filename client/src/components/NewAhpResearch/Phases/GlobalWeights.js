@@ -27,6 +27,20 @@ export const GlobalWeights = ({
 
   useEffect(() => { HOT_CHANGES_EFFECT_RESET() }, [])
 
+  const researchData = {
+    criteria: criteria,
+    criteraRating: criteriaMTX,
+    criteriaSum: criteriaSum,
+    criteriaNorm: criteriaNormMTX,
+    criteriaWeights: criteriaWeights,
+    alternatives: alternatives,
+    alternativesRating: alternativesMTX,
+    alternativesSum: alternativesSum,
+    alternativesNorm: alternativesNormMTX,
+    alternativesWeights: alternativesWeights,
+    globalWeights: globalWeights,
+  }
+
   class Weight {
     constructor(alternative, weight) {
       this.alternative = alternative
@@ -53,17 +67,7 @@ export const GlobalWeights = ({
         />
       </div>
       <Menu
-        criteria={criteria}
-        criteriaMTX={criteriaMTX}
-        criteriaSum={criteriaSum}
-        criteriaNormMTX={criteriaNormMTX}
-        criteriaWeights={criteriaWeights}
-        alternatives={alternatives}
-        alternativesMTX={alternativesMTX}
-        alternativesSum={alternativesSum}
-        alternativesNormMTX={alternativesNormMTX}
-        alternativesWeights={alternativesWeights}
-        globalWeights={globalWeights}
+        researchData={researchData}
 
         goToPhase={goToPhase}
       />
@@ -159,17 +163,7 @@ const GlobalWeightsChart = ({
 }
 
 const Menu = ({
-  criteria,
-  criteriaMTX,
-  criteriaSum,
-  criteriaNormMTX,
-  criteriaWeights,
-  alternatives,
-  alternativesMTX,
-  alternativesSum,
-  alternativesNormMTX,
-  alternativesWeights,
-  globalWeights,
+  researchData,
 
   goToPhase,
 }) => {
@@ -179,22 +173,9 @@ const Menu = ({
   const auth = useContext(AuthContext)
   const message = useMessage()
 
-  const researchData = {
-    criteria: criteria,
-    criteraRating: criteriaMTX,
-    criteriaSum: criteriaSum,
-    criteriaNorm: criteriaNormMTX,
-    criteriaWeights: criteriaWeights,
-    alternatives: alternatives,
-    alternativesRating: alternativesMTX,
-    alternativesSum: alternativesSum,
-    alternativesNorm: alternativesNormMTX,
-    alternativesWeights: alternativesWeights,
-    globalWeights: globalWeights,
-  }
+
 
   const mongoDBsavingHandler = async () => {
-    // console.log(researchData)
     try {
       const data = await request('/api/research/new', 'POST', {from: researchData}, {
         Authorization: `Bearer ${auth.token}`
