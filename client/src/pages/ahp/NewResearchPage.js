@@ -138,7 +138,7 @@ export const NewResearchPage = () => {
 
 
   return(
-    <div className={style.query_box}>
+    <div className={style.research_box}>
       <h3 className={style.page_title}>Новое исследование</h3>
 
       <PhaseTitle

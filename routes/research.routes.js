@@ -27,6 +27,16 @@ router.post(
   }
 )
 
+// /api/research/
+router.get('/', auth, async(req, res) => {
+  try {
+    const researches = await Research.find({ owner: req.user.userID })
+    res.json(researches)
+  } catch (e) {
+    res.status(500).json({message: 'Что-то пошло не так, попробуйте снова'})
+  }
+})
+
 
 
 module.exports = router
