@@ -7,7 +7,6 @@ import { AlternativesWeights } from "../../components/NewAhpResearch/Phases/Alte
 import { GroupsWeights } from "../../components/NewAhpResearch/Phases/GroupsWeights"
 import { GlobalWeights } from "../../components/NewAhpResearch/Phases/GlobalWeights"
 import { PhaseTitle } from "../../components/NewAhpResearch/PhaseTitle"
-import { StateDisplay } from "../../components/NewAhpResearch/StateDisplay"
 
 import style from "./NewResearchPage.module.scss"
 
@@ -228,6 +227,10 @@ export const NewResearchPage = () => {
 
       {phase === 5 &&
         <GroupsWeights
+          criteria={criteria}
+          criteriaWeights={criteriaWeights}
+          alternatives={alternatives}
+          alternativesWeights={alternativesWeights}
 
           goToPhase={goToPhaseHandler}
         />
@@ -250,26 +253,6 @@ export const NewResearchPage = () => {
           goToPhase={goToPhaseHandler}
         />
       }
-
-
-
-      {/* <StateDisplay
-        phase={phase}
-        phasesDone={phasesDone}
-        criteria={criteria}
-        alternatives={alternatives}
-        criteriaMTX={criteriaMTX}
-        criteriaSum={criteriaSum}
-        criteriaNormMTX={criteriaNormMTX}
-        criteriaWeights={criteriaWeights}
-
-        // alternativesMTX={alternativesMTX}
-        // alternativesSum={alternativesSum}
-        // alternativesNormMTX={alternativesNormMTX}
-        // alternativesWeights={alternativesWeights}
-        // globalWeights={globalWeights}
-      /> */}
-
     </div>
   )
 }

@@ -71,6 +71,18 @@ $tableBorderExtraThin: 1px solid #aaa;
       width: 36.5%;
     }
 
+    tbody {
+      tr {
+        td:first-child {
+          div {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          }
+        }
+      }
+    }
+
     .heading {
       text-align: center;
       background-color: #00000020;

@@ -25,9 +25,11 @@ $tableBorderExtraThin: 1px solid #aaa;
 
     th {
       border: $tableBorderThin;
+
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+
       padding: 0.8rem 0 0.8rem 0.5rem;
       background: #00000030;
       user-select: none;
@@ -72,6 +74,18 @@ $tableBorderExtraThin: 1px solid #aaa;
 
     col.first {
       width: 36.5%;
+    }
+
+    tbody {
+      tr {
+        td:first-child {
+          div {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          }
+        }
+      }
     }
 
     .heading {
