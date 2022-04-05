@@ -179,7 +179,7 @@ const InCell = ({
         <div className={style.cell_tuning}>
           <div className={style.cell_tuning_left}>
             <TuningButton
-              icon={'keyboard_arrow_up'}
+              icon={'keyboard_arrow_left'}
               action={increaseTuning}
               row={row}
               col={col}
@@ -189,19 +189,7 @@ const InCell = ({
               disableCondition={localMTX[row][col] > 15}
             />
             <TuningButton
-              icon={'keyboard_arrow_left'}
-              action={decreaseTuning}
-              row={row}
-              col={col}
-              mtx={localMTX}
-              mtxSetter={localMTXSetter}
-              sumSetter={localSumSetter}
-              disableCondition={localMTX[row][col] < 1}
-            />
-          </div>
-          <div className={style.cell_tuning_right}>
-            <TuningButton
-              icon={'arrow_upward'}
+              icon={'arrow_back'}
               action={maxTuning}
               row={row}
               col={col}
@@ -210,8 +198,20 @@ const InCell = ({
               sumSetter={localSumSetter}
               disableCondition={localMTX[row][col] > 15}
             />
+          </div>
+          <div className={style.cell_tuning_right}>
             <TuningButton
-              icon={'arrow_back'}
+              icon={'keyboard_arrow_up'}
+              action={decreaseTuning}
+              row={row}
+              col={col}
+              mtx={localMTX}
+              mtxSetter={localMTXSetter}
+              sumSetter={localSumSetter}
+              disableCondition={localMTX[row][col] < 1}
+            />
+            <TuningButton
+              icon={'arrow_upward'}
               action={minTuning}
               row={row}
               col={col}
