@@ -36,9 +36,16 @@ export const TestPage = () => {
         <div className={style.column}>
           <button className="btn" onClick={previousPhaseHandler}>&lt;</button>
           <button className="btn" onClick={nextPhaseHandler}>&gt;</button>
-          
           <p>{phase}</p>
           <p>{condition}</p>
+          <div class="switch">
+            <label>
+              Off
+              <input type="checkbox" />
+              <span class="lever"></span>
+              On
+            </label>
+          </div>
 
         </div>
         <div>

@@ -105,10 +105,15 @@ $tableBorderExtraThin: 1px solid #aaa;
     }
   }
 
-  .alternatives_weights_table {
-    border: $tableBorderBold;
-    width: 63%;
+
+
+
+
+  .alternatives_weights_by_criteria {
+    width: 75%;
+    margin-left: 1%;
     table-layout: fixed;
+    border: $tableBorderBold;
 
     .heading {
       text-align: center;
@@ -145,8 +150,6 @@ $tableBorderExtraThin: 1px solid #aaa;
       display: flex;
     }
 
-
-    
     td:hover {
       background-color: #00ffe550;
       outline: #555 3.5px solid;
@@ -177,10 +180,30 @@ $tableBorderExtraThin: 1px solid #aaa;
     height: 640px;
   
     padding: 3px;
-    // border: 1px solid #aaa;
-  
-    button:first-child {
-      margin-top: 68px;
+
+
+    .switch {
+      margin-top: 120px;
+      font-size: 1.5em;
+      display: flex;
+      justify-content: space-around;
+
+      fieldset {
+        border: none;
+
+        legend {
+          position: relative;
+          top: 10px
+        }
+      }
+
+      span {
+        width: 36px;
+      }
+      label {
+        color: black;
+        font-size: 0.7em;
+      }
     }
   
     span, button {

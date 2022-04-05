@@ -71,32 +71,32 @@ export const CriteriaWeights = ({
 const NormalizationTable = ({ criteria, criteriaNormMTX }) => {
   return(
     <table className={style.criteria_normalization_table}>
-    <thead>
-      <tr>
-        <th className={style.heading} colSpan={criteria.length + 1}>
-          Нормированная матрица
-        </th>
-      </tr>
-      <tr>
-        <th className={style.initial}></th>
-        {[...Array(criteria.length)].map((x, i) =>
-          <th key={i} title={criteria[i]}>
-            {criteria[i]}
+      <thead>
+        <tr>
+          <th className={style.heading} colSpan={criteria.length + 1}>
+            Нормированная матрица
           </th>
+        </tr>
+        <tr>
+          <th className={style.initial}></th>
+          {[...Array(criteria.length)].map((x, i) =>
+            <th key={i} title={criteria[i]}>
+              {criteria[i]}
+            </th>
+          )}
+        </tr>
+      </thead>
+      <tbody>
+        {[...Array(criteria.length)].map((x, i) =>
+          <NormalizationCellRow
+            key={i}
+            i={i}
+            criteria={criteria}
+            criteriaNormMTX={criteriaNormMTX}
+          />
         )}
-      </tr>
-    </thead>
-    <tbody>
-      {[...Array(criteria.length)].map((x, i) =>
-        <NormalizationCellRow
-          key={i}
-          i={i}
-          criteria={criteria}
-          criteriaNormMTX={criteriaNormMTX}
-        />
-      )}
-    </tbody>
-  </table>
+      </tbody>
+    </table>
   )
 }
 

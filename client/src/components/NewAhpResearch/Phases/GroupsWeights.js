@@ -1,4 +1,4 @@
-import { useEffect } from "react"
+import { useState, useEffect } from "react"
 import { HOT_CHANGES_EFFECT_RESET } from "../../../pages/ahp/NewResearchPage"
 
 import style from "./GroupsWeights.module.scss"
@@ -15,18 +15,30 @@ export const GroupsWeights = ({
 
   useEffect(() => { HOT_CHANGES_EFFECT_RESET() }, [])
 
+  const [percentageDisplay, setPercentageDisplay] = useState(false)
+
+  const percentageDisplaySetter = (condition) => {
+    setPercentageDisplay(condition)
+  }
+
   return(
     <div className={style.phase_container}>
-      <CriteriaWeightsTable
-        criteria={criteria}
-        criteriaWeights={criteriaWeights}
-      />
-      <AlternativesWeightsTable
-        criteria={criteria}
-        alternatives={alternatives}
-        alternativesWeights={alternativesWeights}
-      />
+      <div className={style.tables_container}>
+        <CriteriaWeightsTable
+          criteria={criteria}
+          criteriaWeights={criteriaWeights}
+          percentageDisplay={percentageDisplay}
+        />
+        <AlternativesWeightsTable
+          criteria={criteria}
+          alternatives={alternatives}
+          alternativesWeights={alternativesWeights}
+          percentageDisplay={percentageDisplay}
+        />
+      </div>
       <Menu
+        percentageDisplay={percentageDisplay}
+        percentageDisplaySetter={percentageDisplaySetter}
         goToPhase={goToPhase}
       />
     </div>
@@ -36,6 +48,7 @@ export const GroupsWeights = ({
 const CriteriaWeightsTable = ({
   criteria,
   criteriaWeights,
+  percentageDisplay,
 }) => {
 
   class Weight {
@@ -79,9 +92,8 @@ const CriteriaWeightsTable = ({
                 {sortedWeights[i].criteria}
               </div>
             </td>
-            {/* <td>{valAdduction(displayingWeights[i].weight)}</td> */}
-            {/* <td>{percentsDisplay(displayingWeights[i].weight)}</td> */}
-            <td>{sortedWeights[i].weight}</td>
+            {percentageDisplay && <td>{percentsDisplay(sortedWeights[i].weight)}</td>}
+            {!percentageDisplay && <td>{valAdduction(sortedWeights[i].weight)}</td>}
           </tr>
         )}
       </tbody>
@@ -94,10 +106,70 @@ const AlternativesWeightsTable = ({
   criteria,
   alternatives,
   alternativesWeights,
+  percentageDisplay,
 }) => {
 
   return(
-    <></>
+    <table className={style.alternatives_weights_by_criteria}>
+      <thead>
+        <tr>
+          <th className={style.heading} colSpan={criteria.length + 1}>
+            Веса альтернатив по критериям
+          </th>
+        </tr>
+        <tr>
+          <th className={style.initial}></th>
+          {[...Array(criteria.length)].map((x, i) =>
+            <th key={i} title={criteria[i]}>
+              {criteria[i]}
+            </th>
+          )}
+        </tr>
+      </thead>
+      <tbody>
+        {[...Array(alternatives.length)].map((x, i) =>
+          <CellRow
+            key={i}
+            i={i}
+            criteria={criteria}
+            alternatives={alternatives}
+            alternativesWeights={alternativesWeights}
+            percentageDisplay={percentageDisplay}
+          />
+        )}
+      </tbody>
+    </table>
+  )
+}
+
+const CellRow = ({ criteria, alternatives, i, alternativesWeights, percentageDisplay }) => {
+  return(
+    <tr>
+      <th title={alternatives[i]}>
+        {alternatives[i]}
+      </th>
+      {[...Array(criteria.length)].map((x, j) => {
+        if (i < criteria.length) return (
+          <Cell
+            key={j}
+            row={j}
+            col={i}
+            alternativesWeights={alternativesWeights}
+            percentageDisplay={percentageDisplay}
+          />
+        )
+        else return(null)
+      })}
+    </tr>
+  )
+}
+
+const Cell = ({ row, col, alternativesWeights, percentageDisplay }) => {
+  return(
+    <td>
+      {percentageDisplay && <span>{percentsDisplay(alternativesWeights[row][col])}</span>}
+      {!percentageDisplay && <span>{valAdduction(alternativesWeights[row][col])}</span>}
+    </td>
   )
 }
 
@@ -106,10 +178,19 @@ const AlternativesWeightsTable = ({
 
 
 
-
 const Menu = ({
+  percentageDisplay,
+  percentageDisplaySetter,
   goToPhase,
 }) => {
+
+  const displayChangeHandler = () => {
+    if (percentageDisplay) {
+      percentageDisplaySetter(false)
+    } else {
+      percentageDisplaySetter(true)
+    }
+  }
 
   const goToGlobalWeights = () => {
     goToPhase(6)
@@ -118,6 +199,22 @@ const Menu = ({
   return(
     <div className={style.menu}>
       <div className={style.top}>
+        <div className={style.switch}>
+          <fieldset>
+            <legend>Отображение</legend>
+            <div className="switch">
+              <label>
+                Доли
+                <input
+                  type="checkbox"
+                  onChange={displayChangeHandler}
+                />
+                <span className="lever" />
+                %
+              </label>
+            </div>
+          </fieldset>
+        </div>
       </div>
       <div className={style.bottom}>
         <button className="btn" onClick={goToGlobalWeights} style={{marginBottom: '40px'}}>
@@ -138,4 +235,20 @@ const criteriaSorting = (weights) => {
     return 0
   })
   return weights
+}
+
+// Приведение значений 
+const valAdduction = (value) => {
+  value = value.toFixed(3)
+  value = value * 1
+  return(value)
+}
+
+// Отображние весов в процентах
+const percentsDisplay = (value) => {
+  value = value * 100
+  value = value.toFixed(1)
+  value = value * 1
+  value = `${value}%`
+  return (value)
 }
