@@ -8,6 +8,8 @@ import { InfoPage } from './pages/ahp/InfoPage'
 import { NewResearchPage } from './pages/ahp/NewResearchPage'
 import { ResearchesPage } from './pages/ahp/ResearchesPage'
 
+import { TestPage } from './pages/TestPage'
+
 
 export const useRoutes = isAuthenticated => {
   if (isAuthenticated) {
@@ -31,6 +33,10 @@ export const useRoutes = isAuthenticated => {
         </Route>
         <Route path="/researches">
           <ResearchesPage />
+        </Route>
+
+        <Route path="/test">
+          <TestPage />
         </Route>
 
         <Redirect to="/info" />

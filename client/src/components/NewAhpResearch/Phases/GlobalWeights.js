@@ -1,6 +1,8 @@
-import { useEffect } from "react"
+import { useEffect, useContext } from "react"
 import { useHistory } from "react-router-dom"
 import { VictoryChart, VictoryBar } from "victory"
+import { AuthContext } from '../../../context/AuthContext'
+import { useHttp } from '../../../hooks/http.hook'
 import { useMessage } from "../../../hooks/message.hook"
 import { HOT_CHANGES_EFFECT_RESET } from "../../../pages/ahp/NewResearchPage"
 
@@ -8,7 +10,16 @@ import style from "./GlobalWeights.module.scss"
 
 
 export const GlobalWeights = ({
+  criteria,
+  criteriaMTX,
+  criteriaSum,
+  criteriaNormMTX,
+  criteriaWeights,
   alternatives,
+  alternativesMTX,
+  alternativesSum,
+  alternativesNormMTX,
+  alternativesWeights,
   globalWeights,
 
   goToPhase,
@@ -42,6 +53,18 @@ export const GlobalWeights = ({
         />
       </div>
       <Menu
+        criteria={criteria}
+        criteriaMTX={criteriaMTX}
+        criteriaSum={criteriaSum}
+        criteriaNormMTX={criteriaNormMTX}
+        criteriaWeights={criteriaWeights}
+        alternatives={alternatives}
+        alternativesMTX={alternativesMTX}
+        alternativesSum={alternativesSum}
+        alternativesNormMTX={alternativesNormMTX}
+        alternativesWeights={alternativesWeights}
+        globalWeights={globalWeights}
+
         goToPhase={goToPhase}
       />
     </div>
@@ -136,14 +159,48 @@ const GlobalWeightsChart = ({
 }
 
 const Menu = ({
+  criteria,
+  criteriaMTX,
+  criteriaSum,
+  criteriaNormMTX,
+  criteriaWeights,
+  alternatives,
+  alternativesMTX,
+  alternativesSum,
+  alternativesNormMTX,
+  alternativesWeights,
+  globalWeights,
+
   goToPhase,
 }) => {
 
+  const {request} = useHttp()
   const history = useHistory()
+  const auth = useContext(AuthContext)
   const message = useMessage()
 
-  const save = () => {
-    message('Результаты сохранены!')
+  const researchData = {
+    criteria: criteria,
+    criteraRating: criteriaMTX,
+    criteriaSum: criteriaSum,
+    criteriaNorm: criteriaNormMTX,
+    criteriaWeights: criteriaWeights,
+    alternatives: alternatives,
+    alternativesRating: alternativesMTX,
+    alternativesSum: alternativesSum,
+    alternativesNorm: alternativesNormMTX,
+    alternativesWeights: alternativesWeights,
+    globalWeights: globalWeights,
+  }
+
+  const mongoDBsavingHandler = async () => {
+    // console.log(researchData)
+    try {
+      const data = await request('/api/research/new', 'POST', {from: researchData}, {
+        Authorization: `Bearer ${auth.token}`
+      })
+      message(data.message)
+    } catch (e) {}
     history.push('/researches')
   }
 
@@ -159,7 +216,7 @@ const Menu = ({
         <button className="btn" onClick={goToGroupsWeights}>
           Другие веса
         </button>
-        <button className="btn" onClick={save}>
+        <button className="btn" onClick={mongoDBsavingHandler}>
           Сохранить
         </button>
       </div>

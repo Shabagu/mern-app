@@ -23,6 +23,8 @@ export const Navbar = () => {
           <li><NavLink to="/research">Новое исследование</NavLink></li>
           <li><NavLink to="/researches">Мои исследования</NavLink></li>
           
+          <li><NavLink to="/test">'' Test Page ''</NavLink></li>
+
           {/* <li><s><NavLink to="/create">|New-link|</NavLink></s></li> */}
           {/* <li><s><NavLink to="/links">|Links-list|</NavLink></s></li> */}
 

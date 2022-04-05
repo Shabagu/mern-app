@@ -6,8 +6,8 @@ const Test = require('../models/Test')
 router.post(
   '/test', [],
   async (req, res) => {
-    const {fieldA, fieldB} = req.body
-    const test = new Test({ fieldA, fieldB })
+    const {fieldA, fieldB, ababa, lol} = req.body
+    const test = new Test({ fieldA, fieldB, ababa, lol })
     await test.save()
     res.status(201).json({message: 'Запись создана'})
   }

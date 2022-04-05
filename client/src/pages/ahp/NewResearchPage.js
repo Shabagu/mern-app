@@ -235,7 +235,16 @@ export const NewResearchPage = () => {
 
       {phase === 6 &&
         <GlobalWeights
+          criteria={criteria}
+          criteriaMTX={criteriaMTX}
+          criteriaSum={criteriaSum}
+          criteriaNormMTX={criteriaNormMTX}
+          criteriaWeights={criteriaWeights}
           alternatives={alternatives}
+          alternativesMTX={alternativesMTX}
+          alternativesSum={alternativesSum}
+          alternativesNormMTX={alternativesNormMTX}
+          alternativesWeights={alternativesWeights}
           globalWeights={globalWeights}
 
           goToPhase={goToPhaseHandler}
