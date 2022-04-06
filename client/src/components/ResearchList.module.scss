@@ -2,6 +2,11 @@ $tableBorderBold: 3px solid #aaa;
 $tableBorderThin: 2px solid #aaa;
 $tableBorderExtraThin: 1px solid #aaa;
 
+.research_items {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
 .research_item {
   border: 3px gray solid;
   
@@ -14,8 +19,10 @@ $tableBorderExtraThin: 1px solid #aaa;
   align-items: center;
   
   .box:first-child {
-    overflow-y: scroll;
     border: $tableBorderBold;
+  }
+  .box:first-child:hover {
+    overflow-y: scroll;
   }
 
   .box {

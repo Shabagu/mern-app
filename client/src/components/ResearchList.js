@@ -29,7 +29,7 @@ export const ResearchList = ({ researches }) => {
   // const sortedGlobalWeights = weightsSorting([...defaultWeights])
 
   return(
-    <div>
+    <div className={style.research_items}>
       {/* Список исследований
       <button className="btn" onClick={consoleHandler}>consolelog</button> */}
 
