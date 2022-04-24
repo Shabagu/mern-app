@@ -15,11 +15,18 @@ $tableBorderBold: 3px solid #aaa;
       width: 256px;
 
       fieldset {
+        height: 320px;
+        overflow: auto;
 
         legend {
           margin-left: 20px;
           font-size: 1.5rem;
           user-select: none;
+        }
+
+        ul {
+          height: 200px;
+          overflow: auto;
         }
       }
     }
