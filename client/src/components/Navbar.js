@@ -13,15 +13,25 @@ export const Navbar = () => {
     history.push('/')
   }
 
+  const logoClickHandler = event => {
+    history.push('/')
+  }
+
   return (
     <nav>
       <div className="nav-wrapper teal lighten-1" style={{ padding: '0 2rem' }}>
-        <span className="brand-logo">~Лучший отдых~</span>
+        <span className="brand-logo" style={{
+          userSelect: 'none', cursor: 'pointer'}} onClick={logoClickHandler}>
+          ~Лучший отдых~
+        </span>
         <ul id="nav-mobile" className="right hide-on-med-and-down">
 
           <li><NavLink to="/info">Что такое МАИ?</NavLink></li>
           <li><NavLink to="/research">Новое исследование</NavLink></li>
           <li><NavLink to="/researches">Мои исследования</NavLink></li>
+
+          
+          <li><NavLink to="/admin">Управление</NavLink></li>
           
           {/* <li><NavLink to="/test">'' Test Page ''</NavLink></li> */}
 

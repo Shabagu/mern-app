@@ -95,6 +95,16 @@ const Component0 = () => {
   }
 
   /* ========================================================================== */
+  const ALL_ALTERNATIVES = [
+    'Египет',
+    'Греция',
+    'Турция',
+    'Куба',
+    'Тунис',
+    'Швеция',
+    'Италия',
+    'Гавайи',
+  ]
   const ALL_CRITERIA = [
     'Стоимость',
     'Климат',
@@ -105,13 +115,14 @@ const Component0 = () => {
     'Дорога',
     'Достопримечательности',
   ]
-  const NUM = 7
+  const NUM = 0
   const [tempFields, setTempFields] = useState({
     name: ''
   })
   const setTempFieldsHandler = () => {
     setTempFields({ ...tempFields,
-      name: ALL_CRITERIA[NUM]
+      name: ALL_ALTERNATIVES[NUM],
+      relevance: true,
     })
   }
   const logTempFieldsHandler = () => {
@@ -119,7 +130,7 @@ const Component0 = () => {
   }
   const tempFieldsToMongoHandler = async () => {
     try {
-      const data = await request('/api/test/temp2', 'POST', {...tempFields})
+      const data = await request('/api/test/setalternatives', 'POST', {...tempFields})
       message(data.message)
     } catch (e) {}
   }

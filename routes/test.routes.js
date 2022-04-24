@@ -15,9 +15,9 @@ router.post(
   }
 )
 
-// /api/test/temp
+// /api/test/setalternatives
 router.post(
-  '/temp', [],
+  '/setalternatives', [],
   async (req, res) => {
     const {name} = req.body
     const alternative = new Alternative({ name })
@@ -25,9 +25,9 @@ router.post(
     res.status(201).json({message: 'Запись создана'})
   }
 )
-// /api/test/temp2
+// /api/test/setcriteria
 router.post(
-  '/temp2', [],
+  '/setcriteria', [],
   async (req, res) => {
     const {name} = req.body
     const criteria = new Criteria({ name })

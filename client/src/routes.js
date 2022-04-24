@@ -8,6 +8,7 @@ import { InfoPage } from './pages/ahp/InfoPage'
 import { NewResearchPage } from './pages/ahp/NewResearchPage'
 import { ResearchesPage } from './pages/ahp/ResearchesPage'
 
+import { AdminPage } from './pages/AdminPage'
 import { TestPage } from './pages/TestPage'
 
 
@@ -33,6 +34,10 @@ export const useRoutes = isAuthenticated => {
         </Route>
         <Route path="/researches">
           <ResearchesPage />
+        </Route>
+
+        <Route path="/admin">
+          <AdminPage />
         </Route>
 
         <Route path="/test">
