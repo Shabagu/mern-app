@@ -1,17 +1,19 @@
 import { useEffect } from "react"
 import { useMessage } from '../../../hooks/message.hook'
 import { DEFAULT_BUTTON_COLOR, HOT_CHANGES_BUTTON_COLOR, HOT_CHANGES_HANDLER } from "../../../pages/ahp/NewResearchPage"
-import { ALL_CRITERIA, ALL_ALTERNATIVES } from "../../../pages/ahp/NewResearchPage"
+// import { ALL_CRITERIA, ALL_ALTERNATIVES } from "../../../pages/ahp/NewResearchPage"
 
 import style from "./SelectionPhase.module.scss"
 
 
 export const SelectionPhase = ({
+  allCriteria,
   criteria,
   criteriaSetter,
   criteriaMTXSetter,
   criteriaSumSetter,
   
+  allAlternatives,
   alternatives,
   alternativesSetter,
   alternativesMTXSetter,
@@ -29,10 +31,10 @@ export const SelectionPhase = ({
   useEffect(() => {
     const checkAllCriteriaCheckbox = document.querySelector('.criteria_checkAll')
     const checkAllAlternativesCheckbox = document.querySelector('.alternatives_checkAll')
-    if (criteria.length === ALL_CRITERIA.length) {
+    if (criteria.length === allCriteria.length && criteria.length !== 0) {
       checkAllCriteriaCheckbox.checked = true
     }
-    if (alternatives.length === ALL_ALTERNATIVES.length) {
+    if (alternatives.length === allAlternatives.length && alternatives.length !== 0) {
       checkAllAlternativesCheckbox.checked = true
     }    
   }, [criteria, alternatives])
@@ -67,14 +69,14 @@ export const SelectionPhase = ({
     let j = 0
     for (let i = 0; i < criteriaCheckboxes.length; i++) {
       if (criteriaCheckboxes[i].checked) {
-        selectedCriteria[j] = ALL_CRITERIA[criteriaCheckboxes[i].value.slice(-1)]
+        selectedCriteria[j] = allCriteria[criteriaCheckboxes[i].value.slice(-1)].name
         j++
       }
     }
     let k = 0
     for (let i = 0; i < alternativesCheckboxes.length; i++) {
       if (alternativesCheckboxes[i].checked) {
-        selectedAlternatives[k] = ALL_ALTERNATIVES[alternativesCheckboxes[i].value.slice(-1)]
+        selectedAlternatives[k] = allAlternatives[alternativesCheckboxes[i].value.slice(-1)].name
         k++
       }
     }
@@ -137,8 +139,8 @@ export const SelectionPhase = ({
   return(
     <div className={style.phase_container}>
       <div className={style.selections_container}>
-        <Selection set={ALL_CRITERIA} group={groups.criteria} selected={criteria}/>
-        <Selection set={ALL_ALTERNATIVES} group={groups.alternatives} selected={alternatives} />
+        <Selection set={allCriteria} group={groups.criteria} selected={criteria}/>
+        <Selection set={allAlternatives} group={groups.alternatives} selected={alternatives} />
       </div>
       
       <div className={style.button_container}>
@@ -171,7 +173,7 @@ const Selection = ({ set, group, selected }) => {
         <legend>{group.ru}</legend>
         <ul className={`${group.en}_list`}>
           {[...Array(set.length)].map((x, i) => 
-            <Option key={i} i={i} opt={set[i]} group={group} selected={selected} />
+            <Option key={i} i={i} opt={set[i].name} group={group} selected={selected} />
           )}
         </ul>
         <hr />

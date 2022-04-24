@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+// import { Link } from 'react-router-dom'
 import { VictoryChart, VictoryBar } from "victory"
 
 import style from './ResearchList.module.scss'
@@ -6,76 +6,12 @@ import style from './ResearchList.module.scss'
 
 export const ResearchList = ({ researches }) => {
 
-  const consoleHandler = () => {
-    console.log(researches)
-  }
-
   if (!researches.length) {
     return <p className='center'>Исследований пока нет...</p>
   }
 
-  // class Weight {
-  //   constructor(alternative, weight) {
-  //     this.alternative = alternative
-  //     this.weight = weight
-  //   }
-  // }
-
-  // let defaultWeights = []
-  // for (let i = 0; i < alternatives.length; i++) {
-  //   defaultWeights[i] = new Weight(alternatives[i], globalWeights[i])
-  // }
-  
-  // const sortedGlobalWeights = weightsSorting([...defaultWeights])
-
   return(
     <div className={style.research_items}>
-      {/* Список исследований
-      <button className="btn" onClick={consoleHandler}>consolelog</button> */}
-
-      {/* <table>
-        <thead>
-          <tr>
-              <th>№</th>
-              <th>Оригинальная</th>
-              <th>Сокращённая</th>
-              <th>Открыть</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          { links.map((link, index) => {
-            return(
-              <tr key={link._id}>
-                <td>{index + 1}</td>
-                <td>{link.from}</td>
-                <td>{link.to}</td>
-                <td>
-                  <Link to={`/detail/${link._id}`}>Открыть</Link>
-                </td>
-              </tr>
-            )
-          }) }
-        </tbody>
-      </table> */}
-
-    
-      {/* { researches.map((research, index) => {
-        return(
-          <tr key={research._id}>
-            <td>{index + 1}</td>
-            <td>{research.alternatives[0]}</td>
-            <td>{research.globalWeights[0]}</td>
-            <td>{research.date}</td>
-            <td>
-              <Link to={`/detail/${research._id}`}>Открыть</Link>
-            </td>
-          </tr>
-        )
-      }) } */}
-
-
-
 
       { researches.map((research, index) => {
         return(

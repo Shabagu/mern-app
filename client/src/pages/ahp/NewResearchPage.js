@@ -1,4 +1,8 @@
-import { useState } from "react"
+import { useCallback, useContext, useEffect, useState } from "react"
+import { AuthContext } from "../../context/AuthContext"
+import { useHttp } from '../../hooks/http.hook'
+import { Loader } from '../../components/Loader'
+
 import { SelectionPhase } from "../../components/NewAhpResearch/Phases/SelectionPhase"
 import { CriteriaRating } from "../../components/NewAhpResearch/Phases/CriteriaRating"
 import { CriteriaWeights } from "../../components/NewAhpResearch/Phases/CriteriaWeights"
@@ -12,27 +16,27 @@ import style from "./NewResearchPage.module.scss"
 
 
 
-export const ALL_CRITERIA = [
-  'Стоимость',
-  'Климат',
-  'Экология',
-  'Безопасность',
-  'Кухня',
-  'Престиж',
-  'Дорога',
-  'Достопримечательности',
-]
+// export const ALL_CRITERIA = [
+//   'Стоимость',
+//   'Климат',
+//   'Экология',
+//   'Безопасность',
+//   'Кухня',
+//   'Престиж',
+//   'Дорога',
+//   'Достопримечательности',
+// ]
   
-export const ALL_ALTERNATIVES = [
-  'Египет',
-  'Греция',
-  'Турция',
-  'Куба',
-  'Тунис',
-  'Швеция',
-  'Италия',
-  'Гавайи',
-]
+// export const ALL_ALTERNATIVES = [
+//   'Египет',
+//   'Греция',
+//   'Турция',
+//   'Куба',
+//   'Тунис',
+//   'Швеция',
+//   'Италия',
+//   'Гавайи',
+// ]
 
 export const DEFAULT_BUTTON_COLOR = '#26a69a'
 export const HOT_CHANGES_BUTTON_COLOR = '#ff8e3a'
@@ -75,8 +79,34 @@ export const NewResearchPage = () => {
   const [alternativesWeights, setAlternativesWeights] = useState([])
   const [globalWeights, setGlobalWeights] = useState([])
 
+  const [allCriteria, setAllCriteria] = useState([])
+  const [allAlternatives, setAllAlternatives] = useState([])
 
+  const {loading, request} = useHttp()
+  const {token} = useContext(AuthContext)
 
+  const fetchAllCriteria = useCallback( async () => {
+    try {
+      const fetched = await request('/api/research/criteria', 'GET', null, {
+        Authorization: `Bearer ${token}`
+      })
+      setAllCriteria(fetched)
+    } catch (e) {}
+  }, [token, request])
+
+  const fetchAllAlternatives = useCallback( async () => {
+    try {
+      const fetched = await request('/api/research/alternatives', 'GET', null, {
+        Authorization: `Bearer ${token}`
+      })
+      setAllAlternatives(fetched)
+    } catch (e) {}
+  }, [token, request])
+
+  useEffect(() => {
+    fetchAllCriteria()
+    fetchAllAlternatives()
+  }, [fetchAllCriteria])
 
   const nextPhaseHandler = (skip) => {
     if (phase < 6) {
@@ -88,57 +118,37 @@ export const NewResearchPage = () => {
       setPhase(phase - skip)
     }
   }
-  const goToPhaseHandler = (phase) => {
-    setPhase(phase)
-  }
-  const phasesDoneHandler = (phase) => {
-    setPhasesDone(phase)
+  const goToPhaseHandler = (phase) => { setPhase(phase) }
+  const phasesDoneHandler = (phase) => { setPhasesDone(phase) }
+
+  const setCriteriaHandler = (array) => { setCriteria(array) }
+  const setCriteriaMTXHandler = (mtx) => { setCriteriaMTX(mtx) }
+  const setCriteriaSumHandler = (array) => { setCriteriaSum(array) }
+  const setCriteriaNormMTXHandler = (mtx) => { setCriteriaNormMTX(mtx) }
+  const setCriteriaWeightsHandler = (array) => { setCriteriaWeights(array) }
+
+  const setAlternativesHandler = (array) => { setAlternatives(array) }
+  const setAlternativesMTXHandler = (mtx) => { setAlternativesMTX(mtx) }
+  const setAlternativesSumHandler = (mtx) => { setAlternativesSum(mtx) }
+  const setAlternativesNormMTXHandler = (mtx) => { setAlternativesNormMTX(mtx) }
+  const setAlternativesWeightsHandler = (mtx) => { setAlternativesWeights(mtx) }
+
+  const setGlobalWeightsHandler = (mtx) => { setGlobalWeights(mtx) }
+
+  const qqq = () => {
+    console.log('Критерии')
+    console.log(allCriteria)
+    console.log('Альтернативы')
+    console.log(allAlternatives)
   }
 
-
-  const setCriteriaHandler = (array) => {
-    setCriteria(array)
+  if (loading) {
+    return <Loader />
   }
-  const setCriteriaMTXHandler = (mtx) => {
-    setCriteriaMTX(mtx)
-  }
-  const setCriteriaSumHandler = (array) => {
-    setCriteriaSum(array)
-  }
-  const setCriteriaNormMTXHandler = (mtx) => {
-    setCriteriaNormMTX(mtx)
-  }
-  const setCriteriaWeightsHandler = (array) => {
-    setCriteriaWeights(array)
-  }
-
-
-  const setAlternativesHandler = (array) => {
-    setAlternatives(array)
-  }
-  const setAlternativesMTXHandler = (mtx) => {
-    setAlternativesMTX(mtx)
-  }
-  const setAlternativesSumHandler = (mtx) => {
-    setAlternativesSum(mtx)
-  }
-  const setAlternativesNormMTXHandler = (mtx) => {
-    setAlternativesNormMTX(mtx)
-  }
-  const setAlternativesWeightsHandler = (mtx) => {
-    setAlternativesWeights(mtx)
-  }
-
-
-  const setGlobalWeightsHandler = (mtx) => {
-    setGlobalWeights(mtx)
-  }
-
-
-
 
   return(
     <div className={style.research_box}>
+      {/* <button onClick={qqq}>qqq</button> */}
       <h3 className={style.page_title}>Новое исследование</h3>
 
       <PhaseTitle
@@ -148,22 +158,97 @@ export const NewResearchPage = () => {
         previousPhase={previousPhaseHandler}
       />
 
+      <PhaseContent
+        phase={phase}
+        phasesDone={phasesDone}
+        goToPhase={goToPhaseHandler}
+        phaseDone={phasesDoneHandler}
+        
+        allCriteria={allCriteria}
+        criteria={criteria}
+        criteriaMTX={criteriaMTX}
+        criteriaSum={criteriaSum}
+        criteriaNormMTX={criteriaNormMTX}
+        criteriaWeights={criteriaWeights}
+        criteriaSetter={setCriteriaHandler}
+        criteriaMTXSetter={setCriteriaMTXHandler}
+        criteriaSumSetter={setCriteriaSumHandler}
+        criteriaNormMTXSetter={setCriteriaNormMTXHandler}
+        criteriaWeightsSetter={setCriteriaWeightsHandler}
+
+        allAlternatives={allAlternatives}
+        alternatives={alternatives}
+        alternativesMTX={alternativesMTX}
+        alternativesSum={alternativesSum}
+        alternativesNormMTX={alternativesNormMTX}
+        alternativesWeights={alternativesWeights}
+        alternativesSetter={setAlternativesHandler}
+        alternativesMTXSetter={setAlternativesMTXHandler}
+        alternativesSumSetter={setAlternativesSumHandler}
+        alternativesNormMTXSetter={setAlternativesNormMTXHandler}
+        alternativesWeightsSetter={setAlternativesWeightsHandler}
+
+        globalWeights={globalWeights}
+        globalWeightsSetter={setGlobalWeightsHandler}
+      />
 
 
+    </div>
+  )
+}
+
+const PhaseContent = ({
+  phase,
+  phasesDone,
+  goToPhase,
+  phaseDone,
+
+  allCriteria,
+  criteria,
+  criteriaMTX,
+  criteriaSum,
+  criteriaNormMTX,
+  criteriaWeights,
+  criteriaSetter,
+  criteriaMTXSetter,
+  criteriaSumSetter,
+  criteriaNormMTXSetter,
+  criteriaWeightsSetter,
+
+  allAlternatives,
+  alternatives,
+  alternativesMTX,
+  alternativesSum,
+  alternativesNormMTX,
+  alternativesWeights,
+  alternativesSetter,
+  alternativesMTXSetter,
+  alternativesSumSetter,
+  alternativesNormMTXSetter,
+  alternativesWeightsSetter,
+
+  globalWeights,
+  globalWeightsSetter,
+}) => {
+
+  return(
+    <>
       {phase === 0 &&
         <SelectionPhase
+          allCriteria={allCriteria}
           criteria={criteria}
-          criteriaSetter={setCriteriaHandler}
-          criteriaMTXSetter={setCriteriaMTXHandler}
-          criteriaSumSetter={setCriteriaSumHandler}
+          criteriaSetter={criteriaSetter}
+          criteriaMTXSetter={criteriaMTXSetter}
+          criteriaSumSetter={criteriaSumSetter}
 
+          allAlternatives={allAlternatives}
           alternatives={alternatives}
-          alternativesSetter={setAlternativesHandler}
-          alternativesMTXSetter={setAlternativesMTXHandler}
-          alternativesSumSetter={setAlternativesSumHandler}
+          alternativesSetter={alternativesSetter}
+          alternativesMTXSetter={alternativesMTXSetter}
+          alternativesSumSetter={alternativesSumSetter}
 
-          goToPhase={goToPhaseHandler}
-          phaseDone={phasesDoneHandler}
+          goToPhase={goToPhase}
+          phaseDone={phaseDone}
         />
       }
 
@@ -171,14 +256,14 @@ export const NewResearchPage = () => {
         <CriteriaRating
           criteria={criteria}
           criteriaMTX={criteriaMTX}
-          criteriaMTXSetter={setCriteriaMTXHandler}
+          criteriaMTXSetter={criteriaMTXSetter}
           criteriaSum={criteriaSum}
-          criteriaSumSetter={setCriteriaSumHandler}
-          criteriaNormMTXSetter={setCriteriaNormMTXHandler}
-          criteriaWeightsSetter={setCriteriaWeightsHandler}
+          criteriaSumSetter={criteriaSumSetter}
+          criteriaNormMTXSetter={criteriaNormMTXSetter}
+          criteriaWeightsSetter={criteriaWeightsSetter}
           
-          goToPhase={goToPhaseHandler}
-          phaseDone={phasesDoneHandler}
+          goToPhase={goToPhase}
+          phaseDone={phaseDone}
           phasesDone={phasesDone}
         />
       }
@@ -189,8 +274,8 @@ export const NewResearchPage = () => {
           criteriaNormMTX={criteriaNormMTX}
           criteriaWeights={criteriaWeights}
 
-          goToPhase={goToPhaseHandler}
-          phaseDone={phasesDoneHandler}
+          goToPhase={goToPhase}
+          phaseDone={phaseDone}
         />
       }
 
@@ -199,16 +284,16 @@ export const NewResearchPage = () => {
           criteria={criteria}
           alternatives={alternatives}
           alternativesMTX={alternativesMTX}
-          alternativesMTXSetter={setAlternativesMTXHandler}
+          alternativesMTXSetter={alternativesMTXSetter}
           alternativesSum={alternativesSum}
-          alternativesSumSetter={setAlternativesSumHandler}
-          alternativesNormMTXSetter={setAlternativesNormMTXHandler}
-          alternativesWeightsSetter={setAlternativesWeightsHandler}
+          alternativesSumSetter={alternativesSumSetter}
+          alternativesNormMTXSetter={alternativesNormMTXSetter}
+          alternativesWeightsSetter={alternativesWeightsSetter}
           criteriaWeights={criteriaWeights}
-          globalWeightsSetter={setGlobalWeightsHandler}
+          globalWeightsSetter={globalWeightsSetter}
 
-          goToPhase={goToPhaseHandler}
-          phaseDone={phasesDoneHandler}
+          goToPhase={goToPhase}
+          phaseDone={phaseDone}
           phasesDone={phasesDone}
         />
       }
@@ -220,8 +305,8 @@ export const NewResearchPage = () => {
           alternativesNormMTX={alternativesNormMTX}
           alternativesWeights={alternativesWeights}
 
-          goToPhase={goToPhaseHandler}
-          phaseDone={phasesDoneHandler}
+          goToPhase={goToPhase}
+          phaseDone={phaseDone}
         />
       }
 
@@ -232,7 +317,7 @@ export const NewResearchPage = () => {
           alternatives={alternatives}
           alternativesWeights={alternativesWeights}
 
-          goToPhase={goToPhaseHandler}
+          goToPhase={goToPhase}
         />
       }
 
@@ -250,9 +335,9 @@ export const NewResearchPage = () => {
           alternativesWeights={alternativesWeights}
           globalWeights={globalWeights}
 
-          goToPhase={goToPhaseHandler}
+          goToPhase={goToPhase}
         />
       }
-    </div>
+    </>
   )
 }
