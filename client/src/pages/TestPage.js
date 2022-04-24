@@ -28,6 +28,8 @@ export const TestPage = () => {
   }
 
 
+
+
   return(
     <>
       <h1>TestPage</h1>
@@ -38,11 +40,11 @@ export const TestPage = () => {
           <button className="btn" onClick={nextPhaseHandler}>&gt;</button>
           <p>{phase}</p>
           <p>{condition}</p>
-          <div class="switch">
+          <div className="switch">
             <label>
               Off
               <input type="checkbox" />
-              <span class="lever"></span>
+              <span className="lever"></span>
               On
             </label>
           </div>
@@ -64,6 +66,8 @@ export const TestPage = () => {
 
 
 const Component0 = () => {
+
+
 
   // const {loading, request, error, clearError} = useHttp()
   const {request} = useHttp()
@@ -90,12 +94,56 @@ const Component0 = () => {
     } catch (e) {}
   }
 
+  /* ========================================================================== */
+  const ALL_CRITERIA = [
+    'Стоимость',
+    'Климат',
+    'Экология',
+    'Безопасность',
+    'Кухня',
+    'Престиж',
+    'Дорога',
+    'Достопримечательности',
+  ]
+  const NUM = 7
+  const [tempFields, setTempFields] = useState({
+    name: ''
+  })
+  const setTempFieldsHandler = () => {
+    setTempFields({ ...tempFields,
+      name: ALL_CRITERIA[NUM]
+    })
+  }
+  const logTempFieldsHandler = () => {
+    console.log(tempFields)
+  }
+  const tempFieldsToMongoHandler = async () => {
+    try {
+      const data = await request('/api/test/temp2', 'POST', {...tempFields})
+      message(data.message)
+    } catch (e) {}
+  }
+  /* ========================================================================== */
+
+
   return(
   <div className={style.column}>
     <p>Компонент 0</p>
     <button className="btn" onClick={setFieldsHandler}>setState1</button>
     <button className="btn" onClick={logFieldsHandler}>logState</button>
     <button className="btn" onClick={fieldsToMongoHandler}>createMongo</button>
+
+
+
+    {/* ========================================================================== */}
+    <br /><br /><br />
+    <button className="btn" onClick={setTempFieldsHandler}>ЗАПИСАТЬ</button>
+    <button className="btn" onClick={logTempFieldsHandler}>ЛОГИРОВАТЬ</button>
+    <button className="btn" onClick={tempFieldsToMongoHandler}>ОТПРАВИТЬ</button>
+    {/* ========================================================================== */}
+
+
+
   </div>
   )
 }
