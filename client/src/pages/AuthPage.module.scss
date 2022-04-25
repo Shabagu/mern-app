@@ -1,0 +1,29 @@
+.title {
+  text-align: center;
+  font-style: italic;
+  user-select: none;
+  margin: 70px 0 50px;
+}
+
+.card {
+  padding-bottom: 0 !important;
+}
+
+.bottom {
+  display: flex;
+  flex-direction: column;
+  // border-top: 1px solid #b5b5b5;
+
+  // position: relative;
+  // top: -20px;
+
+
+  .login {
+    padding: 10px 25px 25px;
+    
+    button {
+      width: 100%;
+      
+    }
+  }
+}
