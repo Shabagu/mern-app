@@ -135,20 +135,12 @@ export const NewResearchPage = () => {
 
   const setGlobalWeightsHandler = (mtx) => { setGlobalWeights(mtx) }
 
-  // const qqq = () => {
-  //   console.log('Критерии')
-  //   console.log(allCriteria)
-  //   console.log('Альтернативы')
-  //   console.log(allAlternatives)
-  // }
-
   if (loading) {
     return <Loader />
   }
 
   return(
     <div className={style.research_box}>
-      {/* <button onClick={qqq}>qqq</button> */}
       <h3 className={style.page_title}>Новое исследование</h3>
 
       <PhaseTitle

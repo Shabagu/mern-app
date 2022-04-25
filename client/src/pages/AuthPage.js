@@ -49,53 +49,155 @@ export const AuthPage = () => {
     }
   }
 
+  const conditionHandler = () => {
+    if (condition === 'login') setCondition('registration')
+    else setCondition('login')
+
+    form.email = ''
+    form.password = ''
+  }
+
   return (
     <div className="row">
       <div className="col s4 offset-s4">
         <h1 className={style.title}>~Лучший~ ~отпуск~</h1>
-          <div className="card">
-          <div className={`card-content ${style.card}`}>
-            <span className="card-title center">Авторизация</span>
-            <div>
-              <div className="input-field">
-                <input
-                  id="email"
-                  type="text"
-                  name="email"
-                  value={form.email}
-                  onChange={changeHandler}
-                  onKeyPress={pressHandler}
-                />
-                <label htmlFor="email" className="label-input">Email</label>
-              </div>
+        {condition === 'login' &&
+          <LoginCard
+            form={form}
+            changeHandler={changeHandler}
+            loginHandler={loginHandler}
+            pressHandler={pressHandler}
+            conditionHandler={conditionHandler}
+            loading={loading}
+          />
+        }
+        {condition === 'registration' &&
+          <RegistrationCard
+            form={form}
+            changeHandler={changeHandler}
+            registrationHandler={registrationHandler}
+            pressHandler={pressHandler}
+            conditionHandler={conditionHandler}
+            loading={loading}
+          />
+        }
+      </div>
+    </div>
+  )
+}
 
-              <div className="input-field">
-                <input
-                  id="password"
-                  type="password"
-                  name="password"
-                  value={form.password}
-                  onChange={changeHandler}
-                  onKeyPress={pressHandler}
-                />
-                <label htmlFor="password" className="label-input">Пароль</label>
-              </div>
+const LoginCard = ({
+  form,
+  changeHandler,
+  loginHandler,
+  pressHandler,
+  conditionHandler,
+  loading,
+}) => {
 
-            </div>
+  return(
+    <div className="card">
+    <div className={`card-content ${style.card}`}>
+      <span className="card-title center">Авторизация</span>
+      <div>
+        <div className="input-field">
+          <input
+            id="email"
+            type="text"
+            name="email"
+            value={form.email}
+            onChange={changeHandler}
+            onKeyPress={pressHandler}
+            className="emailField"
+          />
+          <label htmlFor="email" className="label-input">Email</label>
+        </div>
+
+        <div className="input-field">
+          <input
+            id="password"
+            type="password"
+            name="password"
+            value={form.password}
+            onChange={changeHandler}
+            onKeyPress={pressHandler}
+            className="passwordField"
+          />
+          <label htmlFor="password" className="label-input">Пароль</label>
+        </div>
+
+      </div>
+    </div>
+    <div className={style.bottom}>
+      <div className={style.mainbtn}>
+        <button onClick={loginHandler} disabled={loading} className="btn">
+          Войти
+        </button>
+      </div>
+      <div className={style.condition}>
+        <div className={style.textbtn} onClick={conditionHandler}>
+          Зарегистрироваться
+        </div>
+      </div>
+    </div>
+  </div>
+  )
+}
+
+const RegistrationCard = ({
+  form,
+  changeHandler,
+  registrationHandler,
+  pressHandler,
+  conditionHandler,
+  loading,
+}) => {
+
+  return(
+    <div className="card">
+      <div className={`card-content ${style.card}`}>
+        <span className="card-title center">Регистрация</span>
+        <div>
+          <div className="input-field">
+            <input
+              id="email"
+              type="text"
+              name="email"
+              value={form.email}
+              onChange={changeHandler}
+              onKeyPress={pressHandler}
+              className="emailField"
+            />
+            <label htmlFor="email" className="label-input">Email</label>
           </div>
-          <div className={style.bottom}>
-            <div className={style.login}>
-              <button onClick={loginHandler} disabled={loading} className="btn">
-                Войти
-              </button>
-            </div>
-            {/* <div className={style.registration}>
-              <button onClick={registrationHandler} disabled={loading} className="btn">
-                Регистрация
-              </button>
-            </div> */}
+
+          <div className="input-field">
+            <input
+              id="password"
+              type="password"
+              name="password"
+              value={form.password}
+              onChange={changeHandler}
+              onKeyPress={pressHandler}
+              className="passwordField"
+            />
+            <label htmlFor="password" className="label-input">Пароль</label>
+          </div>
+
+        </div>
+      </div>
+      <div className={style.bottom}>
+        <div className={style.mainbtn}>
+          <button onClick={registrationHandler} disabled={loading} className="btn">
+            Регистрация
+          </button>
+        </div>
+        <div className={style.condition}>
+          <div className={style.textbtn} onClick={conditionHandler}>
+            У меня уже есть аккаунт
           </div>
         </div>
+
       </div>
     </div>
   )

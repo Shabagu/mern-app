@@ -18,12 +18,27 @@
   // top: -20px;
 
 
-  .login {
-    padding: 10px 25px 25px;
+  .mainbtn {
+    padding: 10px 25px 10px;
     
     button {
       width: 100%;
-      
+    }
+  }
+
+  .condition {
+    text-align: center;
+    color: #696969;
+    padding: 10px 25px 15px;
+    
+    .textbtn {
+      cursor: pointer;
+      text-decoration: underline;
+
+      &:hover {
+        color: #21958a;
+        transition: 200ms;
+      }
     }
   }
 }
