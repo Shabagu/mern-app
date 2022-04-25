@@ -13,7 +13,7 @@ export const Navbar = () => {
     history.push('/')
   }
 
-  const logoClickHandler = event => {
+  const logoClickHandler = () => {
     history.push('/')
   }
 

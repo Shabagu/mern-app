@@ -135,12 +135,12 @@ export const NewResearchPage = () => {
 
   const setGlobalWeightsHandler = (mtx) => { setGlobalWeights(mtx) }
 
-  const qqq = () => {
-    console.log('Критерии')
-    console.log(allCriteria)
-    console.log('Альтернативы')
-    console.log(allAlternatives)
-  }
+  // const qqq = () => {
+  //   console.log('Критерии')
+  //   console.log(allCriteria)
+  //   console.log('Альтернативы')
+  //   console.log(allAlternatives)
+  // }
 
   if (loading) {
     return <Loader />
