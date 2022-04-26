@@ -33,9 +33,11 @@ export const ResearchesPage = () => {
   return(
     <div className={style.researches_box}>
       <h3 className={style.page_title}>Мои исследования</h3>
-        {!loading && <ResearchList
-          researches={researches}
-        />}
+        {!loading &&
+          <ResearchList
+            researches={researches}
+          />
+        }
     </div>
   )
 }
