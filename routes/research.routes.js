@@ -8,32 +8,23 @@ const Alternative = require('../models/Alternative')
 // /api/research/new
 router.post(
   '/new', auth, async (req, res) => {
-    const {from} = req.body
+    const {researchData} = req.body
 
     const research = new Research({
-      criteria:
-        from.criteria,
-      criteraRating:
-        from.criteraRating,
-      criteriaSum:
-        from.criteriaSum,
-      criteriaNorm:
-        from.criteriaNorm,
-      criteriaWeights:
-        from.criteriaWeights,
-      alternatives:
-        from.alternatives,
-      alternativesRating:
-        from.alternativesRating,
-      alternativesSum:
-        from.alternativesSum,
-      alternativesNorm:
-        from.alternativesNorm,
-      alternativesWeights:
-        from.alternativesWeights,
-      globalWeights:
-        from.globalWeights,
-      owner: req.user.userId
+      
+      criteria:             researchData.criteria,
+      criteraRating:        researchData.criteraRating,
+      criteriaSum:          researchData.criteriaSum,
+      criteriaNorm:         researchData.criteriaNorm,
+      criteriaWeights:      researchData.criteriaWeights,
+      alternatives:         researchData.alternatives,
+      alternativesRating:   researchData.alternativesRating,
+      alternativesSum:      researchData.alternativesSum,
+      alternativesNorm:     researchData.alternativesNorm,
+      alternativesWeights:  researchData.alternativesWeights,
+      globalWeights:        researchData.globalWeights,
+
+      owner: req.user.userId,
     })
     await research.save()
     res.status(201).json({message: 'Данные успешно сохранены!'})

@@ -177,7 +177,7 @@ const Menu = ({
 
   const mongoDBsavingHandler = async () => {
     try {
-      const data = await request('/api/research/new', 'POST', {from: researchData}, {
+      const data = await request('/api/research/new', 'POST', {researchData}, {
         Authorization: `Bearer ${auth.token}`
       })
       message(data.message)
