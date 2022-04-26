@@ -32,12 +32,32 @@
     padding: 10px 25px 15px;
     
     .textbtn {
+      padding-top: 6px;
+      user-select: none;
       cursor: pointer;
       text-decoration: underline;
+      border-radius: 2px;
+      height: 36px;
 
       &:hover {
         color: #21958a;
         transition: 200ms;
+      }
+
+      &:focus {
+        transition: 200ms;
+        outline-width: 1px;
+        outline-style: solid;
+        outline-color: #26a69a;
+        background-color: #e6f0ef;
+        color: #1e7e74;
+        
+        
+      }
+
+      &:active {
+        outline: none;
+        background-color: transparent;
       }
     }
   }

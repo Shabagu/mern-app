@@ -137,12 +137,21 @@ const LoginCard = ({
     </div>
     <div className={style.bottom}>
       <div className={style.mainbtn}>
-        <button onClick={loginHandler} disabled={loading} className="btn">
+        <button
+          className="btn"
+          onClick={loginHandler}
+          disabled={loading}
+        >
           Войти
         </button>
       </div>
       <div className={style.condition}>
-        <div className={style.textbtn} onClick={conditionHandler}>
+        <div
+          className={style.textbtn}
+          onClick={conditionHandler}
+          tabIndex={0}
+          onKeyPress={conditionHandler}
+        >
           Зарегистрироваться
         </div>
       </div>
@@ -195,12 +204,21 @@ const RegistrationCard = ({
       </div>
       <div className={style.bottom}>
         <div className={style.mainbtn}>
-          <button onClick={registrationHandler} disabled={loading} className="btn">
+          <button
+            className="btn"
+            onClick={registrationHandler}
+            disabled={loading}
+          >
             Зарегистрироваться
           </button>
         </div>
         <div className={style.condition}>
-          <div className={style.textbtn} onClick={conditionHandler}>
+          <div
+            className={style.textbtn}
+            onClick={conditionHandler}
+            tabIndex={0}
+            onKeyPress={conditionHandler}
+          >
             У меня уже есть аккаунт
           </div>
         </div>
