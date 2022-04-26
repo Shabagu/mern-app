@@ -149,7 +149,7 @@ const CellRow = ({ criteria, alternatives, i, alternativesWeights, percentageDis
         {alternatives[i]}
       </th>
       {[...Array(criteria.length)].map((x, j) => {
-        if (i < criteria.length) return (
+        if (i < alternatives.length) return (
           <Cell
             key={j}
             row={j}
