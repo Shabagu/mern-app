@@ -22,9 +22,9 @@ async function start() {
       useNewUrlParser: true,
       useUnifiedTopology: true
     })
-    app.listen(PORT, () => console.log(`*** APP STARTED ON PORT ${PORT} ***`))
+    app.listen(PORT, () => console.log(`*** SERVER APP IS NOW WORKING ON PORT ${PORT} ***`))
   } catch (e) {
-    console.log('server error!', e.message)
+    console.log('*** SERVER ERROR! ***', e.message)
     process.exit(1)
   }
 }
