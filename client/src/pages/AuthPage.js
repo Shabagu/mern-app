@@ -35,7 +35,7 @@ export const AuthPage = () => {
       message(data.message)
     } catch (e) {}
   }
-
+  
   const loginHandler = async () => {
     try {
       const data = await request('/api/auth/login', 'POST', {...form})
@@ -43,7 +43,14 @@ export const AuthPage = () => {
     } catch (e) {}
   }
 
-  const pressHandler = async event => {
+  
+  const registrationPressHandler = async event => {
+    if (event.key === 'Enter') {
+      registrationHandler()
+    }
+  }
+
+  const loginPressHandler = async event => {
     if (event.key === 'Enter') {
       loginHandler()
     }
@@ -66,7 +73,7 @@ export const AuthPage = () => {
             form={form}
             changeHandler={changeHandler}
             loginHandler={loginHandler}
-            pressHandler={pressHandler}
+            pressHandler={loginPressHandler}
             conditionHandler={conditionHandler}
             loading={loading}
           />
@@ -76,7 +83,7 @@ export const AuthPage = () => {
             form={form}
             changeHandler={changeHandler}
             registrationHandler={registrationHandler}
-            pressHandler={pressHandler}
+            pressHandler={registrationPressHandler}
             conditionHandler={conditionHandler}
             loading={loading}
           />
