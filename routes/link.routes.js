@@ -23,7 +23,7 @@ router.post('/generate', auth, async (req, res) => {
     const to = baseUrl + '/t/' + code
 
     const link = new Link({
-      code, to, from, owner: req.user.userID
+      code, to, from, owner: req.user.userId
     })
 
     await link.save()
@@ -38,7 +38,7 @@ router.post('/generate', auth, async (req, res) => {
 // /api/link/
 router.get('/', auth, async (req, res) => {
   try {
-    const links = await Link.find({ owner: req.user.userID })
+    const links = await Link.find({ owner: req.user.userId })
     res.json(links)
   } catch (e) {
     res.status(500).json({message: 'Что-то пошло не так, попробуйте снова'})
