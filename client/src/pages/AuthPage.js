@@ -98,7 +98,7 @@ const LoginCard = ({
   return(
     <div className="card">
     <div className={`card-content ${style.card}`}>
-      <span className="card-title center">Авторизация</span>
+      <span className="card-title center">Вход</span>
       <div>
         <div className="input-field">
           <input
@@ -189,7 +189,7 @@ const RegistrationCard = ({
       <div className={style.bottom}>
         <div className={style.mainbtn}>
           <button onClick={registrationHandler} disabled={loading} className="btn">
-            Регистрация
+            Зарегистрироваться
           </button>
         </div>
         <div className={style.condition}>

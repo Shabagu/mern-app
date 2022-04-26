@@ -8,7 +8,7 @@ export const InfoPage = () => {
   const history = useHistory()
 
   const pressHandler = async () => {
-    history.push('/research')
+    history.push('/newresearch')
   }
 
   return (

@@ -26,9 +26,11 @@ export const Navbar = () => {
         </span>
         <ul id="nav-mobile" className="right hide-on-med-and-down">
 
-          <li><NavLink to="/info">Что такое МАИ?</NavLink></li>
-          <li><NavLink to="/research">Новое исследование</NavLink></li>
-          <li><NavLink to="/researches">Мои исследования</NavLink></li>
+          <li><NavLink to="/info">О МАИ</NavLink></li>
+          <li><NavLink to="/newresearch">Новое исследование</NavLink></li>
+
+          {/* <li><NavLink to="/researches">Мои исследования</NavLink></li> */}
+          <li><NavLink to="/profile">Мой профиль</NavLink></li>
 
           
           <li><NavLink to="/admin">Управление</NavLink></li>

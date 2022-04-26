@@ -6,6 +6,7 @@ import { AuthPage } from './pages/AuthPage'
 
 import { InfoPage } from './pages/ahp/InfoPage'
 import { NewResearchPage } from './pages/ahp/NewResearchPage'
+import { ProfilePage } from './pages/ProfilePage'
 import { ResearchesPage } from './pages/ahp/ResearchesPage'
 
 import { AdminPage } from './pages/AdminPage'
@@ -29,9 +30,13 @@ export const useRoutes = isAuthenticated => {
         <Route path="/info">
           <InfoPage />
         </Route>
-        <Route path="/research">
+        <Route path="/newresearch">
           <NewResearchPage />
         </Route>
+        <Route path="/profile">
+          <ProfilePage />
+        </Route>
+
         <Route path="/researches">
           <ResearchesPage />
         </Route>
