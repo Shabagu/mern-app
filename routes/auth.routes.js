@@ -13,7 +13,9 @@ router.post(
   '/registration',
   [
     check('email', 'Некорректный email').isEmail(),
-    check('password', 'Минимальная длина пароля - 6 символов').isLength({ min: 6 })
+    check('password', 'Минимальная длина пароля - 6 символов').isLength({ min: 6 }),
+    // check('tel', 'Некорректный номер телефона').isLength({ min: 11 }),
+    // check('tel', 'Некорректный номер телефона').isLength({ max: 11 }),
   ],
   async (req, res) => {
     try {
@@ -30,7 +32,7 @@ router.post(
         })
       }
 
-      const {email, password} = req.body
+      const {email, password, tel} = req.body
 
       const candidate = await User.findOne({email})
 
@@ -39,7 +41,11 @@ router.post(
       }
 
       const hashedPassword = await bcrypt.hash(password, 12)
-      const user = new User({ email, password: hashedPassword })
+      const user = new User({
+        email,
+        password: hashedPassword,
+        // tel,
+      })
 
       await user.save()
       res.status(201).json({message: 'Пользователь создан'})

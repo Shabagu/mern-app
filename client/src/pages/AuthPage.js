@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from 'react'
+// import { useHistory } from "react-router-dom"
 import { useHttp } from '../hooks/http.hook'
 import { useMessage } from '../hooks/message.hook'
 import { AuthContext } from '../context/AuthContext'
@@ -8,9 +9,12 @@ import style from './AuthPage.module.scss'
 export const AuthPage = () => {
   const auth = useContext(AuthContext)
   const message = useMessage()
+  // const history = useHistory()
   const {loading, request, error, clearError} = useHttp()
   const [form, setForm] = useState({
-    email: '', password: ''
+    email: '',
+    password: '',
+    // tel: '',
   })
   
   const [condition, setCondition] = useState('login')
@@ -33,6 +37,9 @@ export const AuthPage = () => {
     try {
       const data = await request('/api/auth/registration', 'POST', {...form})
       message(data.message)
+      if (data.message === 'Пользователь создан') {
+        conditionHandler()
+      }
     } catch (e) {}
   }
   
@@ -57,11 +64,12 @@ export const AuthPage = () => {
   }
 
   const conditionHandler = () => {
-    if (condition === 'login') setCondition('registration')
-    else setCondition('login')
-
     form.email = ''
     form.password = ''
+    // form.tel = ''
+
+    if (condition === 'login') setCondition('registration')
+    else setCondition('login')
   }
 
   return (
@@ -186,6 +194,23 @@ const RegistrationCard = ({
             />
             <label htmlFor="email" className="label-input">Email</label>
           </div>
+          
+          {/* <div className="input-field">
+            <input
+              id="tel"
+              type="tel"
+              name="tel"
+              value={form.tel}
+              onChange={changeHandler}
+              onKeyPress={pressHandler}
+              // className="emailField"
+              maxLength={11}
+            />
+            <label htmlFor="tel" className="label-input">Телефон</label>
+            <span className="helper-text" data-error="wrong" data-success="right" style={{marginBottom: '40px'}}>
+              Формат ввода - 11 цифр (7XXXXXXXXXX)
+            </span>
+          </div> */}
 
           <div className="input-field">
             <input

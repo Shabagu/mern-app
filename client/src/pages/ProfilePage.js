@@ -4,6 +4,9 @@ import { AuthContext } from '../context/AuthContext'
 import { useHttp } from '../hooks/http.hook'
 import { Loader } from '../components/Loader'
 
+// import { ResearchList } from '../components/ResearchList'
+import { ResearchesPage } from './ahp/ResearchesPage'
+
 export const ProfilePage = () => {
 
   const history = useHistory()
@@ -51,8 +54,18 @@ export const ProfilePage = () => {
 const UserInfo = ({ user }) => {
 
   return(
-    <div>
-      <p key={user._id}>{user.email}</p>
+    <div style={{display: 'flex'}}>
+      <div style={{marginRight: '20px'}}>
+        <div style={{border: '2px solid #000', width: '200px'}}>
+          <img width='200' src='https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png'/>
+        </div>
+        <p>{user.email}</p>
+        { user.tel === null && <p>телефон не указан</p> }
+        { user.tel !== null && <p>{user.tel}</p> }
+      </div>
+      <div>
+        <ResearchesPage />
+      </div>
     </div>
   )
 }
