@@ -37,16 +37,21 @@ export const ProfilePage = () => {
   }
 
   return(
-    <div>
-      <p>
-        Мой профиль
-      </p>
-      {!loading &&
-        <UserInfo user={user}/>
-      }
-      <button className="btn" onClick={goToResearches}>
-        Мои исследования
-      </button>
+    <div style={{display: 'flex'}}>
+      <div>
+        <p>
+          Мой профиль
+        </p>
+        {!loading &&
+          <UserInfo user={user}/>
+        }
+        <button className="btn" onClick={goToResearches}>
+          Мои исследования
+        </button>
+      </div>
+      <div>
+        <ResearchesPage />
+      </div>
     </div>
   )
 }
@@ -62,9 +67,6 @@ const UserInfo = ({ user }) => {
         <p>{user.email}</p>
         { user.tel === null && <p>телефон не указан</p> }
         { user.tel !== null && <p>{user.tel}</p> }
-      </div>
-      <div>
-        <ResearchesPage />
       </div>
     </div>
   )

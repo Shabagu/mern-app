@@ -22,7 +22,7 @@ $tableBorderExtraThin: 1px solid #aaa;
     border: $tableBorderThin;
   }
   .box:first-child:hover {
-    overflow-y: scroll;
+    overflow: auto;
   }
 
   .box {
@@ -32,9 +32,9 @@ $tableBorderExtraThin: 1px solid #aaa;
     overflow-y: hidden;
 
     .research_item_table {
-      margin: 0;
+      margin: 1px 0 0 0;
       table-layout: fixed;
-      // border: $tableBorderThin;
+      border: $tableBorderThin;
 
       .heading {
         text-align: center;
