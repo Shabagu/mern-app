@@ -41,6 +41,23 @@ router.get('/', auth, async(req, res) => {
   }
 })
 
+// /api/research/:id
+router.get('/:id', auth, async (req, res) => {
+  try {
+    const research = await Research.findById(req.params.id)
+    res.json(research)
+  } catch (e) {
+    res.status(500).json({message: 'Что-то пошло не так, попробуйте снова'})
+  }
+})
+
+
+
+
+
+
+
+
 // /api/research/criteria/
 router.get('/criteria', auth, async(req, res) => {
   try {

@@ -4,8 +4,7 @@ import { AuthContext } from '../context/AuthContext'
 import { useHttp } from '../hooks/http.hook'
 import { Loader } from '../components/Loader'
 
-// import { ResearchList } from '../components/ResearchList'
-import { ResearchesPage } from './ahp/ResearchesPage'
+import { ResearchList } from '../components/ResearchList'
 
 export const ProfilePage = () => {
 
@@ -15,6 +14,7 @@ export const ProfilePage = () => {
   }
 
   const [user, setUser] = useState([])
+  const [researches, setResearches] = useState([])
   const {loading, request} = useHttp()
   const {token} = useContext(AuthContext)
 
@@ -28,9 +28,19 @@ export const ProfilePage = () => {
     } catch (e) {}
   }, [token, request])
 
+  const fetchResearches = useCallback( async () => {
+    try {
+      const fetched = await request('/api/research', 'GET', null, {
+        Authorization: `Bearer ${token}`
+      })
+      setResearches(fetched)
+    } catch (e) {}
+  }, [token, request])
+
   useEffect(() => {
     fetchUser()
-  }, [fetchUser])
+    fetchResearches()
+  }, [fetchUser, fetchResearches])
 
   if (loading) {
     return <Loader />
@@ -50,7 +60,12 @@ export const ProfilePage = () => {
         </button>
       </div>
       <div>
-        <ResearchesPage />
+        {!loading && 
+          <ResearchList
+            researches={researches}
+            loading={loading}
+          />
+        }
       </div>
     </div>
   )

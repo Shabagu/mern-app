@@ -8,6 +8,7 @@ import { InfoPage } from './pages/ahp/InfoPage'
 import { NewResearchPage } from './pages/ahp/NewResearchPage'
 import { ProfilePage } from './pages/ProfilePage'
 import { ResearchesPage } from './pages/ahp/ResearchesPage'
+import { ResearchPage } from './pages/ahp/ResearchPage'
 
 import { AdminPage } from './pages/AdminPage'
 import { TestPage } from './pages/TestPage'
@@ -27,6 +28,9 @@ export const useRoutes = isAuthenticated => {
           <DetailPage />
         </Route>
 
+
+        {/* ========================== */}
+
         <Route path="/info">
           <InfoPage />
         </Route>
@@ -40,14 +44,21 @@ export const useRoutes = isAuthenticated => {
         <Route path="/researches">
           <ResearchesPage />
         </Route>
+        <Route path="/research/:id">
+          <ResearchPage />
+        </Route>
 
         <Route path="/admin">
           <AdminPage />
         </Route>
 
+        {/* ========================== */}
+
+
         <Route path="/test">
           <TestPage />
         </Route>
+
 
         <Redirect to="/info" />
       </Switch>

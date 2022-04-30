@@ -22,7 +22,7 @@ $tableBorderExtraThin: 1px solid #aaa;
     border: $tableBorderThin;
   }
   .box:first-child:hover {
-    overflow: auto;
+    overflow-y: auto;
   }
 
   .box {
@@ -32,9 +32,10 @@ $tableBorderExtraThin: 1px solid #aaa;
     overflow-y: hidden;
 
     .research_item_table {
-      margin: 1px 0 0 0;
+      width: 99%;
+      margin: 1px;
       table-layout: fixed;
-      border: $tableBorderThin;
+      // border: $tableBorderThin;
 
       .heading {
         text-align: center;
@@ -78,8 +79,7 @@ $tableBorderExtraThin: 1px solid #aaa;
       }
 
       th {
-        border: $tableBorderThin;
-        border-left: none;
+        border: $tableBorderExtraThin;
         overflow: hidden;
         padding: 0.8rem 0 0.8rem 0.5rem;
         background: #00000030;
@@ -110,7 +110,15 @@ $tableBorderExtraThin: 1px solid #aaa;
     width: 32%;
     height: 180px;
     display: flex;
-    align-items: flex-end;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    .link_box {
+      width: 96%;
+      display: flex;
+      justify-content: flex-end;
+    }
 
     // .time {
     //   // margin: auto;

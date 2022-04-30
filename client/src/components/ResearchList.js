@@ -1,10 +1,15 @@
-// import { Link } from 'react-router-dom'
-import { VictoryChart, VictoryBar } from "victory"
+import { VictoryChart, VictoryBar } from 'victory'
+import { Link } from 'react-router-dom'
+import { Loader } from './Loader'
 
 import style from './ResearchList.module.scss'
 
 
-export const ResearchList = ({ researches }) => {
+export const ResearchList = ({ researches, loading }) => {
+
+  if (loading) {
+    return <Loader />
+  }
 
   if (!researches.length) {
     return <p className='center'>Исследований пока нет...</p>
@@ -75,6 +80,11 @@ const ResearchItem = ({ research, index }) => {
         <WeightChart weights={sortedGlobalWeights} />
       </div>
       <div className={style.box3}>
+        <div className={style.link_box}>
+          <div>
+            <Link to={`/research/${research._id}`}>Открыть</Link>
+          </div>
+        </div>
         <div className={style.time}>
           {`Сохранено ${date} в ${time}`}
         </div>
