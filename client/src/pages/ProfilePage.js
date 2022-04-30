@@ -14,7 +14,6 @@ export const ProfilePage = () => {
   }
 
   const [user, setUser] = useState([])
-  const [researches, setResearches] = useState([])
   const {loading, request} = useHttp()
   const {token} = useContext(AuthContext)
 
@@ -28,19 +27,9 @@ export const ProfilePage = () => {
     } catch (e) {}
   }, [token, request])
 
-  const fetchResearches = useCallback( async () => {
-    try {
-      const fetched = await request('/api/research', 'GET', null, {
-        Authorization: `Bearer ${token}`
-      })
-      setResearches(fetched)
-    } catch (e) {}
-  }, [token, request])
-
   useEffect(() => {
     fetchUser()
-    fetchResearches()
-  }, [fetchUser, fetchResearches])
+  }, [fetchUser])
 
   if (loading) {
     return <Loader />
@@ -59,15 +48,41 @@ export const ProfilePage = () => {
           Мои исследования
         </button>
       </div>
-      <div>
+      <div style={{width: '100%'}}>
         {!loading && 
-          <ResearchList
-            researches={researches}
-            loading={loading}
-          />
+          <LatestResearches />
         }
       </div>
     </div>
+  )
+}
+
+const LatestResearches = () => {
+
+  const {loading, request} = useHttp()
+  const {token} = useContext(AuthContext)
+
+  const [researches, setResearches] = useState([])
+
+  const fetchResearches = useCallback( async () => {
+    try {
+      const fetched = await request('/api/research', 'GET', null, {
+        Authorization: `Bearer ${token}`
+      })
+      setResearches(fetched)
+    } catch (e) {}
+  }, [token, request])
+
+  useEffect(() => {
+    fetchResearches()
+  }, [fetchResearches])
+
+  if (loading) {
+    return <Loader />
+  }
+  
+  return(
+    <>{!loading && <ResearchList researches={researches} />}</>
   )
 }
 

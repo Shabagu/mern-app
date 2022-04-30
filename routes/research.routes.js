@@ -31,33 +31,6 @@ router.post(
   }
 )
 
-// /api/research/
-router.get('/', auth, async(req, res) => {
-  try {
-    const researches = await Research.find({ owner: req.user.userId })
-    res.json(researches)
-  } catch (e) {
-    res.status(500).json({message: 'Что-то пошло не так, попробуйте снова'})
-  }
-})
-
-// /api/research/:id
-router.get('/:id', auth, async (req, res) => {
-  try {
-    const research = await Research.findById(req.params.id)
-    res.json(research)
-  } catch (e) {
-    res.status(500).json({message: 'Что-то пошло не так, попробуйте снова'})
-  }
-})
-
-
-
-
-
-
-
-
 // /api/research/criteria/
 router.get('/criteria', auth, async(req, res) => {
   try {
@@ -73,6 +46,26 @@ router.get('/alternatives', auth, async(req, res) => {
   try {
     const alternatives = await Alternative.find()
     res.json(alternatives)
+  } catch (e) {
+    res.status(500).json({message: 'Что-то пошло не так, попробуйте снова'})
+  }
+})
+
+// /api/research/
+router.get('/', auth, async(req, res) => {
+  try {
+    const researches = await Research.find({ owner: req.user.userId })
+    res.json(researches)
+  } catch (e) {
+    res.status(500).json({message: 'Что-то пошло не так, попробуйте снова'})
+  }
+})
+
+// /api/research/:id
+router.get('/:id', auth, async (req, res) => {
+  try {
+    const research = await Research.findById(req.params.id)
+    res.json(research)
   } catch (e) {
     res.status(500).json({message: 'Что-то пошло не так, попробуйте снова'})
   }

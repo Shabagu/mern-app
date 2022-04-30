@@ -1,15 +1,10 @@
 import { VictoryChart, VictoryBar } from 'victory'
 import { Link } from 'react-router-dom'
-import { Loader } from './Loader'
 
 import style from './ResearchList.module.scss'
 
 
-export const ResearchList = ({ researches, loading }) => {
-
-  if (loading) {
-    return <Loader />
-  }
+export const ResearchList = ({ researches }) => {
 
   if (!researches.length) {
     return <p className='center'>Исследований пока нет...</p>
@@ -42,7 +37,6 @@ const ResearchItem = ({ research, index }) => {
   }
   
   const sortedGlobalWeights = weightsSorting([...defaultWeights])
-  // console.log(sortedGlobalWeights)
 
   const date = new Date(research.date).toLocaleDateString()
   const time = new Date(research.date).toLocaleTimeString()
@@ -132,15 +126,6 @@ const valAdduction = (value) => {
   value = value.toFixed(3)
   value = value * 1
   return(value)
-}
-
-// Отображние весов в процентах
-const percentsDisplay = (value) => {
-  value = value * 100
-  value = value.toFixed(1)
-  value = value * 1
-  value = `${value}%`
-  return (value)
 }
 
 // Сортировка критериев по значимости
