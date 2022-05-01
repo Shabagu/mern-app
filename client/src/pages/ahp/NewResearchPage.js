@@ -85,7 +85,7 @@ export const NewResearchPage = () => {
   useEffect(() => {
     fetchAllCriteria()
     fetchAllAlternatives()
-  }, [fetchAllCriteria])
+  }, [fetchAllCriteria, fetchAllAlternatives])
 
   const nextPhaseHandler = (skip) => {
     if (phase < 6) {

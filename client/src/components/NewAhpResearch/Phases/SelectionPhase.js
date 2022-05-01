@@ -36,7 +36,7 @@ export const SelectionPhase = ({
     if (alternatives.length === allAlternatives.length && alternatives.length !== 0) {
       checkAllAlternativesCheckbox.checked = true
     }    
-  }, [criteria, alternatives])
+  }, [criteria, alternatives, allCriteria, allAlternatives])
 
   const message = useMessage()
 

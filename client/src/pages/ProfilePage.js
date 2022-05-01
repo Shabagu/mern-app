@@ -104,7 +104,7 @@ const UserInfo = ({ user }) => {
       <div style={{display: 'flex'}}>
         <div style={{marginRight: '20px'}}>
           <div style={{border: '2px solid #000', width: '200px'}} onClick={popup}>
-            <img width='200' src='https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png' onClick={popup}/>
+            <img width='200' src='https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png' alt='' onClick={popup}/>
           </div>
           <p>{user.email}</p>
           { user.tel === null && <p>телефон не указан</p> }

@@ -34,7 +34,7 @@ export const AdminPage = () => {
   useEffect(() => {
     fetchAllCriteria()
     fetchAllAlternatives()
-  }, [fetchAllCriteria])
+  }, [fetchAllCriteria, fetchAllAlternatives])
 
   if (loading) {
     return <Loader />
