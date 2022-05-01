@@ -43,61 +43,62 @@ export const AdminPage = () => {
   return(
     <div>
       <p>Управление</p>
-      <details open>
-        <summary>Альтернативы</summary>
-        <table className={style.manage}>
-          <thead>
-            <tr>
-              <th colSpan={2}>Альтернативы</th>
-            </tr>
-            <tr>
-              <th>Название</th>
-              <th>Актуальность</th>
-            </tr>
-          </thead>
-          <tbody>
-              {[...Array(allAlternatives.length)].map((x, i) => 
-                <tr key={i}>
-                  <td>{allAlternatives[i].name}</td>
-                  <td>
-                    <label>
-                      <input type="checkbox" checked/>
-                      <span>Актуально</span>
-                    </label>
-                  </td>
-                </tr>
-              )}
-          </tbody>
-        </table>
-      </details>
-      <details open>
-        <summary>Критерии</summary>
-        <table className={style.manage}>
-          <thead>
-            <tr>
-              <th colSpan={2}>Альтернативы</th>
-            </tr>
-            <tr>
-              <th>Название</th>
-              <th>Актуальность</th>
-            </tr>
-          </thead>
-          <tbody>
-              {[...Array(allCriteria.length)].map((x, i) => 
-                <tr key={i}>
-                  <td>{allCriteria[i].name}</td>
-                  <td>
-                    <label>
-                      <input type="checkbox" checked/>
-                      <span>Актуально</span>
-                    </label>
-                  </td>
-                </tr>
-              )}
-          </tbody>
-        </table>
-      </details>
+      <div className={style.tables_container}>
+        <details open>
+          <summary>Альтернативы</summary>
+          <table className={style.manage}>
+            <thead>
+              <tr>
+                <th colSpan={2}>Альтернативы</th>
+              </tr>
+              <tr>
+                <th>Название</th>
+                <th>Актуальность</th>
+              </tr>
+            </thead>
+            <tbody>
+                {[...Array(allAlternatives.length)].map((x, i) => 
+                  <tr key={i}>
+                    <td>{allAlternatives[i].name}</td>
+                    <td>
+                      <label>
+                        <input type="checkbox" checked/>
+                        <span>Актуально</span>
+                      </label>
+                    </td>
+                  </tr>
+                )}
+            </tbody>
+          </table>
+        </details>
+        <details open>
+          <summary>Критерии</summary>
+          <table className={style.manage}>
+            <thead>
+              <tr>
+                <th colSpan={2}>Альтернативы</th>
+              </tr>
+              <tr>
+                <th>Название</th>
+                <th>Актуальность</th>
+              </tr>
+            </thead>
+            <tbody>
+                {[...Array(allCriteria.length)].map((x, i) => 
+                  <tr key={i}>
+                    <td>{allCriteria[i].name}</td>
+                    <td>
+                      <label>
+                        <input type="checkbox" checked/>
+                        <span>Актуально</span>
+                      </label>
+                    </td>
+                  </tr>
+                )}
+            </tbody>
+          </table>
+        </details>
+      </div>
     </div>
-
   )
 }

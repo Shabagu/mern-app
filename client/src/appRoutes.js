@@ -1,14 +1,15 @@
 import { Switch, Route, Redirect } from 'react-router-dom'
-import { LinksPage } from './pages/LinksPage'
-import { CreatePage } from './pages/CreatePage'
-import { DetailPage } from './pages/DetailPage'
-import { AuthPage } from './pages/AuthPage'
 
+import { LinksPage } from './pages/_LinksPage'
+import { CreatePage } from './pages/_CreatePage'
+import { DetailPage } from './pages/_DetailPage'
+
+import { AuthPage } from './pages/AuthPage'
 import { InfoPage } from './pages/ahp/InfoPage'
-import { NewResearchPage } from './pages/ahp/NewResearchPage'
 import { ProfilePage } from './pages/ProfilePage'
 import { ResearchesPage } from './pages/ahp/ResearchesPage'
 import { ResearchPage } from './pages/ahp/ResearchPage'
+import { NewResearchPage } from './pages/ahp/NewResearchPage'
 
 import { AdminPage } from './pages/AdminPage'
 // import { TestPage } from './pages/TestPage'
@@ -29,8 +30,7 @@ export const useRoutes = isAuthenticated => {
         </Route>
 
 
-        {/* ========================== */}
-
+        {/* ==================================================== */}
         <Route path="/info">
           <InfoPage />
         </Route>
@@ -51,14 +51,11 @@ export const useRoutes = isAuthenticated => {
         <Route path="/admin">
           <AdminPage />
         </Route>
+        {/* ==================================================== */}
 
-        {/* ========================== */}
-
-
-        <Route path="/test">
-          {/* <TestPage /> */}
-        </Route>
-
+        {/* <Route path="/test">
+          <TestPage />
+        </Route> */}
 
         <Redirect to="/info" />
       </Switch>
