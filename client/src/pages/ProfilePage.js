@@ -6,6 +6,8 @@ import { Loader } from '../components/Loader'
 
 import { ResearchList } from '../components/ResearchList'
 
+import { ProfileImgPopup } from './ProfileImgPopup'
+
 export const ProfilePage = () => {
 
   const history = useHistory()
@@ -88,16 +90,25 @@ const LatestResearches = () => {
 
 const UserInfo = ({ user }) => {
 
+  const [popupActive, setPopupActive] = useState(false)
+
+  const popup = () => {
+    setPopupActive(true)
+  }
+
   return(
-    <div style={{display: 'flex'}}>
-      <div style={{marginRight: '20px'}}>
-        <div style={{border: '2px solid #000', width: '200px'}}>
-          <img width='200' src='https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png'/>
+    <>
+      <div style={{display: 'flex'}}>
+        <div style={{marginRight: '20px'}}>
+          <div style={{border: '2px solid #000', width: '200px'}} onClick={popup}>
+            <img width='200' src='https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png' onClick={popup}/>
+          </div>
+          <p>{user.email}</p>
+          { user.tel === null && <p>телефон не указан</p> }
+          { user.tel !== null && <p>{user.tel}</p> }
         </div>
-        <p>{user.email}</p>
-        { user.tel === null && <p>телефон не указан</p> }
-        { user.tel !== null && <p>{user.tel}</p> }
       </div>
-    </div>
+      <ProfileImgPopup active={popupActive} setActive={setPopupActive}/>
+    </>
   )
 }
