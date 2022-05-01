@@ -11,32 +11,11 @@ import { AlternativesWeights } from "../../components/NewAhpResearch/Phases/Alte
 import { GroupsWeights } from "../../components/NewAhpResearch/Phases/GroupsWeights"
 import { GlobalWeights } from "../../components/NewAhpResearch/Phases/GlobalWeights"
 import { PhaseTitle } from "../../components/NewAhpResearch/PhaseTitle"
+import { PhasesSidebar } from "../../components/NewAhpResearch/PhasesSidebar"
 
 import style from "./NewResearchPage.module.scss"
 
 
-
-// export const ALL_CRITERIA = [
-//   'Стоимость',
-//   'Климат',
-//   'Экология',
-//   'Безопасность',
-//   'Кухня',
-//   'Престиж',
-//   'Дорога',
-//   'Достопримечательности',
-// ]
-  
-// export const ALL_ALTERNATIVES = [
-//   'Египет',
-//   'Греция',
-//   'Турция',
-//   'Куба',
-//   'Тунис',
-//   'Швеция',
-//   'Италия',
-//   'Гавайи',
-// ]
 
 export const DEFAULT_BUTTON_COLOR = '#26a69a'
 export const HOT_CHANGES_BUTTON_COLOR = '#ff8e3a'
@@ -142,6 +121,12 @@ export const NewResearchPage = () => {
   return(
     <div className={style.research_box}>
       <h3 className={style.page_title}>Новое исследование</h3>
+
+      <PhasesSidebar
+        phase={phase}
+        phasesDone={phasesDone}
+        goToPhase={goToPhaseHandler}
+      />
 
       <PhaseTitle
         phase={phase}

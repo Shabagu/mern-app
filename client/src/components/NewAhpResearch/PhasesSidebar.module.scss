@@ -1,0 +1,89 @@
+.sidebar {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+
+  top: 72px;
+  left: 0;
+
+  width: 190px;
+  height: 640px;
+
+  padding-top: 120px;
+  padding-left: 10px;
+
+  i {
+    user-select: none;
+  }
+
+  @mixin phase {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin: 20px 4px 0 4px;
+    height: 50px;
+
+    text-align: center;
+    user-select: none;
+  }
+
+  .active_phase {
+    @include phase;
+
+    border: 3px solid #26a69a;
+    border-radius: 20px;
+    background-color: #92ded9;
+    font-weight: 500;
+  }
+  .done_phase {
+    @include phase;
+    
+    border: 1.5px solid #26a69a;
+    border-radius: 20px;
+    background-color: #b1e1de;
+    font-weight: 400;
+    cursor: pointer;
+  }
+  .undone_phase {
+    @include phase;
+    
+    border: 1px solid #6a817f;
+    border-radius: 20px;
+    background-color: #d0d0d0;
+    font-weight: 400;
+  }
+
+
+
+  .phase_title_container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+  }
+
+  
+  i.index {
+    position: absolute;
+    right: -17px;
+    top: -14px;
+
+    color: #145e57;
+  }
+
+  .arrow_container {
+    position: relative;
+    top: 11px;
+
+    i.arrow {
+      position: absolute;
+      right: -15px;
+      top: -15px;
+  
+      color: #26a69a;
+    }
+  }
+}

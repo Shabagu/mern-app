@@ -1,7 +1,6 @@
 import { useEffect } from "react"
 import { useMessage } from '../../../hooks/message.hook'
 import { DEFAULT_BUTTON_COLOR, HOT_CHANGES_BUTTON_COLOR, HOT_CHANGES_HANDLER } from "../../../pages/ahp/NewResearchPage"
-// import { ALL_CRITERIA, ALL_ALTERNATIVES } from "../../../pages/ahp/NewResearchPage"
 
 import style from "./SelectionPhase.module.scss"
 
