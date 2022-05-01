@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react"
 import { HOT_CHANGES_EFFECT_RESET, HOT_CHANGES_EFFECT } from "../../../pages/ahp/NewResearchPage"
-import { CriteriaRatingPopup } from "./CriteriaRatingPopup"
 
 import style from "./CriteriaRating.module.scss"
 
@@ -31,20 +30,18 @@ export const CriteriaRating = ({
     setLocalSum(sum)
   }
 
+  const [popupActive, setPopupActive] = useState(false)
+  const [popupRow, setPopupRow] = useState(0)
+  const [popupCol, setPopupCol] = useState(0)
+  const popup = (row, col) => {
+    setPopupActive(true)
+    setPopupRow(row)
+    setPopupCol(col)
+  }
+  
   useEffect(() => {
     sumCalculate(localMTX, localSumSetter)
   }, [localMTX])
-
-  const [popupActive, setPopupActive] = useState(false)
-  const [popupCriteriaA, setPopupCriteriaA] = useState(null)
-  const [popupCriteriaB, setPopupCriteriaB] = useState(null)
-  const [popupValue, setPopupValue] = useState(8)
-  const popup = (a, b, value) => {
-    setPopupActive(true)
-    setPopupCriteriaA(a)
-    setPopupCriteriaB(b)
-    setPopupValue(value)
-  }
 
   return(
     <div className={style.phase_container}>
@@ -76,10 +73,12 @@ export const CriteriaRating = ({
       <CriteriaRatingPopup
         active={popupActive}
         setActive={setPopupActive}
-        criteriaA={popupCriteriaA}
-        criteriaB={popupCriteriaB}
-        value={popupValue}
-        mm={MARK_MODEL}
+        criteria={criteria}
+        row={popupRow}
+        col={popupCol}
+        localMTX={localMTX}
+        localMTXSetter={localMTXSetter}
+        localSumSetter={localSumSetter}
       />
 
     </div>
@@ -203,7 +202,7 @@ const InCell = ({
       >
         <div
           className={style.value_box}
-          onClick={() => popup(criteria[row], criteria[col], localMTX[row][col])}
+          onClick={() => popup(row, col)}
         >
           <span>
             {MARK_MODEL[localMTX[row][col]].string}
@@ -333,6 +332,98 @@ const SumCell = ({
         {valAdduction(localSum[col])}
       </span>
     </td>
+  )
+}
+
+
+export const CriteriaRatingPopup = ({
+  active,
+  setActive,
+  criteria,
+  row,
+  col,
+  localMTX,
+  localMTXSetter,
+  localSumSetter,
+}) => {
+
+  const confirmHandler = () => { setActive(false) }
+
+  return(
+    <div
+      className={ active ? `${style.popup} ${style.active}` : style.popup }
+      onClick={() => setActive(false)}
+      onWheel={(e) => wheelTuning(localMTX, row, col, localMTXSetter, localSumSetter, e)}
+    >
+      <div
+        className={ active ? `${style.popup_content} ${style.active}` : style.popup_content }
+        onClick={e => e.stopPropagation()}
+      >
+        <p className='center'>Сравнение критериев</p>
+        <div className='center'>{MARK_MODEL[localMTX[row][col]].string}</div>
+        <div className={style.rating_box}>
+          <div>{criteria[col]}</div>
+          <div>{criteria[row]}</div>
+        </div>
+        <div className='range-field'>
+          <input
+            type='range' id='criteria' name='criteria'
+            min={0} max={16} value={[localMTX[row][col]]} readOnly={true} tabIndex={-1}
+          />
+        </div>
+
+        <div className={style.popup_menu}>
+          <div className={style.item}>
+            <span
+              className="btn"
+              disabled={localMTX[row][col] < 1}
+              onClick={() => minTuning(localMTX, row, col, localMTXSetter, localSumSetter)}
+            >
+              <i className="material-icons">arrow_back</i>
+            </span>
+          </div>
+          <div className={style.item}>
+            <span
+              className="btn"
+              disabled={localMTX[row][col] < 1}
+              onClick={() => decreaseTuning(localMTX, row, col, localMTXSetter, localSumSetter)}
+            >
+              <i className="material-icons">keyboard_arrow_left</i>
+            </span>
+          </div>
+          <div className={style.item}>
+            <span
+              className="btn"
+              disabled={localMTX[row][col] === 8}
+              onClick={() => resetTuning(localMTX, row, col, localMTXSetter, localSumSetter)}
+            >
+              <i className="material-icons">refresh</i>
+            </span>
+          </div>
+          <div className={style.item}>
+            <span
+              className="btn"
+              disabled={localMTX[row][col] > 15}
+              onClick={() => increaseTuning(localMTX, row, col, localMTXSetter, localSumSetter)}
+            >
+              <i className="material-icons">keyboard_arrow_right</i>
+            </span>
+          </div>
+          <div className={style.item}>
+            <span
+              className="btn"
+              disabled={localMTX[row][col] > 15}
+              onClick={() => maxTuning(localMTX, row, col, localMTXSetter, localSumSetter)}
+            >
+              <i className="material-icons">arrow_forward</i>
+            </span>
+          </div>
+        </div>
+        <div className={style.popup_exit}>
+          <i className="material-icons" onClick={confirmHandler}>check</i>
+        </div>
+      </div>
+    </div>
   )
 }
 

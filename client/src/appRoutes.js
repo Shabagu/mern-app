@@ -12,7 +12,7 @@ import { ResearchPage } from './pages/ahp/ResearchPage'
 import { NewResearchPage } from './pages/ahp/NewResearchPage'
 
 import { AdminPage } from './pages/AdminPage'
-// import { TestPage } from './pages/TestPage'
+import { TestPage } from './pages/TestPage'
 
 
 export const useRoutes = isAuthenticated => {
@@ -53,9 +53,9 @@ export const useRoutes = isAuthenticated => {
         </Route>
         {/* ==================================================== */}
 
-        {/* <Route path="/test">
+        <Route path="/test">
           <TestPage />
-        </Route> */}
+        </Route>
 
         <Redirect to="/info" />
       </Switch>
