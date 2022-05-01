@@ -40,14 +40,14 @@ export const ProfilePage = () => {
   return(
     <div style={{display: 'flex'}}>
       <div>
-        <p>
+        <h5>
           Мой профиль
-        </p>
+        </h5>
         {!loading &&
           <UserInfo user={user}/>
         }
         <button className="btn" onClick={goToResearches}>
-          Мои исследования
+          Все исследования
         </button>
       </div>
       <div style={{width: '100%'}}>
@@ -84,7 +84,10 @@ const LatestResearches = () => {
   }
   
   return(
-    <>{!loading && <ResearchList researches={researches} />}</>
+    <>
+      <h5 className='center'>Недавние исследования</h5>
+      {!loading && <ResearchList researches={researches} />}
+    </>
   )
 }
 

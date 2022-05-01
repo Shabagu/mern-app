@@ -8,11 +8,10 @@ export const ProfileImgPopup = ({ active, setActive }) => {
       onClick={() => setActive(false)}
     >
       <div
-        // className={style.popup_content}
         className={ active ? `${style.popup_content} ${style.active}` : style.popup_content }
         onClick={e => e.stopPropagation()}
       >
-        <p>Изображение</p>
+        <p className="center">Изображение не загружено</p>
       </div>
     </div>
   )

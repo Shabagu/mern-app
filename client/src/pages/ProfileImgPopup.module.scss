@@ -35,6 +35,8 @@
     transform: scale(0.5);
     transition: 0.2s all;
 
+    user-select: none;
+
     &.active {
       transform: scale(1);
     }
