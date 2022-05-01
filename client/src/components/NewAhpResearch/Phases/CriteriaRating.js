@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
 import { HOT_CHANGES_EFFECT_RESET, HOT_CHANGES_EFFECT } from "../../../pages/ahp/NewResearchPage"
+import { CriteriaRatingPopup } from "./CriteriaRatingPopup"
 
 import style from "./CriteriaRating.module.scss"
 
@@ -34,6 +35,17 @@ export const CriteriaRating = ({
     sumCalculate(localMTX, localSumSetter)
   }, [localMTX])
 
+  const [popupActive, setPopupActive] = useState(false)
+  const [popupCriteriaA, setPopupCriteriaA] = useState(null)
+  const [popupCriteriaB, setPopupCriteriaB] = useState(null)
+  const [popupValue, setPopupValue] = useState(8)
+  const popup = (a, b, value) => {
+    setPopupActive(true)
+    setPopupCriteriaA(a)
+    setPopupCriteriaB(b)
+    setPopupValue(value)
+  }
+
   return(
     <div className={style.phase_container}>
 
@@ -43,6 +55,7 @@ export const CriteriaRating = ({
         localSum={localSum}
         localMTXSetter={localMTXSetter}
         localSumSetter={localSumSetter}
+        popup={popup}
       />
 
       <Menu
@@ -59,6 +72,16 @@ export const CriteriaRating = ({
         phaseDone={phaseDone}
         phasesDone={phasesDone}
       />
+
+      <CriteriaRatingPopup
+        active={popupActive}
+        setActive={setPopupActive}
+        criteriaA={popupCriteriaA}
+        criteriaB={popupCriteriaB}
+        value={popupValue}
+        mm={MARK_MODEL}
+      />
+
     </div>
   )
 }
@@ -69,6 +92,7 @@ const Table = ({
   localSum,
   localMTXSetter,
   localSumSetter,
+  popup,
 }) => {
 
   return(
@@ -92,6 +116,7 @@ const Table = ({
             localMTX={localMTX}
             localMTXSetter={localMTXSetter}
             localSumSetter={localSumSetter}
+            popup={popup}
           />
         )}
       </tbody>
@@ -117,6 +142,7 @@ const CellRow = ({
   localMTX,
   localMTXSetter,
   localSumSetter,
+  popup,
 }) => {
 
   return(
@@ -133,6 +159,8 @@ const CellRow = ({
             localMTX={localMTX}
             localMTXSetter={localMTXSetter}
             localSumSetter={localSumSetter}
+            popup={popup}
+            criteria={criteria}
           />
         )
         else if (i > j) return(
@@ -163,6 +191,8 @@ const InCell = ({
   localMTX,
   localMTXSetter,
   localSumSetter,
+  popup,
+  criteria,
 }) => {
 
   return(
@@ -171,7 +201,10 @@ const InCell = ({
         className={style.cell}
         onWheel={(e) => wheelTuning(localMTX, row, col, localMTXSetter, localSumSetter, e)}
       >
-        <div className={style.value_box}>
+        <div
+          className={style.value_box}
+          onClick={() => popup(criteria[row], criteria[col], localMTX[row][col])}
+        >
           <span>
             {MARK_MODEL[localMTX[row][col]].string}
           </span>
