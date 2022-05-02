@@ -10,6 +10,9 @@ import style from './HintPopup.module.scss'
 
 
 export const HintPopup = ({ phase, active, setActive }) => {
+
+  const close = () => { setActive(false) }
+
   return(
     <div
     className={ active ? `${style.popup} ${style.active}` : style.popup }
@@ -29,6 +32,9 @@ export const HintPopup = ({ phase, active, setActive }) => {
       { phase === 4 && <AlternativesWeightsHint /> }
       { phase === 5 && <GroupsWeightsHint /> }
       { phase === 6 && <GlobalWeightsHint /> }
+    </div>
+    <div className={style.popup_exit}>
+      <i className="small material-icons" onClick={close}>close</i>
     </div>
   </div>
   )

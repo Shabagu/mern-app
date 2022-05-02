@@ -39,4 +39,30 @@
       transform: scale(1);
     }
   }
+
+  .popup_exit {
+    // border: 2px solid #1d847a;
+    // border-radius: 4px;
+    width: 28px;
+    height: 28px;
+    position: relative;
+    bottom: 270px;
+    right: 35px;
+    // z-index: 3;
+
+    &:hover {
+      border-color: #28a498;
+      transition: 0.3s;
+    }
+
+    i {
+      cursor: pointer;
+      color: #1d847a;
+
+      &:hover {
+        color: #28a498;
+        transition: 0.3s;
+      }
+    }
+  }
 }
