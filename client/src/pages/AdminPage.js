@@ -2,6 +2,7 @@ import { useCallback, useContext, useEffect, useState } from "react"
 import { AuthContext } from "../context/AuthContext"
 import { useHttp } from '../hooks/http.hook'
 import { Loader } from '../components/Loader'
+import { AddAlternative } from "../components/Admin/AddAlternative"
 
 import style from "./AdminPage.module.scss"
 
@@ -36,16 +37,23 @@ export const AdminPage = () => {
     fetchAllAlternatives()
   }, [fetchAllCriteria, fetchAllAlternatives])
 
+  
+  const [popupActive, setPopupActive] = useState(false)
+  
+  const popup = () => {
+    setPopupActive(true)
+  }
+
   if (loading) {
     return <Loader />
   }
 
   return(
     <div>
-      <p>Управление</p>
+      <h5>Управление</h5>
       <div className={style.tables_container}>
         <details open>
-          <summary>Альтернативы</summary>
+          <summary className="center">Альтернативы</summary>
           <table className={style.manage}>
             <thead>
               <tr>
@@ -62,7 +70,7 @@ export const AdminPage = () => {
                     <td>{allAlternatives[i].name}</td>
                     <td>
                       <label>
-                        <input type="checkbox" checked/>
+                        <input type="checkbox" checked readOnly/>
                         <span>Актуально</span>
                       </label>
                     </td>
@@ -70,6 +78,15 @@ export const AdminPage = () => {
                 )}
             </tbody>
           </table>
+          <div className={style.adding_box}>
+            <a
+              className="waves-effect waves-light btn"
+              onClick={popup}
+            >
+              Добавить
+              <i className="material-icons right">add</i>
+            </a>
+          </div>
         </details>
         <details open>
           <summary>Критерии</summary>
@@ -89,7 +106,7 @@ export const AdminPage = () => {
                     <td>{allCriteria[i].name}</td>
                     <td>
                       <label>
-                        <input type="checkbox" checked/>
+                        <input type="checkbox" defaultChecked/>
                         <span>Актуально</span>
                       </label>
                     </td>
@@ -98,6 +115,34 @@ export const AdminPage = () => {
             </tbody>
           </table>
         </details>
+      </div>
+      <AdminPopup
+        active={popupActive}
+        setActive={setPopupActive}
+      />
+    </div>
+  )
+}
+
+
+
+const AdminPopup = ({ active, setActive }) => {
+
+  const close = () => { setActive(false) }
+
+  return(
+    <div
+    className={ active ? `${style.popup} ${style.active}` : style.popup }
+    onClick={() => setActive(false)}
+    >
+      <div
+        className={ active ? `${style.popup_content} ${style.active}` : style.popup_content }
+        onClick={e => e.stopPropagation()}
+      >
+        <AddAlternative />
+      </div>
+      <div className={style.popup_exit}>
+        <i className="small material-icons" onClick={close}>close</i>
       </div>
     </div>
   )

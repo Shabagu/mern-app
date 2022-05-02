@@ -40,9 +40,9 @@ export const ProfilePage = () => {
   return(
     <div style={{display: 'flex'}}>
       <div>
-        <h5>
-          Мой профиль
-        </h5>
+        <div>
+          <h5>Мой профиль</h5>
+        </div>
         {!loading &&
           <UserInfo user={user}/>
         }
@@ -101,7 +101,7 @@ const UserInfo = ({ user }) => {
 
   return(
     <>
-      <div style={{display: 'flex'}}>
+      <div style={{display: 'flex', marginTop: '15px'}}>
         <div style={{marginRight: '20px'}}>
           <div style={{border: '2px solid #000', width: '200px'}} onClick={popup}>
             <img width='200' src='https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png' alt='' onClick={popup}/>

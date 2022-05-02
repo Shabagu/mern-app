@@ -17,25 +17,25 @@ export const HintPopup = ({ phase, active, setActive }) => {
     <div
     className={ active ? `${style.popup} ${style.active}` : style.popup }
     onClick={() => setActive(false)}
-  >
-    <div
-      className={ active ? `${style.popup_content} ${style.active}` : style.popup_content }
-      onClick={e => e.stopPropagation()}
     >
-      <div className="center">
-        Подсказка №{phase + 1}
+      <div
+        className={ active ? `${style.popup_content} ${style.active}` : style.popup_content }
+        onClick={e => e.stopPropagation()}
+      >
+        <div className="center">
+          Подсказка №{phase + 1}
+        </div>
+        { phase === 0 && <SelectionPhaseHint /> }
+        { phase === 1 && <CriteriaRatingHint /> }
+        { phase === 2 && <CriteriaWeightsHint /> }
+        { phase === 3 && <AlternativesRatingHint /> }
+        { phase === 4 && <AlternativesWeightsHint /> }
+        { phase === 5 && <GroupsWeightsHint /> }
+        { phase === 6 && <GlobalWeightsHint /> }
       </div>
-      { phase === 0 && <SelectionPhaseHint /> }
-      { phase === 1 && <CriteriaRatingHint /> }
-      { phase === 2 && <CriteriaWeightsHint /> }
-      { phase === 3 && <AlternativesRatingHint /> }
-      { phase === 4 && <AlternativesWeightsHint /> }
-      { phase === 5 && <GroupsWeightsHint /> }
-      { phase === 6 && <GlobalWeightsHint /> }
+      <div className={style.popup_exit}>
+        <i className="small material-icons" onClick={close}>close</i>
+      </div>
     </div>
-    <div className={style.popup_exit}>
-      <i className="small material-icons" onClick={close}>close</i>
-    </div>
-  </div>
   )
 }
