@@ -1,4 +1,4 @@
-import { useMessage } from "../../hooks/message.hook"
+import { useState } from "react"
 
 import style from "./PhaseTitle.module.scss"
 
@@ -20,21 +20,27 @@ export const PhaseTitle = ({
     'Глобальные веса альтернатив',
   ]
 
-  const message = useMessage()
+  const [popupActive, setPopupActive] = useState(false)
 
-  const HELP_TIPS = [
-    'Подсказка 0',
-    'Подсказка 1',
-    'Подсказка 2',
-    'Подсказка 3',
-    'Подсказка 4',
-    'Подсказка 5',
-    'Подсказка 6',
-  ]
-
-  const helpHandler = () => {
-    message(HELP_TIPS[phase])
+  const popup = () => {
+    setPopupActive(true)
   }
+
+  // const message = useMessage()
+
+  // const HELP_TIPS = [
+  //   'Подсказка 0',
+  //   'Подсказка 1',
+  //   'Подсказка 2',
+  //   'Подсказка 3',
+  //   'Подсказка 4',
+  //   'Подсказка 5',
+  //   'Подсказка 6',
+  // ]
+
+  // const helpHandler = () => {
+  //   message(HELP_TIPS[phase])
+  // }
 
   const nextPhaseHandler = () => {
     nextPhase(1)
@@ -62,7 +68,7 @@ export const PhaseTitle = ({
         <div className={style.help}>
           <span
             className="waves-effect waves-light btn"
-            onClick={helpHandler}
+            onClick={popup}
             title="Помощь"
           >
             <i className="material-icons">help_outline</i>
@@ -79,6 +85,29 @@ export const PhaseTitle = ({
           <i className="material-icons">navigate_next</i>
         </span>
       </div>
+      <HintPopup
+        phase={phase}
+        active={popupActive}
+        setActive={setPopupActive}
+      />
     </div>
+  )
+}
+
+const HintPopup = ({ phase, active, setActive }) => {
+  return(
+    <div
+    className={ active ? `${style.popup} ${style.active}` : style.popup }
+    onClick={() => setActive(false)}
+  >
+    <div
+      className={ active ? `${style.popup_content} ${style.active}` : style.popup_content }
+      onClick={e => e.stopPropagation()}
+    >
+      <div>
+        Подсказка №{phase}
+      </div>
+    </div>
+  </div>
   )
 }
