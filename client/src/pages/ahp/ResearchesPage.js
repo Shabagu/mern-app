@@ -1,8 +1,8 @@
 import { useCallback, useContext, useEffect, useState } from 'react'
 import { AuthContext } from '../../context/AuthContext'
 import { useHttp } from '../../hooks/http.hook'
-import { Loader } from '../../components/Loader'
-import { ResearchList } from '../../components/ResearchList'
+import { Loader } from '../../components/common/Loader'
+import { ResearchList } from '../../components/researches/ResearchList'
 
 import style from './ResearchesPage.module.scss'
 

@@ -1,8 +1,8 @@
 import { useCallback, useContext, useEffect, useState } from "react"
 import { AuthContext } from "../context/AuthContext"
 import { useHttp } from '../hooks/http.hook'
-import { Loader } from '../components/Loader'
-import { AddAlternative } from "../components/Admin/AddAlternative"
+import { Loader } from '../components/common/Loader'
+import { AddAlternative } from "../components/admin/AddAlternative"
 
 import style from "./AdminPage.module.scss"
 
@@ -79,13 +79,13 @@ export const AdminPage = () => {
             </tbody>
           </table>
           <div className={style.adding_box}>
-            <a
+            <span
               className="waves-effect waves-light btn"
-              onClick={popup}
+              onClick={popup} 
             >
               Добавить
               <i className="material-icons right">add</i>
-            </a>
+            </span>
           </div>
         </details>
         <details open>

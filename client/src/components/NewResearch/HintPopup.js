@@ -1,10 +1,10 @@
-import { SelectionPhaseHint } from '../../components/NewResearch/Phases/Hints/SelectionPhaseHint'
-import { CriteriaRatingHint } from '../../components/NewResearch/Phases/Hints/CriteriaRatingHint'
-import { CriteriaWeightsHint } from '../../components/NewResearch/Phases/Hints/CriteriaWeightsHint'
-import { AlternativesRatingHint } from '../../components/NewResearch/Phases/Hints/AlternativesRatingHint'
-import { AlternativesWeightsHint } from '../../components/NewResearch/Phases/Hints/AlternativesWeightsHint'
-import { GroupsWeightsHint } from '../../components/NewResearch/Phases/Hints/GroupsWeightsHint'
-import { GlobalWeightsHint } from '../../components/NewResearch/Phases/Hints/GlobalWeightsHint'
+import { SelectionPhaseHint } from '../../components/newResearch/Phases/Hints/SelectionPhaseHint'
+import { CriteriaRatingHint } from '../../components/newResearch/Phases/Hints/CriteriaRatingHint'
+import { CriteriaWeightsHint } from '../../components/newResearch/Phases/Hints/CriteriaWeightsHint'
+import { AlternativesRatingHint } from '../../components/newResearch/Phases/Hints/AlternativesRatingHint'
+import { AlternativesWeightsHint } from '../../components/newResearch/Phases/Hints/AlternativesWeightsHint'
+import { GroupsWeightsHint } from '../../components/newResearch/Phases/Hints/GroupsWeightsHint'
+import { GlobalWeightsHint } from '../../components/newResearch/Phases/Hints/GlobalWeightsHint'
 
 import style from './HintPopup.module.scss'
 

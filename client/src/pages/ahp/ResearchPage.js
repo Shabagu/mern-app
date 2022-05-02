@@ -2,8 +2,8 @@ import { useCallback, useContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { AuthContext } from '../../context/AuthContext'
 import { useHttp } from '../../hooks/http.hook'
-import { Loader } from '../../components/Loader'
-import { ResearchCard } from '../../components/ResearchCard'
+import { Loader } from '../../components/common/Loader'
+import { ResearchCard } from '../../components/researches/ResearchCard'
 
 export const ResearchPage = () => {
   const {token} = useContext(AuthContext)

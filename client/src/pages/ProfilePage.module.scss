@@ -1,0 +1,44 @@
+.popup {
+
+  width: 100vw;
+  height: 100vh;
+  background-color: #00000050;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  // transform: scale(0);
+  opacity: 0;
+  pointer-events: none;
+
+  transition: 0.3s;
+
+  &.active {
+    // transform: scale(1);
+    opacity: 1;
+    pointer-events: all;
+  }
+  
+  .popup_content {
+    padding: 20px;
+    border-radius: 12px;
+    background-color: #fff;
+
+    height: 200px;
+    width: 400px;
+
+    transform: scale(0.5);
+    transition: 0.2s all;
+
+    user-select: none;
+
+    &.active {
+      transform: scale(1);
+    }
+  }
+}

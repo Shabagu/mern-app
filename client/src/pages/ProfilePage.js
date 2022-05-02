@@ -2,11 +2,11 @@ import { useCallback, useContext, useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { AuthContext } from '../context/AuthContext'
 import { useHttp } from '../hooks/http.hook'
-import { Loader } from '../components/Loader'
+import { Loader } from '../components/common/Loader'
+import { ResearchList } from '../components/researches/ResearchList'
 
-import { ResearchList } from '../components/ResearchList'
+import style from './ProfilePage.module.scss'
 
-import { ProfileImgPopup } from './ProfileImgPopup'
 
 export const ProfilePage = () => {
 
@@ -113,5 +113,23 @@ const UserInfo = ({ user }) => {
       </div>
       <ProfileImgPopup active={popupActive} setActive={setPopupActive}/>
     </>
+  )
+}
+
+
+
+const ProfileImgPopup = ({ active, setActive }) => {
+  return(
+    <div
+      className={ active ? `${style.popup} ${style.active}` : style.popup }
+      onClick={() => setActive(false)}
+    >
+      <div
+        className={ active ? `${style.popup_content} ${style.active}` : style.popup_content }
+        onClick={e => e.stopPropagation()}
+      >
+        <p className="center">Изображение не загружено</p>
+      </div>
+    </div>
   )
 }

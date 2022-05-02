@@ -1,18 +1,18 @@
 import { Switch, Route, Redirect } from 'react-router-dom'
 
-import { LinksPage } from './pages/_LinksPage'
-import { CreatePage } from './pages/_CreatePage'
-import { DetailPage } from './pages/_DetailPage'
+import { LinksPage } from './pages/other/LinksPage'
+import { CreatePage } from './pages/other/CreatePage'
+import { DetailPage } from './pages/other/DetailPage'
 
 import { AuthPage } from './pages/AuthPage'
-import { InfoPage } from './pages/ahp/InfoPage'
 import { ProfilePage } from './pages/ProfilePage'
+import { InfoPage } from './pages/ahp/InfoPage'
+import { NewResearchPage } from './pages/ahp/NewResearchPage'
 import { ResearchesPage } from './pages/ahp/ResearchesPage'
 import { ResearchPage } from './pages/ahp/ResearchPage'
-import { NewResearchPage } from './pages/ahp/NewResearchPage'
 
 import { AdminPage } from './pages/AdminPage'
-import { TestPage } from './pages/TestPage'
+import { TestPage } from './pages/other/TestPage'
 
 
 export const useRoutes = isAuthenticated => {

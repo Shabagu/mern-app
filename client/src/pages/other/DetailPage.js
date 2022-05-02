@@ -1,9 +1,9 @@
 import { useCallback, useContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { AuthContext } from '../context/AuthContext'
-import { useHttp } from '../hooks/http.hook'
-import { Loader } from '../components/Loader'
-import { LinkCard } from '../components/LinkCard'
+import { AuthContext } from '../../context/AuthContext'
+import { useHttp } from '../../hooks/http.hook'
+import { Loader } from '../../components/common/Loader'
+import { LinkCard } from '../../components/other/LinkCard'
 
 export const DetailPage = () => {
   const {token} = useContext(AuthContext)

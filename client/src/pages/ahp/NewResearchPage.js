@@ -1,17 +1,17 @@
 import { useCallback, useContext, useEffect, useState } from "react"
 import { AuthContext } from "../../context/AuthContext"
 import { useHttp } from '../../hooks/http.hook'
-import { Loader } from '../../components/Loader'
+import { Loader } from '../../components/common/Loader'
 
-import { SelectionPhase } from "../../components/NewResearch/Phases/SelectionPhase"
-import { CriteriaRating } from "../../components/NewResearch/Phases/CriteriaRating"
-import { CriteriaWeights } from "../../components/NewResearch/Phases/CriteriaWeights"
-import { AlternativesRating } from "../../components/NewResearch/Phases/AlternativesRating"
-import { AlternativesWeights } from "../../components/NewResearch/Phases/AlternativesWeights"
-import { GroupsWeights } from "../../components/NewResearch/Phases/GroupsWeights"
-import { GlobalWeights } from "../../components/NewResearch/Phases/GlobalWeights"
-import { PhaseTitle } from "../../components/NewResearch/PhaseTitle"
-import { PhasesSidebar } from "../../components/NewResearch/PhasesSidebar"
+import { SelectionPhase } from "../../components/newResearch/Phases/SelectionPhase"
+import { CriteriaRating } from "../../components/newResearch/Phases/CriteriaRating"
+import { CriteriaWeights } from "../../components/newResearch/Phases/CriteriaWeights"
+import { AlternativesRating } from "../../components/newResearch/Phases/AlternativesRating"
+import { AlternativesWeights } from "../../components/newResearch/Phases/AlternativesWeights"
+import { GroupsWeights } from "../../components/newResearch/Phases/GroupsWeights"
+import { GlobalWeights } from "../../components/newResearch/Phases/GlobalWeights"
+import { PhaseTitle } from "../../components/newResearch/PhaseTitle"
+import { PhasesSidebar } from "../../components/newResearch/PhasesSidebar"
 
 import style from "./NewResearchPage.module.scss"
 

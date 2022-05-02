@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from 'react'
 import { useHistory } from 'react-router-dom'
-import { AuthContext } from '../context/AuthContext'
-import { useHttp } from '../hooks/http.hook'
+import { AuthContext } from '../../context/AuthContext'
+import { useHttp } from '../../hooks/http.hook'
 
 export const CreatePage = () => {
   const history = useHistory()

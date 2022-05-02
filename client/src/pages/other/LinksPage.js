@@ -1,8 +1,8 @@
 import { useCallback, useContext, useEffect, useState } from 'react'
-import { AuthContext } from '../context/AuthContext'
-import { useHttp } from '../hooks/http.hook'
-import { Loader } from '../components/Loader'
-import { LinksList } from '../components/LinksList'
+import { AuthContext } from '../../context/AuthContext'
+import { useHttp } from '../../hooks/http.hook'
+import { Loader } from '../../components/common/Loader'
+import { LinksList } from '../../components/other/LinksList'
 
 
 export const LinksPage = () => {
