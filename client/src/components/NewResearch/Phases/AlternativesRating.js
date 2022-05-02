@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react"
+import { useState, useEffect } from "react"
 import { useMessage } from "../../../hooks/message.hook" 
 import { HOT_CHANGES_EFFECT_RESET, HOT_CHANGES_EFFECT } from "../../../pages/ahp/NewResearchPage"
 
@@ -57,16 +57,13 @@ export const AlternativesRating = ({
   }
 
 
-
-  const localSumSetterCallback = useCallback((sum, criterion) => {
-    let enteringSum = localSum
-    enteringSum[criterion] = sum
-    setLocalSum([...enteringSum])
-  }, [localSum, setLocalSum])
-
   useEffect(() => {
-    sumCalculate(currentCriterion, localMTX, localSumSetterCallback(localSum, currentCriterion))
-  }, [currentCriterion, localMTX, localSum, localSumSetterCallback])
+    sumCalculate(currentCriterion, localMTX, () => {
+      let enteringSum = localSum
+      enteringSum[currentCriterion] = localSum
+      setLocalSum([...enteringSum])
+    })
+  }, [currentCriterion, localMTX, localSum, setLocalSum])
 
   return(
     <div className={style.phase_container}>
