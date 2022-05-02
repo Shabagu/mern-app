@@ -218,7 +218,8 @@ const Menu = ({
       </div>
       <div className={style.bottom}>
         <button className="btn" onClick={goToGlobalWeights} style={{marginBottom: '40px'}}>
-          Глобальные веса
+          Глобал. веса
+          <i className="material-icons right">fast_rewind</i>
         </button>
       </div>
     </div>

@@ -196,9 +196,11 @@ const Menu = ({
       <div className={style.bottom}>
         <button className="btn" onClick={goToGroupsWeights}>
           Другие веса
+          <i className="material-icons right">info_outline</i>
         </button>
         <button className="btn" onClick={mongoDBsavingHandler}>
           Сохранить
+          <i className="material-icons right">cloud_upload</i>
         </button>
       </div>
     </div>

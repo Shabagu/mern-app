@@ -144,7 +144,10 @@ export const SelectionPhase = ({
       
       <div className={style.button_container}>
         <div>
-          <button className="btn" onClick={selectHandler}>Сформировать запрос</button>
+          <button className="btn" onClick={selectHandler}>
+            Сформировать запрос
+            <i className="material-icons right">fast_forward</i>
+          </button>
         </div>
       </div>
     </div>

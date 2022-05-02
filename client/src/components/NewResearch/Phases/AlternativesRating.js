@@ -569,12 +569,15 @@ const Menu = ({
         </span>
         <span className="btn waves-effect waves-light" onClick={resetHandler}>
           Сброс
+          <i className="material-icons right">refresh</i>
         </span>
         <span className="btn waves-effect waves-light" onClick={testHandler}>
           Тест. значения
+          <i className="material-icons right">tune</i>
         </span>
         <span className="btn waves-effect waves-light" onClick={randomHandler}>
           Случ. значения
+          <i className="material-icons right">tune</i>
         </span>
       </div>
       <div className={style.middle}>
@@ -592,15 +595,18 @@ const Menu = ({
       </div>
       <div className={style.bottom}>
         <button className="btn" onClick={goToCriteriaRating}>
-          &nbsp;&lt;&lt;&lt;&nbsp;&nbsp;Назад
+          Назад
+          <i className="material-icons right">fast_rewind</i>
         </button>
         <button className="btn" onClick={goToAlternativesWeights}>
-          Веса альт.&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;
+          Веса альт.
+          <i className="material-icons right">info_outline</i>
         </button>
         <button className="btn"
           onClick={goToGlobalAlternatives}
         >
-          Продолжить&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;
+          Продолжить
+          <i className="material-icons right">fast_forward</i>
         </button>
       </div>
     </div>

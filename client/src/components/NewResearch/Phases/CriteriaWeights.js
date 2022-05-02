@@ -224,10 +224,12 @@ const Menu = ({
       </div>
       <div className={style.bottom}>
         <button className="btn" onClick={goToCriteriaRating}>
-          &nbsp;&lt;&lt;&lt;&nbsp;&nbsp;Назад
+          Назад
+          <i className="material-icons right">fast_rewind</i>
         </button>
         <button className="btn" onClick={goToAlternativesRating}>
-          Продолжить&nbsp;&nbsp;&nbsp;&gt;&gt;&gt;
+          Продолжить
+          <i className="material-icons right">fast_forward</i>
         </button>
       </div>
     </div>
