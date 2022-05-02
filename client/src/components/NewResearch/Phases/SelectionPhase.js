@@ -68,17 +68,23 @@ export const SelectionPhase = ({
     let j = 0
     for (let i = 0; i < criteriaCheckboxes.length; i++) {
       if (criteriaCheckboxes[i].checked) {
-        selectedCriteria[j] = allCriteria[criteriaCheckboxes[i].value.slice(-1)].name
+        selectedCriteria[j] = allCriteria[Number(
+          criteriaCheckboxes[i].value.slice(-2))
+        ].name
         j++
       }
     }
     let k = 0
     for (let i = 0; i < alternativesCheckboxes.length; i++) {
       if (alternativesCheckboxes[i].checked) {
-        selectedAlternatives[k] = allAlternatives[alternativesCheckboxes[i].value.slice(-1)].name
+        selectedAlternatives[k] = allAlternatives[Number(
+          alternativesCheckboxes[i].value.slice(-2))
+        ].name
         k++
       }
     }
+    console.log(selectedCriteria)
+    console.log(selectedAlternatives)
 
     if (selectedCriteria.length < 2 && selectedAlternatives.length < 2) {
       message('Выберите хотя бы два критерия и две альтернативы!')
@@ -211,12 +217,17 @@ const Option = ({ i, opt, group, selected }) => {
     HOT_CHANGES_HANDLER(HOT_CHANGES_BUTTON_COLOR)
   }
 
+  let indexValue = i
+  if (indexValue < 10) {
+    indexValue = '0' + indexValue 
+  }
+
   return(
     <li>
       <label>
         <input
           type="checkbox"
-          value={`${group.ens}${i}`}
+          value={`${group.ens}${indexValue}`}
           className={group.ens}
           onChange={(e) => checkboxControl(group.en, e)}
           defaultChecked={selected.includes(`${opt}`)}
