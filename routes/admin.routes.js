@@ -1,7 +1,32 @@
 const {Router} = require('express')
 const router = Router()
 const auth = require('../middleware/auth.middleware')
+const Criteria = require('../models/Criteria')
 const Alternative = require('../models/Alternative')
+
+
+
+// /api/admin/criteria/
+router.get('/criteria', auth, async(req, res) => {
+  try {
+    const criteria = await Criteria.find()
+    res.json(criteria)
+  } catch (e) {
+    res.status(500).json({message: 'Что-то пошло не так, попробуйте снова'})
+  }
+})
+
+
+// /api/admin/alternatives/
+router.get('/alternatives', auth, async(req, res) => {
+  try {
+    const alternatives = await Alternative.find()
+    res.json(alternatives)
+  } catch (e) {
+    res.status(500).json({message: 'Что-то пошло не так, попробуйте снова'})
+  }
+})
+
 
 //api/admin/addalternative
 router.post('/addalternative', auth, async (req, res) => {

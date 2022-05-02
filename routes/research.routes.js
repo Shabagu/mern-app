@@ -44,7 +44,7 @@ router.get('/criteria', auth, async(req, res) => {
 // /api/research/alternatives/
 router.get('/alternatives', auth, async(req, res) => {
   try {
-    const alternatives = await Alternative.find()
+    const alternatives = await Alternative.find({ relevance: true })
     res.json(alternatives)
   } catch (e) {
     res.status(500).json({message: 'Что-то пошло не так, попробуйте снова'})
