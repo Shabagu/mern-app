@@ -3,13 +3,13 @@ import { AuthContext } from "../../context/AuthContext"
 import { useHttp } from '../../hooks/http.hook'
 import { Loader } from '../../components/common/Loader'
 
-import { SelectionPhase } from "../../components/newResearch/Phases/SelectionPhase"
-import { CriteriaRating } from "../../components/newResearch/Phases/CriteriaRating"
-import { CriteriaWeights } from "../../components/newResearch/Phases/CriteriaWeights"
-import { AlternativesRating } from "../../components/newResearch/Phases/AlternativesRating"
-import { AlternativesWeights } from "../../components/newResearch/Phases/AlternativesWeights"
-import { GroupsWeights } from "../../components/newResearch/Phases/GroupsWeights"
-import { GlobalWeights } from "../../components/newResearch/Phases/GlobalWeights"
+import { SelectionPhase } from "../../components/newResearch/phases/SelectionPhase"
+import { CriteriaRating } from "../../components/newResearch/phases/CriteriaRating"
+import { CriteriaWeights } from "../../components/newResearch/phases/CriteriaWeights"
+import { AlternativesRating } from "../../components/newResearch/phases/AlternativesRating"
+import { AlternativesWeights } from "../../components/newResearch/phases/AlternativesWeights"
+import { GroupsWeights } from "../../components/newResearch/phases/GroupsWeights"
+import { GlobalWeights } from "../../components/newResearch/phases/GlobalWeights"
 import { PhaseTitle } from "../../components/newResearch/PhaseTitle"
 import { PhasesSidebar } from "../../components/newResearch/PhasesSidebar"
 
