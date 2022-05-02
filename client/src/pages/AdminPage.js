@@ -81,10 +81,17 @@ export const AdminPage = () => {
                       {allAlternatives[i].name}
                     </td>
                     <td>
-                      <label>
-                        <input type="checkbox" checked readOnly/>
-                        <span>Актуально</span>
-                      </label>
+                      <div className={style.relevance_box}>
+                        <label>
+                          <input
+                            type="checkbox"
+                            readOnly
+                            checked={allAlternatives[i].relevance}
+                          />
+                          { allAlternatives[i].relevance && <span>Актуально</span> }
+                          { !(allAlternatives[i].relevance) && <span>Неактуально</span> }
+                        </label>
+                      </div>
                     </td>
                   </tr>
                 )}
@@ -100,28 +107,28 @@ export const AdminPage = () => {
             </span>
           </div>
         </details>
-        <details>
+        <details open>
           <summary>Критерии</summary>
           <table className={style.manage}>
             <thead>
               <tr>
-                <th colSpan={2}>Альтернативы</th>
+                <th colSpan={2}>Критерии</th>
               </tr>
               <tr>
                 <th>Название</th>
-                <th>Актуальность</th>
+                {/* <th>Актуальность</th> */}
               </tr>
             </thead>
             <tbody>
                 {[...Array(allCriteria.length)].map((x, i) => 
                   <tr key={i}>
                     <td>{allCriteria[i].name}</td>
-                    <td>
+                    {/* <td>
                       <label>
                         <input type="checkbox" defaultChecked/>
                         <span>Актуально</span>
                       </label>
-                    </td>
+                    </td> */}
                   </tr>
                 )}
             </tbody>
