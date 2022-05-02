@@ -82,15 +82,18 @@ export const AdminPage = () => {
                     </td>
                     <td>
                       <div className={style.relevance_box}>
-                        <label>
-                          <input
-                            type="checkbox"
-                            readOnly
-                            checked={allAlternatives[i].relevance}
-                          />
-                          { allAlternatives[i].relevance && <span>Актуально</span> }
-                          { !(allAlternatives[i].relevance) && <span>Неактуально</span> }
-                        </label>
+                        { allAlternatives[i].relevance &&
+                          <div className={style.relevance_subbox}>
+                            <div><i className="material-icons">check_circle</i></div>
+                            <div><span>Актуально</span></div>
+                          </div>
+                        }
+                        { !(allAlternatives[i].relevance) &&
+                          <div className={style.relevance_subbox}>
+                            <div><i className="material-icons">close</i></div>
+                            <div><span>Неактуально</span></div>
+                          </div>
+                        }
                       </div>
                     </td>
                   </tr>
