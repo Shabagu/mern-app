@@ -12,6 +12,7 @@ app.use('/t', require('./routes/redirect.routes'))
 
 app.use('/api/research', require('./routes/research.routes'))
 app.use('/api/profile', require('./routes/profile.routes'))
+app.use('/api/admin', require('./routes/admin.routes'))
 
 app.use('/api/test', require('./routes/test.routes'))
 

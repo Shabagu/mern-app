@@ -3,6 +3,7 @@ import { AuthContext } from "../context/AuthContext"
 import { useHttp } from '../hooks/http.hook'
 import { Loader } from '../components/common/Loader'
 import { AddAlternative } from "../components/admin/AddAlternative"
+import { AlternativeCard } from "../components/admin/AlternativeCard"
 
 import style from "./AdminPage.module.scss"
 
@@ -39,9 +40,15 @@ export const AdminPage = () => {
 
   
   const [popupActive, setPopupActive] = useState(false)
+  const [popupPurpose, setPopupPurpose] = useState('')
+  const [popupArgument, setPopupArgument] = useState('')
   
-  const popup = () => {
+  const popup = (purpose, argument) => {
     setPopupActive(true)
+    setPopupPurpose(purpose)
+    if (argument) {
+      setPopupArgument(argument)
+    }
   }
 
   if (loading) {
@@ -67,7 +74,12 @@ export const AdminPage = () => {
             <tbody>
                 {[...Array(allAlternatives.length)].map((x, i) => 
                   <tr key={i}>
-                    <td>{allAlternatives[i].name}</td>
+                    <td 
+                      className={style.alternative_cell}
+                      onClick={() => {popup('alternative_card', allAlternatives[i])}}
+                    >
+                      {allAlternatives[i].name}
+                    </td>
                     <td>
                       <label>
                         <input type="checkbox" checked readOnly/>
@@ -81,14 +93,14 @@ export const AdminPage = () => {
           <div className={style.adding_box}>
             <span
               className="waves-effect waves-light btn"
-              onClick={popup} 
+              onClick={() => popup('adding_alternative', null)}
             >
               Добавить
               <i className="material-icons right">add</i>
             </span>
           </div>
         </details>
-        <details open>
+        <details>
           <summary>Критерии</summary>
           <table className={style.manage}>
             <thead>
@@ -119,6 +131,9 @@ export const AdminPage = () => {
       <AdminPopup
         active={popupActive}
         setActive={setPopupActive}
+        purpose={popupPurpose}
+        argument={popupArgument}
+        alternativesRefetch={fetchAllAlternatives}
       />
     </div>
   )
@@ -126,7 +141,7 @@ export const AdminPage = () => {
 
 
 
-const AdminPopup = ({ active, setActive }) => {
+const AdminPopup = ({ active, setActive, purpose, argument, alternativesRefetch }) => {
 
   const close = () => { setActive(false) }
 
@@ -139,7 +154,20 @@ const AdminPopup = ({ active, setActive }) => {
         className={ active ? `${style.popup_content} ${style.active}` : style.popup_content }
         onClick={e => e.stopPropagation()}
       >
-        <AddAlternative />
+        {purpose === 'adding_alternative' &&
+          <AddAlternative
+            closePopup={close}
+            alternativesRefetch={alternativesRefetch}
+            />
+          }
+        {purpose === 'alternative_card' &&
+          <AlternativeCard
+            alternative={argument}
+            closePopup={close}
+            alternativesRefetch={alternativesRefetch}
+          />
+        }
+        
       </div>
       <div className={style.popup_exit}>
         <i className="small material-icons" onClick={close}>close</i>

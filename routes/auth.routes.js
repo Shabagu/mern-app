@@ -35,7 +35,6 @@ router.post(
       const {email, password, tel} = req.body
 
       const candidate = await User.findOne({email})
-
       if (candidate) {
         return res.status(400).json({message: 'Такой пользователь уже существует'})
       }
@@ -51,10 +50,10 @@ router.post(
       res.status(201).json({message: 'Пользователь создан'})
 
     } catch (e) {
-      console.log('Error:', e.message)
       res.status(500).json({message: 'Что-то пошло не так, попробуйте снова'})
     }
-})
+  }
+)
 
 
 
