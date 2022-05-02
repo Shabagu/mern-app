@@ -11,6 +11,8 @@ $tableBorderExtraThin: 1px solid #aaa;
     border: $tableBorderBold;
     width: 100%;
     table-layout: fixed;
+
+    margin-bottom: 40px;
   
     th {
       border: $tableBorderThin;
@@ -33,8 +35,10 @@ $tableBorderExtraThin: 1px solid #aaa;
     }
   
     .value_box {
-      display: flex;
+      width: 100%;
+      height: 100%;
       margin: auto;
+      cursor: pointer;
     }
   
     .diagonal {
@@ -111,93 +115,181 @@ $tableBorderExtraThin: 1px solid #aaa;
       font-weight: 500;
     }
   }
-}
 
 
 
 
 
 
+  .popup {
 
+    width: 100vw;
+    height: 100vh;
+    background-color: #00000050;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
 
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
+    // transform: scale(0);
+    opacity: 0;
+    pointer-events: none;
 
+    transition: 0.3s;
 
-
-
-.menu {
-  position: fixed;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-
-  top: 72px;
-  right: 0;
-
-  width: 200px;
-  height: 640px;
-
-  padding: 3px;
-  // border: 1px solid #aaa;
-
-  button:first-child {
-    margin-top: 68px;
-  }
-
-  span, button {
-    width: 190px;
-  }
-
-  .top {
-    margin-top: 128px;
-
-    span {
-      margin-bottom: 4px;
+    &.active {
+      // transform: scale(1);
+      opacity: 1;
+      pointer-events: all;
     }
-  }
 
-  .middle {
-    margin: 25px 0 -25px;
+    input {
+      cursor: auto;
+    }
 
-    label {
-      color: black;
+    .popup_content {
+      padding: 20px;
+      border-radius: 12px;
+      background-color: #fff;
 
-      span {
-        display: block;
-        width: 95%;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
+      height: 254px;
+      width: 400px;
+
+      transform: scale(0.5);
+      transition: 0.2s all;
+
+      user-select: none;
+
+      &.active {
+        transform: scale(1);
+      }
+
+      .rating_box {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .popup_menu {
+        margin-top: 8px;
+        display: flex;
+
+        .item {
+          span {
+            width: 72px;
+            border-radius: 0px;
+          }
+        }
+      }
+
+      .popup_exit {
+        border: 2px solid #1d847a;
+        border-radius: 14px;
+        width: 28px;
+        height: 28px;
+        position: absolute;
+        top: 15px;
+        right: 15px;
+
+        &:hover {
+          border-color: #28a498;
+          transition: 0.3s;
+        }
+
+        i {
+          cursor: pointer;
+          color: #1d847a;
+
+          &:hover {
+            color: #28a498;
+            transition: 0.3s;
+          }
+        }
       }
     }
   }
 
-  .bottom {
-    .high {
-      margin-bottom: 40px;
+
+
+
+
+  .menu {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    top: 72px;
+    right: 0;
+
+    width: 200px;
+    height: 640px;
+
+    padding: 3px;
+    // border: 1px solid #aaa;
+
+    button:first-child {
+      margin-top: 68px;
+    }
+
+    span, button {
+      width: 190px;
+    }
+
+    .top {
+      margin-top: 128px;
+
       span {
         margin-bottom: 4px;
       }
     }
-    button {
-      margin-bottom: 4px;
+
+    .middle {
+      margin: 25px 0 -25px;
+
+      label {
+        color: black;
+
+        span {
+          display: block;
+          width: 95%;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+      }
     }
-    button:last-child {
-      margin-bottom: 0;
+
+    .bottom {
+      .high {
+        margin-bottom: 40px;
+        span {
+          margin-bottom: 4px;
+        }
+      }
+      button {
+        margin-bottom: 4px;
+      }
+      button:last-child {
+        margin-bottom: 0;
+      }
     }
-  }
 
-  .current_criterion {
-    position: absolute;
-    top: 70px;
+    .current_criterion {
+      position: absolute;
+      top: 70px;
 
-    font-size: 2rem;
+      font-size: 2rem;
 
-    width: 95%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    
-    text-decoration: underline;
+      width: 95%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      
+      text-decoration: underline;
+    }
   }
 }

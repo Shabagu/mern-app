@@ -44,6 +44,17 @@ export const AlternativesRating = ({
     setCurrentCriterion(criterion)
   }
 
+  const [popupActive, setPopupActive] = useState(false)
+  const [popupCriterion, setPopupCriterion] = useState(0)
+  const [popupRow, setPopupRow] = useState(0)
+  const [popupCol, setPopupCol] = useState(0)
+
+  const popup = (cc, row, col) => {
+    setPopupActive(true)
+    setPopupCriterion(cc)
+    setPopupRow(row)
+    setPopupCol(col)
+  }
 
   useEffect(() => {
     sumCalculate(currentCriterion, localMTX, localSumSetter)
@@ -52,7 +63,6 @@ export const AlternativesRating = ({
   return(
     <div className={style.phase_container}>
 
-
       <Table
         alternatives={alternatives}
         currentCriterion={currentCriterion}
@@ -60,8 +70,8 @@ export const AlternativesRating = ({
         localSum={localSum}
         localMTXSetter={localMTXSetter}
         localSumSetter={localSumSetter}
+        popup={popup}
       />
-
 
       <Menu
         criteria={criteria}
@@ -83,6 +93,20 @@ export const AlternativesRating = ({
         phaseDone={phaseDone}
         phasesDone={phasesDone}
       />
+
+      <AlternativesRatingPopup
+        active={popupActive}
+        setActive={setPopupActive}
+        criteria={criteria}
+        alternatives={alternatives}
+        cc={popupCriterion}
+        row={popupRow}
+        col={popupCol}
+        localMTX={localMTX}
+        localMTXSetter={localMTXSetter}
+        localSumSetter={localSumSetter}
+      />
+
     </div>
   )
 }
@@ -94,6 +118,7 @@ const Table = ({
   localSum,
   localMTXSetter,
   localSumSetter,
+  popup,
 }) => {
 
   return(
@@ -118,6 +143,7 @@ const Table = ({
           localMTX={localMTX}
           localMTXSetter={localMTXSetter}
           localSumSetter={localSumSetter}
+          popup={popup}
         />
       )}
     </tbody>
@@ -145,6 +171,7 @@ const CellRow = ({
   localMTX,
   localMTXSetter,
   localSumSetter,
+  popup,
 }) => {
 
   return(
@@ -162,6 +189,7 @@ const CellRow = ({
             localMTX={localMTX}
             localMTXSetter={localMTXSetter}
             localSumSetter={localSumSetter}
+            popup={popup}
           />
         )
         else if (i > j) return(
@@ -195,6 +223,7 @@ const InCell = ({
   localMTX,
   localMTXSetter,
   localSumSetter,
+  popup,
 }) => {
 
   return(
@@ -203,7 +232,10 @@ const InCell = ({
         className={style.cell}
         onWheel={(e) => wheelTuning(cc, localMTX, row, col, localMTXSetter, localSumSetter, e)}
       >
-        <div className={style.value_box}>
+        <div
+          className={style.value_box}
+          onClick={() => popup(cc, row, col)}
+        >
           <span>
             {MARK_MODEL[localMTX[cc][row][col]].string}
           </span>
@@ -346,7 +378,99 @@ const SumCell = ({
 
 
 
+const AlternativesRatingPopup = ({
+  active,
+  setActive,
+  criteria,
+  alternatives,
+  cc,
+  row,
+  col,
+  localMTX,
+  localMTXSetter,
+  localSumSetter,
+}) => {
 
+  const confirmHandler = () => { setActive(false) }
+
+  return(
+    <div
+      className={active ? `${style.popup} ${style.active}` : style.popup}
+      onClick={() => { setActive(false)}}
+      onWheel={(e) => wheelTuning(cc, localMTX, row, col, localMTXSetter, localSumSetter, e)}
+    >
+      <div
+        className={active ? `${style.popup_content} ${style.active}` : style.popup_content}
+        onClick={e => e.stopPropagation()}
+      >
+        <p className="center">Сравнение альтернатив по критерию</p>
+        <p className="center">{criteria[cc]}</p>
+        <div className="center">{MARK_MODEL[localMTX[cc][row][col]].string}</div>
+        <div className={style.rating_box}>
+          <div>{alternatives[col]}</div>
+          <div>{alternatives[row]}</div>
+        </div>
+        <div className="range-field">
+          <input
+            type="range" id="criteria" name="criteria"
+            min={0} max={16} value={[localMTX[cc][row][col]]} readOnly={true} tabIndex={-1}
+          />
+        </div>
+
+        <div className={style.popup_menu}>
+          <div className={style.item}>
+            <span
+              className="btn"
+              disabled={localMTX[cc][row][col] < 1}
+              onClick={() => minTuning(cc, localMTX, row, col, localMTXSetter, localSumSetter)}
+            >
+              <i className="material-icons">arrow_back</i>
+            </span>
+          </div>
+          <div className={style.item}>
+            <span
+              className="btn"
+              disabled={localMTX[cc][row][col] < 1}
+              onClick={() => decreaseTuning(cc, localMTX, row, col, localMTXSetter, localSumSetter)}
+            >
+              <i className="material-icons">keyboard_arrow_left</i>
+            </span>
+          </div>
+          <div className={style.item}>
+            <span
+              className="btn"
+              disabled={localMTX[cc][row][col] === 8}
+              onClick={() => resetTuning(cc, localMTX, row, col, localMTXSetter, localSumSetter)}
+            >
+              <i className="material-icons">refresh</i>
+            </span>
+          </div>
+          <div className={style.item}>
+            <span
+              className="btn"
+              disabled={localMTX[cc][row][col] > 15}
+              onClick={() => increaseTuning(cc, localMTX, row, col, localMTXSetter, localSumSetter)}
+            >
+              <i className="material-icons">keyboard_arrow_right</i>
+            </span>
+          </div>
+          <div className={style.item}>
+            <span
+              className="btn"
+              disabled={localMTX[cc][row][col] > 15}
+              onClick={() => maxTuning(cc, localMTX, row, col, localMTXSetter, localSumSetter)}
+            >
+              <i className="material-icons">arrow_forward</i>
+            </span>
+          </div>
+        </div>
+        <div className={style.popup_exit}>
+          <i className="material-icons" onClick={confirmHandler}>check</i>
+        </div>
+      </div>
+    </div>
+  )
+}
 
 
 

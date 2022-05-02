@@ -148,6 +148,8 @@ $tableBorderExtraThin: 1px solid #aaa;
     
 
 
+
+
     .popup_content {
       padding: 20px;
       border-radius: 12px;
@@ -191,15 +193,27 @@ $tableBorderExtraThin: 1px solid #aaa;
         top: 15px;
         right: 15px;
 
+        &:hover {
+          border-color: #28a498;
+          transition: 0.3s;
+        }
+
         i {
           cursor: pointer;
           color: #1d847a;
+
+          &:hover {
+            color: #28a498;
+            transition: 0.3s;
+          }
         }
       }
     }
   }
 
 
+
+  
 
   .menu {
     position: fixed;

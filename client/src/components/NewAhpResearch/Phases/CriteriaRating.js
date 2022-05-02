@@ -33,6 +33,7 @@ export const CriteriaRating = ({
   const [popupActive, setPopupActive] = useState(false)
   const [popupRow, setPopupRow] = useState(0)
   const [popupCol, setPopupCol] = useState(0)
+
   const popup = (row, col) => {
     setPopupActive(true)
     setPopupRow(row)
@@ -159,7 +160,6 @@ const CellRow = ({
             localMTXSetter={localMTXSetter}
             localSumSetter={localSumSetter}
             popup={popup}
-            criteria={criteria}
           />
         )
         else if (i > j) return(
@@ -191,7 +191,6 @@ const InCell = ({
   localMTXSetter,
   localSumSetter,
   popup,
-  criteria,
 }) => {
 
   return(
@@ -336,7 +335,7 @@ const SumCell = ({
 }
 
 
-export const CriteriaRatingPopup = ({
+const CriteriaRatingPopup = ({
   active,
   setActive,
   criteria,
@@ -351,23 +350,23 @@ export const CriteriaRatingPopup = ({
 
   return(
     <div
-      className={ active ? `${style.popup} ${style.active}` : style.popup }
+      className={active ? `${style.popup} ${style.active}` : style.popup}
       onClick={() => setActive(false)}
       onWheel={(e) => wheelTuning(localMTX, row, col, localMTXSetter, localSumSetter, e)}
     >
       <div
-        className={ active ? `${style.popup_content} ${style.active}` : style.popup_content }
+        className={active ? `${style.popup_content} ${style.active}` : style.popup_content}
         onClick={e => e.stopPropagation()}
       >
-        <p className='center'>Сравнение критериев</p>
-        <div className='center'>{MARK_MODEL[localMTX[row][col]].string}</div>
+        <p className="center">Сравнение критериев</p>
+        <div className="center">{MARK_MODEL[localMTX[row][col]].string}</div>
         <div className={style.rating_box}>
           <div>{criteria[col]}</div>
           <div>{criteria[row]}</div>
         </div>
-        <div className='range-field'>
+        <div className="range-field">
           <input
-            type='range' id='criteria' name='criteria'
+            type="range" id="criteria" name="criteria"
             min={0} max={16} value={[localMTX[row][col]]} readOnly={true} tabIndex={-1}
           />
         </div>
