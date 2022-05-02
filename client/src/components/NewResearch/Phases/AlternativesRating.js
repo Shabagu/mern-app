@@ -56,14 +56,10 @@ export const AlternativesRating = ({
     setPopupCol(col)
   }
 
-
   useEffect(() => {
-    sumCalculate(currentCriterion, localMTX, () => {
-      let enteringSum = localSum
-      enteringSum[currentCriterion] = localSum
-      setLocalSum([...enteringSum])
-    })
-  }, [currentCriterion, localMTX, localSum, setLocalSum])
+    sumCalculate(currentCriterion, localMTX, localSumSetter)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentCriterion, localMTX])
 
   return(
     <div className={style.phase_container}>
