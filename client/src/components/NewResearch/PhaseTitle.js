@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { HintPopup } from "./HintPopup"
 
 import style from "./PhaseTitle.module.scss"
 
@@ -25,22 +26,6 @@ export const PhaseTitle = ({
   const popup = () => {
     setPopupActive(true)
   }
-
-  // const message = useMessage()
-
-  // const HELP_TIPS = [
-  //   'Подсказка 0',
-  //   'Подсказка 1',
-  //   'Подсказка 2',
-  //   'Подсказка 3',
-  //   'Подсказка 4',
-  //   'Подсказка 5',
-  //   'Подсказка 6',
-  // ]
-
-  // const helpHandler = () => {
-  //   message(HELP_TIPS[phase])
-  // }
 
   const nextPhaseHandler = () => {
     nextPhase(1)
@@ -91,23 +76,5 @@ export const PhaseTitle = ({
         setActive={setPopupActive}
       />
     </div>
-  )
-}
-
-const HintPopup = ({ phase, active, setActive }) => {
-  return(
-    <div
-    className={ active ? `${style.popup} ${style.active}` : style.popup }
-    onClick={() => setActive(false)}
-  >
-    <div
-      className={ active ? `${style.popup_content} ${style.active}` : style.popup_content }
-      onClick={e => e.stopPropagation()}
-    >
-      <div>
-        Подсказка №{phase}
-      </div>
-    </div>
-  </div>
   )
 }
