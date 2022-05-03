@@ -14,7 +14,7 @@ $tableBorderExtraThin: 1px solid #aaa;
   border: 2px gray solid;
 
   width: 100%;
-  height: 200px;
+  height: 210px;
   margin-top: 5px;
   
   display: flex;
@@ -40,13 +40,18 @@ $tableBorderExtraThin: 1px solid #aaa;
       font-size: 1.4rem;
     }
     
-    .link_box a {
-      font-weight: 400;
-      color: #09a797;
-      font-size: 1.1rem;
-      
-      &:hover {
-        color: #0dc5b3;
+    .link_box{
+
+      padding-left: 10px;
+
+      a {
+        font-weight: 400;
+        color: #09a797;
+        font-size: 1.1rem;
+        
+        &:hover {
+          color: #0dc5b3;
+        }
       }
     }
 

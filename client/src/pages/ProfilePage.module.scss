@@ -4,6 +4,21 @@
   .recent_researches_container {
     width: 100%;
   }
+
+  .user_info_container {
+    display: flex;
+    margin-top: 15px;
+    width: 240px;
+
+    .subcontainer {
+      margin-right: 20px;
+
+      .picture_box {
+        border: 2px solid #000;
+        width: 200px;
+      }
+    }
+  }
 }
 
 .popup {

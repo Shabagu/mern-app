@@ -102,10 +102,11 @@ const UserInfo = ({ user }) => {
 
   return(
     <>
-      <div style={{display: 'flex', marginTop: '15px', width:'250px'}}>
-        <div style={{marginRight: '20px'}}>
-          <div style={{border: '2px solid #000', width: '200px'}} onClick={popup}>
-            <img width='200'
+      <div className={style.user_info_container}>
+        <div className={style.subcontainer}>
+          <div className={style.picture_box} onClick={popup}>
+            <img
+              width='200'
               src='https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png'
               alt=''
               onClick={popup}
