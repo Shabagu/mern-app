@@ -34,11 +34,13 @@ export const ProfilePage = () => {
   const fetchResearches = useCallback( async () => {
     try {
       setIsResearchesFetching(true)
-      const fetched = await request('/api/research', 'GET', null, {
+      const fetched = await request('/api/research/recent', 'GET', null, {
         Authorization: `Bearer ${token}`
       })
       setResearches(fetched)
       setIsResearchesFetching(false)
+
+      console.log(fetched)
     } catch (e) {}
   }, [token, request])
 

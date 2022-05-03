@@ -54,15 +54,30 @@ router.get('/alternatives', auth, async(req, res) => {
   }
 })
 
-// /api/research/
-router.get('/', auth, async(req, res) => {
+// /api/research/recent 
+router.get('/recent', auth, async (req, res) => {
   try {
     const researches = await Research.find({ owner: req.user.userId })
-    res.json(researches)
+    const reversed = researches.reverse()
+    const recent = reversed.slice(0, 3)
+    res.json(recent)
   } catch (e) {
     res.status(500).json({message: 'Что-то пошло не так, попробуйте снова'})
   }
 })
+
+
+// /api/research/all <----------- ИЗМЕНИТЬ!!!!!!!!!!!!!!!!!!!!!!1
+router.get('/', auth, async(req, res) => {
+  try {
+    const researches = await Research.find({ owner: req.user.userId })
+    const reversed = researches.reverse()
+    res.json(reversed)
+  } catch (e) {
+    res.status(500).json({message: 'Что-то пошло не так, попробуйте снова'})
+  }
+})
+
 
 // /api/research/:id
 router.get('/:id', auth, async (req, res) => {
