@@ -67,8 +67,8 @@ router.get('/recent', auth, async (req, res) => {
 })
 
 
-// /api/research/all <----------- ИЗМЕНИТЬ!!!!!!!!!!!!!!!!!!!!!!1
-router.get('/', auth, async(req, res) => {
+// /api/research/all
+router.get('/all', auth, async(req, res) => {
   try {
     const researches = await Research.find({ owner: req.user.userId })
     const reversed = researches.reverse()

@@ -14,7 +14,7 @@ export const ResearchesPage = () => {
 
   const fetchResearches = useCallback( async () => {
     try {
-      const fetched = await request('/api/research', 'GET', null, {
+      const fetched = await request('/api/research/all', 'GET', null, {
         Authorization: `Bearer ${token}`
       })
       setResearches(fetched)
