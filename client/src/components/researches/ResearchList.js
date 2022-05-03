@@ -15,7 +15,11 @@ export const ResearchList = ({ researches }) => {
 
       { researches.map((research, index) => {
         return(
-          <ResearchItem research={research} index={index} key={research._id} />
+          <ResearchItem
+            research={research}
+            index={index}
+            key={research._id}
+          />
         )
       }) }
     </div>
@@ -43,7 +47,18 @@ const ResearchItem = ({ research, index }) => {
 
   return(
     <div className={style.research_item}>
-      <div className={style.box}>
+      <div className={style.info_box}>
+        <div>
+          <div>Исследование №{research.index}</div>
+          <div className={style.link_box}>
+            <div><Link to={`/research/${research._id}`}>(открыть)</Link></div>
+          </div>
+        </div>
+        <div className={style.time}>
+          {`Сохранено ${date} в ${time}`}
+        </div>
+      </div>
+      <div className={`${style.box} ${style.table_box}`}>
         <table className={style.research_item_table}>
           <thead>
             <tr>
@@ -72,16 +87,6 @@ const ResearchItem = ({ research, index }) => {
       </div>
       <div className={style.box}>
         <WeightChart weights={sortedGlobalWeights} />
-      </div>
-      <div className={style.box3}>
-        <div className={style.link_box}>
-          <div>
-            <Link to={`/research/${research._id}`}>Открыть</Link>
-          </div>
-        </div>
-        <div className={style.time}>
-          {`Сохранено ${date} в ${time}`}
-        </div>
       </div>
     </div>
   )

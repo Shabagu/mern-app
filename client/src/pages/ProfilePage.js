@@ -52,26 +52,29 @@ export const ProfilePage = () => {
       </div>
       <div style={{width: '100%'}}>
         {!loading && 
-          <LatestResearches />
+          <RecentResearches />
         }
       </div>
     </div>
   )
 }
 
-const LatestResearches = () => {
+const RecentResearches = () => {
 
-  const {loading, request} = useHttp()
+  const {request} = useHttp()
   const {token} = useContext(AuthContext)
 
   const [researches, setResearches] = useState([])
+  const [isFetching, setIsFetching] = useState(false)
 
   const fetchResearches = useCallback( async () => {
     try {
+      setIsFetching(true)
       const fetched = await request('/api/research', 'GET', null, {
         Authorization: `Bearer ${token}`
       })
       setResearches(fetched)
+      setIsFetching(false)
     } catch (e) {}
   }, [token, request])
 
@@ -79,14 +82,14 @@ const LatestResearches = () => {
     fetchResearches()
   }, [fetchResearches])
 
-  if (loading) {
+  if (isFetching) {
     return <Loader />
   }
   
   return(
     <>
       <h5 className='center'>Недавние исследования</h5>
-      {!loading && <ResearchList researches={researches} />}
+      {!isFetching && <ResearchList researches={researches} />}
     </>
   )
 }
@@ -101,7 +104,7 @@ const UserInfo = ({ user }) => {
 
   return(
     <>
-      <div style={{display: 'flex', marginTop: '15px'}}>
+      <div style={{display: 'flex', marginTop: '15px', width:'250px'}}>
         <div style={{marginRight: '20px'}}>
           <div style={{border: '2px solid #000', width: '200px'}} onClick={popup}>
             <img width='200' src='https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png' alt='' onClick={popup}/>
