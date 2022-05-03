@@ -49,9 +49,11 @@ const ResearchItem = ({ research, index }) => {
     <div className={style.research_item}>
       <div className={style.info_box}>
         <div>
-          <div>Исследование №{research.index}</div>
+          <div className={style.title}>
+            Исследование №{research.index}
+          </div>
           <div className={style.link_box}>
-            <div><Link to={`/research/${research._id}`}>(открыть)</Link></div>
+            <Link to={`/research/${research._id}`}>(посмотреть)</Link>
           </div>
         </div>
         <div className={style.time}>
@@ -106,19 +108,26 @@ const WeightChart = ({ weights }) => {
   }
 
   return(
-    <div className={style.chart}>
-      <div>
+    <div className={style.chart_box}>
+      <div className={style.chart}>
         <VictoryChart
           height={320}
           width={250}
-          domainPadding={{ x: 20, y: [0, 10] }}
+          domainPadding={{ x: 30, y: [0, 10] }}
         >
           <VictoryBar
             barRatio={0.8}
-            style={{data: {fill: '#26a69a'}}}
+            style={{
+              data: {
+                fill: '#26a69a'
+              }
+            }}
             data={chartDataSet}
           />
         </VictoryChart>
+      </div>
+      <div className={style.legend_item}>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
       </div>
     </div>
   )

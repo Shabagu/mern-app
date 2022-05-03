@@ -29,9 +29,23 @@ export const ProfilePage = () => {
     } catch (e) {}
   }, [token, request])
 
+  const [researches, setResearches] = useState([])
+  const [isResearchesFetching, setIsResearchesFetching] = useState(false)
+  const fetchResearches = useCallback( async () => {
+    try {
+      setIsResearchesFetching(true)
+      const fetched = await request('/api/research', 'GET', null, {
+        Authorization: `Bearer ${token}`
+      })
+      setResearches(fetched)
+      setIsResearchesFetching(false)
+    } catch (e) {}
+  }, [token, request])
+
   useEffect(() => {
     fetchUser()
-  }, [fetchUser])
+    fetchResearches()
+  }, [fetchUser, fetchResearches])
 
   if (loading) {
     return <Loader />
@@ -52,35 +66,17 @@ export const ProfilePage = () => {
       </div>
       <div style={{width: '100%'}}>
         {!loading && 
-          <RecentResearches />
+          <RecentResearches
+            researches={researches}
+            isFetching={isResearchesFetching}
+          />
         }
       </div>
     </div>
   )
 }
 
-const RecentResearches = () => {
-
-  const {request} = useHttp()
-  const {token} = useContext(AuthContext)
-
-  const [researches, setResearches] = useState([])
-  const [isFetching, setIsFetching] = useState(false)
-
-  const fetchResearches = useCallback( async () => {
-    try {
-      setIsFetching(true)
-      const fetched = await request('/api/research', 'GET', null, {
-        Authorization: `Bearer ${token}`
-      })
-      setResearches(fetched)
-      setIsFetching(false)
-    } catch (e) {}
-  }, [token, request])
-
-  useEffect(() => {
-    fetchResearches()
-  }, [fetchResearches])
+const RecentResearches = ({ researches, isFetching }) => {
 
   if (isFetching) {
     return <Loader />
@@ -93,6 +89,8 @@ const RecentResearches = () => {
     </>
   )
 }
+
+
 
 const UserInfo = ({ user }) => {
 
@@ -107,7 +105,11 @@ const UserInfo = ({ user }) => {
       <div style={{display: 'flex', marginTop: '15px', width:'250px'}}>
         <div style={{marginRight: '20px'}}>
           <div style={{border: '2px solid #000', width: '200px'}} onClick={popup}>
-            <img width='200' src='https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png' alt='' onClick={popup}/>
+            <img width='200'
+              src='https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png'
+              alt=''
+              onClick={popup}
+            />
           </div>
           <p>{user.email}</p>
           { user.tel === null && <p>телефон не указан</p> }
