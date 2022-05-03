@@ -3,7 +3,7 @@ const {Schema, model, Types} = require('mongoose')
 const schema = new Schema({
   criteria:
     [{ type: String, required: true }],
-  criteraRating:
+  criteriaRating:
     [{ type: Array, required: true }],
   criteriaSum:
     { type: Array, required: true },

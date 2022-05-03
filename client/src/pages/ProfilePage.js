@@ -39,8 +39,6 @@ export const ProfilePage = () => {
       })
       setResearches(fetched)
       setIsResearchesFetching(false)
-
-      console.log(fetched)
     } catch (e) {}
   }, [token, request])
 

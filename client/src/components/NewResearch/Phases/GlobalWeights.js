@@ -29,7 +29,7 @@ export const GlobalWeights = ({
 
   const researchData = {
     criteria: criteria,
-    criteraRating: criteriaMTX,
+    criteriaRating: criteriaMTX,
     criteriaSum: criteriaSum,
     criteriaNorm: criteriaNormMTX,
     criteriaWeights: criteriaWeights,

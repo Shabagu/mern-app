@@ -4,7 +4,7 @@ export const TestPage = () => {
 
   const [val, setVal] = useState(1)
   const changeHandler = (value) => {
-    console.log(value)
+    // console.log(value)
     setVal(value)
   }
   

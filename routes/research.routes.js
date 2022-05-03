@@ -15,7 +15,7 @@ router.post(
     const research = new Research({
       
       criteria:             researchData.criteria,
-      criteraRating:        researchData.criteraRating,
+      criteriaRating:       researchData.criteriaRating,
       criteriaSum:          researchData.criteriaSum,
       criteriaNorm:         researchData.criteriaNorm,
       criteriaWeights:      researchData.criteriaWeights,

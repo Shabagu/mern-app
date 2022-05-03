@@ -83,8 +83,8 @@ export const SelectionPhase = ({
         k++
       }
     }
-    console.log(selectedCriteria)
-    console.log(selectedAlternatives)
+    // console.log(selectedCriteria)
+    // console.log(selectedAlternatives)
 
     if (selectedCriteria.length < 2 && selectedAlternatives.length < 2) {
       message('Выберите хотя бы два критерия и две альтернативы!')
