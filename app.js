@@ -6,15 +6,15 @@ const app = express()
 
 app.use(express.json({ extended: true }))
 
-app.use('/api/auth', require('./routes/auth.routes'))
-app.use('/api/link', require('./routes/link.routes'))
-app.use('/t', require('./routes/redirect.routes'))
+app.use('/api/test', require('./routes/_test.routes'))
+app.use('/api/link', require('./routes/_link.routes'))
+app.use('/t', require('./routes/_redirect.routes'))
 
-app.use('/api/research', require('./routes/research.routes'))
+app.use('/api/auth', require('./routes/auth.routes'))
 app.use('/api/profile', require('./routes/profile.routes'))
+app.use('/api/research', require('./routes/research.routes'))
 app.use('/api/admin', require('./routes/admin.routes'))
 
-app.use('/api/test', require('./routes/test.routes'))
 
 const PORT = config.get('port') || 5000
 

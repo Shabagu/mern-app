@@ -10,6 +10,8 @@ router.post(
   '/new', auth, async (req, res) => {
     const {researchData} = req.body
 
+    const researches = await Research.find({ owner: req.user.userId })
+
     const research = new Research({
       
       criteria:             researchData.criteria,
@@ -25,6 +27,7 @@ router.post(
       globalWeights:        researchData.globalWeights,
 
       owner: req.user.userId,
+      index: researches.length + 1
     })
     await research.save()
     res.status(201).json({message: 'Данные успешно сохранены!'})

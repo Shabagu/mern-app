@@ -27,7 +27,8 @@ const schema = new Schema({
     { type: Array, required: true },
   
   date: { type: Date, default: Date.now },
-  owner: { type: Types.ObjectId, ref: 'User' }
+  owner: { type: Types.ObjectId, ref: 'User' },
+  index: { type: Number }
 })
 
 module.exports = model('Research', schema)
