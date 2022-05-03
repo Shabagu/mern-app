@@ -138,9 +138,6 @@ const WeightChart = ({ weights }) => {
           </div>
         )}
       </div>
-      {/* <div className={style.legend_item}>
-        <span>{chartLegendSet[0]}</span>
-      </div> */}
     </div>
   )
 }

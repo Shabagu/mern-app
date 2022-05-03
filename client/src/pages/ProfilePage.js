@@ -52,7 +52,7 @@ export const ProfilePage = () => {
   }
 
   return(
-    <div style={{display: 'flex'}}>
+    <div className={style.profile_container}>
       <div>
         <div>
           <h5>Мой профиль</h5>
@@ -64,7 +64,7 @@ export const ProfilePage = () => {
           Все исследования
         </button>
       </div>
-      <div style={{width: '100%'}}>
+      <div className={style.recent_researches_container}>
         {!loading && 
           <RecentResearches
             researches={researches}
