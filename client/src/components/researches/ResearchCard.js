@@ -20,25 +20,23 @@ export const ResearchCard = ({ research, tab, tabSetter }) => {
         {/* <p>Количество кликов по ссылке: <strong>{link.clicks}</strong></p> */}
         {/* <p>Дата создания: <strong>{new Date(link.date).toLocaleDateString()}</strong></p> */}
 
-        {/* <div className={style.info}> */}
-          {/* ОСНОВНАЯ ИНФОРМАЦИЯ В ОТДЕЛЬНОЙ ВКЛАДКЕ!!!!! */}
-          {/* <div>Дата исследования: {date}</div> */}
-          {/* <div>Время исследования: {time}</div> */}
-          <div className={style.tab_menu}>
-            <div className={tab === 0 ? `${style.tab} ${style.active_tab}` : style.tab} onClick={() => tabSetter(0)}>
-              Глобальные веса
-            </div>
-            <div className={tab === 1 ? `${style.tab} ${style.active_tab}` : style.tab} onClick={() => tabSetter(1)}>
-              Другие веса
-            </div>
-            <div className={tab === 2 ? `${style.tab} ${style.active_tab}` : style.tab} onClick={() => tabSetter(2)}>
-              Сравнение критериев
-            </div>
-            <div className={tab === 3 ? `${style.tab} ${style.active_tab}` : style.tab} onClick={() => tabSetter(3)}>
-              Сравнение альтернатив
-            </div>
+        {/* ОСНОВНАЯ ИНФОРМАЦИЯ В ОТДЕЛЬНОЙ ВКЛАДКЕ!!!!! */}
+        {/* <div>Дата исследования: {date}</div> */}
+        {/* <div>Время исследования: {time}</div> */}
+        <div className={style.tab_menu}>
+          <div className={tab === 0 ? `${style.tab} ${style.active_tab}` : style.tab} onClick={() => tabSetter(0)}>
+            Основная информация
           </div>
-        {/* </div> */}
+          <div className={tab === 1 ? `${style.tab} ${style.active_tab}` : style.tab} onClick={() => tabSetter(1)}>
+            Другие веса
+          </div>
+          <div className={tab === 2 ? `${style.tab} ${style.active_tab}` : style.tab} onClick={() => tabSetter(2)}>
+            Сравнение критериев
+          </div>
+          <div className={tab === 3 ? `${style.tab} ${style.active_tab}` : style.tab} onClick={() => tabSetter(3)}>
+            Сравнение альтернатив
+          </div>
+        </div>
         {tab === 0 && <GlobalWeights research={research} /> }
         {tab === 1 && <GroupsWeights research={research} /> }
         {tab === 2 && <CriteriaRating research={research} /> }

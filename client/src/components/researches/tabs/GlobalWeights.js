@@ -23,8 +23,13 @@ export const GlobalWeights = ({ research }) => {
         <table>
           <thead>
             <tr>
+              <th colSpan={3} className={style.table_name}>
+                Глобальные веса
+              </th>
+            </tr>
+            <tr>
               <th className={style.heading}>Ранг</th>
-              <th className={style.heading}>Альт.</th>
+              <th className={style.heading}>Альтернатива</th>
               <th className={style.heading}>Вес</th>
             </tr>
           </thead>
@@ -77,8 +82,8 @@ const GlobalWeightsChart = ({
     <div className={style.global_weights_chart}>
       <div>
         <VictoryChart
-          height={375}
-          width={575}
+          height={460}
+          width={520}
           domainPadding={{ x: 75, y: [0, 75] }}
         >
           <VictoryBar
