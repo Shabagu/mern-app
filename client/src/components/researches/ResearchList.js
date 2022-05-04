@@ -115,7 +115,7 @@ const WeightChart = ({ weights }) => {
     <div className={style.chart_box}>
       <div className={style.chart}>
         <VictoryChart
-          height={265}
+          height={255}
           width={250}
           domainPadding={{ x: 30, y: [0, 10] }}
         >
