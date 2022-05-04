@@ -112,9 +112,9 @@ const UserInfo = ({ user }) => {
               onClick={popup}
             />
           </div>
-          <p>{user.email}</p>
-          { user.tel === null && <p>телефон не указан</p> }
-          { user.tel !== null && <p>{user.tel}</p> }
+          <div>{user.email}</div>
+          { user.tel === null && <div>телефон не указан</div> }
+          { user.tel !== null && <div>{user.tel}</div> }
         </div>
       </div>
       <ProfileImgPopup active={popupActive} setActive={setPopupActive}/>
