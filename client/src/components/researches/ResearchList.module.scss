@@ -142,6 +142,10 @@ $tableBorderExtraThin: 1px solid #aaa;
         .chart {
           margin-top: -35px;
         }
+
+        svg path:hover {
+          fill: #1b776e !important;
+        }    
   
         .legend {
           margin-top: -20px;

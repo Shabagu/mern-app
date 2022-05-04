@@ -1,6 +1,6 @@
 import { useEffect, useContext } from "react"
 import { useHistory } from "react-router-dom"
-import { VictoryChart, VictoryBar } from "victory"
+import { VictoryChart, VictoryBar, VictoryLabel } from "victory"
 import { AuthContext } from '../../../context/AuthContext'
 import { useHttp } from '../../../hooks/http.hook'
 import { useMessage } from "../../../hooks/message.hook"
@@ -139,24 +139,40 @@ const GlobalWeightsChart = ({
   }
 
   let chartDataSet = []
+  let chartLegendSet = []
   for (let i = 0; i < weights.length; i++) {
-    chartDataSet[i] = new CharData(weights[i].alternative, weights[i].weight)
+    let chartIndex = (i + 1).toString()
+
+    chartDataSet[i] = new CharData(chartIndex, weights[i].weight)
+    chartLegendSet[i] = weights[i].alternative
   }
 
   return(
     <div className={style.global_weights_chart}>
       <div>
         <VictoryChart
-          height={575}
+          height={475}
           width={575}
           domainPadding={{ x: 75, y: [0, 75] }}
         >
           <VictoryBar
-            barRatio={0.6}
-            style={{data: {fill: '#26a69a'}}}
+            barRatio={0.8}
+            style={{
+              data: { fill: '#26a69a'},
+              labels: { fill: "black" }
+            }}
             data={chartDataSet}
+            labels={({ datum }) => datum.x}
+            labelComponent={<VictoryLabel dy={-10}/>}
           />
         </VictoryChart>
+      </div>
+      <div className={style.legend}>
+        {[...Array(chartLegendSet.length)].map((x, i) =>
+          <div className={style.legend_item} key={i}>
+            <span>{i + 1} - {chartLegendSet[i]}</span>
+          </div>
+        )}
       </div>
     </div>
   )

@@ -76,7 +76,7 @@ const ResearchItem = ({ research, index }) => {
                   {i === 0 && <i className={`material-icons ${style.top_alternative}`}>whatshot</i>}
                   {i + 1}
                 </td>
-                <td>
+                <td title={sortedGlobalWeights[i].alternative}>
                   <div>
                     {sortedGlobalWeights[i].alternative}
                   </div>
@@ -127,7 +127,7 @@ const WeightChart = ({ weights }) => {
             }}
             data={chartDataSet}
             labels={({ datum }) => datum.x}
-            labelComponent={<VictoryLabel dy={0}/>}
+            labelComponent={<VictoryLabel dy={-2}/>}
           />
         </VictoryChart>
       </div>
