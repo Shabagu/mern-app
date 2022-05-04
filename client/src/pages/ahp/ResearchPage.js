@@ -15,7 +15,7 @@ export const ResearchPage = () => {
   const [research, setResearch] = useState(null)
   const researchId = useParams().id
 
-  const [tab, setTab] = useState(3)
+  const [tab, setTab] = useState(0)
   const tabSetter = (val) => {
     setTab(val)
   }

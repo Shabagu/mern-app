@@ -1,4 +1,50 @@
-.test {
-  background-color: red;
-}
+.research_box {
+  width: 100%;
 
+  h4 {
+    margin-bottom: 20px;
+  }
+
+  .research_subbox {
+    display: flex;
+    flex-direction: column;
+    
+    
+    // .info {
+    //   display: flex;
+    
+      .tab_menu {
+        display: flex;
+      
+        .tab {
+          margin: 2px;
+          padding: 4px;
+          border: 2px solid #888;
+          width: 25%;
+          text-align: center;
+          user-select: none;
+          font-size: 1.1rem;
+      
+          background-color: #a6deda;
+          color: #000;
+      
+          cursor: pointer;
+          
+          &:hover {
+            background-color: #8ae0da;
+          }
+        }
+        
+        .active_tab {
+          cursor: auto;
+          background-color: #7ecac3;
+          font-weight: 500;
+      
+          &:hover {
+            background-color: #7ecac3;
+          }
+        }
+      }
+    // }
+  }
+}
