@@ -12,6 +12,7 @@ import not_found_picture from '../../pictures/not_found.png'
 export const ResearchPage = () => {
   const {token} = useContext(AuthContext)
   const {request, loading} = useHttp()
+  const [user, setUser] = useState([])
   const [research, setResearch] = useState(null)
   const researchId = useParams().id
 
@@ -20,18 +21,23 @@ export const ResearchPage = () => {
     setTab(val)
   }
 
-  const getResearch = useCallback( async () => {
+  const fetchResearch = useCallback( async () => {
     try {
-      const fetched = await request(`/api/research/${researchId}`, 'GET', null, {
+      const user = await request('/api/profile/user', 'GET', null, {
         Authorization: `Bearer ${token}`
       })
-      setResearch(fetched)
+      const research = await request(`/api/research/${researchId}`, 'GET', null, {
+        Authorization: `Bearer ${token}`
+      })
+      setUser(...user)
+      setResearch(research)
+
     } catch (e) {}
   }, [token, researchId, request])
 
   useEffect(() => {
-    getResearch()
-  }, [getResearch])
+    fetchResearch()
+  }, [fetchResearch])
 
   if (loading) {
     return <Loader />
@@ -42,6 +48,7 @@ export const ResearchPage = () => {
       { !loading && research &&
         <ResearchCard
           research={research}
+          user={user}
           tab={tab}
           tabSetter={tabSetter}
         />
