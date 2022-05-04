@@ -1,15 +1,24 @@
 import { useCallback, useContext, useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 import { AuthContext } from '../../context/AuthContext'
 import { useHttp } from '../../hooks/http.hook'
 import { Loader } from '../../components/common/Loader'
 import { ResearchCard } from '../../components/researches/ResearchCard'
+
+import style from './ResearchPage.module.scss'
+import not_found_picture from '../../pictures/not_found.png'
+
 
 export const ResearchPage = () => {
   const {token} = useContext(AuthContext)
   const {request, loading} = useHttp()
   const [research, setResearch] = useState(null)
   const researchId = useParams().id
+
+  const [tab, setTab] = useState(3)
+  const tabSetter = (val) => {
+    setTab(val)
+  }
 
   const getResearch = useCallback( async () => {
     try {
@@ -31,11 +40,33 @@ export const ResearchPage = () => {
   return (
     <>
       { !loading && research &&
-        <ResearchCard research={research} />
+        <ResearchCard
+          research={research}
+          tab={tab}
+          tabSetter={tabSetter}
+        />
+      }
+      { !loading && !research &&
+        <div className={style.no_content}>
+          <h5>Исследование не найдено</h5>
+          <div className={style.picture}>
+            <img src={not_found_picture} alt="" width={100}/>
+          </div>
+          <p>
+            Проверьте правильность написания адреса страницы исследования или перейдите по прямой ссылке на него:
+          </p>
+          <ul>
+            <li>
+              <span className={style.li_number}>1) </span>
+              со <Link to={'/profile'}>страницы профиля</Link>
+            </li>
+            <li>
+              <span className={style.li_number}>2) </span>
+              со <Link to={'/researches'}>страницы всех исследований</Link>
+            </li>
+          </ul>
+        </div>
       }
     </>
   )
 }
-
-
-

@@ -1,6 +1,5 @@
 import style from './ResearchCard.module.scss'
 
-
 export const ResearchCard = ({research}) => { 
 
   return (
