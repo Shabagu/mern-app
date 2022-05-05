@@ -35,11 +35,23 @@ const CellRow = ({ i, research }) => {
       <th title={research.criteria[i]}>
         {research.criteria[i]}
       </th>
-      {[...Array(research.criteria.length)].map((x, j) =>
-        <td>
-          {MARK_MODEL[research.criteriaRating[i][j]].string}
-        </td>
-      )}
+      {[...Array(research.criteria.length)].map((x, j) => {
+        if (i < j) return (
+          <td key={j} className={style.top}>
+            {MARK_MODEL[research.criteriaRating[i][j]].string}
+          </td>
+        )
+        else if (i > j) return (
+          <td key={j} className={style.bot}>
+            {MARK_MODEL[research.criteriaRating[i][j]].string}
+          </td>
+        )
+        else if (i === j) return (
+          <td key={j} className={style.diagonal}>
+            {MARK_MODEL[research.criteriaRating[i][j]].string}
+          </td>
+        )
+      })}
     </tr>
   )
 }

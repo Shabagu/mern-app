@@ -40,7 +40,7 @@ $tableBorderExtraThin: 1px solid #aaa;
           width: 20%;
         }
         col.second {
-          width: 50%;
+          width: 40%;
         }
         
         thead {
@@ -100,7 +100,7 @@ $tableBorderExtraThin: 1px solid #aaa;
               padding-left: 20px;
             }
 
-            td:last-child {
+            td:nth-last-child(-n+2) {
               text-align: center;
             }
 
@@ -139,9 +139,6 @@ $tableBorderExtraThin: 1px solid #aaa;
 
       font-size: 1.2rem;
 
-      // .right {
-      //   width: 250px;
-      // }
       table th, table td{
         padding: 2px;
       }

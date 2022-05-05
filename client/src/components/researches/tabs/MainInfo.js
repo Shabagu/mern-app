@@ -23,19 +23,20 @@ export const MainInfo = ({ research, saved, user }) => {
         <div className={style.table_box}>
           <table>
             <colgroup>
-              <col class={style.first} />
-              <col class={style.second} />
+              <col className={style.first} />
+              <col className={style.second} />
             </colgroup>
             <thead>
               <tr>
-                <th colSpan={3} className={style.table_name}>
+                <th colSpan={4} className={style.table_name}>
                   Глобальные веса альтернатив
                 </th>
               </tr>
               <tr>
                 <th className={style.heading}>Ранг</th>
                 <th className={style.heading}>Альтернатива</th>
-                <th className={style.heading}>Вес</th>
+                <th className={style.heading}>Вес (доли)</th>
+                <th className={style.heading}>Вес (%)</th>
               </tr>
             </thead>
             <tbody>
@@ -51,6 +52,7 @@ export const MainInfo = ({ research, saved, user }) => {
                     </div>
                   </td>
                   <td>{valAdduction(sortedGlobalWeights[i].weight)}</td>
+                  <td>{percentsDisplay(sortedGlobalWeights[i].weight)}</td>
                 </tr>
               )}
             </tbody>
@@ -138,6 +140,15 @@ const valAdduction = (value) => {
   value = value.toFixed(3)
   value = value * 1
   return(value)
+}
+
+// Отображние весов в процентах
+const percentsDisplay = (value) => {
+  value = value * 100
+  value = value.toFixed(1)
+  value = value * 1
+  value = `${value}%`
+  return (value)
 }
 
 // Сортировка критериев по значимости

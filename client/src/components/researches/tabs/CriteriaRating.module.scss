@@ -44,6 +44,15 @@ $tableBorderExtraThin: 1px solid #aaa;
         outline: #555 4px solid;
         outline-offset: -3.5px;
       }
+
+      td {
+        &.diagonal {
+          background-color: #00000020;
+        }
+        &.bot {
+          background-color: #00000010;
+        }
+      }
     }
   }
 }
