@@ -86,50 +86,52 @@ const AlternativesWeights = ({
 }) => {
 
   return(
-    <>
-      <div className={style.switch}>
-        <div className="switch">
-          <label>
-            Доли
-            <input
-              type="checkbox"
-              onChange={displayChangeHandler}
-            />
-            <span className="lever" />
-            %
-          </label>
-        </div>
-      </div>
-      <table className={style.alternatives_weights_by_criteria}>
-        <thead>
-          <tr>
-            <th className={style.heading} colSpan={research.criteria.length + 1}>
-              Веса альтернатив по критериям
+    <table className={style.alternatives_weights_by_criteria}>
+      <thead>
+        <tr>
+          <th className={style.heading} colSpan={research.criteria.length + 1}>
+            <div className={style.title}>
+              <div className={style.title_name}>
+                Веса альтернатив по критериям
+              </div>
+              <div className={style.title_switch}>
+                <div className="switch">
+                  <label>
+                    Доли
+                    <input
+                      type="checkbox"
+                      onChange={displayChangeHandler}
+                    />
+                    <span className="lever" />
+                    %
+                  </label>
+                </div>
+              </div>
+            </div>
+          </th>
+        </tr>
+        <tr>
+          <th className={style.initial}></th>
+          {[...Array(research.criteria.length)].map((x, i) =>
+            <th key={i} title={research.criteria[i]}>
+              {research.criteria[i]}
             </th>
-          </tr>
-          <tr>
-            <th className={style.initial}></th>
-            {[...Array(research.criteria.length)].map((x, i) =>
-              <th key={i} title={research.criteria[i]}>
-                {research.criteria[i]}
-              </th>
-            )}
-          </tr>
-        </thead>
-        <tbody>
-          {[...Array(research.alternatives.length)].map((x, i) =>
-            <CellRow
-              key={i}
-              i={i}
-              criteria={research.criteria}
-              alternatives={research.alternatives}
-              alternativesWeights={research.alternativesWeights}
-              percentageDisplay={percentageDisplay}
-            />
           )}
-        </tbody>
-      </table>
-    </>
+        </tr>
+      </thead>
+      <tbody>
+        {[...Array(research.alternatives.length)].map((x, i) =>
+          <CellRow
+            key={i}
+            i={i}
+            criteria={research.criteria}
+            alternatives={research.alternatives}
+            alternativesWeights={research.alternativesWeights}
+            percentageDisplay={percentageDisplay}
+          />
+        )}
+      </tbody>
+    </table>
   )
 }
 

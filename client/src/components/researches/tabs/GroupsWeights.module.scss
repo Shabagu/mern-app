@@ -134,6 +134,21 @@ $tableBorderExtraThin: 1px solid #aaa;
         background-color: #00000020;
         letter-spacing: 0.8px;
         padding: 7px 0 7px;
+
+        .title {
+          display: flex;
+          justify-content: flex-end;
+
+          .title_name {
+            width: 70%;
+          }
+
+          .title_switch {        
+            label {
+              color: #000;
+            }
+          }
+        }
       }
 
     }
@@ -171,16 +186,6 @@ $tableBorderExtraThin: 1px solid #aaa;
       background-color: #00ffe550;
       outline: #555 3.5px solid;
       outline-offset: -3.5px;
-    }
-  }
-
-  .switch {
-    top: 205px;
-    right: 265px;
-    position: absolute;
-
-    label {
-      color: #000;
     }
   }
 }
