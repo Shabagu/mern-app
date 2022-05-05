@@ -173,4 +173,14 @@ $tableBorderExtraThin: 1px solid #aaa;
       outline-offset: -3.5px;
     }
   }
+
+  .switch {
+    top: 205px;
+    right: 265px;
+    position: absolute;
+
+    label {
+      color: #000;
+    }
+  }
 }

@@ -4,8 +4,13 @@ import style from './GroupsWeights.module.scss'
 export const GroupsWeights = ({ research }) => {
 
   const [percentageDisplay, setPercentageDisplay] = useState(false)
-  const percentageDisplaySetter = (condition) => {
-    setPercentageDisplay(condition)
+  const percentageDisplaySetter = (condition) => setPercentageDisplay(condition)
+  const displayChangeHandler = () => {
+    if (percentageDisplay) {
+      percentageDisplaySetter(false)
+    } else {
+      percentageDisplaySetter(true)
+    }
   }
 
   return(
@@ -17,6 +22,7 @@ export const GroupsWeights = ({ research }) => {
       <AlternativesWeights
         research={research}
         percentageDisplay={percentageDisplay}
+        displayChangeHandler={displayChangeHandler}
       />
     </div>
   )
@@ -76,38 +82,54 @@ const CriteriaWeights = ({ research, percentageDisplay }) => {
 const AlternativesWeights = ({
   research,
   percentageDisplay,
+  displayChangeHandler,
 }) => {
 
   return(
-    <table className={style.alternatives_weights_by_criteria}>
-      <thead>
-        <tr>
-          <th className={style.heading} colSpan={research.criteria.length + 1}>
-            Веса альтернатив по критериям
-          </th>
-        </tr>
-        <tr>
-          <th className={style.initial}></th>
-          {[...Array(research.criteria.length)].map((x, i) =>
-            <th key={i} title={research.criteria[i]}>
-              {research.criteria[i]}
+    <>
+      <div className={style.switch}>
+        <div className="switch">
+          <label>
+            Доли
+            <input
+              type="checkbox"
+              onChange={displayChangeHandler}
+            />
+            <span className="lever" />
+            %
+          </label>
+        </div>
+      </div>
+      <table className={style.alternatives_weights_by_criteria}>
+        <thead>
+          <tr>
+            <th className={style.heading} colSpan={research.criteria.length + 1}>
+              Веса альтернатив по критериям
             </th>
+          </tr>
+          <tr>
+            <th className={style.initial}></th>
+            {[...Array(research.criteria.length)].map((x, i) =>
+              <th key={i} title={research.criteria[i]}>
+                {research.criteria[i]}
+              </th>
+            )}
+          </tr>
+        </thead>
+        <tbody>
+          {[...Array(research.alternatives.length)].map((x, i) =>
+            <CellRow
+              key={i}
+              i={i}
+              criteria={research.criteria}
+              alternatives={research.alternatives}
+              alternativesWeights={research.alternativesWeights}
+              percentageDisplay={percentageDisplay}
+            />
           )}
-        </tr>
-      </thead>
-      <tbody>
-        {[...Array(research.alternatives.length)].map((x, i) =>
-          <CellRow
-            key={i}
-            i={i}
-            criteria={research.criteria}
-            alternatives={research.alternatives}
-            alternativesWeights={research.alternativesWeights}
-            percentageDisplay={percentageDisplay}
-          />
-        )}
-      </tbody>
-    </table>
+        </tbody>
+      </table>
+    </>
   )
 }
 

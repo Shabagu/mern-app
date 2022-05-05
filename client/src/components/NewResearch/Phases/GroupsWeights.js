@@ -63,6 +63,8 @@ const CriteriaWeightsTable = ({
   }
   const sortedWeights = criteriaSorting([...defaultWeights])
 
+
+
   return(
     <table className={style.criteria_weights_table}>
       <thead>
