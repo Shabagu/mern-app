@@ -1,7 +1,175 @@
+$tableBorderBold: 3px solid #aaa;
+$tableBorderThin: 2px solid #aaa;
+$tableBorderExtraThin: 1px solid #aaa;
+
 .groups_weights_container {
   background-color: #dff1f0;
   border: 2px #888 solid;
 
+  display: flex;
+
   width: 100%;
   height: 100%;
+
+  .criteria_weights_table {
+    width: 25%;
+    margin: 15px;
+    table-layout: fixed;
+    border: $tableBorderBold;
+
+    tbody {
+      tr {
+        td:first-child {
+          div {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          }
+        }
+      }
+    }
+
+    .heading {
+      text-align: center;
+      background-color: #00000020;
+      letter-spacing: 0.8px;
+      padding: 7px 0 7px;
+    }
+    
+    .subheading {
+      text-align: center;
+      letter-spacing: 0.4px;
+      padding: 7px 0 7px;
+    }
+
+    th {
+      border: $tableBorderThin;
+      border-left: none;
+      overflow: hidden;
+      padding: 0.8rem 0 0.8rem 0.5rem;
+      background: #00000030;
+      user-select: none;
+    }
+
+    td {
+      border: $tableBorderExtraThin;
+      overflow: hidden;
+      padding: 5px;
+      text-align: center;
+      font-size: 1.5rem;
+      user-select: none;
+    }
+
+    tr {
+      td:first-child {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        text-align: left;
+        font-size: 1.2rem;
+        padding-left: 8px;
+
+        .container {
+          height: 22px;
+        }
+
+      }
+    }
+    
+    td:hover {
+      background-color: #00ffe550;
+      outline: #555 3.5px solid;
+      outline-offset: -3.5px;
+    }
+
+
+
+    .button {
+      position: absolute;
+
+      span {
+        margin-top: -10px;
+        margin-left: 2px;
+        padding: 5px 0 0 ;
+        width: 48px;
+        height: 48px;
+        box-shadow: none;
+        border: $tableBorderThin;
+        border-radius: 6px;
+
+        i {
+          font-size: 2.5rem;
+        }
+      }
+    }
+  }
+
+
+
+
+  
+
+  .alternatives_weights_by_criteria {
+    width: 75%;
+    margin: 15px;
+    margin-left: 0;
+    table-layout: fixed;
+    border: $tableBorderBold;
+
+    thead {
+      th {
+        border: $tableBorderThin;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        background: #00000030;
+        user-select: none;
+        
+        text-align: center;
+        padding: 5px;
+      }
+      .heading {
+        text-align: center;
+        background-color: #00000020;
+        letter-spacing: 0.8px;
+        padding: 7px 0 7px;
+      }
+
+    }
+
+    tbody {
+      tr{
+        th {
+          border: $tableBorderThin;
+          background: #00000030;
+          user-select: none;
+          padding: 7px 0 7px 4px;
+          
+          &:first-child {
+            div {
+              overflow-x: hidden;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+              padding-left: 6px;
+            }
+          }
+        }
+        
+        td {
+          border: $tableBorderExtraThin;
+          overflow: hidden;
+          padding: 5px 0;
+          text-align: center;
+          font-size: 1.5rem;
+          user-select: none;
+        }
+      }
+    }
+
+    td:hover {
+      background-color: #00ffe550;
+      outline: #555 3.5px solid;
+      outline-offset: -3.5px;
+    }
+  }
 }

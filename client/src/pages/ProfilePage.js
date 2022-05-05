@@ -112,7 +112,7 @@ const UserInfo = ({ user }) => {
               onClick={popup}
             />
           </div>
-          <div>{user.email}</div>
+          <div className={style.email}>{user.email}</div>
           { user.tel === null && <div>телефон не указан</div> }
           { user.tel !== null && <div>{user.tel}</div> }
         </div>

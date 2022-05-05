@@ -16,7 +16,6 @@ export const GroupsWeights = ({
   useEffect(() => { HOT_CHANGES_EFFECT_RESET() }, [])
 
   const [percentageDisplay, setPercentageDisplay] = useState(false)
-
   const percentageDisplaySetter = (condition) => {
     setPercentageDisplay(condition)
   }
@@ -62,10 +61,7 @@ const CriteriaWeightsTable = ({
   for (let i = 0; i < criteria.length; i++) {
     defaultWeights[i] = new Weight(criteria[i], criteriaWeights[i])
   }
-
   const sortedWeights = criteriaSorting([...defaultWeights])
-
-
 
   return(
     <table className={style.criteria_weights_table}>
