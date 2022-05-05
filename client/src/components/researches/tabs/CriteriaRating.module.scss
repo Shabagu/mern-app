@@ -20,9 +20,18 @@ $tableBorderExtraThin: 1px solid #aaa;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
-      padding: 0.8rem 0 0.8rem 0.5rem;
+      padding: 0.8rem 0 0.8rem 1.2rem;
       background: #00000030;
       user-select: none;
+    }
+
+    td {
+      &.diagonal {
+        background-color: #00000020;
+      }
+      &.bot {
+        background-color: #00000010;
+      }
     }
 
     td {
@@ -43,15 +52,6 @@ $tableBorderExtraThin: 1px solid #aaa;
         background-color: #00ffe550;
         outline: #555 4px solid;
         outline-offset: -3.5px;
-      }
-
-      td {
-        &.diagonal {
-          background-color: #00000020;
-        }
-        &.bot {
-          background-color: #00000010;
-        }
       }
     }
   }

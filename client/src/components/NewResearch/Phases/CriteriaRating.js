@@ -162,7 +162,7 @@ const CellRow = ({
             popup={popup}
           />
         )
-        else if (i > j) return(
+        else if (i > j) return (
           <OutCell
             key={j}
             row={i}
