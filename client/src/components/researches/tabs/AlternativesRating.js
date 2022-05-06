@@ -107,6 +107,7 @@ const CellRow = ({ i, cc, research, popup }) => {
             {MARK_MODEL[research.alternativesRating[cc][i][j]].string}
           </td>
         )
+        else return(null)
       })}
     </tr>
   )
