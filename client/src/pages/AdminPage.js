@@ -29,7 +29,7 @@ export const AdminPage = () => {
 
   const fetchAllCriteria = useCallback( async () => {
     try {
-      const fetched = await request('/api/admin/criteria', 'GET', null, {
+      const fetched = await request('/api/admin/criteria/all', 'GET', null, {
         Authorization: `Bearer ${token}`
       })
       setAllCriteria(fetched)
@@ -42,7 +42,7 @@ export const AdminPage = () => {
 
   const fetchAllAlternatives = useCallback( async () => {
     try {
-      const fetched = await request('/api/admin/alternatives', 'GET', null, {
+      const fetched = await request('/api/admin/alternatives/all', 'GET', null, {
         Authorization: `Bearer ${token}`
       })
       setAllAlternatives(fetched)

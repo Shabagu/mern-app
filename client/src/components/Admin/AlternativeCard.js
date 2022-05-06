@@ -23,7 +23,7 @@ export const AlternativeCard = ({ alternative, closePopup, alternativesRefetch }
 
   const deleteHandler = async () => {
     try {
-      const data = await request('/api/admin/deletealternative', 'DELETE', {name}, {
+      const data = await request('/api/admin/alternatives/delete', 'DELETE', {name}, {
         Authorization: `Bearer ${token}`
       })
       message(data.message)

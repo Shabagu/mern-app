@@ -31,7 +31,7 @@ export const AddAlternative = ({ closePopup, alternativesRefetch }) => {
 
   const addHandler = async () => {
     try {
-      const data = await request('/api/admin/addalternative', 'POST', {...form}, {
+      const data = await request('/api/admin/alternatives/add', 'POST', {...form}, {
         Authorization: `Bearer ${token}`
       })
       message(data.message)

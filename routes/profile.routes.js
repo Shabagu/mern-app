@@ -3,6 +3,7 @@ const router = Router()
 const auth = require('../middleware/auth.middleware')
 const User = require('../models/User')
 
+
 // /api/profile/user
 router.get(
   '/user', auth, async (req, res) => {

@@ -7,7 +7,6 @@ const {check, validationResult} = require('express-validator')
 const User = require('../models/User')
 
 
-
 // /api/auth/registration
 router.post(
   '/registration',
@@ -55,8 +54,6 @@ router.post(
   }
 )
 
-
-
 // /api/auth/login
 router.post(
   '/login',
@@ -96,7 +93,6 @@ router.post(
       )
 
       res.json({ token, userId: user.id})
-
 
     } catch (e) {
       res.status(500).json({message: 'Что-то пошло не так, попробуйте снова'})

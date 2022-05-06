@@ -5,9 +5,8 @@ const Criteria = require('../models/Criteria')
 const Alternative = require('../models/Alternative')
 
 
-
-// /api/admin/criteria/
-router.get('/criteria', auth, async(req, res) => {
+// /api/admin/criteria/all
+router.get('/criteria/all', auth, async(req, res) => {
   try {
     const criteria = await Criteria.find()
     res.json(criteria)
@@ -16,9 +15,8 @@ router.get('/criteria', auth, async(req, res) => {
   }
 })
 
-
-// /api/admin/alternatives/
-router.get('/alternatives', auth, async(req, res) => {
+// /api/admin/alternatives/all
+router.get('/alternatives/all', auth, async(req, res) => {
   try {
     const alternatives = await Alternative.find()
     res.json(alternatives)
@@ -27,9 +25,8 @@ router.get('/alternatives', auth, async(req, res) => {
   }
 })
 
-
-//api/admin/addalternative
-router.post('/addalternative', auth, async (req, res) => {
+//api/admin/alternatives/add
+router.post('/alternatives/add', auth, async (req, res) => {
   try {
     const {name, relevance} = req.body
 
@@ -51,9 +48,8 @@ router.post('/addalternative', auth, async (req, res) => {
   }
 })
 
-
-//api/admin/deletealternative
-router.delete('/deletealternative', async (req, res) => {
+//api/admin/alternatives/delete
+router.delete('/alternatives/delete', async (req, res) => {
   try {
 
     const name = req.body.name
