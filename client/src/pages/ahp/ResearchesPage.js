@@ -31,7 +31,7 @@ export const ResearchesPage = () => {
       setResearches(fetched)
     } catch (e) {
       message(e.message)
-      logoutHandler()
+      setTimeout(logoutHandler, 1000)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token, request])
