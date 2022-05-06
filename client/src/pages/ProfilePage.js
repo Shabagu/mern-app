@@ -24,10 +24,6 @@ export const ProfilePage = () => {
     history.push('/')
   }
 
-  const goToResearches = () => {
-    history.push('/researches')
-  }
-
   const fetchUser = useCallback( async () => {
     try {
       const fetched = await request('/api/profile/user', 'GET', null, {
@@ -73,9 +69,9 @@ export const ProfilePage = () => {
         {!loading &&
           <UserInfo user={user}/>
         }
-        <button className="btn" onClick={goToResearches}>
+        <a className="btn" href="/researches">
           Все исследования
-        </button>
+        </a>
       </div>
       <div className={style.recent_researches_container}>
         {!loading && 
