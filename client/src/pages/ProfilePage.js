@@ -2,7 +2,9 @@ import { useCallback, useContext, useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { AuthContext } from '../context/AuthContext'
 import { useHttp } from '../hooks/http.hook'
+import { useMessage } from '../hooks/message.hook'
 import { Loader } from '../components/common/Loader'
+
 import { ResearchList } from '../components/researches/ResearchList'
 
 import style from './ProfilePage.module.scss'
@@ -11,13 +13,20 @@ import style from './ProfilePage.module.scss'
 export const ProfilePage = () => {
 
   const history = useHistory()
+  const auth = useContext(AuthContext)
+  const message = useMessage()
+  const {loading, request} = useHttp()
+  const {token} = useContext(AuthContext)
+  const [user, setUser] = useState([])
+  
+  const logoutHandler = () => {
+    auth.logout()
+    history.push('/')
+  }
+
   const goToResearches = () => {
     history.push('/researches')
   }
-
-  const [user, setUser] = useState([])
-  const {loading, request} = useHttp()
-  const {token} = useContext(AuthContext)
 
   const fetchUser = useCallback( async () => {
     try {
@@ -26,7 +35,11 @@ export const ProfilePage = () => {
       })
       setUser(...fetched)
 
-    } catch (e) {}
+    } catch (e) {
+      message(e.message)
+      logoutHandler()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token, request])
 
   const [researches, setResearches] = useState([])

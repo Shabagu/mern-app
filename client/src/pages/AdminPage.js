@@ -1,19 +1,31 @@
-import { useCallback, useContext, useEffect, useState } from "react"
-import { AuthContext } from "../context/AuthContext"
+import { useCallback, useContext, useEffect, useState } from 'react'
+import { useHistory } from 'react-router-dom'
+import { AuthContext } from '../context/AuthContext'
 import { useHttp } from '../hooks/http.hook'
+import { useMessage } from '../hooks/message.hook'
 import { Loader } from '../components/common/Loader'
-import { AddAlternative } from "../components/admin/AddAlternative"
-import { AlternativeCard } from "../components/admin/AlternativeCard"
 
-import style from "./AdminPage.module.scss"
+import { AddAlternative } from '../components/admin/AddAlternative'
+import { AlternativeCard } from '../components/admin/AlternativeCard'
+
+import style from './AdminPage.module.scss'
 
 export const AdminPage = () => {
 
-  const [allCriteria, setAllCriteria] = useState([])
-  const [allAlternatives, setAllAlternatives] = useState([])
-
+  
   const {loading, request} = useHttp()
   const {token} = useContext(AuthContext)
+  const history = useHistory()
+  const auth = useContext(AuthContext)
+  const message = useMessage()
+
+  const logoutHandler = () => {
+    auth.logout()
+    history.push('/')
+  }
+
+  const [allCriteria, setAllCriteria] = useState([])
+  const [allAlternatives, setAllAlternatives] = useState([])
 
   const fetchAllCriteria = useCallback( async () => {
     try {
@@ -21,7 +33,11 @@ export const AdminPage = () => {
         Authorization: `Bearer ${token}`
       })
       setAllCriteria(fetched)
-    } catch (e) {}
+    } catch (e) {
+      message(e.message)
+      logoutHandler()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token, request])
 
   const fetchAllAlternatives = useCallback( async () => {

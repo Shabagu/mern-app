@@ -1,8 +1,10 @@
 import { useCallback, useContext, useEffect, useState } from 'react'
-import { useParams, Link } from 'react-router-dom'
+import { useHistory, useParams, Link } from 'react-router-dom'
 import { AuthContext } from '../../context/AuthContext'
 import { useHttp } from '../../hooks/http.hook'
+import { useMessage } from '../../hooks/message.hook'
 import { Loader } from '../../components/common/Loader'
+
 import { ResearchCard } from '../../components/researches/ResearchCard'
 
 import style from './ResearchPage.module.scss'
@@ -12,6 +14,15 @@ import not_found_picture from '../../pictures/not_found.png'
 export const ResearchPage = () => {
   const {token} = useContext(AuthContext)
   const {request, loading} = useHttp()
+  const history = useHistory()
+  const auth = useContext(AuthContext)
+  const message = useMessage()
+
+  const logoutHandler = () => {
+    auth.logout()
+    history.push('/')
+  }
+
   const [user, setUser] = useState([])
   const [research, setResearch] = useState(null)
   const researchId = useParams().id
@@ -32,7 +43,11 @@ export const ResearchPage = () => {
       setUser(...user)
       setResearch(research)
 
-    } catch (e) {}
+    } catch (e) {
+      message(e.message)
+      logoutHandler()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token, researchId, request])
 
   useEffect(() => {

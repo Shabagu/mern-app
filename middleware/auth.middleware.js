@@ -18,6 +18,8 @@ module.exports = (req, res, next) => {
     next()
 
   } catch (e) {
-    return res.status(401).json({message: 'Нет авторизации'})
+    if (e.name === 'TokenExpiredError') {
+      return res.status(401).json({message: 'Истёк срок действия токена аутентификации'})
+    }
   }
 }

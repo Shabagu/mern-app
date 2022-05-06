@@ -1,19 +1,21 @@
 import { useCallback, useContext, useEffect, useState } from "react"
-import { AuthContext } from "../../context/AuthContext"
+import { useHistory } from 'react-router-dom'
+import { AuthContext } from '../../context/AuthContext'
 import { useHttp } from '../../hooks/http.hook'
+import { useMessage } from '../../hooks/message.hook'
 import { Loader } from '../../components/common/Loader'
 
-import { SelectionPhase } from "../../components/newResearch/phases/SelectionPhase"
-import { CriteriaRating } from "../../components/newResearch/phases/CriteriaRating"
-import { CriteriaWeights } from "../../components/newResearch/phases/CriteriaWeights"
-import { AlternativesRating } from "../../components/newResearch/phases/AlternativesRating"
-import { AlternativesWeights } from "../../components/newResearch/phases/AlternativesWeights"
-import { GroupsWeights } from "../../components/newResearch/phases/GroupsWeights"
-import { GlobalWeights } from "../../components/newResearch/phases/GlobalWeights"
-import { PhaseTitle } from "../../components/newResearch/PhaseTitle"
-import { PhasesSidebar } from "../../components/newResearch/PhasesSidebar"
+import { SelectionPhase } from '../../components/newResearch/phases/SelectionPhase'
+import { CriteriaRating } from '../../components/newResearch/phases/CriteriaRating'
+import { CriteriaWeights } from '../../components/newResearch/phases/CriteriaWeights'
+import { AlternativesRating } from '../../components/newResearch/phases/AlternativesRating'
+import { AlternativesWeights } from '../../components/newResearch/phases/AlternativesWeights'
+import { GroupsWeights } from '../../components/newResearch/phases/GroupsWeights'
+import { GlobalWeights } from '../../components/newResearch/phases/GlobalWeights'
+import { PhaseTitle } from '../../components/newResearch/PhaseTitle'
+import { PhasesSidebar } from '../../components/newResearch/PhasesSidebar'
 
-import style from "./NewResearchPage.module.scss"
+import style from './NewResearchPage.module.scss'
 
 
 
@@ -64,13 +66,26 @@ export const NewResearchPage = () => {
   const {loading, request} = useHttp()
   const {token} = useContext(AuthContext)
 
+  const history = useHistory()
+  const auth = useContext(AuthContext)
+  const message = useMessage()
+
+  const logoutHandler = () => {
+    auth.logout()
+    history.push('/')
+  }
+
   const fetchAllCriteria = useCallback( async () => {
     try {
       const fetched = await request('/api/research/criteria', 'GET', null, {
         Authorization: `Bearer ${token}`
       })
       setAllCriteria(fetched)
-    } catch (e) {}
+    } catch (e) {
+      message(e.message)
+      logoutHandler()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token, request])
 
   const fetchAllAlternatives = useCallback( async () => {

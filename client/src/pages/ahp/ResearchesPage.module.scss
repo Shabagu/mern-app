@@ -1,3 +1,65 @@
-.page_title {
-  margin: 16px 0;
+.researches_box {
+
+  .page_title {
+    margin: 16px 0 20px;
+  }
+
+  .researches_subbox {
+    display: flex;
+  
+    .menu {
+      // width: 220px;
+  
+      // .button_box {
+      //   margin: 20px;
+  
+      //   span {
+      //     width: 180px;
+      //   }
+      // }
+  
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      width: 100%;
+      
+      position: relative;
+      top: 1.6px;
+      
+      .tab {
+        margin-right: 2px;
+        padding: 4px;
+        border: 2px solid #888;
+        width: 25%;
+        text-align: center;
+        user-select: none;
+        font-size: 1.1rem;
+    
+        background-color: #bbd6d3;
+        color: #000;
+    
+        cursor: pointer;
+        
+        &:hover {
+          background-color: #8ae0da;
+        }
+  
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+      
+      .active_tab {
+        cursor: auto;
+        background-color: #dff1f0;
+        font-weight: 500;
+        border-bottom: none;
+        
+        &:hover {
+          background-color: #dff1f0;
+          border-bottom-color: #8ae0da;
+        }
+      }
+    }
+  }
 }
