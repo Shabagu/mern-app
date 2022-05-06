@@ -28,8 +28,26 @@ export const AlternativesRating = ({ research }) => {
 
   return(
     <div className={style.alternatives_rating_container}>
+      <div className={style.criterion_box}>
+        <div className={style.title}>Критерий</div>
+        {[...Array(research.criteria.length)].map((x, i) => 
+          <label key={i} title={research.criteria[i]}>
+            <input
+              type="radio"
+              name="criteria"
+              className="with-gap"
+              onChange={(e) => currentCriterionSetter(i, e)}
+            />
+            <span>{research.criteria[i]}</span>
+          </label>
+        )}
+      </div>
       <table>
         <thead>
+          <tr>
+            <th>Критерий: </th>
+            <th colSpan={research.alternatives.length}>{research.criteria[currentCriterion]}</th>
+          </tr>
           <tr>
             <th className={style.initial}></th>
             {[...Array(research.alternatives.length)].map((x, i) => 
