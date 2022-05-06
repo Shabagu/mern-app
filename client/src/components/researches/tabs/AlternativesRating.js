@@ -103,7 +103,7 @@ const CellRow = ({ i, cc, research, popup }) => {
           </td>
         )
         if (i === j) return (
-          <td key={j} className={style.diagonal} onClick={() => popup(cc, i, j)}>
+          <td key={j} className={style.diagonal}>
             {MARK_MODEL[research.alternativesRating[cc][i][j]].string}
           </td>
         )
