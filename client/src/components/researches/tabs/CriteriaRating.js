@@ -57,12 +57,12 @@ const CellRow = ({ i, research, popup }) => {
       </th>
       {[...Array(research.criteria.length)].map((x, j) => {
         if (i < j) return (
-          <td key={j} className={style.top} onClick={ () => popup(i, j)}>
+          <td key={j} className={style.top} onClick={() => popup(i, j)}>
             {MARK_MODEL[research.criteriaRating[i][j]].string}
           </td>
         )
         else if (i > j) return (
-          <td key={j} className={style.bot} onClick={ () => popup(i, j)}>
+          <td key={j} className={style.bot} onClick={() => popup(i, j)}>
             {MARK_MODEL[research.criteriaRating[i][j]].string}
           </td>
         )
