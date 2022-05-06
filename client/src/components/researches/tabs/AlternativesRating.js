@@ -4,6 +4,11 @@ import style from './AlternativesRating.module.scss'
 
 export const AlternativesRating = ({ research }) => {
 
+  useEffect(() => {
+    const firstCriterionCheckbox = document.querySelector('input[name="criteria"]:first-child')
+    firstCriterionCheckbox.checked = true
+  }, [])
+
   const [currentCriterion, setCurrentCriterion] = useState(0)
   
   const currentCriterionSetter = (criterion) => {
@@ -22,14 +27,13 @@ export const AlternativesRating = ({ research }) => {
     setPopupCol(col)
   }
 
-  // useEffect(() => {
-  //   console.log(research)
-  // }, [])
-
   return(
     <div className={style.alternatives_rating_container}>
       <div className={style.criterion_box}>
-        <div className={style.title}>Критерий</div>
+        <div className={style.title}>
+          Критерий
+          <i className="material-icons">arrow_drop_down</i>
+        </div>
         {[...Array(research.criteria.length)].map((x, i) => 
           <label key={i} title={research.criteria[i]}>
             <input
@@ -69,14 +73,14 @@ export const AlternativesRating = ({ research }) => {
           )}
         </tbody>
       </table>
-      {/* <AlternativesRatingPopup
+      <AlternativesRatingPopup
         active={popupActive}
         setActive={setPopupActive}
         research={research}
         cc={popupCriterion}
         row={popupRow}
         col={popupCol}
-      /> */}
+      />
     </div>
   )
 }
@@ -109,6 +113,47 @@ const CellRow = ({ i, cc, research, popup }) => {
 }
 
 
+
+const AlternativesRatingPopup = ({
+  active,
+  setActive,
+  research,
+  cc,
+  row,
+  col,
+}) => {
+
+  const confirmHandler = () => { setActive(false) }
+
+  return(
+    <div
+      className={active ? `${style.popup} ${style.active}` : style.popup}
+      onClick={() => setActive(false)}
+    >
+      <div
+        className={active ? `${style.popup_content} ${style.active}` : style.popup_content}
+        onClick={e => e.stopPropagation()}
+      >
+        <p className="center">Сравнение альтернатив по критерию</p>
+        <p className="center">{research.criteria[cc]}</p>
+        <div className="center">{MARK_MODEL[research.alternativesRating[cc][row][col]].string}</div>
+        <div className={style.rating_box}>
+          <div>{research.alternatives[col]}</div>
+          <div>{research.alternatives[row]}</div>
+        </div>
+        <div className="range-field">
+          <input
+            type="range" id="alternatives" name="alternatives"
+            min={0} max={16} value={[research.alternativesRating[cc][row][col]]} readOnly={true} tabIndex={-1}
+          />
+        </div>
+        <div className={style.popup_exit}>
+          <i className="material-icons" onClick={confirmHandler}>close</i>
+        </div>
+      </div>
+    </div>
+  )
+}
 
 
 
