@@ -197,8 +197,8 @@ const Menu = ({
         Authorization: `Bearer ${auth.token}`
       })
       message(data.message)
+      history.push(`/research/${data.id}`)
     } catch (e) {}
-    history.push('/researches')
   }
 
   const goToGroupsWeights = () => {

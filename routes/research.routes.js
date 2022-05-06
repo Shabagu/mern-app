@@ -30,7 +30,7 @@ router.post(
       index: researches.length + 1
     })
     await research.save()
-    res.status(201).json({message: 'Данные успешно сохранены!'})
+    res.status(201).json({message: 'Данные успешно сохранены!', id: research._id})
   }
 )
 
