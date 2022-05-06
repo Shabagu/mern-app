@@ -20,10 +20,13 @@ export const Navbar = () => {
   return (
     <nav>
       <div className="nav-wrapper teal lighten-1" style={{ padding: '0 2rem' }}>
-        <span className="brand-logo" style={{
-          userSelect: 'none', cursor: 'pointer'}} onClick={logoClickHandler}>
+        <a className="brand-logo" href={'./'}
+            style={{
+              userSelect: 'none', cursor: 'pointer'
+            }}
+          >
           ~Лучший отдых~
-        </span>
+        </a>
         <ul id="nav-mobile" className="right hide-on-med-and-down">
 
           <li><NavLink to="/info">О МАИ</NavLink></li>
