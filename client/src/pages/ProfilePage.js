@@ -1,5 +1,6 @@
 import { useCallback, useContext, useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
+import { Helmet, HelmetProvider } from 'react-helmet-async'
 import { AuthContext } from '../context/AuthContext'
 import { useHttp } from '../hooks/http.hook'
 import { useMessage } from '../hooks/message.hook'
@@ -61,27 +62,34 @@ export const ProfilePage = () => {
   }
 
   return(
-    <div className={style.profile_container}>
-      <div>
+    <>
+      <HelmetProvider>
+        <Helmet>
+          <title>Мой профиль</title>
+        </Helmet>
+      </HelmetProvider>
+      <div className={style.profile_container}>
         <div>
-          <h5>Мой профиль</h5>
+          <div>
+            <h5>Мой профиль</h5>
+          </div>
+          {!loading &&
+            <UserInfo user={user}/>
+          }
+          <a className="btn" href="/researches">
+            Все исследования
+          </a>
         </div>
-        {!loading &&
-          <UserInfo user={user}/>
-        }
-        <a className="btn" href="/researches">
-          Все исследования
-        </a>
+        <div className={style.recent_researches_container}>
+          {!loading && 
+            <RecentResearches
+              researches={researches}
+              isFetching={isResearchesFetching}
+            />
+          }
+        </div>
       </div>
-      <div className={style.recent_researches_container}>
-        {!loading && 
-          <RecentResearches
-            researches={researches}
-            isFetching={isResearchesFetching}
-          />
-        }
-      </div>
-    </div>
+    </>
   )
 }
 

@@ -1,5 +1,6 @@
 import { useCallback, useContext, useEffect, useState } from "react"
 import { useHistory } from 'react-router-dom'
+import { Helmet, HelmetProvider } from 'react-helmet-async'
 import { AuthContext } from '../../context/AuthContext'
 import { useHttp } from '../../hooks/http.hook'
 import { useMessage } from '../../hooks/message.hook'
@@ -134,58 +135,65 @@ export const NewResearchPage = () => {
   }
 
   return(
-    <div className={style.research_box}>
-      <h3 className={style.page_title}>Новое исследование</h3>
+    <>
+      <HelmetProvider>
+        <Helmet>
+          <title>Новое исследование</title>
+        </Helmet>
+      </HelmetProvider>
+      <div className={style.research_box}>
+        <h3 className={style.page_title}>Новое исследование</h3>
 
-      <PhasesSidebar
-        phase={phase}
-        phasesDone={phasesDone}
-        goToPhase={goToPhaseHandler}
-      />
+        <PhasesSidebar
+          phase={phase}
+          phasesDone={phasesDone}
+          goToPhase={goToPhaseHandler}
+        />
 
-      <PhaseTitle
-        phase={phase}
-        phasesDone={phasesDone}
-        nextPhase={nextPhaseHandler}
-        previousPhase={previousPhaseHandler}
-      />
+        <PhaseTitle
+          phase={phase}
+          phasesDone={phasesDone}
+          nextPhase={nextPhaseHandler}
+          previousPhase={previousPhaseHandler}
+        />
 
-      <PhaseContent
-        phase={phase}
-        phasesDone={phasesDone}
-        goToPhase={goToPhaseHandler}
-        phaseDone={phasesDoneHandler}
-        
-        allCriteria={allCriteria}
-        criteria={criteria}
-        criteriaMTX={criteriaMTX}
-        criteriaSum={criteriaSum}
-        criteriaNormMTX={criteriaNormMTX}
-        criteriaWeights={criteriaWeights}
-        criteriaSetter={setCriteriaHandler}
-        criteriaMTXSetter={setCriteriaMTXHandler}
-        criteriaSumSetter={setCriteriaSumHandler}
-        criteriaNormMTXSetter={setCriteriaNormMTXHandler}
-        criteriaWeightsSetter={setCriteriaWeightsHandler}
+        <PhaseContent
+          phase={phase}
+          phasesDone={phasesDone}
+          goToPhase={goToPhaseHandler}
+          phaseDone={phasesDoneHandler}
+          
+          allCriteria={allCriteria}
+          criteria={criteria}
+          criteriaMTX={criteriaMTX}
+          criteriaSum={criteriaSum}
+          criteriaNormMTX={criteriaNormMTX}
+          criteriaWeights={criteriaWeights}
+          criteriaSetter={setCriteriaHandler}
+          criteriaMTXSetter={setCriteriaMTXHandler}
+          criteriaSumSetter={setCriteriaSumHandler}
+          criteriaNormMTXSetter={setCriteriaNormMTXHandler}
+          criteriaWeightsSetter={setCriteriaWeightsHandler}
 
-        allAlternatives={allAlternatives}
-        alternatives={alternatives}
-        alternativesMTX={alternativesMTX}
-        alternativesSum={alternativesSum}
-        alternativesNormMTX={alternativesNormMTX}
-        alternativesWeights={alternativesWeights}
-        alternativesSetter={setAlternativesHandler}
-        alternativesMTXSetter={setAlternativesMTXHandler}
-        alternativesSumSetter={setAlternativesSumHandler}
-        alternativesNormMTXSetter={setAlternativesNormMTXHandler}
-        alternativesWeightsSetter={setAlternativesWeightsHandler}
+          allAlternatives={allAlternatives}
+          alternatives={alternatives}
+          alternativesMTX={alternativesMTX}
+          alternativesSum={alternativesSum}
+          alternativesNormMTX={alternativesNormMTX}
+          alternativesWeights={alternativesWeights}
+          alternativesSetter={setAlternativesHandler}
+          alternativesMTXSetter={setAlternativesMTXHandler}
+          alternativesSumSetter={setAlternativesSumHandler}
+          alternativesNormMTXSetter={setAlternativesNormMTXHandler}
+          alternativesWeightsSetter={setAlternativesWeightsHandler}
 
-        globalWeights={globalWeights}
-        globalWeightsSetter={setGlobalWeightsHandler}
-      />
+          globalWeights={globalWeights}
+          globalWeightsSetter={setGlobalWeightsHandler}
+        />
 
 
-    </div>
+      </div>
+    </>
   )
 }
 

@@ -1,8 +1,8 @@
 import { useCallback, useContext, useEffect, useState } from 'react'
-import { useHistory, useParams, Link } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
+import { Helmet, HelmetProvider } from 'react-helmet-async'
 import { AuthContext } from '../../context/AuthContext'
 import { useHttp } from '../../hooks/http.hook'
-import { useMessage } from '../../hooks/message.hook'
 import { Loader } from '../../components/common/Loader'
 
 import { ResearchCard } from '../../components/researches/ResearchCard'
@@ -14,14 +14,6 @@ import not_found_picture from '../../pictures/not_found.png'
 export const ResearchPage = () => {
   const {token} = useContext(AuthContext)
   const {request, loading} = useHttp()
-  const history = useHistory()
-  const auth = useContext(AuthContext)
-  const message = useMessage()
-
-  const logoutHandler = () => {
-    auth.logout()
-    history.push('/')
-  }
 
   const [user, setUser] = useState([])
   const [research, setResearch] = useState(null)
@@ -43,10 +35,7 @@ export const ResearchPage = () => {
       setUser(...user)
       setResearch(research)
 
-    } catch (e) {
-      message(e.message)
-      setTimeout(logoutHandler, 1000)
-    }
+    } catch (e) {}
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token, researchId, request])
 
@@ -60,6 +49,12 @@ export const ResearchPage = () => {
 
   return (
     <>
+      <HelmetProvider>
+        <Helmet>
+          { research && <title>{`Исследование №${research.index}`}</title> }
+          { !research && <title>{`Исследование ...`}</title> }
+        </Helmet>
+      </HelmetProvider>
       { !loading && research &&
         <ResearchCard
           research={research}

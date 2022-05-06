@@ -1,5 +1,6 @@
 import { useCallback, useContext, useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
+import { Helmet, HelmetProvider } from 'react-helmet-async'
 import { AuthContext } from '../context/AuthContext'
 import { useHttp } from '../hooks/http.hook'
 import { useMessage } from '../hooks/message.hook'
@@ -9,6 +10,7 @@ import { AddAlternative } from '../components/admin/AddAlternative'
 import { AlternativeCard } from '../components/admin/AlternativeCard'
 
 import style from './AdminPage.module.scss'
+
 
 export const AdminPage = () => {
 
@@ -72,96 +74,103 @@ export const AdminPage = () => {
   }
 
   return(
-    <div>
-      <h5>Управление</h5>
-      <div className={style.tables_container}>
-        <details open>
-          <summary className="center">Альтернативы</summary>
-          <table className={style.manage}>
-            <thead>
-              <tr>
-                <th colSpan={2}>Альтернативы</th>
-              </tr>
-              <tr>
-                <th>Название</th>
-                <th>Актуальность</th>
-              </tr>
-            </thead>
-            <tbody>
-                {[...Array(allAlternatives.length)].map((x, i) => 
-                  <tr key={i}>
-                    <td 
-                      className={style.alternative_cell}
-                      onClick={() => {popup('alternative_card', allAlternatives[i])}}
-                    >
-                      {allAlternatives[i].name}
-                    </td>
-                    <td>
-                      <div className={style.relevance_box}>
-                        { allAlternatives[i].relevance &&
-                          <div className={style.relevance_subbox}>
-                            <div><i className="material-icons">check_circle</i></div>
-                            <div><span>Актуально</span></div>
-                          </div>
-                        }
-                        { !(allAlternatives[i].relevance) &&
-                          <div className={style.relevance_subbox}>
-                            <div><i className="material-icons">close</i></div>
-                            <div><span>Неактуально</span></div>
-                          </div>
-                        }
-                      </div>
-                    </td>
-                  </tr>
-                )}
-            </tbody>
-          </table>
-          <div className={style.adding_box}>
-            <span
-              className="waves-effect waves-light btn"
-              onClick={() => popup('adding_alternative', null)}
-            >
-              Добавить
-              <i className="material-icons right">add</i>
-            </span>
-          </div>
-        </details>
-        <details open>
-          <summary>Критерии</summary>
-          <table className={style.manage}>
-            <thead>
-              <tr>
-                <th colSpan={2}>Критерии</th>
-              </tr>
-              <tr>
-                <th>Название</th>
-                {/* <th>Актуальность</th> */}
-              </tr>
-            </thead>
-            <tbody>
-                {[...Array(allCriteria.length)].map((x, i) => 
-                  <tr key={i}>
-                    <td>{allCriteria[i].name}</td>
-                    {/* <td>
-                      <label>
-                        <input type="checkbox" defaultChecked/>
-                        <span>Актуально</span>
-                      </label>
-                    </td> */}
-                  </tr>
-                )}
-            </tbody>
-          </table>
-        </details>
+    <>
+      <HelmetProvider>
+        <Helmet>
+          <title>Управление</title>
+        </Helmet>
+      </HelmetProvider>
+      <div>
+        <h5>Управление</h5>
+        <div className={style.tables_container}>
+          <details open>
+            <summary className="center">Альтернативы</summary>
+            <table className={style.manage}>
+              <thead>
+                <tr>
+                  <th colSpan={2}>Альтернативы</th>
+                </tr>
+                <tr>
+                  <th>Название</th>
+                  <th>Актуальность</th>
+                </tr>
+              </thead>
+              <tbody>
+                  {[...Array(allAlternatives.length)].map((x, i) => 
+                    <tr key={i}>
+                      <td 
+                        className={style.alternative_cell}
+                        onClick={() => {popup('alternative_card', allAlternatives[i])}}
+                      >
+                        {allAlternatives[i].name}
+                      </td>
+                      <td>
+                        <div className={style.relevance_box}>
+                          { allAlternatives[i].relevance &&
+                            <div className={style.relevance_subbox}>
+                              <div><i className="material-icons">check_circle</i></div>
+                              <div><span>Актуально</span></div>
+                            </div>
+                          }
+                          { !(allAlternatives[i].relevance) &&
+                            <div className={style.relevance_subbox}>
+                              <div><i className="material-icons">close</i></div>
+                              <div><span>Неактуально</span></div>
+                            </div>
+                          }
+                        </div>
+                      </td>
+                    </tr>
+                  )}
+              </tbody>
+            </table>
+            <div className={style.adding_box}>
+              <span
+                className="waves-effect waves-light btn"
+                onClick={() => popup('adding_alternative', null)}
+              >
+                Добавить
+                <i className="material-icons right">add</i>
+              </span>
+            </div>
+          </details>
+          <details open>
+            <summary>Критерии</summary>
+            <table className={style.manage}>
+              <thead>
+                <tr>
+                  <th colSpan={2}>Критерии</th>
+                </tr>
+                <tr>
+                  <th>Название</th>
+                  {/* <th>Актуальность</th> */}
+                </tr>
+              </thead>
+              <tbody>
+                  {[...Array(allCriteria.length)].map((x, i) => 
+                    <tr key={i}>
+                      <td>{allCriteria[i].name}</td>
+                      {/* <td>
+                        <label>
+                          <input type="checkbox" defaultChecked/>
+                          <span>Актуально</span>
+                        </label>
+                      </td> */}
+                    </tr>
+                  )}
+              </tbody>
+            </table>
+          </details>
+        </div>
+        <AdminPopup
+          active={popupActive}
+          setActive={setPopupActive}
+          purpose={popupPurpose}
+          argument={popupArgument}
+          alternativesRefetch={fetchAllAlternatives}
+        />
       </div>
-      <AdminPopup
-        active={popupActive}
-        setActive={setPopupActive}
-        purpose={popupPurpose}
-        argument={popupArgument}
-        alternativesRefetch={fetchAllAlternatives}
-      />
-    </div>
+    </>
   )
 }
 
