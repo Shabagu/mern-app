@@ -19,7 +19,10 @@
       align-items: center;
       margin-right: 4px;
 
-      
+      &:hover {
+        background-color: #8ae0da;
+      }
+
       .number {
         font-size: 1.6rem;
         user-select: none;
@@ -30,6 +33,10 @@
       background-color: #26a69a;
       color: white;
       font-weight: 500;
+
+      &:hover {
+        background-color: #26a69a;
+      }
     }
   }
 
