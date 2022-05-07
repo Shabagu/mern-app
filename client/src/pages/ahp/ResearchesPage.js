@@ -10,9 +10,23 @@ import { ResearchList } from '../../components/researches/ResearchList'
 
 import style from './ResearchesPage.module.scss'
 
+
 export const ResearchesPage = () => {
 
-  const [researches, setResearches] = useState([])
+  // Количество исследований на одной странице
+  const N_RES = 5
+
+  const H_TITILE = [
+    '(все)',
+    '(сегодня)',
+    '(вчера)',
+    '(эта неделя)',
+    '(этот месяц)',
+    '(этот год)',
+  ]
+
+  const [allResearches, setAllResearches] = useState([])
+  const [actResearches, setActResearches] = useState([])
   const {loading, request} = useHttp()
   const {token} = useContext(AuthContext)
   const history = useHistory()
@@ -29,10 +43,11 @@ export const ResearchesPage = () => {
       const fetched = await request('/api/research/all', 'GET', null, {
         Authorization: `Bearer ${token}`
       })
-      setResearches(fetched)
+      setAllResearches(fetched)
+      setActResearches(fetched.slice(0, N_RES))
     } catch (e) {
       message(e.message)
-      setTimeout(logoutHandler, 1000)
+      // setTimeout(logoutHandler, 1000)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token, request])
@@ -46,10 +61,10 @@ export const ResearchesPage = () => {
     setTab(val)
   }
 
+
   if (loading) {
     return <Loader />
   }
-
 
   return(
     <>
@@ -59,34 +74,40 @@ export const ResearchesPage = () => {
         </Helmet>
       </HelmetProvider>
       <div className={style.researches_box}>
-        <h3 className={style.page_title}>Мои исследования</h3>
+        <h4 className={style.page_title}>Мои исследования {H_TITILE[tab]}</h4>
         <div className={style.researches_subbox}>
           <div className={style.menu}>
-            {/* <div className={style.button_box}>
-              <span className="waves-effect waves-light btn">
-                button
-              </span>
-            </div> */}
             <div className={tab === 0 ? `${style.tab} ${style.active_tab}` : style.tab} onClick={() => tabSetter(0)}>
-              Основная информация
+              Все исследования
             </div>
             <div className={tab === 1 ? `${style.tab} ${style.active_tab}` : style.tab} onClick={() => tabSetter(1)}>
-              Другие веса
+              Сегодня
             </div>
             <div className={tab === 2 ? `${style.tab} ${style.active_tab}` : style.tab} onClick={() => tabSetter(2)}>
-              Сравнение критериев
+              Вчера
             </div>
             <div className={tab === 3 ? `${style.tab} ${style.active_tab}` : style.tab} onClick={() => tabSetter(3)}>
-              Сравнение альтернатив
+              Эта неделя
+            </div>
+            <div className={tab === 4 ? `${style.tab} ${style.active_tab}` : style.tab} onClick={() => tabSetter(4)}>
+              Этот месяц
+            </div>
+            <div className={tab === 5 ? `${style.tab} ${style.active_tab}` : style.tab} onClick={() => tabSetter(5)}>
+              Этот год
             </div>
           </div>
+          <div className={style.researches_list}>
             {!loading &&
               <ResearchList
-                researches={researches}
+                researches={actResearches}
               />
             }
+          </div>
         </div>
       </div>
     </>
   )
 }
+
+
+

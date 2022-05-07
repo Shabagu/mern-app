@@ -24,14 +24,15 @@
       width: 100%;
       
       position: relative;
-      top: 1.6px;
+      // top: 5px;
       
       .tab {
-        margin-right: 2px;
+        // margin-right: 2px;
+        margin: 5px;
         padding: 4px;
+        padding-left: 8px;
         border: 2px solid #888;
-        width: 25%;
-        text-align: center;
+        width: 225px;
         user-select: none;
         font-size: 1.1rem;
     
@@ -53,13 +54,15 @@
         cursor: auto;
         background-color: #dff1f0;
         font-weight: 500;
-        border-bottom: none;
         
         &:hover {
           background-color: #dff1f0;
-          border-bottom-color: #8ae0da;
         }
       }
     }
+
+    // .researches_list {
+    //   // border: 2px solid red;
+    // }
   }
 }
