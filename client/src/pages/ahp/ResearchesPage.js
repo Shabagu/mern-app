@@ -61,6 +61,11 @@ export const ResearchesPage = () => {
     setTab(val)
   }
 
+  const [pg, setPg] = useState(1)
+  const pgSetter = (val) => {
+    setPg(val)
+  }
+
 
   if (loading) {
     return <Loader />
@@ -75,6 +80,14 @@ export const ResearchesPage = () => {
       </HelmetProvider>
       <div className={style.researches_box}>
         <h4 className={style.page_title}>Мои исследования {H_TITILE[tab]}</h4>
+        <div className={style.pages}>
+          <div className={pg === 1 ? `${style.pgb} ${style.active_pgb}` : style.pgb} onClick={() => pgSetter(1)}>
+            <div className={style.number}>1</div>
+          </div>
+          <div className={pg === 2 ? `${style.pgb} ${style.active_pgb}` : style.pgb} onClick={() => pgSetter(2)}>
+            <div className={style.number}>2</div>
+          </div>
+        </div>
         <div className={style.researches_subbox}>
           <div className={style.menu}>
             <div className={tab === 0 ? `${style.tab} ${style.active_tab}` : style.tab} onClick={() => tabSetter(0)}>

@@ -57,7 +57,8 @@ const ResearchItem = ({ research, index }) => {
           </div>
         </div>
         <div className={style.time}>
-          {`Сохранено: ${date} в ${time}`}
+          <div>Сохранено:</div>
+          <div>{`${date} в ${time}`}</div>
         </div>
       </div>
       <div className={`${style.box} ${style.table_box}`}>
