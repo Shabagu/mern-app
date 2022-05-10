@@ -7,6 +7,7 @@ import { DetailPage } from './pages/other/DetailPage'
 import { AuthPage } from './pages/AuthPage'
 import { ProfilePage } from './pages/ProfilePage'
 import { AlternativesPage } from './pages/AlternativesPage'
+import { AlternativePage } from './pages/AlternativePage'
 import { InfoPage } from './pages/ahp/InfoPage'
 import { NewResearchPage } from './pages/ahp/NewResearchPage'
 import { ResearchesPage } from './pages/ahp/ResearchesPage'
@@ -56,6 +57,9 @@ export const useRoutes = isAuthenticated => {
         
         <Route path="/alternatives">
           <AlternativesPage />
+        </Route>
+        <Route path="/alternative/:id">
+          <AlternativePage />
         </Route>
 
         <Route path="/admin">

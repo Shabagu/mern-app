@@ -55,6 +55,7 @@ export const ResearchPage = () => {
           { !research && <title>{`Исследование ...`}</title> }
         </Helmet>
       </HelmetProvider>
+      
       { !loading && research &&
         <ResearchCard
           research={research}
