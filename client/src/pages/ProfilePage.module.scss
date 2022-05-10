@@ -30,13 +30,20 @@
         margin-bottom: 30px;
       }
 
+      .phone {
+        color: #888;
+      }
+
       .email, .phone {
         margin-bottom: 8px;
 
         i {
           user-select: none;
+          color: #000;
         }
       }
+
+
 
     }
   }

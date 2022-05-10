@@ -54,8 +54,9 @@ export const ResearchesPage = () => {
           <title>Мои исследования</title>
         </Helmet>
       </HelmetProvider>
+      
       <div className={style.researches_box}>
-        <h4 className={style.page_title}>Мои исследования</h4>
+        <h3 className={style.page_title}>Мои исследования</h3>
         <div className={style.researches_subbox}>
           <div className={style.menu}>
             <a className="btn" href="/profile">

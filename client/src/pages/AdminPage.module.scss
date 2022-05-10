@@ -1,44 +1,65 @@
 .tables_container {
   display: flex;
+  justify-content: center;
   margin-bottom: 40px;
   
-  details:first-child {
-    width: 300px;
+  .alternatives_table {
+    width: 500px;
     margin-right: 40px;
   }
   
   table.manage {
     border: 2px solid #000;
-    width: 100%;
-    
-    tr, td, th {
-      border: 2px solid #000;
-      padding: 4px;
-    }
+    background-color: #ffffff61;
 
+    thead {
+      background-color: #00000028;
 
-    .relevance_box {
-      font-style: italic;
+      tr {
+        border: 1px solid #000;
+        border-bottom-width: 2px;
 
-      .relevance_subbox {
-        display: flex;
-        justify-content: flex-start;
-
-        div {
-          margin-right: 10px;
-        }
-
-        i {
-          color: #114d47;
-          user-select: none;
+        th {
+          border: 0.5px solid #000;
+          padding: 5px 0 5px;
+          font-weight: 500;
+          text-align: center;
         }
       }
+
     }
 
-    .alternative_cell {
+    tbody {
+      tr {
 
-      &:hover {
-        cursor: pointer;
+        td, th {
+          border: 0.5px solid #000;
+          padding: 4px;
+        }
+
+        td.alternative_cell {
+          &.irrelevant {
+            color: #aaa;
+          }
+        }
+
+        td.relevance {
+          width: 40%;
+    
+          i {
+            color: #26a69a;
+            user-select: none;
+          }
+    
+          .irrelevant, .irrelevant i {
+            color: #aaa;
+          }
+        }
+
+        &:hover {
+          cursor: pointer;
+          background-color: #1ecebc90;
+        }
       }
     }
   }
@@ -54,6 +75,8 @@
     }
   }
 }
+
+
 
 .popup {
 

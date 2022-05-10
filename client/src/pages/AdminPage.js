@@ -26,35 +26,34 @@ export const AdminPage = () => {
     history.push('/')
   }
 
-  const [allCriteria, setAllCriteria] = useState([])
-  const [allAlternatives, setAllAlternatives] = useState([])
+  // const [allCriteria, setAllCriteria] = useState([])
+  const [alternatives, setAlternatives] = useState([])
 
-  const fetchAllCriteria = useCallback( async () => {
-    try {
-      const fetched = await request('/api/admin/criteria/all', 'GET', null, {
-        Authorization: `Bearer ${token}`
-      })
-      setAllCriteria(fetched)
-    } catch (e) {
-      message(e.message)
-      setTimeout(logoutHandler, 1000)
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [token, request])
+  // const fetchAllCriteria = useCallback( async () => {
+  //   try {
+  //     const fetched = await request('/api/admin/criteria/all', 'GET', null, {
+  //       Authorization: `Bearer ${token}`
+  //     })
+  //     setAllCriteria(fetched)
+  //   } catch (e) {
+  //     message(e.message)
+  //     // setTimeout(logoutHandler, 1000)
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [token, request])
 
-  const fetchAllAlternatives = useCallback( async () => {
+  const fetchAlternatives = useCallback( async () => {
     try {
       const fetched = await request('/api/admin/alternatives/all', 'GET', null, {
         Authorization: `Bearer ${token}`
       })
-      setAllAlternatives(fetched)
+      setAlternatives(fetched)
     } catch (e) {}
   }, [token, request])
 
   useEffect(() => {
-    fetchAllCriteria()
-    fetchAllAlternatives()
-  }, [fetchAllCriteria, fetchAllAlternatives])
+    fetchAlternatives()
+  }, [fetchAlternatives])
 
   
   const [popupActive, setPopupActive] = useState(false)
@@ -83,8 +82,7 @@ export const AdminPage = () => {
       <div>
         <h5>Управление</h5>
         <div className={style.tables_container}>
-          <details open>
-            <summary className="center">Альтернативы</summary>
+          <div className={style.alternatives_table}>
             <table className={style.manage}>
               <thead>
                 <tr>
@@ -96,29 +94,31 @@ export const AdminPage = () => {
                 </tr>
               </thead>
               <tbody>
-                  {[...Array(allAlternatives.length)].map((x, i) => 
+                  {[...Array(alternatives.length)].map((x, i) => 
                     <tr key={i}>
                       <td 
-                        className={style.alternative_cell}
-                        onClick={() => {popup('alternative_card', allAlternatives[i])}}
+                        className={
+                          alternatives[i].relevance ?
+                          `${style.alternative_cell} ${style.relevant}` :
+                          `${style.alternative_cell} ${style.irrelevant}`
+                        }
+                        onClick={() => {popup('alternative_card', alternatives[i])}}
                       >
-                        {allAlternatives[i].name}
+                        {alternatives[i].name}
                       </td>
-                      <td>
-                        <div className={style.relevance_box}>
-                          { allAlternatives[i].relevance &&
-                            <div className={style.relevance_subbox}>
-                              <div><i className="material-icons">check_circle</i></div>
-                              <div><span>Актуально</span></div>
-                            </div>
-                          }
-                          { !(allAlternatives[i].relevance) &&
-                            <div className={style.relevance_subbox}>
-                              <div><i className="material-icons">close</i></div>
-                              <div><span>Неактуально</span></div>
-                            </div>
-                          }
-                        </div>
+                      <td className={style.relevance}>
+                        { alternatives[i].relevance &&
+                          <span className={style.relevant}>
+                            Актуально
+                            <i className="material-icons left">check_circle</i>
+                          </span>
+                        }
+                        { !(alternatives[i].relevance) &&
+                          <span className={style.irrelevant}>
+                            Неактуально
+                            <i className="material-icons left">close</i>
+                          </span>
+                        }
                       </td>
                     </tr>
                   )}
@@ -133,41 +133,14 @@ export const AdminPage = () => {
                 <i className="material-icons right">add</i>
               </span>
             </div>
-          </details>
-          <details open>
-            <summary>Критерии</summary>
-            <table className={style.manage}>
-              <thead>
-                <tr>
-                  <th colSpan={2}>Критерии</th>
-                </tr>
-                <tr>
-                  <th>Название</th>
-                  {/* <th>Актуальность</th> */}
-                </tr>
-              </thead>
-              <tbody>
-                  {[...Array(allCriteria.length)].map((x, i) => 
-                    <tr key={i}>
-                      <td>{allCriteria[i].name}</td>
-                      {/* <td>
-                        <label>
-                          <input type="checkbox" defaultChecked/>
-                          <span>Актуально</span>
-                        </label>
-                      </td> */}
-                    </tr>
-                  )}
-              </tbody>
-            </table>
-          </details>
+          </div>
         </div>
         <AdminPopup
           active={popupActive}
           setActive={setPopupActive}
           purpose={popupPurpose}
           argument={popupArgument}
-          alternativesRefetch={fetchAllAlternatives}
+          alternativesRefetch={fetchAlternatives}
         />
       </div>
     </>
