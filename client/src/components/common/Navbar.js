@@ -26,18 +26,15 @@ export const Navbar = () => {
         <ul id="nav-mobile" className="right hide-on-med-and-down">
 
           <li><NavLink to="/info">О МАИ</NavLink></li>
+          <li><NavLink to="/alternatives">Обзор альтератив</NavLink></li>
           <li><NavLink to="/newresearch">Новое исследование</NavLink></li>
-
           {/* <li><NavLink to="/researches">Мои исследования</NavLink></li> */}
           <li><NavLink to="/profile">Мой профиль</NavLink></li>
-
-          
           <li><NavLink to="/admin">Управление</NavLink></li>
           
-          {/* <li><NavLink to="/test">'' Test Page ''</NavLink></li> */}
-
           {/* <li><s><NavLink to="/create">|New-link|</NavLink></s></li> */}
           {/* <li><s><NavLink to="/links">|Links-list|</NavLink></s></li> */}
+          {/* <li><s><NavLink to="/test">''Test Page''</NavLink></s></li> */}
 
           <li><a href="/" onClick={logoutHandler}>Выйти</a></li>
         </ul>

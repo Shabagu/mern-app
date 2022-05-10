@@ -6,6 +6,7 @@ import { DetailPage } from './pages/other/DetailPage'
 
 import { AuthPage } from './pages/AuthPage'
 import { ProfilePage } from './pages/ProfilePage'
+import { AlternativesPage } from './pages/AlternativesPage'
 import { InfoPage } from './pages/ahp/InfoPage'
 import { NewResearchPage } from './pages/ahp/NewResearchPage'
 import { ResearchesPage } from './pages/ahp/ResearchesPage'
@@ -19,6 +20,8 @@ export const useRoutes = isAuthenticated => {
   if (isAuthenticated) {
     return (
       <Switch>
+
+        {/* ====================== */}
         <Route path="/links" exact>
           <LinksPage />
         </Route>
@@ -28,9 +31,12 @@ export const useRoutes = isAuthenticated => {
         <Route path="/detail/:id">
           <DetailPage />
         </Route>
+        <Route path="/test">
+          <TestPage />
+        </Route>
+        {/* ====================== */}
 
 
-        {/* ==================================================== */}
         <Route path="/info">
           <InfoPage />
         </Route>
@@ -47,14 +53,13 @@ export const useRoutes = isAuthenticated => {
         <Route path="/research/:id">
           <ResearchPage />
         </Route>
+        
+        <Route path="/alternatives">
+          <AlternativesPage />
+        </Route>
 
         <Route path="/admin">
           <AdminPage />
-        </Route>
-        {/* ==================================================== */}
-
-        <Route path="/test">
-          <TestPage />
         </Route>
 
         <Redirect to="/info" />
