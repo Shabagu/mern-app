@@ -124,15 +124,34 @@ const UserInfo = ({ user }) => {
         <div className={style.subcontainer}>
           <div className={style.picture_box} onClick={popup}>
             <img
-              width="200"
+              width="204"
               src="https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png"
               alt=""
               onClick={popup}
             />
           </div>
-          <div className={style.email}>{user.email}</div>
-          { user.tel === null && <div>телефон не указан</div> }
-          { user.tel !== null && <div>{user.tel}</div> }
+          <div className={style.email}>
+            <span>
+              {user.email}
+              <i className="material-icons left">mail_outline</i>
+            </span>
+          </div>
+          { user.tel === null &&
+            <div className={style.phone}>
+              <span>
+                телефон не указан
+                <i className="material-icons left">phone</i>
+              </span>
+            </div>
+          }
+          { user.tel !== null &&
+            <div className={style.phone}>
+              <span>
+                {user.tel}
+                <i className="material-icons left">phone</i>
+              </span>
+            </div>
+          }
         </div>
       </div>
       <ProfileImgPopup active={popupActive} setActive={setPopupActive}/>

@@ -1,6 +1,10 @@
 .profile_container {
   display: flex;
 
+  h5 {
+    text-indent: 10px;
+  }
+
   a {
     user-select: none;
   }
@@ -12,21 +16,26 @@
   .user_info_container {
     display: flex;
     margin-top: 15px;
-    width: 240px;
+    width: 230px;
 
     .subcontainer {
-      margin-right: 20px;
+      // margin-right: 20px;
       margin-bottom: 20px;
       font-size: 1.2rem;
 
       .picture_box {
         border: 2px solid #000;
-        width: 200px;
+        width: 204px;
+        margin-left: 8px;
         margin-bottom: 30px;
       }
 
-      .email {
+      .email, .phone {
         margin-bottom: 8px;
+
+        i {
+          user-select: none;
+        }
       }
 
     }
