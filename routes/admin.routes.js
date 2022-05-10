@@ -66,5 +66,23 @@ router.delete('/alternatives/delete', async (req, res) => {
   }
 })
 
+//api/admin/alternative/changerelevance
+router.post('/alternatives/changerelevance', async (req, res) => {
+  try {
+    const name = req.body.name
+    const alternative = await Alternative.findOne({ name })
+    const condition = alternative.relevance
+
+    if (condition) alternative.relevance = false
+    if (!condition) alternative.relevance = true
+
+    await alternative.save()
+    res.status(201).json({message: 'Актуальность альтернативы изменена'})
+    
+  } catch (e) {
+    res.status(500).json({message: 'Что-то пошло не так, попробуйте снова'})
+  }
+})
+
 
 module.exports = router

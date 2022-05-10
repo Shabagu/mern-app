@@ -1,0 +1,28 @@
+.alternative_card {
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  // position: relative;
+  height: 100%;
+
+  .content {
+
+    .title {
+      font-size: 1.3rem;
+    }
+  }
+
+  .menu {
+
+    .saving {
+      width: 80%;
+      margin-right: 2%;
+    }
+
+    .deletion {
+      width: 18%; 
+    }
+  }
+
+}

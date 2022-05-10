@@ -26,21 +26,7 @@ export const AdminPage = () => {
     history.push('/')
   }
 
-  // const [allCriteria, setAllCriteria] = useState([])
   const [alternatives, setAlternatives] = useState([])
-
-  // const fetchAllCriteria = useCallback( async () => {
-  //   try {
-  //     const fetched = await request('/api/admin/criteria/all', 'GET', null, {
-  //       Authorization: `Bearer ${token}`
-  //     })
-  //     setAllCriteria(fetched)
-  //   } catch (e) {
-  //     message(e.message)
-  //     // setTimeout(logoutHandler, 1000)
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [token, request])
 
   const fetchAlternatives = useCallback( async () => {
     try {
@@ -95,14 +81,13 @@ export const AdminPage = () => {
               </thead>
               <tbody>
                   {[...Array(alternatives.length)].map((x, i) => 
-                    <tr key={i}>
+                    <tr key={i} onClick={() => {popup('alternative_card', alternatives[i])}}>
                       <td 
                         className={
                           alternatives[i].relevance ?
                           `${style.alternative_cell} ${style.relevant}` :
                           `${style.alternative_cell} ${style.irrelevant}`
                         }
-                        onClick={() => {popup('alternative_card', alternatives[i])}}
                       >
                         {alternatives[i].name}
                       </td>
@@ -151,7 +136,14 @@ export const AdminPage = () => {
 
 const AdminPopup = ({ active, setActive, purpose, argument, alternativesRefetch }) => {
 
-  const close = () => { setActive(false) }
+  // const [altCardChange, setAltCardChange] = useState(false)
+  // const [altCardChanges, setAltCardChanges] = useState({})
+  
+  const close = () => {
+    setActive(false)
+    // setAltCardChange(false)
+    // setAltCardChanges({})
+  }
 
   return(
     <div
@@ -173,6 +165,10 @@ const AdminPopup = ({ active, setActive, purpose, argument, alternativesRefetch 
             alternative={argument}
             closePopup={close}
             alternativesRefetch={alternativesRefetch}
+            // isChange={altCardChange}
+            // change={setAltCardChange}
+            // changes={altCardChanges}
+            // changesSetter={setAltCardChanges}
           />
         }
         
