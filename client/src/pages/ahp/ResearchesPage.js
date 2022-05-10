@@ -13,20 +13,7 @@ import style from './ResearchesPage.module.scss'
 
 export const ResearchesPage = () => {
 
-  // Количество исследований на одной странице
-  const N_RES = 5
-
-  const H_TITILE = [
-    '(все)',
-    '(сегодня)',
-    '(вчера)',
-    '(эта неделя)',
-    '(этот месяц)',
-    '(этот год)',
-  ]
-
-  const [allResearches, setAllResearches] = useState([])
-  const [actResearches, setActResearches] = useState([])
+  const [researches, setResearches] = useState([])
   const {loading, request} = useHttp()
   const {token} = useContext(AuthContext)
   const history = useHistory()
@@ -43,11 +30,10 @@ export const ResearchesPage = () => {
       const fetched = await request('/api/research/all', 'GET', null, {
         Authorization: `Bearer ${token}`
       })
-      setAllResearches(fetched)
-      setActResearches(fetched.slice(0, N_RES))
+      setResearches(fetched)
     } catch (e) {
       message(e.message)
-      // setTimeout(logoutHandler, 1000)
+      setTimeout(logoutHandler, 1000)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token, request])
@@ -55,16 +41,6 @@ export const ResearchesPage = () => {
   useEffect(() => {
     fetchResearches()
   }, [fetchResearches])
-
-  const [tab, setTab] = useState(0)
-  const tabSetter = (val) => {
-    setTab(val)
-  }
-
-  const [pg, setPg] = useState(1)
-  const pgSetter = (val) => {
-    setPg(val)
-  }
 
 
   if (loading) {
@@ -79,40 +55,18 @@ export const ResearchesPage = () => {
         </Helmet>
       </HelmetProvider>
       <div className={style.researches_box}>
-        <h4 className={style.page_title}>Мои исследования {H_TITILE[tab]}</h4>
-        <div className={style.pages}>
-          <div className={pg === 1 ? `${style.pgb} ${style.active_pgb}` : style.pgb} onClick={() => pgSetter(1)}>
-            <div className={style.number}>1</div>
-          </div>
-          <div className={pg === 2 ? `${style.pgb} ${style.active_pgb}` : style.pgb} onClick={() => pgSetter(2)}>
-            <div className={style.number}>2</div>
-          </div>
-        </div>
+        <h4 className={style.page_title}>Мои исследования</h4>
         <div className={style.researches_subbox}>
           <div className={style.menu}>
-            <div className={tab === 0 ? `${style.tab} ${style.active_tab}` : style.tab} onClick={() => tabSetter(0)}>
-              Все исследования
-            </div>
-            <div className={tab === 1 ? `${style.tab} ${style.active_tab}` : style.tab} onClick={() => tabSetter(1)}>
-              Сегодня
-            </div>
-            <div className={tab === 2 ? `${style.tab} ${style.active_tab}` : style.tab} onClick={() => tabSetter(2)}>
-              Вчера
-            </div>
-            <div className={tab === 3 ? `${style.tab} ${style.active_tab}` : style.tab} onClick={() => tabSetter(3)}>
-              Эта неделя
-            </div>
-            <div className={tab === 4 ? `${style.tab} ${style.active_tab}` : style.tab} onClick={() => tabSetter(4)}>
-              Этот месяц
-            </div>
-            <div className={tab === 5 ? `${style.tab} ${style.active_tab}` : style.tab} onClick={() => tabSetter(5)}>
-              Этот год
-            </div>
+            <a className="btn" href="/profile">
+              Назад
+              <i className="material-icons left">arrow_back</i>
+            </a>
           </div>
           <div className={style.researches_list}>
             {!loading &&
               <ResearchList
-                researches={actResearches}
+                researches={researches}
               />
             }
           </div>
@@ -121,6 +75,3 @@ export const ResearchesPage = () => {
     </>
   )
 }
-
-
-

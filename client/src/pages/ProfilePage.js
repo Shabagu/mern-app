@@ -78,6 +78,7 @@ export const ProfilePage = () => {
           }
           <a className="btn" href="/researches">
             Все исследования
+            <i className="material-icons right">dehaze</i>
           </a>
         </div>
         <div className={style.recent_researches_container}>

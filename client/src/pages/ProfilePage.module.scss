@@ -1,6 +1,10 @@
 .profile_container {
   display: flex;
 
+  a {
+    user-select: none;
+  }
+
   .recent_researches_container {
     width: 100%;
   }
