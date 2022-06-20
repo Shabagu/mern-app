@@ -3,7 +3,6 @@ import { useCallback, useContext, useEffect, useState } from 'react'
 import { Helmet, HelmetProvider } from 'react-helmet-async'
 import { AuthContext } from '../context/AuthContext'
 import { useHttp } from '../hooks/http.hook'
-// import { useMessage } from '../hooks/message.hook'
 import { Loader } from '../components/common/Loader'
 
 import { AddAlternative } from '../components/admin/AddAlternative'
@@ -17,14 +16,6 @@ export const AdminPage = () => {
   
   const {loading, request} = useHttp()
   const {token} = useContext(AuthContext)
-  // const history = useHistory()
-  // const auth = useContext(AuthContext)
-  // const message = useMessage()
-
-  // const logoutHandler = () => {
-  //   auth.logout()
-  //   history.push('/')
-  // }
 
   const [alternatives, setAlternatives] = useState([])
 
@@ -45,6 +36,8 @@ export const AdminPage = () => {
   const [popupActive, setPopupActive] = useState(false)
   const [popupPurpose, setPopupPurpose] = useState('')
   const [popupArgument, setPopupArgument] = useState('')
+  const [menuContent, setMenuContent] = useState('')
+  const [alternativeI, setAlternativeI] = useState('')
   
   const popup = (purpose, argument) => {
     setPopupActive(true)
@@ -52,6 +45,11 @@ export const AdminPage = () => {
     if (argument) {
       setPopupArgument(argument)
     }
+  }
+
+  const menu = (argument, i) => {
+    setMenuContent(argument)
+    setAlternativeI(i)
   }
 
   if (loading) {
@@ -81,7 +79,7 @@ export const AdminPage = () => {
               </thead>
               <tbody>
                   {[...Array(alternatives.length)].map((x, i) => 
-                    <tr key={i} onClick={() => {popup('alternative_card', alternatives[i])}}>
+                    <tr key={i} onClick={() => {menu(alternatives[i], i)}}>
                       <td 
                         className={
                           alternatives[i].relevance ?
@@ -121,7 +119,14 @@ export const AdminPage = () => {
           </div>
         </div>
         <div className={style.alternative_menu}>
-
+          { menuContent &&
+            <AlternativeCard
+              alternative={menuContent}
+              alternativesRefetch={fetchAlternatives}
+              setMenuContent={setMenuContent}
+              alternativeI={alternativeI}
+            />
+          }
         </div>
         <AdminPopup
           active={popupActive}
@@ -163,10 +168,6 @@ const AdminPopup = ({ active, setActive, purpose, argument, alternativesRefetch 
             alternative={argument}
             closePopup={close}
             alternativesRefetch={alternativesRefetch}
-            // isChange={altCardChange}
-            // change={setAltCardChange}
-            // changes={altCardChanges}
-            // changesSetter={setAltCardChanges}
           />
         }
         
