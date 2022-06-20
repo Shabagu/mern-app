@@ -1,6 +1,5 @@
 import { useCallback, useContext, useEffect, useState } from 'react'
-import { useParams, Link } from 'react-router-dom'
-import { Helmet, HelmetProvider } from 'react-helmet-async'
+import { useParams } from 'react-router-dom'
 import { AuthContext } from '../context/AuthContext'
 import { useHttp } from '../hooks/http.hook'
 import { Loader } from '../components/common/Loader'

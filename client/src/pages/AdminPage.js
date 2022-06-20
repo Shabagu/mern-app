@@ -1,9 +1,9 @@
 import { useCallback, useContext, useEffect, useState } from 'react'
-import { useHistory } from 'react-router-dom'
+// import { useHistory } from 'react-router-dom'
 import { Helmet, HelmetProvider } from 'react-helmet-async'
 import { AuthContext } from '../context/AuthContext'
 import { useHttp } from '../hooks/http.hook'
-import { useMessage } from '../hooks/message.hook'
+// import { useMessage } from '../hooks/message.hook'
 import { Loader } from '../components/common/Loader'
 
 import { AddAlternative } from '../components/admin/AddAlternative'
@@ -17,14 +17,14 @@ export const AdminPage = () => {
   
   const {loading, request} = useHttp()
   const {token} = useContext(AuthContext)
-  const history = useHistory()
-  const auth = useContext(AuthContext)
-  const message = useMessage()
+  // const history = useHistory()
+  // const auth = useContext(AuthContext)
+  // const message = useMessage()
 
-  const logoutHandler = () => {
-    auth.logout()
-    history.push('/')
-  }
+  // const logoutHandler = () => {
+  //   auth.logout()
+  //   history.push('/')
+  // }
 
   const [alternatives, setAlternatives] = useState([])
 
@@ -65,8 +65,8 @@ export const AdminPage = () => {
           <title>Управление</title>
         </Helmet>
       </HelmetProvider>
-      <div>
-        <h5>Управление</h5>
+      <h5>Управление</h5>
+      <div className={style.admin_container}>
         <div className={style.tables_container}>
           <div className={style.alternatives_table}>
             <table className={style.manage}>
@@ -120,6 +120,9 @@ export const AdminPage = () => {
             </div>
           </div>
         </div>
+        <div className={style.alternative_menu}>
+
+        </div>
         <AdminPopup
           active={popupActive}
           setActive={setPopupActive}
@@ -135,14 +138,9 @@ export const AdminPage = () => {
 
 
 const AdminPopup = ({ active, setActive, purpose, argument, alternativesRefetch }) => {
-
-  // const [altCardChange, setAltCardChange] = useState(false)
-  // const [altCardChanges, setAltCardChanges] = useState({})
   
   const close = () => {
     setActive(false)
-    // setAltCardChange(false)
-    // setAltCardChanges({})
   }
 
   return(

@@ -30,7 +30,7 @@ export const Navbar = () => {
           <li><NavLink to="/newresearch">Новое исследование</NavLink></li>
           {/* <li><NavLink to="/researches">Мои исследования</NavLink></li> */}
           <li><NavLink to="/profile">Мой профиль</NavLink></li>
-          <li><NavLink to="/admin">Управление</NavLink></li>
+          {/* <li><NavLink to="/admin">Управление</NavLink></li> */}
           
           {/* <li><s><NavLink to="/create">|New-link|</NavLink></s></li> */}
           {/* <li><s><NavLink to="/links">|Links-list|</NavLink></s></li> */}
